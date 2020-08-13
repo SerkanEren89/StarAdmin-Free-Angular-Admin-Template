@@ -24,6 +24,8 @@ html {
 }
 
 .main-panel {
+  overflow: auto;
+  max-height: 100vh;
   transition: width $action-transition-duration $action-transition-timing-function, margin $action-transition-duration $action-transition-timing-function;
   width: calc(100% - #{$sidebar-width-lg});
   min-height: calc(100vh - #{$navbar-height});

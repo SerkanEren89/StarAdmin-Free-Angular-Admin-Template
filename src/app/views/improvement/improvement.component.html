@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Most Needed Improvements</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>
+                Category
+              </th>
+              <th>
+                Performance
+              </th>
+              <th>
+                Mentions
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+              <th>
+
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let improvement of improvementList">
+              <td>
+                {{improvement.category}}
+              </td>
+              <td  [ngClass]="{'text-danger': improvement.performance < 40,
+               'text-warning':(improvement.performance >= 40 && improvement.performance < 70), 'text-success':improvement.performance >= 70 }">
+                {{improvement.performance}}%
+              </td>
+              <td>
+                {{improvement.mentionCount}}
+              </td>
+              <td class="text-success">
+                {{improvement.positiveMentionCount}}
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning">
+                {{improvement.neutralMentionCount}}
+              </td>
+              <td class="text-danger">
+                {{improvement.negativeMentionCount}}
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
+                  Detail
+                  <i class="mdi mdi-arrow-right-bold"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

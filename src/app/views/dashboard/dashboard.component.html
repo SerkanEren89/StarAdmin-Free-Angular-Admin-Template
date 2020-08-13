@@ -1,0 +1,327 @@
+<div class="row">
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/bookingCom.png">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Booking</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">8.8</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/tripadvisor.png">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">TripAdvisor</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">8.6</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/hotelsCom.jpg">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Hotels.com</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">8.3</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/odamax.jpg ">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Odamax</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">9.5</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/otelPuan.png">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Otel Puan</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">9.4</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+    <div class="card card-statistics">
+      <div class="card-body">
+        <div class="clearfix">
+          <div class="float-left">
+            <img class="mdi mdi-cube icon-lg icon" src="assets/images/tatilSepeti.png">
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Tatil sepeti</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">8.8</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card">
+      <div class="card-body">
+        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+      </div>
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-5 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">The best performance</p>
+            <p class="display-3 mb-4 font-weight-light">9.8</p>
+          </div>
+          <div class="side-right">
+            <small class="text-muted">September 2020</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst performance</p>
+            <p class="display-3 mb-5 font-weight-light">8.4</p>
+          </div>
+          <div class="side-right">
+            <small class="text-muted">January 2018</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Last Reviews</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th style="width: 55%">
+                Review
+              </th>
+              <th style="width: 15%">
+                Channel
+              </th>
+              <th style="width: 15%">
+                Review Date
+              </th>
+              <th style="width: 15%">
+                Rating
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comment of commentList">
+              <td class="text">
+                {{comment.content}}
+              </td>
+              <td>
+                <div>
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+                </div>
+              </td>
+              <td>
+                {{comment.commentDate  | date:'MM/dd/yyyy'}}
+              </td>
+              <td class="text-danger"
+                  [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}} / 10
+                <i class="mdi mdi-arrow-down" *ngIf="comment.rating < 6"></i>
+                <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Most Needed Improvements</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>
+                Category
+              </th>
+              <th>
+                Performance
+              </th>
+              <th>
+                Mentions
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                Amenities
+              </td>
+              <td class="text-danger"> 48%
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td>
+                228
+              </td>
+              <td class="text-success"> 112
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning"> 3
+              </td>
+              <td class="text-danger"> 113
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Foods
+              </td>
+              <td class="text-success"> 88%
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td>
+                305
+              </td>
+              <td class="text-success"> 230
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning"> 30
+              </td>
+              <td class="text-danger"> 45
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Bar and Beverages
+              </td>
+              <td class="text-danger"> 48%
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td>
+                88
+              </td>
+              <td class="text-success"> 42
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning"> 3
+              </td>
+              <td class="text-danger"> 43
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Beach
+              </td>
+              <td class="text-primary"> 67%
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td>
+                3
+              </td>
+              <td class="text-success"> 2
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning"> 0
+              </td>
+              <td class="text-danger"> 1
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Cleanliness
+              </td>
+              <td class="text-primary"> 63%
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td>
+                423
+              </td>
+              <td class="text-success"> 266
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning"> 10
+              </td>
+              <td class="text-danger"> 147
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

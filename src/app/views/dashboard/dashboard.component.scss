@@ -1,6 +1,6 @@
 /* Dashboard */
 
-@import '../../styles';
+@import 'src/styles';
 .card-statistics {
   .highlight-icon {
     height: 53px;
@@ -16,6 +16,23 @@
   }
   i {
     line-height: 1;
+  }
+  .icon {
+    max-width: 45px;
+  }
+}
+
+.table-bordered td:nth-child(1) {
+  word-wrap:break-word;
+  white-space: normal;
+}
+.table-bordered td:nth-child(1) {
+  width: 40%;
+}
+.table-bordered{
+  table-layout: fixed;
+  .text {
+    line-height: 18px;
   }
 }
 
@@ -75,7 +92,7 @@
   .card-body {
     background: $white;
     &:first-child {
-      background: url("../../assets/images/samples/weather.svg") no-repeat center;
+      background: url("src/assets/images/samples/weather.svg") no-repeat center;
       background-size: cover;
     }
   }

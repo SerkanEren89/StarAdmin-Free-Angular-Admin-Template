@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { FormsComponent } from './views/forms/forms.component';
 import { ButtonsComponent } from './views/buttons/buttons.component';
 import { TablesComponent } from './views/tables/tables.component';
 import { IconsComponent } from './views/icons/icons.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
   { path: 'rating', component: RatingComponent },
   { path: 'competition', component: CompetitionComponent },
   { path: 'inbox', component: InboxComponent },
-  { path: 'forms', component: FormsComponent },
   { path: 'buttons', component: ButtonsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'icons', component: IconsComponent },

@@ -11,7 +11,6 @@ import {NavbarComponent} from './views/navbar/navbar.component';
 import {SidebarComponent} from './views/sidebar/sidebar.component';
 import {FooterComponent} from './views/footer/footer.component';
 import {DashboardComponent} from './views/dashboard/dashboard.component';
-import {FormsComponent} from './views/forms/forms.component';
 import {ButtonsComponent} from './views/buttons/buttons.component';
 import {TablesComponent} from './views/tables/tables.component';
 import {TypographyComponent} from './views/typography/typography.component';
@@ -44,7 +43,6 @@ import {CompetitionComponent} from "./views/competition/competition.component";
     ImprovementComponent,
     RatingComponent,
     CompetitionComponent,
-    FormsComponent,
     ButtonsComponent,
     TablesComponent,
     TypographyComponent,

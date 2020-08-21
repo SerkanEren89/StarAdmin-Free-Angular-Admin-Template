@@ -31,6 +31,7 @@ import {InboxComponent} from "./views/inbox/inbox.component";
 import {ImprovementComponent} from "./views/improvement/improvement.component";
 import {RatingComponent} from "./views/rating/rating.component";
 import {CompetitionComponent} from "./views/competition/competition.component";
+import {PieChartComponent} from "./views/pie-chart/pie-chart.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {CompetitionComponent} from "./views/competition/competition.component";
     TooltipsComponent,
     CarouselComponent,
     TabsComponent,
-    LineChartComponent
+    LineChartComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,

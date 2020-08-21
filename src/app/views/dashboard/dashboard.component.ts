@@ -17,9 +17,17 @@ export class DashboardComponent implements OnInit {
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
   lineChartData: ChartDataSets[] = [
-    { data: [72, 75, 77, 77, 80, 84], label: 'Hotel Performance' },
+    { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
+    { data: [72, 74, 78, 79, 79, 79], label: 'TripAdvisor' },
+    { data: [70, 73, 75, 79, 80, 83], label: 'Hotels.com' },
+    { data: [72, 72, 72, 72, 73, 73], label: 'Google' },
+    { data: [74, 74, 75, 75, 75, 76], label: 'Tatil Sepeti' },
   ];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+
+  public pieChartLabels: Label[] = ['Booking', 'TripAdvisor', 'Hotels.com', 'Google', 'Tatil sepeti'];
+  public pieChartData: number[] = [300, 500, 100, 200, 300];
+
 
   constructor(private commentService: CommentService,
               private cdr: ChangeDetectorRef,) {

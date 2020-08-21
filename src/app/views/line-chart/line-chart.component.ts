@@ -21,10 +21,25 @@ export class LineChartComponent {
       borderColor: 'black',
       backgroundColor: 'rgb(198, 231, 251)',
     },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+    },
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
+    },
+    { // red
+      backgroundColor: 'rgba(150,255,51,0.3)',
+      borderColor: 'green',
+    },
+    { // red
+      backgroundColor: 'rgba(255,254,120,0.3)',
+      borderColor: 'yellow',
+    }
   ];
 
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
-
 }

@@ -15,7 +15,7 @@
               </span>
             </ng-template>
 
-            <ngb-rating [(rate)]="comment.rating" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
+            <ngb-rating [(rate)]="comment.starRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="brand-container">
             <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">

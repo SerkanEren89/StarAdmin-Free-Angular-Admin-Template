@@ -4,6 +4,7 @@ export class CommentModel {
   commentDate: Date;
   source: string;
   rating: number;
+  starRating: number;
   writtenBy: string;
   selected: boolean;
 }

@@ -22,6 +22,7 @@ export class InboxComponent implements OnInit {
   ngOnInit() {
     this.commentList$ = this.commentService.getCommentList();
     this.commentList$.subscribe((commentList: CommentModel[]) => {
+      commentList.forEach(comment => comment.starRating = comment.rating / 2);
       this.commentList = commentList;
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();

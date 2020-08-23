@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ButtonsComponent } from './views/buttons/buttons.component';
 import { TablesComponent } from './views/tables/tables.component';
 import { IconsComponent } from './views/icons/icons.component';
@@ -18,14 +17,13 @@ import { CarouselComponent } from './views/carousel/carousel.component';
 import { TabsComponent } from './views/tabs/tabs.component';
 import {InboxComponent} from "./views/inbox/inbox.component";
 import {ImprovementComponent} from "./views/improvement/improvement.component";
-import {RatingComponent} from "./views/rating/rating.component";
 import {CompetitionComponent} from "./views/competition/competition.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard',
+    loadChildren: () => import('src/app/views/dashboard/dashboard.module').then(m => m.DashboardModule)},
   { path: 'improvement', component: ImprovementComponent },
-  { path: 'rating', component: RatingComponent },
   { path: 'competition', component: CompetitionComponent },
   { path: 'inbox', component: InboxComponent },
   { path: 'buttons', component: ButtonsComponent },

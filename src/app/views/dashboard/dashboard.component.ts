@@ -5,6 +5,7 @@ import {CommentModel} from "../../core/inbox/_models/comment.model";
 import {CommentService} from "../../core/inbox/_services/comment.service";
 import {ChartDataSets} from "chart.js";
 import {Label} from "ng2-charts";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +31,8 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private commentService: CommentService,
-              private cdr: ChangeDetectorRef,) {
+              private cdr: ChangeDetectorRef,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -39,6 +41,10 @@ export class DashboardComponent implements OnInit {
       this.commentList = commentList;
       this.cdr.detectChanges();
     });
+  }
+
+  goToDetail(source: string) {
+    this.router.navigateByUrl("dashboard/" + source)
   }
 
 }

@@ -10,7 +10,6 @@ import {AppComponent} from './app.component';
 import {NavbarComponent} from './views/navbar/navbar.component';
 import {SidebarComponent} from './views/sidebar/sidebar.component';
 import {FooterComponent} from './views/footer/footer.component';
-import {DashboardComponent} from './views/dashboard/dashboard.component';
 import {ButtonsComponent} from './views/buttons/buttons.component';
 import {TablesComponent} from './views/tables/tables.component';
 import {TypographyComponent} from './views/typography/typography.component';
@@ -25,13 +24,10 @@ import {DropdownComponent} from './views/dropdown/dropdown.component';
 import {TooltipsComponent} from './views/tooltips/tooltips.component';
 import {CarouselComponent} from './views/carousel/carousel.component';
 import {TabsComponent} from './views/tabs/tabs.component';
-import {LineChartComponent} from "./views/line-chart/line-chart.component";
-import {ChartsModule} from "ng2-charts";
 import {InboxComponent} from "./views/inbox/inbox.component";
 import {ImprovementComponent} from "./views/improvement/improvement.component";
-import {RatingComponent} from "./views/rating/rating.component";
 import {CompetitionComponent} from "./views/competition/competition.component";
-import {PieChartComponent} from "./views/pie-chart/pie-chart.component";
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -39,10 +35,8 @@ import {PieChartComponent} from "./views/pie-chart/pie-chart.component";
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    DashboardComponent,
     InboxComponent,
     ImprovementComponent,
-    RatingComponent,
     CompetitionComponent,
     ButtonsComponent,
     TablesComponent,
@@ -58,8 +52,6 @@ import {PieChartComponent} from "./views/pie-chart/pie-chart.component";
     TooltipsComponent,
     CarouselComponent,
     TabsComponent,
-    LineChartComponent,
-    PieChartComponent
   ],
   imports: [
     BrowserModule,

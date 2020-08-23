@@ -1,0 +1,197 @@
+<div class="row">
+  <div class="col-lg-8 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">By Category</h2>
+        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+      </div>
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-4 grid-margin stretch-card performance">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">The best performance</p>
+            <p class="display-3 mb-4 font-weight-light topic">Reception</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">9.7</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst performance</p>
+            <p class="display-3 mb-5 font-weight-light topic">Rooms</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">8.4</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Best trend</p>
+            <p class="display-3 mb-5 font-weight-light topic">Foods</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">%1.2</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst trend</p>
+            <p class="display-3 mb-5 font-weight-light topic">Bar</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">%-0.2</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Assessment By Category</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>
+                Category
+              </th>
+              <th>
+                Performance
+              </th>
+              <th>
+                Mentions
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+              <th>
+
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let improvement of assessmentByCategory">
+              <td>
+                {{improvement.category}}
+              </td>
+              <td  [ngClass]="{'text-danger': improvement.performance < 40,
+               'text-warning':(improvement.performance >= 40 && improvement.performance < 70), 'text-success':improvement.performance >= 70 }">
+                {{improvement.performance}}%
+              </td>
+              <td>
+                {{improvement.mentionCount}}
+              </td>
+              <td class="text-success">
+                {{improvement.positiveMentionCount}}
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning">
+                {{improvement.neutralMentionCount}}
+              </td>
+              <td class="text-danger">
+                {{improvement.negativeMentionCount}}
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
+                  Detail
+                  <i class="mdi mdi-arrow-right-bold"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Assessment By Language</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>
+                Language
+              </th>
+              <th>
+                Performance
+              </th>
+              <th>
+                Mentions
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+              <th>
+
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let language of assessmentByLanguage">
+              <td>
+                <span class="flag-icon flag-icon-ru"></span>
+                {{language.category}}
+              </td>
+              <td  [ngClass]="{'text-danger': language.performance < 40,
+               'text-warning':(language.performance >= 40 && language.performance < 70), 'text-success':language.performance >= 70 }">
+                {{language.performance}}%
+              </td>
+              <td>
+                {{language.mentionCount}}
+              </td>
+              <td class="text-success">
+                {{language.positiveMentionCount}}
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning">
+                {{language.neutralMentionCount}}
+              </td>
+              <td class="text-danger">
+                {{language.negativeMentionCount}}
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
+                  Detail
+                  <i class="mdi mdi-arrow-right-bold"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

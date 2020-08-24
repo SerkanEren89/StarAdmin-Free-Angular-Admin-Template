@@ -158,8 +158,8 @@
             <tbody>
             <tr *ngFor="let language of assessmentByLanguage">
               <td>
-                <span class="flag-icon flag-icon-ru"></span>
-                {{language.category}}
+                <flag-icon [language]="language.language"></flag-icon>
+                {{language.language}}
               </td>
               <td  [ngClass]="{'text-danger': language.performance < 40,
                'text-warning':(language.performance >= 40 && language.performance < 70), 'text-success':language.performance >= 70 }">
@@ -177,6 +177,75 @@
               </td>
               <td class="text-danger">
                 {{language.negativeMentionCount}}
+                <i class="mdi mdi-arrow-down"></i>
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
+                  Detail
+                  <i class="mdi mdi-arrow-right-bold"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Assessment By Travel Type</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>
+                Travel Type
+              </th>
+              <th>
+                Performance
+              </th>
+              <th>
+                Mentions
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+              <th>
+
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let travelType of assessmentByTravelType">
+              <td>
+                {{travelType.travelType}}
+              </td>
+              <td  [ngClass]="{'text-danger': travelType.performance < 40,
+               'text-warning':(travelType.performance >= 40 && travelType.performance < 70), 'text-success':travelType.performance >= 70 }">
+                {{travelType.performance}}%
+              </td>
+              <td>
+                {{travelType.mentionCount}}
+              </td>
+              <td class="text-success">
+                {{travelType.positiveMentionCount}}
+                <i class="mdi mdi-arrow-up"></i>
+              </td>
+              <td class="text-warning">
+                {{travelType.neutralMentionCount}}
+              </td>
+              <td class="text-danger">
+                {{travelType.negativeMentionCount}}
                 <i class="mdi mdi-arrow-down"></i>
               </td>
               <td style="text-align: center; vertical-align: middle;">

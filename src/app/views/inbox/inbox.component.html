@@ -43,6 +43,7 @@
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</span>
               <p class="written" >Written By: {{selectedItem.writtenBy}}</p>
+              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'MM/dd/yyyy'}}</span>
             </div>
             <div class="review">
               <p class="rating"
@@ -56,8 +57,35 @@
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>
+          <div class="template-demo">
+            <button type="button" class="btn btn-warning"><i class="mdi mdi-star"></i>Mark as Important</button>
+            <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign Someone as a Task</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Assignee</label>
+        <div class="input-group">
+          <input id="typeahead-basic" type="text" class="form-control" name="first" [(ngModel)]="typeaheadBasicModel" [ngbTypeahead]="search"/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+

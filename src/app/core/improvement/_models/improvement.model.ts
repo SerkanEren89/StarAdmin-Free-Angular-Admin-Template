@@ -5,4 +5,6 @@ export class ImprovementModel {
   positiveMentionCount: number;
   neutralMentionCount: number;
   negativeMentionCount: number;
+  language: string;
+  travelType: string;
 }

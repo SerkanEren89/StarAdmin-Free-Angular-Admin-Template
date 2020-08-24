@@ -2,9 +2,11 @@ export class CommentModel {
   id:number;
   content: string;
   commentDate: Date;
+  travelDate: Date;
   source: string;
   rating: number;
   starRating: number;
   writtenBy: string;
   selected: boolean;
+  starred: boolean;
 }

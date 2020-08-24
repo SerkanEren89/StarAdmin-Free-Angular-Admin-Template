@@ -6,6 +6,8 @@ import {CommentService} from "../../core/inbox/_services/comment.service";
 import {ChartDataSets} from "chart.js";
 import {Label} from "ng2-charts";
 import {Router} from "@angular/router";
+import {DashboardService} from "../../core/dashboard/_service/dashboard.service";
+import {BrandRating} from "../../core/dashboard/_models/brand-rating";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +19,8 @@ export class DashboardComponent implements OnInit {
 
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
+  brandRatings$: Observable<BrandRating[]>;
+  brandRatings: BrandRating[];
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
     { data: [72, 74, 78, 79, 79, 79], label: 'TripAdvisor' },
@@ -30,7 +34,8 @@ export class DashboardComponent implements OnInit {
   public pieChartData: number[] = [300, 500, 100, 200, 300];
 
 
-  constructor(private commentService: CommentService,
+  constructor(private dashbordService: DashboardService,
+              private commentService: CommentService,
               private cdr: ChangeDetectorRef,
               private router: Router) {
   }
@@ -39,6 +44,11 @@ export class DashboardComponent implements OnInit {
     this.commentList$ = this.commentService.getCommentList();
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
+      this.cdr.detectChanges();
+    });
+    this.brandRatings$ = this.dashbordService.getBrandRating();
+    this.brandRatings$.subscribe((brandRatings: BrandRating[]) => {
+      this.brandRatings = brandRatings;
       this.cdr.detectChanges();
     });
   }

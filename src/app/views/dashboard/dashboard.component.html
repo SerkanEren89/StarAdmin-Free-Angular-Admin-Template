@@ -1,158 +1,33 @@
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics" (click)="goToDetail('booking')">
-      <div class="card-body">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" *ngFor="let brandRating of brandRatings">
+    <div class="card card-statistics" (click)="goToDetail(brandRating.brand)">
+      <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tatil sepeti')" src="assets/images/tatilSepeti.png">
+
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('google')" src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('otel puan')" src="assets/images/otelPuan.png" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotel check')" src="assets/images/holidayCheck.png">
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Booking</p>
+            <p class="mb-0 text-right">{{brandRating.brand}}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.8</h3>
-              <p class="text-right mb-0">145 Reviews</p>
-              <p class="text-right mb-0 text-danger">0.2 <i class="fa fa-thumbs-down"></i></p>
+              <h3 class="font-weight-medium text-right mb-0">{{brandRating.rating}}</h3>
+              <p class="text-right mb-0">{{brandRating.reviewCount}} Reviews</p>
+              <p *ngIf="brandRating.trend < 0" class="text-right mb-0 text-danger">{{brandRating.trend}} <i class="fa fa-thumbs-down"></i></p>
+              <p *ngIf="brandRating.trend >= 0" class="text-right mb-0 text-success">{{brandRating.trend}} <i class="fa fa-thumbs-up"></i></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/tripadvisor.png">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">TripAdvisor</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.6</h3>
-              <p class="text-right mb-0">124 Reviews</p>
-              <p class="text-right mb-0 text-success">0.1 <i class="fa fa-thumbs-up"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/hotelsCom.jpg">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Hotels.com</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.3</h3>
-              <p class="text-right mb-0">51 Reviews</p>
-              <p class="text-right mb-0 text-success">0.2 <i class="fa fa-thumbs-up"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/google.png">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Google</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.5</h3>
-              <p class="text-right mb-0">44 Reviews</p>
-              <p class="text-right mb-0 text-success">0.1 <i class="fa fa-thumbs-up"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/odamax.jpg ">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Odamax</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">9.5</h3>
-              <p class="text-right mb-0">245 Reviews</p>
-              <p class="text-right mb-0 text-danger">0.2 <i class="fa fa-thumbs-down"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/otelPuan.png">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Otel Puan</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">9.4</h3>
-              <p class="text-right mb-0">321 Reviews</p>
-              <p class="text-right mb-0 text-danger">0.1 <i class="fa fa-thumbs-down"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/tatilSepeti.png">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Tatil sepeti</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.8</h3>
-              <p class="text-right mb-0">14 Reviews</p>
-              <p class="text-right mb-0 text-danger">0.2 <i class="fa fa-thumbs-down"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" src="assets/images/holidayCheck.png">
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Hotel Check</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">8.9</h3>
-              <p class="text-right mb-0">32 Reviews</p>
-              <p class="text-right mb-0 text-success">0.1 <i class="fa fa-thumbs-up"></i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </div>
 <div class="row">
   <div class="col-lg-6 grid-margin stretch-card">

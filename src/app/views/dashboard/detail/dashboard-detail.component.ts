@@ -16,6 +16,8 @@ export class DashboardDetailComponent {
   assessmentByCategory: ImprovementModel[];
   assessmentByLanguage$: Observable<ImprovementModel[]>;
   assessmentByLanguage: ImprovementModel[];
+  assessmentByTravelType$: Observable<ImprovementModel[]>;
+  assessmentByTravelType: ImprovementModel[];
 
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 80, 84], label: 'Bar' },
@@ -40,6 +42,12 @@ export class DashboardDetailComponent {
     this.assessmentByLanguage$ = this.improvementService.assessmentByLanguage();
     this.assessmentByLanguage$.subscribe((assessmentByLanguage: ImprovementModel[]) => {
       this.assessmentByLanguage = assessmentByLanguage;
+      this.cdr.detectChanges();
+    });
+
+    this.assessmentByTravelType$ = this.improvementService.assessmentByTravelType();
+    this.assessmentByTravelType$.subscribe((assessmentByTravelType: ImprovementModel[]) => {
+      this.assessmentByTravelType = assessmentByTravelType;
       this.cdr.detectChanges();
     });
   }

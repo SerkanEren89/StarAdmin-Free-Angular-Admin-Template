@@ -17,14 +17,16 @@ import { CarouselComponent } from './views/carousel/carousel.component';
 import { TabsComponent } from './views/tabs/tabs.component';
 import {InboxComponent} from "./views/inbox/inbox.component";
 import {ImprovementComponent} from "./views/improvement/improvement.component";
-import {CompetitionComponent} from "./views/competition/competition.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',
     loadChildren: () => import('src/app/views/dashboard/dashboard.module').then(m => m.DashboardModule)},
+  { path: 'competition',
+    loadChildren: () => import('src/app/views/competition/competition.module').then(m => m.CompetitionModule)},
+  { path: 'task',
+    loadChildren: () => import('src/app/views/task/task.module').then(m => m.TaskModule)},
   { path: 'improvement', component: ImprovementComponent },
-  { path: 'competition', component: CompetitionComponent },
   { path: 'inbox', component: InboxComponent },
   { path: 'buttons', component: ButtonsComponent },
   { path: 'tables', component: TablesComponent },

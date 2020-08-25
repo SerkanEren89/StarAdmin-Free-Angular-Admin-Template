@@ -8,15 +8,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
+import {TaskModel} from "../../core/inbox/_models/task.model";
 
-const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+const assigneeList = ['Serkan', 'Fatih', 'Melih', 'Safa', 'Oğuzhan', 'Falcao', 'Muslera',
+  'Hagi', 'Bülent', 'Popescu', 'Taffarel', 'Mondragon'];
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.component.html',
@@ -29,7 +24,7 @@ export class InboxComponent implements OnInit {
   selectedItem: CommentModel;
   selectedIndex: number = 0;
   closeResult = '';
-  public typeaheadBasicModel: any;
+  public task: TaskModel = new TaskModel();
 
   constructor(private commentService: CommentService,
               private modalService: NgbModal,
@@ -51,7 +46,7 @@ export class InboxComponent implements OnInit {
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
-        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+        : assigneeList.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
@@ -59,7 +54,7 @@ export class InboxComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

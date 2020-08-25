@@ -114,3 +114,27 @@
   overflow: hidden;
   color: #ffd500;
 }
+.template-demo {
+  float: right;
+}
+.modal-content {
+  background-color: white;
+  .title {
+    font-size: 16px;
+  }
+  .popup-brand {
+    padding-right: 15px;
+    font-size: 14px;
+  }
+  .written {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  .assignee-form {
+    margin-top: 15px;
+  }
+  .modal-body {
+    padding: 20px 26px;
+    background-color: #fafbfb;
+  }
+}

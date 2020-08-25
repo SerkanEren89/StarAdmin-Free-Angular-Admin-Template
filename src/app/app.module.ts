@@ -26,7 +26,6 @@ import {CarouselComponent} from './views/carousel/carousel.component';
 import {TabsComponent} from './views/tabs/tabs.component';
 import {InboxComponent} from "./views/inbox/inbox.component";
 import {ImprovementComponent} from "./views/improvement/improvement.component";
-import {CompetitionComponent} from "./views/competition/competition.component";
 import {ChartsModule} from "ng2-charts";
 
 @NgModule({
@@ -37,7 +36,6 @@ import {ChartsModule} from "ng2-charts";
     FooterComponent,
     InboxComponent,
     ImprovementComponent,
-    CompetitionComponent,
     ButtonsComponent,
     TablesComponent,
     TypographyComponent,

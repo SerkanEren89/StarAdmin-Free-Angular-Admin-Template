@@ -1,4 +1,59 @@
 <div class="row">
+  <div class="col-lg-8 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">By Category</h2>
+        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+      </div>
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-4 grid-margin stretch-card performance">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">The best rating</p>
+            <p class="display-3 mb-4 font-weight-light topic brand-name">Barcelo İstanbul</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">9.7</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst performance</p>
+            <p class="display-3 mb-5 font-weight-light topic brand-name">Radisson Blu Hotel, Istanbul Pera</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">8.4</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Best trend</p>
+            <p class="display-3 mb-5 font-weight-light topic brand-name">The Marmara</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">%1.2</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst trend</p>
+            <p class="display-3 mb-5 font-weight-light topic brand-name">Radisson Blu Hotel, Istanbul Pera</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">%-0.2</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">

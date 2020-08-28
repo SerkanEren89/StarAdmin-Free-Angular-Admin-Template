@@ -16,7 +16,7 @@ export class CommentService {
     comment1.commentDate = new Date();
     comment1.travelDate = new Date();
     comment1.rating = 8.8;
-    comment1.writtenBy = 'Serkan E.';
+    comment1.writtenBy = 'Ekin B.';
     comments.push(comment1);
 
     let comment2: CommentModel  = new CommentModel();
@@ -27,6 +27,7 @@ export class CommentService {
     comment2.travelDate = new Date();
     comment2.rating = 7.0;
     comment2.writtenBy = 'Fatih B.';
+    comment2.starred = true;
     comments.push(comment2);
 
     let comment3: CommentModel  = new CommentModel();
@@ -37,6 +38,7 @@ export class CommentService {
     comment3.travelDate = new Date();
     comment3.rating = 8.0;
     comment3.writtenBy = 'Sercan T.';
+    comment3.starred = true;
     comments.push(comment3);
 
     let comment4: CommentModel  = new CommentModel();

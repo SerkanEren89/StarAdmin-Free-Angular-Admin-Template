@@ -9,6 +9,15 @@ export class DashboardService {
 
   getBrandRating(): Observable<BrandRating[]> {
     let brandRatings: BrandRating[] = new Array<BrandRating>();
+
+    let brandRating9: BrandRating  = new BrandRating();
+    brandRating9.brand = 'Overall';
+    brandRating9.rating = 8.9;
+    brandRating9.reviewCount = 455;
+    brandRating9.trend = 0.1;
+
+    brandRatings.push(brandRating9);
+
     let brandRating1: BrandRating  = new BrandRating();
     brandRating1.brand = 'Booking';
     brandRating1.rating = 8.8;
@@ -57,6 +66,7 @@ export class DashboardService {
 
     brandRatings.push(brandRating6);
 
+    /*
     let brandRating7: BrandRating  = new BrandRating();
     brandRating7.brand = 'Tatil Sepeti';
     brandRating7.rating = 8.8;
@@ -64,6 +74,7 @@ export class DashboardService {
     brandRating7.trend = -0.2;
 
     brandRatings.push(brandRating7);
+     */
 
     let brandRating8: BrandRating  = new BrandRating();
     brandRating8.brand = 'Hotel Check';

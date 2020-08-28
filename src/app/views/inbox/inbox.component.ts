@@ -9,9 +9,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
 import {TaskModel} from "../../core/inbox/_models/task.model";
+import {TaskService} from "../../core/task/_services/task.service";
+import {EmployeeModel} from "../../core/task/_models/employee.model";
 
-const assigneeList = ['Serkan', 'Fatih', 'Melih', 'Safa', 'Oğuzhan', 'Falcao', 'Muslera',
-  'Hagi', 'Bülent', 'Popescu', 'Taffarel', 'Mondragon'];
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.component.html',
@@ -22,11 +22,16 @@ export class InboxComponent implements OnInit {
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
   selectedItem: CommentModel;
+  employeeList$: Observable<EmployeeModel[]>;
+  employeeList: EmployeeModel[];
+  resultFormatter = (result: EmployeeModel) => result.name + " " + result.surname;
+  inputFormatter =  (x: EmployeeModel) => x.name + " " + x.surname;
   selectedIndex: number = 0;
   closeResult = '';
   public task: TaskModel = new TaskModel();
 
   constructor(private commentService: CommentService,
+              private taskService: TaskService,
               private modalService: NgbModal,
               private cdr: ChangeDetectorRef) {
   }
@@ -39,6 +44,12 @@ export class InboxComponent implements OnInit {
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
     });
+
+    this.employeeList$ = this.taskService.getEmployeeList();
+    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
+      this.employeeList = employeeList;
+      this.cdr.detectChanges();
+    });
   }
 
   search = (text$: Observable<string>) =>
@@ -46,7 +57,8 @@ export class InboxComponent implements OnInit {
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
-        : assigneeList.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+        : this.employeeList.filter(
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;

@@ -1,5 +1,7 @@
+import {EmployeeModel} from "../../task/_models/employee.model";
+
 export class TaskModel {
   id: number;
-  assignee: string;
+  assignee: EmployeeModel;
   description: string
 }

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {TaskModel} from "../_models/task.model";
 import {Observable, of} from "rxjs";
 import {CommentModel} from "../../inbox/_models/comment.model";
+import {EmployeeModel} from "../_models/employee.model";
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +61,45 @@ export class TaskService {
 
     tasks.push(task2);
     return of(tasks);
+  }
+
+  getEmployeeList(): Observable<EmployeeModel[]> {
+    let employeeModels: EmployeeModel[] = new Array<EmployeeModel>();
+    let employee1: EmployeeModel  = new EmployeeModel();
+    employee1.id = 1;
+    employee1.name = 'Serkan';
+    employee1.surname = 'Eren';
+    employeeModels.push(employee1);
+
+    let employee2: EmployeeModel  = new EmployeeModel();
+    employee2.id = 2;
+    employee2.name = 'George';
+    employee2.surname = 'Hagi';
+    employeeModels.push(employee2);
+
+    let employee3: EmployeeModel  = new EmployeeModel();
+    employee3.id = 3;
+    employee3.name = 'Claudio';
+    employee3.surname = 'Taffarel';
+    employeeModels.push(employee3);
+
+    let employee4: EmployeeModel  = new EmployeeModel();
+    employee4.id = 4;
+    employee4.name = 'Okan';
+    employee4.surname = 'Buruk';
+    employeeModels.push(employee4);
+
+    let employee5: EmployeeModel  = new EmployeeModel();
+    employee5.id = 5;
+    employee5.name = 'Emre';
+    employee5.surname = 'Belezoğlu';
+    employeeModels.push(employee5);
+
+    let employee6: EmployeeModel  = new EmployeeModel();
+    employee6.id = 6;
+    employee6.name = 'Hakan';
+    employee6.surname = 'Ünsal';
+    employeeModels.push(employee6);
+    return of(employeeModels);
   }
 }

@@ -73,6 +73,9 @@
               <th style="width: 15%">
                 Rating
               </th>
+              <th style="width: 15%">
+                Assign
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -99,6 +102,9 @@
                   [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}} / 10
                 <i class="mdi mdi-arrow-down" *ngIf="comment.rating < 6"></i>
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
+              </td>
+              <td class="text-primary">
+                <i class="fa fa-tasks" (click)="open(comment, content)"></i>
               </td>
             </tr>
             </tbody>
@@ -174,3 +180,43 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <p class="title">{{selectedComment.content}}</p>
+        <span class="brand popup-brand">{{selectedComment.source}}</span>
+        <p class="written" >Written By: {{selectedComment.writtenBy}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+      </div>
+    </div>
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>Assignee</label>
+        <div class="input-group">
+          <input id="assignee" type="text" class="form-control" name="assignee"
+                 [resultFormatter]="resultFormatter"
+                 [inputFormatter]="inputFormatter"
+                 [(ngModel)]="task.assignee" [ngbTypeahead]="search"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <div class="input-group">
+          <textarea id="description" type="text" class="form-control"
+                    name="description" [(ngModel)]="task.description" rows="3"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

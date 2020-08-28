@@ -4,6 +4,8 @@ import {DashboardComponent} from "./dashboard.component";
 import {CoreModule} from "../../core/core.module";
 import {CommonModule} from "@angular/common";
 import {DashboardDetailComponent} from "./detail/dashboard-detail.component";
+import {FormsModule} from "@angular/forms";
+import {NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import {DashboardDetailComponent} from "./detail/dashboard-detail.component";
         component: DashboardDetailComponent
       }
     ]),
+    FormsModule,
+    NgbTypeaheadModule,
   ],
   providers: [],
   declarations: [

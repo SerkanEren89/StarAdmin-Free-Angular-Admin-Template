@@ -10,6 +10,10 @@ import {DashboardService} from "../../core/dashboard/_service/dashboard.service"
 import {BrandRating} from "../../core/dashboard/_models/brand-rating";
 import {ImprovementModel} from "../../core/improvement/_models/improvement.model";
 import {ImprovementService} from "../../core/improvement/_services/improvement.service";
+import {TaskModel} from "../../core/inbox/_models/task.model";
+import {EmployeeModel} from "../../core/task/_models/employee.model";
+import {TaskService} from "../../core/task/_services/task.service";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-dashboard',
@@ -26,13 +30,20 @@ export class DashboardComponent implements OnInit {
   improvementList$: Observable<ImprovementModel[]>;
   improvementList: ImprovementModel[];
   lineChartData: ChartDataSets[] = [
+    { data: [72, 75, 77, 77, 86, 89], label: 'Overall' },
     { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
     { data: [72, 74, 78, 79, 79, 79], label: 'TripAdvisor' },
     { data: [70, 73, 75, 79, 80, 83], label: 'Hotels.com' },
     { data: [72, 72, 72, 72, 73, 73], label: 'Google' },
-    { data: [74, 74, 75, 75, 75, 76], label: 'Tatil Sepeti' },
   ];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  selectedComment: CommentModel;
+  employeeList$: Observable<EmployeeModel[]>;
+  employeeList: EmployeeModel[];
+  closeResult = '';
+  resultFormatter = (result: EmployeeModel) => result.name + " " + result.surname;
+  inputFormatter =  (x: EmployeeModel) => x.name + " " + x.surname;
+  public task: TaskModel = new TaskModel();
 
   public pieChartLabels: Label[] = ['Booking', 'TripAdvisor', 'Hotels.com', 'Google', 'Tatil sepeti'];
   public pieChartData: number[] = [300, 500, 100, 200, 300];
@@ -41,6 +52,8 @@ export class DashboardComponent implements OnInit {
   constructor(private dashbordService: DashboardService,
               private commentService: CommentService,
               private improvementService: ImprovementService,
+              private taskService: TaskService,
+              private modalService: NgbModal,
               private cdr: ChangeDetectorRef,
               private router: Router) {
   }
@@ -61,10 +74,44 @@ export class DashboardComponent implements OnInit {
       this.improvementList = improvementList;
       this.cdr.detectChanges();
     });
+
+    this.employeeList$ = this.taskService.getEmployeeList();
+    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
+      this.employeeList = employeeList;
+      this.cdr.detectChanges();
+    });
   }
 
   goToDetail(source: string) {
     this.router.navigateByUrl("dashboard/" + source)
   }
+
+  open(comment, content) {
+    this.selectedComment = comment;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length > 1 ? []
+        : this.employeeList.filter(
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+
 
 }

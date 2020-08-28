@@ -57,7 +57,9 @@
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>
+          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <div class="template-demo">
+            <button type="button" class="btn btn-success"><i class="fa fa-language"></i>Translate</button>
             <button type="button" class="btn btn-warning"><i class="mdi mdi-star"></i>Mark as Important</button>
             <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign Someone as a Task</button>
           </div>

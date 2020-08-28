@@ -11,6 +11,7 @@ export class CommentService {
     let comments: CommentModel[] = new Array<CommentModel>();
     let comment1: CommentModel  = new CommentModel();
     comment1.content = 'Güzel tatil geçirdim.personelden çok memnun olup ,herkese tavsiye ederim.';
+    comment1.answer = 'Bizi tercih ettiğiniz için çok teşekkür ederiz. Bir sonraki tatilinizde tekrar görüşmek dileğiyle';
     comment1.source = "Booking.com";
     comment1.commentDate = new Date();
     comment1.travelDate = new Date();
@@ -20,6 +21,7 @@ export class CommentService {
 
     let comment2: CommentModel  = new CommentModel();
     comment2.content = 'Yemekleri basarili. Plaji asiri ruzgarli ve dalgali, eleman eksikligi var hersey cok yavas. Valizleri yarim saat bekledikten sonra gidip lobiden kendimiz aldik. Ortak wc de bozuk musluk uyarmama ragmen 24 saat sonra hala su akitiyordu';
+    comment2.answer = 'Bizi tercih ettiğiniz için çok teşekkür ederiz. Bir sonraki tatilinizde tekrar görüşmek dileğiyle';
     comment2.source = "TripAdvisor";
     comment2.commentDate = new Date();
     comment2.travelDate = new Date();
@@ -29,6 +31,7 @@ export class CommentService {
 
     let comment3: CommentModel  = new CommentModel();
     comment3.content = 'Genel olarak çok memnun kaldık. Bir tek odanız kara manzaralı ise çırcır böceklerınden balkon keyfi yapamıyorsunuz sesten';
+    comment3.answer = 'Bizi tercih ettiğiniz için çok teşekkür ederiz. Bir sonraki tatilinizde tekrar görüşmek dileğiyle';
     comment3.source = "Hotels.com";
     comment3.commentDate = new Date();
     comment3.travelDate = new Date();
@@ -38,6 +41,7 @@ export class CommentService {
 
     let comment4: CommentModel  = new CommentModel();
     comment4.content = 'Ortalama. Wifi çok kötüydü';
+    comment4.answer = 'Bizi tercih ettiğiniz için çok teşekkür ederiz. Bir sonraki tatilinizde tekrar görüşmek dileğiyle';
     comment4.source = "Booking.com";
     comment4.commentDate = new Date();
     comment4.travelDate = new Date();
@@ -47,6 +51,7 @@ export class CommentService {
 
     let comment5: CommentModel  = new CommentModel();
     comment5.content = 'Odam kottaydı, daha ne kadar kötü olabilir ki.';
+    comment5.answer = 'Bizi tercih ettiğiniz için çok teşekkür ederiz. Bir sonraki tatilinizde tekrar görüşmek dileğiyle';
     comment5.source = "TripAdvisor.com";
     comment5.commentDate = new Date();
     comment5.travelDate = new Date();

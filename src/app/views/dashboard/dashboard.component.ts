@@ -8,6 +8,8 @@ import {Label} from "ng2-charts";
 import {Router} from "@angular/router";
 import {DashboardService} from "../../core/dashboard/_service/dashboard.service";
 import {BrandRating} from "../../core/dashboard/_models/brand-rating";
+import {ImprovementModel} from "../../core/improvement/_models/improvement.model";
+import {ImprovementService} from "../../core/improvement/_services/improvement.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,8 @@ export class DashboardComponent implements OnInit {
   commentList: CommentModel[];
   brandRatings$: Observable<BrandRating[]>;
   brandRatings: BrandRating[];
+  improvementList$: Observable<ImprovementModel[]>;
+  improvementList: ImprovementModel[];
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
     { data: [72, 74, 78, 79, 79, 79], label: 'TripAdvisor' },
@@ -36,6 +40,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private dashbordService: DashboardService,
               private commentService: CommentService,
+              private improvementService: ImprovementService,
               private cdr: ChangeDetectorRef,
               private router: Router) {
   }
@@ -49,6 +54,11 @@ export class DashboardComponent implements OnInit {
     this.brandRatings$ = this.dashbordService.getBrandRating();
     this.brandRatings$.subscribe((brandRatings: BrandRating[]) => {
       this.brandRatings = brandRatings;
+      this.cdr.detectChanges();
+    });
+    this.improvementList$ = this.improvementService.getAllImprovementList();
+    this.improvementList$.subscribe((improvementList: ImprovementModel[]) => {
+      this.improvementList = improvementList;
       this.cdr.detectChanges();
     });
   }

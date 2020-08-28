@@ -43,7 +43,7 @@
   <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Review</h2>
+        <h2 class="card-title text-primary mb-5">Review (<span class="text-warning">426</span> reviews last year)</h2>
         <app-pie-chart [pieChartData]="pieChartData" [pieChartLabels]="pieChartLabels"></app-pie-chart>
       </div>
     </div>
@@ -53,15 +53,18 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Last Reviews</h4>
+        <h4 class="card-title">Last Reviews ({{commentList.length}} New Reviews)</h4>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
             <tr>
-              <th style="width: 55%">
+              <th style="width: 10%">
+                Starred
+              </th>
+              <th style="width: 50%">
                 Review
               </th>
-              <th style="width: 15%">
+              <th style="width: 10%">
                 Channel
               </th>
               <th style="width: 15%">
@@ -74,6 +77,10 @@
             </thead>
             <tbody>
             <tr *ngFor="let comment of commentList">
+              <td class="text star-container">
+                <i class="fa fa-star star" *ngIf="comment.starred"></i>
+                <i class="fa fa-star-o star" *ngIf="!comment.starred"></i>
+              </td>
               <td class="text">
                 {{comment.content}}
               </td>
@@ -131,99 +138,33 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let improvement of improvementList" routerLink="/improvement">
               <td>
-                Amenities
+                {{improvement.category}}
               </td>
-              <td class="text-danger"> 48%
-                <i class="mdi mdi-arrow-down"></i>
+              <td  [ngClass]="{'text-danger': improvement.performance < 40,
+               'text-warning':(improvement.performance >= 40 && improvement.performance < 70), 'text-success':improvement.performance >= 70 }">
+                {{improvement.performance}}%
               </td>
               <td>
-                228
+                {{improvement.mentionCount}}
               </td>
-              <td class="text-success"> 112
+              <td class="text-success">
+                {{improvement.positiveMentionCount}}
                 <i class="mdi mdi-arrow-up"></i>
               </td>
-              <td class="text-warning"> 3
+              <td class="text-warning">
+                {{improvement.neutralMentionCount}}
               </td>
-              <td class="text-danger"> 113
+              <td class="text-danger">
+                {{improvement.negativeMentionCount}}
                 <i class="mdi mdi-arrow-down"></i>
               </td>
-            </tr>
-            <tr>
-              <td>
-                Foods
-              </td>
-              <td class="text-success"> 88%
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-              <td>
-                305
-              </td>
-              <td class="text-success"> 230
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning"> 30
-              </td>
-              <td class="text-danger"> 45
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Bar and Beverages
-              </td>
-              <td class="text-danger"> 48%
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-              <td>
-                88
-              </td>
-              <td class="text-success"> 42
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning"> 3
-              </td>
-              <td class="text-danger"> 43
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Beach
-              </td>
-              <td class="text-primary"> 67%
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td>
-                3
-              </td>
-              <td class="text-success"> 2
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning"> 0
-              </td>
-              <td class="text-danger"> 1
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Cleanliness
-              </td>
-              <td class="text-primary"> 63%
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-              <td>
-                423
-              </td>
-              <td class="text-success"> 266
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning"> 10
-              </td>
-              <td class="text-danger"> 147
-                <i class="mdi mdi-arrow-down"></i>
+              <td style="text-align: center; vertical-align: middle;">
+                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
+                  Detail
+                  <i class="mdi mdi-arrow-right-bold"></i>
+                </button>
               </td>
             </tr>
             </tbody>

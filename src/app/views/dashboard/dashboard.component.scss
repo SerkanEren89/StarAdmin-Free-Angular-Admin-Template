@@ -176,3 +176,14 @@
 .pointer {
   cursor: pointer;
 }
+.table td {
+  line-height: 18px !important;
+  white-space: normal !important;
+}
+.star {
+  color: #ffd500;
+  font-size: 18px;
+}
+.star-container {
+  text-align: center;
+}

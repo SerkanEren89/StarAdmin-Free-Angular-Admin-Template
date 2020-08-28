@@ -1,6 +1,7 @@
 export class CommentModel {
   id:number;
   content: string;
+  answer: string;
   commentDate: Date;
   travelDate: Date;
   source: string;

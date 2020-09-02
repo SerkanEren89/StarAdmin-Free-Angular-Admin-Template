@@ -14,6 +14,9 @@ import {TaskModel} from "../../core/inbox/_models/task.model";
 import {EmployeeModel} from "../../core/task/_models/employee.model";
 import {TaskService} from "../../core/task/_services/task.service";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import "rxjs-compat/add/operator/debounceTime";
+import "rxjs-compat/add/operator/distinctUntilChanged";
+import "rxjs-compat/add/operator/map";
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +47,7 @@ export class DashboardComponent implements OnInit {
   resultFormatter = (result: EmployeeModel) => result.name + " " + result.surname;
   inputFormatter =  (x: EmployeeModel) => x.name + " " + x.surname;
   public task: TaskModel = new TaskModel();
+  form: any;
 
   public pieChartLabels: Label[] = ['Booking', 'TripAdvisor', 'Hotels.com', 'Google', 'Tatil sepeti'];
   public pieChartData: number[] = [300, 500, 100, 200, 300];
@@ -112,6 +116,4 @@ export class DashboardComponent implements OnInit {
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
           v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
-
-
 }

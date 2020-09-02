@@ -16,7 +16,7 @@ export class CommentService {
     comment1.commentDate = new Date();
     comment1.travelDate = new Date();
     comment1.rating = 8.8;
-    comment1.writtenBy = 'Ekin B.';
+    comment1.writtenBy = 'Serkan E.';
     comments.push(comment1);
 
     let comment2: CommentModel  = new CommentModel();

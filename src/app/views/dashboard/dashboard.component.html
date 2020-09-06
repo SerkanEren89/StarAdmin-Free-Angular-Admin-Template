@@ -1,6 +1,6 @@
 <div class="row title-container">
   <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 left">
-    <span class="input-group-text text-primary title">The Marmara</span>
+    <span class="input-group-text text-primary title">{{hotel.name}}</span>
   </div>
   <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 right">
     <date-range-picker [instanceId]="'secondDateRange'" [parentFormGroup]="form"
@@ -10,7 +10,7 @@
           <input id="secondDateRange" class="form-control" type="text" name="dateRange"
                  [value]="dateRangePicker.range" placeholder="From - To" formControlName="secondDateRange" />
           <div class="input-group-prepend">
-            <span class="input-group-text" id="date-range-icon">
+            <span class="input-group-text cursor-pointer" id="date-range-icon" (click)="openHotelSelectionPopup(contentCompetition)">
               <i class="material-icons text-primary">Change Hotel</i>
             </span>
           </div>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" *ngFor="let brandRating of brandRatings">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let brandRating of brandRatings">
     <div class="card card-statistics" (click)="goToDetail(brandRating.brand)">
       <div class="card-body pointer">
         <div class="clearfix">
@@ -96,7 +96,7 @@
                 Rating
               </th>
               <th style="width: 15%">
-                Assign
+                Actions
               </th>
             </tr>
             </thead>
@@ -106,8 +106,15 @@
                 <i class="fa fa-star star" *ngIf="comment.starred"></i>
                 <i class="fa fa-star-o star" *ngIf="!comment.starred"></i>
               </td>
-              <td class="text">
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content.length <= 100">
                 {{comment.content}}
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content.length > 100">
+                {{comment.content | slice:1:100}}...
               </td>
               <td>
                 <div>
@@ -126,7 +133,8 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <i class="fa fa-tasks" (click)="open(comment, content)"></i>
+                <i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>
+                <i class="fa fa-language action-button" (click)="translate(comment)"></i>
               </td>
             </tr>
             </tbody>
@@ -203,7 +211,7 @@
   </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #contentTask let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -239,6 +247,59 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Assign</button>
+  </div>
+</ng-template>
+
+
+<ng-template #contentReviewDetail let-modalReview>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-comment-detail">Review Detail</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalReview.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <p class="title">{{selectedComment.content}}</p>
+        <span class="brand popup-brand">{{selectedComment.source}}</span>
+        <p class="written" >Written By: {{selectedComment.writtenBy}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="template-demo">
+      <button type="button" class="btn btn-success"><i class="fa fa-language"></i>Translate</button>
+      <button type="button" class="btn btn-primary"><i class="mdi mdi-star"></i>Mark as Important</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #contentCompetition let-modalCompetiton>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-competition">Select Hotel</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalCompetiton.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <div *ngFor="let competition of competitionList">
+          <label for="enum_answer_{{competition.name}}">
+            <input id="enum_answer_{{competition.name}}" [value]='competition' type="radio" name="enums" [(ngModel)]="selectedHotel">
+            {{competition.name}}
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="template-demo">
+      <button type="button" class="btn btn-success" (click)="changeHotel()"><i class="fa fa-building"></i>Change Hotel</button>
+    </div>
   </div>
 </ng-template>

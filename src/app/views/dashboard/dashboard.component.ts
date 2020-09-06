@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef} from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import {Observable} from "rxjs";
 import {CommentModel} from "../../core/inbox/_models/comment.model";
@@ -17,6 +17,8 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import "rxjs-compat/add/operator/debounceTime";
 import "rxjs-compat/add/operator/distinctUntilChanged";
 import "rxjs-compat/add/operator/map";
+import {CompetitionModel} from "../../core/competition/_models/competition.model";
+import {CompetitionService} from "../../core/competition/_services/competition.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +34,8 @@ export class DashboardComponent implements OnInit {
   brandRatings: BrandRating[];
   improvementList$: Observable<ImprovementModel[]>;
   improvementList: ImprovementModel[];
+  competitionList$: Observable<CompetitionModel[]>;
+  competitionList: CompetitionModel[];
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 86, 89], label: 'Overall' },
     { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
@@ -48,6 +52,8 @@ export class DashboardComponent implements OnInit {
   inputFormatter =  (x: EmployeeModel) => x.name + " " + x.surname;
   public task: TaskModel = new TaskModel();
   form: any;
+  selectedHotel: CompetitionModel;
+  hotel: CompetitionModel;
 
   public pieChartLabels: Label[] = ['Booking', 'TripAdvisor', 'Hotels.com', 'Google', 'Tatil sepeti'];
   public pieChartData: number[] = [300, 500, 100, 200, 300];
@@ -57,6 +63,7 @@ export class DashboardComponent implements OnInit {
               private commentService: CommentService,
               private improvementService: ImprovementService,
               private taskService: TaskService,
+              private competitionService: CompetitionService,
               private modalService: NgbModal,
               private cdr: ChangeDetectorRef,
               private router: Router) {
@@ -84,6 +91,14 @@ export class DashboardComponent implements OnInit {
       this.employeeList = employeeList;
       this.cdr.detectChanges();
     });
+
+    this.competitionList$ = this.competitionService.getCompetitionList();
+    this.competitionList$.subscribe((competitionList: CompetitionModel[]) => {
+      this.competitionList = competitionList;
+      this.selectedHotel = this.competitionList[0];
+      this.hotel = this.competitionList[0];
+      this.cdr.detectChanges();
+    });
   }
 
   goToDetail(source: string) {
@@ -97,6 +112,10 @@ export class DashboardComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  translate(comment) {
+    this.selectedComment = comment;
   }
 
   private getDismissReason(reason: any): string {
@@ -116,4 +135,26 @@ export class DashboardComponent implements OnInit {
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
           v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+
+  openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
+    this.selectedComment = comment;
+    this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openHotelSelectionPopup(contentCompetition: TemplateRef<any>) {
+    this.modalService.open(contentCompetition, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  changeHotel() {
+    this.hotel = this.selectedHotel;
+    this.modalService.dismissAll();
+  }
 }

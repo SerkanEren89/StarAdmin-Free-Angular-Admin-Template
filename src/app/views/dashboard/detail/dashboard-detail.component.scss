@@ -6,3 +6,24 @@
     font-size: 16px;
   }
 }
+.star {
+  color: #ffd500;
+  font-size: 18px;
+}
+.star-container {
+  text-align: center;
+}
+.title-container {
+  .title {
+    font-size: 15px;
+    background-color: #ffffff;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 20px;
+  }
+}
+.action-button {
+  margin-right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}

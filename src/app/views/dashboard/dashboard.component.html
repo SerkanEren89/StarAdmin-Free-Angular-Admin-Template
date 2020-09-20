@@ -27,14 +27,14 @@
         <div class="clearfix">
           <div class="float-left">
             <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
             <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
             <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tatil sepeti')" src="assets/images/tatilSepeti.png">
 
             <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('google')" src="assets/images/google.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('otel puan')" src="assets/images/otelPuan.png" >
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotel check')" src="assets/images/holidayCheck.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{brandRating.brand}}</p>
@@ -103,18 +103,23 @@
             <tbody>
             <tr *ngFor="let comment of commentList">
               <td class="text star-container">
-                <i class="fa fa-star star" *ngIf="comment.starred"></i>
-                <i class="fa fa-star-o star" *ngIf="!comment.starred"></i>
+                <i class="fa fa-star star pointer" *ngIf="comment.starred" (click)="markAsStarred(comment)"></i>
+                <i class="fa fa-star-o star pointer" *ngIf="!comment.starred" (click)="markAsStarred(comment)"></i>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
-                  *ngIf="comment.content.length <= 100">
+                  *ngIf="comment.content != null && comment.content.length <= 100">
                 {{comment.content}}
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
-                  *ngIf="comment.content.length > 100">
-                {{comment.content | slice:1:100}}...
+                  *ngIf="comment.content != null && comment.content.length > 100">
+                {{comment.content | slice:0:100}}...
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content == null">
+
               </td>
               <td>
                 <div>
@@ -122,6 +127,9 @@
                   <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
                   <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
                   <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
                 </div>
               </td>
               <td>
@@ -223,7 +231,7 @@
       <div class="summary">
         <p class="title">{{selectedComment.content}}</p>
         <span class="brand popup-brand">{{selectedComment.source}}</span>
-        <p class="written" >Written By: {{selectedComment.writtenBy}}</p>
+        <p class="written" >Written By: {{selectedComment.author}}</p>
         <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
       </div>
     </div>

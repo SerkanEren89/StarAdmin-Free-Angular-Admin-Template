@@ -1,5 +1,5 @@
 export class CommentModel {
-  id:number;
+  id: number;
   content: string;
   answer: string;
   commentDate: Date;
@@ -7,7 +7,7 @@ export class CommentModel {
   source: string;
   rating: number;
   starRating: number;
-  writtenBy: string;
+  author: string;
   selected: boolean;
   starred: boolean;
 }

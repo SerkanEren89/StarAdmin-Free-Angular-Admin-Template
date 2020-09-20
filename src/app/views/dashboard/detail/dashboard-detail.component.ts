@@ -1,9 +1,18 @@
-import {ChangeDetectorRef, Component, ViewEncapsulation} from "@angular/core";
-import {Observable} from "rxjs";
-import {ImprovementModel} from "../../../core/improvement/_models/improvement.model";
-import {ImprovementService} from "../../../core/improvement/_services/improvement.service";
-import {ChartDataSets} from "chart.js";
-import {Label} from "ng2-charts";
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ImprovementModel} from '../../../core/improvement/_models/improvement.model';
+import {ImprovementService} from '../../../core/improvement/_services/improvement.service';
+import {ChartDataSets} from 'chart.js';
+import {Label} from 'ng2-charts';
+import {CommentService} from '../../../core/inbox/_services/comment.service';
+import {ActivatedRoute} from '@angular/router';
+import {CommentCountLanguageModel} from '../../../core/inbox/_models/comment-count-language.model';
+import {CommentCountTraveledWithModel} from '../../../core/inbox/_models/comment-count-traveled-with.model';
+import {CommentModel} from '../../../core/inbox/_models/comment.model';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EmployeeModel} from '../../../core/task/_models/employee.model';
+import {TaskModel} from '../../../core/inbox/_models/task.model';
+import {TaskService} from '../../../core/task/_services/task.service';
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -11,14 +20,22 @@ import {Label} from "ng2-charts";
   styleUrls: ['./dashboard-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardDetailComponent {
+export class DashboardDetailComponent implements OnInit {
+  commentList$: Observable<CommentModel[]>;
+  commentList: CommentModel[] = [];
   assessmentByCategory$: Observable<ImprovementModel[]>;
   assessmentByCategory: ImprovementModel[];
-  assessmentByLanguage$: Observable<ImprovementModel[]>;
-  assessmentByLanguage: ImprovementModel[];
-  assessmentByTravelType$: Observable<ImprovementModel[]>;
-  assessmentByTravelType: ImprovementModel[];
+  commentsByLanguage$: Observable<CommentCountLanguageModel[]>;
+  commentsByLanguage: CommentCountLanguageModel[] = [];
+  commentsByTraveledWith$: Observable<CommentCountTraveledWithModel[]>;
+  commentsByTraveledWith: CommentCountTraveledWithModel[] = [];
+  employeeList$: Observable<EmployeeModel[]>;
+  employeeList: EmployeeModel[];
+  selectedComment: CommentModel;
+  task: TaskModel = new TaskModel();
 
+  closeResult = '';
+  source: string;
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 80, 84], label: 'Bar' },
     { data: [72, 74, 78, 79, 79, 79], label: 'Reception' },
@@ -27,29 +44,91 @@ export class DashboardDetailComponent {
     { data: [74, 74, 75, 75, 75, 76], label: 'Pool' },
   ];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
+  inputFormatter =  (x: EmployeeModel) => x.name + ' ' + x.surname;
 
-  constructor(private improvementService: ImprovementService,
+  constructor(private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private improvementService: ImprovementService,
+              private commentService: CommentService,
+              private taskService: TaskService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.source = this.route.snapshot.paramMap.get('source');
+    this.commentList$ = this.commentService.getLatestCommentsBySource(this.source);
+    this.commentList$.subscribe((commentList: CommentModel[]) => {
+      this.commentList = commentList;
+      this.cdr.detectChanges();
+    });
     this.assessmentByCategory$ = this.improvementService.getAllImprovementList();
     this.assessmentByCategory$.subscribe((assessmentByCategory: ImprovementModel[]) => {
       this.assessmentByCategory = assessmentByCategory;
       this.cdr.detectChanges();
     });
 
-    this.assessmentByLanguage$ = this.improvementService.assessmentByLanguage();
-    this.assessmentByLanguage$.subscribe((assessmentByLanguage: ImprovementModel[]) => {
-      this.assessmentByLanguage = assessmentByLanguage;
+    this.commentsByLanguage$ = this.commentService.getCommentsByCountByLanguageAndSource(this.source);
+    this.commentsByLanguage$.subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
+      this.commentsByLanguage = commentCountLanguageModels;
       this.cdr.detectChanges();
     });
 
-    this.assessmentByTravelType$ = this.improvementService.assessmentByTravelType();
-    this.assessmentByTravelType$.subscribe((assessmentByTravelType: ImprovementModel[]) => {
-      this.assessmentByTravelType = assessmentByTravelType;
+    this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWithAndSource(this.source);
+    this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
+      this.commentsByTraveledWith = assessmentByTravelType;
+      this.cdr.detectChanges();
+    });
+
+    this.employeeList$ = this.taskService.getEmployeeList();
+    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
+      this.employeeList = employeeList;
       this.cdr.detectChanges();
     });
   }
 
+  markAsStarred(comment: CommentModel) {
+    comment.starred = !comment.starred;
+    this.commentService.updateComment(comment.id, comment)
+      .subscribe((commentModel: CommentModel) => {
+      });
+  }
+
+  open(comment, content) {
+    this.selectedComment = comment;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  translate(comment) {
+    this.selectedComment = comment;
+  }
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length > 1 ? []
+        : this.employeeList.filter(
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+
+  openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
+    this.selectedComment = comment;
+    this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 }

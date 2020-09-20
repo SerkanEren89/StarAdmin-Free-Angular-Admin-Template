@@ -54,65 +54,77 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 grid-margin">
+  <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Assessment By Category</h5>
+        <h4 class="card-title">Last {{commentList.length}} {{source}} Reviews</h4>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
             <tr>
-              <th>
-                Category
+              <th style="width: 10%">
+                Starred
               </th>
-              <th>
-                Performance
+              <th style="width: 50%">
+                Review
               </th>
-              <th>
-                Mentions
+              <th style="width: 10%">
+                Channel
               </th>
-              <th>
-                Positive
+              <th style="width: 15%">
+                Review Date
               </th>
-              <th>
-                Neutral
+              <th style="width: 15%">
+                Rating
               </th>
-              <th>
-                Negative
-              </th>
-              <th>
-
+              <th style="width: 15%">
+                Actions
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let improvement of assessmentByCategory">
+            <tr *ngFor="let comment of commentList">
+              <td class="text star-container">
+                <i class="fa fa-star star pointer" *ngIf="comment.starred" (click)="markAsStarred(comment)"></i>
+                <i class="fa fa-star-o star pointer" *ngIf="!comment.starred" (click)="markAsStarred(comment)"></i>
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content != null && comment.content.length <= 100">
+                {{comment.content}}
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content != null && comment.content.length > 100">
+                {{comment.content | slice:0:100}}...
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(comment, contentReviewDetail)"
+                  *ngIf="comment.content == null">
+
+              </td>
               <td>
-                {{improvement.category}}
-              </td>
-              <td  [ngClass]="{'text-danger': improvement.performance < 40,
-               'text-warning':(improvement.performance >= 40 && improvement.performance < 70), 'text-success':improvement.performance >= 70 }">
-                {{improvement.performance}}%
+                <div>
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png">
+                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+                </div>
               </td>
               <td>
-                {{improvement.mentionCount}}
+                {{comment.commentDate  | date:'MM/dd/yyyy'}}
               </td>
-              <td class="text-success">
-                {{improvement.positiveMentionCount}}
-                <i class="mdi mdi-arrow-up"></i>
+              <td class="text-danger"
+                  [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}} / 10
+                <i class="mdi mdi-arrow-down" *ngIf="comment.rating < 6"></i>
+                <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
-              <td class="text-warning">
-                {{improvement.neutralMentionCount}}
-              </td>
-              <td class="text-danger">
-                {{improvement.negativeMentionCount}}
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
-                  Detail
-                  <i class="mdi mdi-arrow-right-bold"></i>
-                </button>
+              <td class="text-primary">
+                <i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>
+                <i class="fa fa-language action-button" (click)="translate(comment)"></i>
               </td>
             </tr>
             </tbody>
@@ -123,7 +135,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 grid-margin">
+  <div class="col-6 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Assessment By Language</h5>
@@ -135,19 +147,7 @@
                 Language
               </th>
               <th>
-                Performance
-              </th>
-              <th>
-                Mentions
-              </th>
-              <th>
-                Positive
-              </th>
-              <th>
-                Neutral
-              </th>
-              <th>
-                Negative
+                Count
               </th>
               <th>
 
@@ -155,28 +155,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let language of assessmentByLanguage">
+            <tr *ngFor="let commentCountLanguageModel of commentsByLanguage">
               <td>
-                <flag-icon [language]="language.language"></flag-icon>
-                {{language.language}}
-              </td>
-              <td  [ngClass]="{'text-danger': language.performance < 40,
-               'text-warning':(language.performance >= 40 && language.performance < 70), 'text-success':language.performance >= 70 }">
-                {{language.performance}}%
+                <flag-icon [language]="commentCountLanguageModel.language"></flag-icon>
+                {{commentCountLanguageModel.language}}
               </td>
               <td>
-                {{language.mentionCount}}
-              </td>
-              <td class="text-success">
-                {{language.positiveMentionCount}}
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning">
-                {{language.neutralMentionCount}}
-              </td>
-              <td class="text-danger">
-                {{language.negativeMentionCount}}
-                <i class="mdi mdi-arrow-down"></i>
+                {{commentCountLanguageModel.commentCount}}
               </td>
               <td style="text-align: center; vertical-align: middle;">
                 <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
@@ -191,9 +176,7 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-12 grid-margin">
+  <div class="col-6 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Assessment By Travel Type</h5>
@@ -205,19 +188,7 @@
                 Travel Type
               </th>
               <th>
-                Performance
-              </th>
-              <th>
-                Mentions
-              </th>
-              <th>
-                Positive
-              </th>
-              <th>
-                Neutral
-              </th>
-              <th>
-                Negative
+                Count
               </th>
               <th>
 
@@ -225,27 +196,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let travelType of assessmentByTravelType">
+            <tr *ngFor="let commentCountTraveledWithModel of commentsByTraveledWith">
               <td>
-                {{travelType.travelType}}
-              </td>
-              <td  [ngClass]="{'text-danger': travelType.performance < 40,
-               'text-warning':(travelType.performance >= 40 && travelType.performance < 70), 'text-success':travelType.performance >= 70 }">
-                {{travelType.performance}}%
+                {{commentCountTraveledWithModel.traveledWith}}
               </td>
               <td>
-                {{travelType.mentionCount}}
-              </td>
-              <td class="text-success">
-                {{travelType.positiveMentionCount}}
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning">
-                {{travelType.neutralMentionCount}}
-              </td>
-              <td class="text-danger">
-                {{travelType.negativeMentionCount}}
-                <i class="mdi mdi-arrow-down"></i>
+                {{commentCountTraveledWithModel.commentCount}}
               </td>
               <td style="text-align: center; vertical-align: middle;">
                 <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
@@ -262,4 +218,69 @@
   </div>
 </div>
 
+<ng-template #contentTask let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <p class="title">{{selectedComment.content}}</p>
+        <span class="brand popup-brand">{{selectedComment.source}}</span>
+        <p class="written" >Written By: {{selectedComment.writtenBy}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+      </div>
+    </div>
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>Assignee</label>
+        <div class="input-group">
+          <input id="assignee" type="text" class="form-control" name="assignee"
+                 [resultFormatter]="resultFormatter"
+                 [inputFormatter]="inputFormatter"
+                 [(ngModel)]="task.assignee" [ngbTypeahead]="search"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <div class="input-group">
+          <textarea id="description" type="text" class="form-control"
+                    name="description" [(ngModel)]="task.description" rows="3"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Assign</button>
+  </div>
+</ng-template>
+
+
+<ng-template #contentReviewDetail let-modalReview>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-comment-detail">Review Detail</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalReview.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <p class="title">{{selectedComment.content}}</p>
+        <span class="brand popup-brand">{{selectedComment.source}}</span>
+        <p class="written" >Written By: {{selectedComment.author}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="template-demo">
+      <button type="button" class="btn btn-success"><i class="fa fa-language"></i>Translate</button>
+      <button type="button" class="btn btn-primary"><i class="mdi mdi-star"></i>Mark as Important</button>
+    </div>
+  </div>
+</ng-template>
 

@@ -1,35 +1,38 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef} from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
-import {Observable} from "rxjs";
-import {CommentModel} from "../../core/inbox/_models/comment.model";
-import {CommentService} from "../../core/inbox/_services/comment.service";
-import {ChartDataSets} from "chart.js";
-import {Label} from "ng2-charts";
-import {Router} from "@angular/router";
-import {DashboardService} from "../../core/dashboard/_service/dashboard.service";
-import {BrandRating} from "../../core/dashboard/_models/brand-rating";
-import {ImprovementModel} from "../../core/improvement/_models/improvement.model";
-import {ImprovementService} from "../../core/improvement/_services/improvement.service";
-import {TaskModel} from "../../core/inbox/_models/task.model";
-import {EmployeeModel} from "../../core/task/_models/employee.model";
-import {TaskService} from "../../core/task/_services/task.service";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import "rxjs-compat/add/operator/debounceTime";
-import "rxjs-compat/add/operator/distinctUntilChanged";
-import "rxjs-compat/add/operator/map";
-import {CompetitionModel} from "../../core/competition/_models/competition.model";
-import {CompetitionService} from "../../core/competition/_services/competition.service";
+import {Observable} from 'rxjs';
+import {CommentModel} from '../../core/inbox/_models/comment.model';
+import {CommentService} from '../../core/inbox/_services/comment.service';
+import {ChartDataSets} from 'chart.js';
+import {Label} from 'ng2-charts';
+import {Router} from '@angular/router';
+import {DashboardService} from '../../core/dashboard/_service/dashboard.service';
+import {BrandRating} from '../../core/dashboard/_models/brand-rating';
+import {ImprovementModel} from '../../core/improvement/_models/improvement.model';
+import {ImprovementService} from '../../core/improvement/_services/improvement.service';
+import {TaskModel} from '../../core/inbox/_models/task.model';
+import {EmployeeModel} from '../../core/task/_models/employee.model';
+import {TaskService} from '../../core/task/_services/task.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import 'rxjs-compat/add/operator/debounceTime';
+import 'rxjs-compat/add/operator/distinctUntilChanged';
+import 'rxjs-compat/add/operator/map';
+import {CompetitionModel} from '../../core/competition/_models/competition.model';
+import {CompetitionService} from '../../core/competition/_services/competition.service';
+import {CommentCountModel} from '../../core/inbox/_models/comment-count.model';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['../../app.component.scss','./dashboard.component.scss'],
+  styleUrls: ['../../app.component.scss', './dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 
   commentList$: Observable<CommentModel[]>;
-  commentList: CommentModel[];
+  commentList: CommentModel[] = [];
+  commentCountList$: Observable<CommentCountModel[]>;
+  commentCountList: CommentCountModel[];
   brandRatings$: Observable<BrandRating[]>;
   brandRatings: BrandRating[];
   improvementList$: Observable<ImprovementModel[]>;
@@ -48,18 +51,18 @@ export class DashboardComponent implements OnInit {
   employeeList$: Observable<EmployeeModel[]>;
   employeeList: EmployeeModel[];
   closeResult = '';
-  resultFormatter = (result: EmployeeModel) => result.name + " " + result.surname;
-  inputFormatter =  (x: EmployeeModel) => x.name + " " + x.surname;
-  public task: TaskModel = new TaskModel();
+  task: TaskModel = new TaskModel();
   form: any;
   selectedHotel: CompetitionModel;
   hotel: CompetitionModel;
 
-  public pieChartLabels: Label[] = ['Booking', 'TripAdvisor', 'Hotels.com', 'Google', 'Tatil sepeti'];
-  public pieChartData: number[] = [300, 500, 100, 200, 300];
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[] = [];
 
+  resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
+  inputFormatter =  (x: EmployeeModel) => x.name + ' ' + x.surname;
 
-  constructor(private dashbordService: DashboardService,
+  constructor(private dashboardService: DashboardService,
               private commentService: CommentService,
               private improvementService: ImprovementService,
               private taskService: TaskService,
@@ -70,12 +73,21 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commentList$ = this.commentService.getCommentList();
+    this.commentList$ = this.commentService.getLatestComments();
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
       this.cdr.detectChanges();
     });
-    this.brandRatings$ = this.dashbordService.getBrandRating();
+    this.commentCountList$ = this.commentService.getCommentsByCount();
+    this.commentCountList$.subscribe((commentCountList: CommentCountModel[]) => {
+      this.commentCountList = commentCountList;
+      for (const commentCountModel of commentCountList) {
+        this.pieChartLabels.push(commentCountModel.source);
+        this.pieChartData.push(commentCountModel.commentCount);
+      }
+      this.cdr.detectChanges();
+    });
+    this.brandRatings$ = this.dashboardService.getBrandRating();
     this.brandRatings$.subscribe((brandRatings: BrandRating[]) => {
       this.brandRatings = brandRatings;
       this.cdr.detectChanges();
@@ -102,7 +114,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToDetail(source: string) {
-    this.router.navigateByUrl("dashboard/" + source)
+    this.router.navigateByUrl('dashboard/' + source);
   }
 
   open(comment, content) {
@@ -134,7 +146,7 @@ export class DashboardComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
@@ -156,5 +168,12 @@ export class DashboardComponent implements OnInit {
   changeHotel() {
     this.hotel = this.selectedHotel;
     this.modalService.dismissAll();
+  }
+
+  markAsStarred(comment: CommentModel) {
+    comment.starred = !comment.starred;
+    this.commentService.updateComment(comment.id, comment)
+      .subscribe((commentModel: CommentModel) => {
+      });
   }
 }

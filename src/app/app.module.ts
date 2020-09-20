@@ -24,9 +24,11 @@ import {DropdownComponent} from './views/dropdown/dropdown.component';
 import {TooltipsComponent} from './views/tooltips/tooltips.component';
 import {CarouselComponent} from './views/carousel/carousel.component';
 import {TabsComponent} from './views/tabs/tabs.component';
-import {InboxComponent} from "./views/inbox/inbox.component";
-import {ImprovementComponent} from "./views/improvement/improvement.component";
-import {ChartsModule} from "ng2-charts";
+import {InboxComponent} from './views/inbox/inbox.component';
+import {ImprovementComponent} from './views/improvement/improvement.component';
+import {ChartsModule} from 'ng2-charts';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {InterceptService} from './core/_base/utils/intercept.service';
 
 @NgModule({
   declarations: [
@@ -55,11 +57,14 @@ import {ChartsModule} from "ng2-charts";
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     NgbModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

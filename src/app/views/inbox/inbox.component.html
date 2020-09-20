@@ -42,7 +42,7 @@
               <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</span>
-              <p class="written" >Written By: {{selectedItem.writtenBy}}</p>
+              <p class="written" >Written By: {{selectedItem.author}}</p>
               <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'MM/dd/yyyy'}}</span>
             </div>
             <div class="review">
@@ -81,7 +81,7 @@
       <div class="summary">
         <p class="title">{{selectedItem.content}}</p>
         <span class="brand popup-brand">{{selectedItem.source}}</span>
-        <p class="written" >Written By: {{selectedItem.writtenBy}}</p>
+        <p class="written" >Written By: {{selectedItem.author}}</p>
         <p class="written">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</p>
       </div>
     </div>

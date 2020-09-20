@@ -59,7 +59,7 @@ export class CommentService {
     comment1.commentDate = new Date();
     comment1.travelDate = new Date();
     comment1.rating = 8.8;
-    comment1.writtenBy = 'Serkan E.';
+    comment1.author = 'Serkan E.';
     comments.push(comment1);
 
     const comment2: CommentModel  = new CommentModel();
@@ -69,7 +69,7 @@ export class CommentService {
     comment2.commentDate = new Date();
     comment2.travelDate = new Date();
     comment2.rating = 7.0;
-    comment2.writtenBy = 'Fatih B.';
+    comment2.author = 'Fatih B.';
     comment2.starred = true;
     comments.push(comment2);
 
@@ -80,7 +80,7 @@ export class CommentService {
     comment3.commentDate = new Date();
     comment3.travelDate = new Date();
     comment3.rating = 8.0;
-    comment3.writtenBy = 'Sercan T.';
+    comment3.author = 'Sercan T.';
     comment3.starred = true;
     comments.push(comment3);
 
@@ -91,7 +91,7 @@ export class CommentService {
     comment4.commentDate = new Date();
     comment4.travelDate = new Date();
     comment4.rating = 7.0;
-    comment4.writtenBy = 'Merve G.';
+    comment4.author = 'Merve G.';
     comments.push(comment4);
 
     const comment5: CommentModel  = new CommentModel();
@@ -101,7 +101,7 @@ export class CommentService {
     comment5.commentDate = new Date();
     comment5.travelDate = new Date();
     comment5.rating = 6.0;
-    comment5.writtenBy = 'Oguzhan A.';
+    comment5.author = 'Oguzhan A.';
     comments.push(comment5);
 
     const comment6: CommentModel  = new CommentModel();
@@ -110,7 +110,7 @@ export class CommentService {
     comment6.commentDate = new Date();
     comment6.travelDate = new Date();
     comment6.rating = 3.0;
-    comment6.writtenBy = 'Mustafa D.';
+    comment6.author = 'Mustafa D.';
     comments.push(comment6);
 
     const comment7: CommentModel  = new CommentModel();
@@ -119,7 +119,7 @@ export class CommentService {
     comment7.commentDate = new Date();
     comment7.travelDate = new Date();
     comment7.rating = 6.0;
-    comment7.writtenBy = 'Behzat Ç.';
+    comment7.author = 'Behzat Ç.';
     comments.push(comment7);
     return of(comments);
   }

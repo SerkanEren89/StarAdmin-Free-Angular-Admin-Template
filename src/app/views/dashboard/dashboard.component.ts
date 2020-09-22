@@ -20,6 +20,7 @@ import 'rxjs-compat/add/operator/map';
 import {CompetitionModel} from '../../core/competition/_models/competition.model';
 import {CompetitionService} from '../../core/competition/_services/competition.service';
 import {CommentCountModel} from '../../core/inbox/_models/comment-count.model';
+import {CommentCountRatingModel} from '../../core/dashboard/_models/comment-count-rating.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,8 +34,8 @@ export class DashboardComponent implements OnInit {
   commentList: CommentModel[] = [];
   commentCountList$: Observable<CommentCountModel[]>;
   commentCountList: CommentCountModel[];
-  brandRatings$: Observable<BrandRating[]>;
-  brandRatings: BrandRating[];
+  commentCountRatings$: Observable<CommentCountRatingModel[]>;
+  commentCountRatings: CommentCountRatingModel[];
   improvementList$: Observable<ImprovementModel[]>;
   improvementList: ImprovementModel[];
   competitionList$: Observable<CompetitionModel[]>;
@@ -87,9 +88,9 @@ export class DashboardComponent implements OnInit {
       }
       this.cdr.detectChanges();
     });
-    this.brandRatings$ = this.dashboardService.getBrandRating();
-    this.brandRatings$.subscribe((brandRatings: BrandRating[]) => {
-      this.brandRatings = brandRatings;
+    this.commentCountRatings$ = this.dashboardService.getCommentCountAndRatings();
+    this.commentCountRatings$.subscribe((commentCountRatings: CommentCountRatingModel[]) => {
+      this.commentCountRatings = commentCountRatings;
       this.cdr.detectChanges();
     });
     this.improvementList$ = this.improvementService.getAllImprovementList();

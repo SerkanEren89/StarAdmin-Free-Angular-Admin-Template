@@ -1,11 +1,20 @@
-import {Injectable} from "@angular/core";
-import {BrandRating} from "../_models/brand-rating";
-import {Observable, of} from "rxjs";
+import {Injectable} from '@angular/core';
+import {BrandRating} from '../_models/brand-rating';
+import {Observable, of} from 'rxjs';
+import {CommentCountModel} from '../../inbox/_models/comment-count.model';
+import {HttpClient} from '@angular/common/http';
+import {CommentCountRatingModel} from '../_models/comment-count-rating.model';
 
+const API_DASHBOARD_URL = 'dashboard';
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
+  constructor(private http: HttpClient) {
+  }
+  getCommentCountAndRatings(): Observable<CommentCountRatingModel[]> {
+    return this.http.get<CommentCountRatingModel[]>(API_DASHBOARD_URL + '/comment-count-ratings');
+  }
 
   getBrandRating(): Observable<BrandRating[]> {
     const brandRatings: BrandRating[] = new Array<BrandRating>();

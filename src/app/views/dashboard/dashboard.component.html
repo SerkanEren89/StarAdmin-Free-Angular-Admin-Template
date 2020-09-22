@@ -21,28 +21,28 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let brandRating of brandRatings">
-    <div class="card card-statistics" (click)="goToDetail(brandRating.brand)">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let commentCountRating of commentCountRatings">
+    <div class="card card-statistics" (click)="goToDetail(commentCountRating.source)">
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('tatil sepeti')" src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('tatil sepeti')" src="assets/images/tatilSepeti.png">
 
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="brandRating.brand.toLowerCase().includes('google')" src="assets/images/google.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="brandRating.brand.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('google')" src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">{{brandRating.brand}}</p>
+            <p class="mb-0 text-right">{{commentCountRating.source}}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{brandRating.rating}}</h3>
-              <p class="text-right mb-0">{{brandRating.reviewCount}} Reviews</p>
-              <p *ngIf="brandRating.trend < 0" class="text-right mb-0 text-danger">{{brandRating.trend}} <i class="fa fa-thumbs-down"></i></p>
-              <p *ngIf="brandRating.trend >= 0" class="text-right mb-0 text-success">{{brandRating.trend}} <i class="fa fa-thumbs-up"></i></p>
+              <h3 class="font-weight-medium text-right mb-0">{{commentCountRating.rating}}</h3>
+              <p class="text-right mb-0">{{commentCountRating.commentCount}} Reviews</p>
+              <p *ngIf="commentCountRating.trend < 0" class="text-right mb-0 text-danger">{{commentCountRating.trend}} <i class="fa fa-thumbs-down"></i></p>
+              <p *ngIf="commentCountRating.trend >= 0" class="text-right mb-0 text-success">{{commentCountRating.trend}} <i class="fa fa-thumbs-up"></i></p>
             </div>
           </div>
         </div>

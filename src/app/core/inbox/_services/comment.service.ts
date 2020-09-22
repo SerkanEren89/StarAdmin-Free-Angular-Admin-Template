@@ -16,6 +16,12 @@ export class CommentService {
 
   constructor(private http: HttpClient) {
   }
+  getComments(page: number, pageSize: number): Observable<CommentModel[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(pageSize));
+    return this.http.get<CommentModel[]>(API_COMMENTS_URL, {params: params});
+  }
   getLatestComments(): Observable<CommentModel[]> {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/latest');
   }

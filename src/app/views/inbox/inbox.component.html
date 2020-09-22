@@ -1,7 +1,12 @@
 <div class="row">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
+
       <div class="card-body inbox">
+        <ngb-pagination [collectionSize]="totalPage" [pageSize]="pageSize" [page]="page"
+                        (pageChange)="loadComments($event)"
+                        [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                        aria-label="Default pagination" class="d-flex justify-content-center pagination-success"></ngb-pagination>
         <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
              [ngClass]="odd ? 'odd' : 'even'"
              [class.selected]="selectedIndex === i"
@@ -18,10 +23,14 @@
             <ngb-rating [(rate)]="comment.starRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="brand-container">
-            <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="comment.source.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
-            <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-            <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'MM/dd/yyyy'}}</span>
           </div>
@@ -36,10 +45,14 @@
           <div class="summary-container">
             <div class="summary">
               <p class="title">{{selectedItem.content}}</p>
-              <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-              <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="selectedItem.source.toLowerCase().includes('hotels.com')" src="assets/images/hotelsCom.jpg" >
-              <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-              <img class="mdi mdi-cube icon-lg icon brand-image" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('google')" src="assets/images/google.png">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</span>
               <p class="written" >Written By: {{selectedItem.author}}</p>

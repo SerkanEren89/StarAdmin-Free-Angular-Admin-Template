@@ -69,7 +69,7 @@ export class InboxComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
@@ -92,5 +92,19 @@ export class InboxComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  markAsStarred(selectedItem: CommentModel) {
+    selectedItem.starred = !selectedItem.starred;
+    this.commentService.updateComment(selectedItem.id, selectedItem)
+      .subscribe((commentModel: CommentModel) => {
+      });
+  }
+
+  translate(selectedItem: CommentModel) {
+    this.commentService.getTranslatedComment(selectedItem.id)
+      .subscribe((translatedComment: CommentModel) => {
+        this.selectedItem = translatedComment;
+      });
   }
 }

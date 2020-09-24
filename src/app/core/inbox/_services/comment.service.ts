@@ -49,6 +49,9 @@ export class CommentService {
     params = params.append('source', source);
     return this.http.get<CommentCountTraveledWithModel[]>(API_COMMENTS_URL + '/count-by-traveled-with', {params: params});
   }
+  getTranslatedComment(id: number): Observable<CommentModel> {
+    return this.http.get<CommentModel>(API_COMMENTS_URL + '/translate' + '/' + id);
+  }
   updateComment(id: number, comment: CommentModel): Observable<CommentModel> {
     return this.http.put<CommentModel>(API_COMMENTS_URL + '/' + id, comment)
       .pipe(map(coverLetterModel => {

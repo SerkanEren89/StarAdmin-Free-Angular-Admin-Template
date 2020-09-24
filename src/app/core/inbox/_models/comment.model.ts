@@ -10,4 +10,5 @@ export class CommentModel {
   author: string;
   selected: boolean;
   starred: boolean;
+  translatedText: string;
 }

@@ -21,7 +21,7 @@
               </span>
             </ng-template>
 
-            <ngb-rating [(rate)]="comment.starRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+            <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="brand-container">
             <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
@@ -70,7 +70,8 @@
                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
               </span>
               </ng-template>
-              <ngb-rating [(rate)]="selectedItem.rating" [starTemplate]="t" [readonly]="true" [max]="10"></ngb-rating>
+              <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+              <span>{{selectedItem.ratingOverFive}}</span>
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>

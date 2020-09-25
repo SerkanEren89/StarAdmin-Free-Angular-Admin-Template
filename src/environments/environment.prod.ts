@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://localhost:8084/'
+  url: 'http://apirevxray-env.eba-xmaiegrt.us-east-2.elasticbeanstalk.com/'
 };

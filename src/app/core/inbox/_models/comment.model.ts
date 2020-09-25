@@ -11,4 +11,5 @@ export class CommentModel {
   selected: boolean;
   starred: boolean;
   translatedText: string;
+  ratingOverFive: number;
 }

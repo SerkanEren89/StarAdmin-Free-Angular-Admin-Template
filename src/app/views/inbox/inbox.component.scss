@@ -145,13 +145,23 @@
     background-color: #fafbfb;
   }
 }
-.pagination {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.pagination-container {
+  padding: 0.3rem !important;
 }
 .star {
-  color: #ffd500;
+  position: relative;
+  display: inline-block;
+  color: #d3d3d3;
   font-size: 18px;
+}
+.full {
+  color: #ffd500;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffd500;
 }
 .pointer {
   cursor: pointer;

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body pagination-container">
         <ngb-pagination [collectionSize]="totalPage" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
                         [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
@@ -71,7 +71,6 @@
               </span>
               </ng-template>
               <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-              <span>{{selectedItem.ratingOverFive}}</span>
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>

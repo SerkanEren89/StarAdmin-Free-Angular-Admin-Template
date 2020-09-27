@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8084/',
+  url: 'http://apirevxray-env.eba-xmaiegrt.us-east-2.elasticbeanstalk.com/'
 };
 
 /*

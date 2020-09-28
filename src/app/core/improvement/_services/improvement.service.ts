@@ -1,7 +1,6 @@
-import {Injectable} from "@angular/core";
-import {CommentModel} from "../../inbox/_models/comment.model";
-import {ImprovementModel} from "../_models/improvement.model";
-import {of} from "rxjs";
+import {Injectable} from '@angular/core';
+import {ImprovementModel} from '../_models/improvement.model';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

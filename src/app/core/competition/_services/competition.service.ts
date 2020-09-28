@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {Observable, of} from "rxjs";
-import {CompetitionModel} from "../_models/competition.model";
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {CompetitionModel} from '../_models/competition.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,7 @@
-import {Injectable} from "@angular/core";
-import {TaskModel} from "../_models/task.model";
-import {Observable, of} from "rxjs";
-import {CommentModel} from "../../inbox/_models/comment.model";
-import {EmployeeModel} from "../_models/employee.model";
+import {Injectable} from '@angular/core';
+import {TaskModel} from '../_models/task.model';
+import {Observable, of} from 'rxjs';
+import {EmployeeModel} from '../_models/employee.model';
 
 @Injectable({
   providedIn: 'root'

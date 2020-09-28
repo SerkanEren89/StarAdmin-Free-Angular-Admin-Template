@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BrandRating} from '../_models/brand-rating';
 import {Observable, of} from 'rxjs';
-import {CommentCountModel} from '../../inbox/_models/comment-count.model';
 import {HttpClient} from '@angular/common/http';
 import {CommentCountRatingModel} from '../_models/comment-count-rating.model';
 

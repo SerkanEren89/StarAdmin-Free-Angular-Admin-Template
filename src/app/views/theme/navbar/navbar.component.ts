@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {CompetitionService} from '../../../core/competition/_services/competition.service';
+import {UserModel} from '../../../core/auth/_models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import {CompetitionService} from '../../../core/competition/_services/competitio
 })
 export class NavbarComponent implements OnInit {
 
+  currentUser: UserModel;
   public sidebarOpened = false;
 
   toggleOffcanvas() {
@@ -28,6 +30,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.currentUserValue;
   }
 
   signOut() {

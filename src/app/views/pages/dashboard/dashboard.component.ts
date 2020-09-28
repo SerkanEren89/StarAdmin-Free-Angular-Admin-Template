@@ -19,6 +19,8 @@ import {CompetitionModel} from '../../../core/competition/_models/competition.mo
 import {CompetitionService} from '../../../core/competition/_services/competition.service';
 import {CommentCountModel} from '../../../core/inbox/_models/comment-count.model';
 import {CommentCountRatingModel} from '../../../core/dashboard/_models/comment-count-rating.model';
+import {AuthService} from '../../../core/auth/_service/auth.service';
+import {UserModel} from '../../../core/auth/_models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,6 +40,7 @@ export class DashboardComponent implements OnInit {
   improvementList: ImprovementModel[];
   competitionList$: Observable<CompetitionModel[]>;
   competitionList: CompetitionModel[];
+  currentUser: UserModel;
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 86, 89], label: 'Overall' },
     { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
@@ -63,6 +66,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService,
               private commentService: CommentService,
+              private authService: AuthService,
               private improvementService: ImprovementService,
               private taskService: TaskService,
               private competitionService: CompetitionService,
@@ -91,6 +95,7 @@ export class DashboardComponent implements OnInit {
       this.commentCountRatings = commentCountRatings;
       this.cdr.detectChanges();
     });
+    this.currentUser = this.authService.currentUserValue;
     this.improvementList$ = this.improvementService.getAllImprovementList();
     this.improvementList$.subscribe((improvementList: ImprovementModel[]) => {
       this.improvementList = improvementList;

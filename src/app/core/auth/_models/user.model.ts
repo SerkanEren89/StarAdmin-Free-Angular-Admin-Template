@@ -6,4 +6,5 @@ export class UserModel {
   lastName: string;
   token: string;
   hotelName: string;
+  hotelId: number;
 }

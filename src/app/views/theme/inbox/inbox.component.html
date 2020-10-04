@@ -2,9 +2,9 @@
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
       <div class="card-body pagination-container">
-        <ngb-pagination [collectionSize]="totalPage" [pageSize]="pageSize" [page]="page"
+        <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
-                        [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                        [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                         aria-label="Default pagination" class="d-flex justify-content-center pagination-success"></ngb-pagination>
       </div>
       <div class="card-body inbox">

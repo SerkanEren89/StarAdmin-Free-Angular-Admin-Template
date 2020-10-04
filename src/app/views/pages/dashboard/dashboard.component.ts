@@ -21,6 +21,7 @@ import {CommentCountModel} from '../../../core/inbox/_models/comment-count.model
 import {CommentCountRatingModel} from '../../../core/dashboard/_models/comment-count-rating.model';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {UserModel} from '../../../core/auth/_models/user.model';
+import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,8 @@ export class DashboardComponent implements OnInit {
   commentList: CommentModel[] = [];
   commentCountList$: Observable<CommentCountModel[]>;
   commentCountList: CommentCountModel[];
+  monthlyRating$: Observable<MonthlyRatingsModel>;
+  monthlyRating: MonthlyRatingsModel;
   commentCountRatings$: Observable<CommentCountRatingModel[]>;
   commentCountRatings: CommentCountRatingModel[];
   improvementList$: Observable<ImprovementModel[]>;
@@ -41,13 +44,7 @@ export class DashboardComponent implements OnInit {
   competitionList$: Observable<CompetitionModel[]>;
   competitionList: CompetitionModel[];
   currentUser: UserModel;
-  lineChartData: ChartDataSets[] = [
-    { data: [72, 75, 77, 77, 86, 89], label: 'Overall' },
-    { data: [72, 75, 77, 77, 80, 84], label: 'Booking' },
-    { data: [72, 74, 78, 79, 79, 79], label: 'TripAdvisor' },
-    { data: [70, 73, 75, 79, 80, 83], label: 'Hotels.com' },
-    { data: [72, 72, 72, 72, 73, 73], label: 'Google' },
-  ];
+  lineChartData: ChartDataSets[] = [];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
   selectedComment: CommentModel;
   employeeList$: Observable<EmployeeModel[]>;
@@ -62,7 +59,7 @@ export class DashboardComponent implements OnInit {
   public pieChartData: number[] = [];
 
   resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
-  inputFormatter =  (x: EmployeeModel) => x.name + ' ' + x.surname;
+  inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
 
   constructor(private dashboardService: DashboardService,
               private commentService: CommentService,
@@ -93,6 +90,13 @@ export class DashboardComponent implements OnInit {
     this.commentCountRatings$ = this.dashboardService.getCommentCountAndRatings();
     this.commentCountRatings$.subscribe((commentCountRatings: CommentCountRatingModel[]) => {
       this.commentCountRatings = commentCountRatings;
+      this.cdr.detectChanges();
+    });
+    this.monthlyRating$ = this.dashboardService.getMonthlyRating();
+    this.monthlyRating$.subscribe((monthlyRating: MonthlyRatingsModel) => {
+      this.monthlyRating = monthlyRating;
+      this.lineChartLabels = this.monthlyRating.months;
+      this.lineChartData = this.monthlyRating.item;
       this.cdr.detectChanges();
     });
     this.currentUser = this.authService.currentUserValue;
@@ -150,7 +154,7 @@ export class DashboardComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;

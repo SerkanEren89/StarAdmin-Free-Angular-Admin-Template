@@ -27,7 +27,7 @@ export class InboxComponent implements OnInit {
   selectedIndex = 0;
   pageSize = 10;
   page = 1;
-  totalPage;
+  totalElements;
   closeResult = '';
   public task: TaskModel = new TaskModel();
   resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
@@ -58,7 +58,7 @@ export class InboxComponent implements OnInit {
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList['content'];
       this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
-      this.totalPage = commentList['totalPages'];
+      this.totalElements = commentList['totalElements'];
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
     });

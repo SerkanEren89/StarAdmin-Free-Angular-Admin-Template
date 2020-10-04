@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InboxComponent} from './views/theme/inbox/inbox.component';
+import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {ImprovementComponent} from './views/pages/improvement/improvement.component';
 import {BaseComponent} from './views/theme/base/base.component';
 

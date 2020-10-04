@@ -54,6 +54,10 @@ export class DashboardComponent implements OnInit {
   form: any;
   selectedHotel: CompetitionModel;
   hotel: CompetitionModel;
+  selectedItem: CommentModel;
+  totalElements = 0;
+  pageSize = 10;
+  page = 1;
 
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -73,11 +77,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commentList$ = this.commentService.getLatestComments();
-    this.commentList$.subscribe((commentList: CommentModel[]) => {
-      this.commentList = commentList;
-      this.cdr.detectChanges();
-    });
+    this.commentList$ = this.commentService.getComments(this.page - 1, this.pageSize);
+    this.processComments();
     this.commentCountList$ = this.commentService.getCommentsByCount();
     this.commentCountList$.subscribe((commentCountList: CommentCountModel[]) => {
       this.commentCountList = commentCountList;
@@ -183,5 +184,20 @@ export class DashboardComponent implements OnInit {
     this.commentService.updateComment(comment.id, comment)
       .subscribe((commentModel: CommentModel) => {
       });
+  }
+
+  loadComments(page: number) {
+    this.page = page;
+    this.commentList$ = this.commentService.getComments(page - 1, this.pageSize);
+    this.processComments();
+  }
+  processComments() {
+    this.commentList$.subscribe((commentList: CommentModel[]) => {
+      this.commentList = commentList['content'];
+      this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+      this.totalElements = commentList['totalElements'];
+      this.selectedItem = this.commentList[0];
+      this.cdr.detectChanges();
+    });
   }
 }

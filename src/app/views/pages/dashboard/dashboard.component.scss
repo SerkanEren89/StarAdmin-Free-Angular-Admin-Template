@@ -192,6 +192,8 @@
   text-align: center;
 }
 .title-container {
+  padding-left: 10px;
+  padding-right: 20px;
   .title {
     font-size: 15px;
     background-color: #ffffff;
@@ -213,6 +215,10 @@
 .input-group > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
   padding: 1.4rem;
 }
+.rating-card {
+  padding-right: 20px;
+  padding-left: 20px;
+}
 .rating-card:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -220,4 +226,7 @@
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.pagination {
+  margin-top: 20px;
 }

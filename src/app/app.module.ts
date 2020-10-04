@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
-import {InboxComponent} from './views/theme/inbox/inbox.component';
+import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {ImprovementComponent} from './views/pages/improvement/improvement.component';
 import {ChartsModule} from 'ng2-charts';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';

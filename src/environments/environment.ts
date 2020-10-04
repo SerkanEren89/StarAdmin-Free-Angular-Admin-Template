@@ -4,6 +4,6 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8084/',
+  url: 'http://localhost:5000/',
   authTokenKey: 'authce9d77b308c149d5992a80073637e4d5'
 };

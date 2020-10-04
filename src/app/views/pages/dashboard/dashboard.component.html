@@ -142,6 +142,7 @@
               <td class="text-primary">
                 <i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>
                 <i class="fa fa-language action-button" (click)="translate(comment)"></i>
+                <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
               </td>
             </tr>
             </tbody>

@@ -12,4 +12,5 @@ export class CommentModel {
   starred: boolean;
   translatedText: string;
   ratingOverFive: number;
+  url: string;
 }

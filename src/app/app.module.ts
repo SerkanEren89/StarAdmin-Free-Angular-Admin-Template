@@ -13,12 +13,14 @@ import {ChartsModule} from 'ng2-charts';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {InterceptService} from './core/_base/utils/intercept.service';
 import {ThemeModule} from './views/theme/theme.module';
+import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InboxComponent,
     ImprovementComponent,
+    CategorizationComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,8 @@ import {CommentCountRatingModel} from '../../../core/dashboard/_models/comment-c
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {UserModel} from '../../../core/auth/_models/user.model';
 import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
+import {CommentCategoryService} from '../../../core/category/_services/comment-category.service';
+import {CategoryGroupModel} from '../../../core/category/_models/category-group.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,6 +43,8 @@ export class DashboardComponent implements OnInit {
   commentCountRatings: CommentCountRatingModel[];
   improvementList$: Observable<ImprovementModel[]>;
   improvementList: ImprovementModel[];
+  categoryGroupList$: Observable<CategoryGroupModel[]>;
+  categoryGroupList: CategoryGroupModel[];
   competitionList$: Observable<CompetitionModel[]>;
   competitionList: CompetitionModel[];
   currentUser: UserModel;
@@ -71,6 +75,7 @@ export class DashboardComponent implements OnInit {
               private improvementService: ImprovementService,
               private taskService: TaskService,
               private competitionService: CompetitionService,
+              private commentCategoryService: CommentCategoryService,
               private modalService: NgbModal,
               private cdr: ChangeDetectorRef,
               private router: Router) {
@@ -106,6 +111,11 @@ export class DashboardComponent implements OnInit {
       this.improvementList = improvementList;
       this.cdr.detectChanges();
     });
+    this.categoryGroupList$ = this.commentCategoryService.getCategorySentimentCount();
+    this.categoryGroupList$.subscribe((categoryGroupList: CategoryGroupModel[]) => {
+      this.categoryGroupList = categoryGroupList;
+      this.cdr.detectChanges();
+    });
 
     this.employeeList$ = this.taskService.getEmployeeList();
     this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
@@ -124,6 +134,10 @@ export class DashboardComponent implements OnInit {
 
   goToDetail(source: string) {
     this.router.navigateByUrl('dashboard/' + source);
+  }
+
+  goToCategoryDetail(type: string) {
+    this.router.navigateByUrl('category/' + type);
   }
 
   open(comment, content) {

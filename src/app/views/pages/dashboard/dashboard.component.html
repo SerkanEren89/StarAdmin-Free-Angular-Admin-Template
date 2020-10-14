@@ -48,7 +48,48 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="row">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
+       (click)="goToCategoryDetail(categoryGroup.category.name)"
+       *ngFor='let categoryGroup of categoryGroupList | slice:0:4'>
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-shower category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')"></i>
+            <i class="fa fa-egg category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')"></i>
+            <i class="fa fa-hamburger category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('food')"></i>
+            <i class="fa fa-wifi category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')"></i>
+            <i class="fa fa-users category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')"></i>
+            <i class="fa fa-money category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')"></i>
+            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('location')"></i>
+            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')"></i>
+            <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">%{{categoryGroup.score}}</h3>
+              <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
+              <p class="text-right mb-0">
+                <span class="text-danger">
+                {{categoryGroup.negativeCount}}
+                  <i class="fa fa-thumbs-down"></i>
+                </span>
+                /
+                <span class="text-success">
+                {{categoryGroup.positiveCount}}
+                  <i class="fa fa-thumbs-up"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="col-lg-6 grid-margin stretch-card">
@@ -151,72 +192,6 @@
                           (pageChange)="loadComments($event)"
                           [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                           aria-label="Default pagination" class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Most Needed Improvements</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>
-                Category
-              </th>
-              <th>
-                Performance
-              </th>
-              <th>
-                Mentions
-              </th>
-              <th>
-                Positive
-              </th>
-              <th>
-                Neutral
-              </th>
-              <th>
-                Negative
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let improvement of improvementList" routerLink="/improvement">
-              <td>
-                {{improvement.category}}
-              </td>
-              <td  [ngClass]="{'text-danger': improvement.performance < 40,
-               'text-warning':(improvement.performance >= 40 && improvement.performance < 70), 'text-success':improvement.performance >= 70 }">
-                {{improvement.performance}}%
-              </td>
-              <td>
-                {{improvement.mentionCount}}
-              </td>
-              <td class="text-success">
-                {{improvement.positiveMentionCount}}
-                <i class="mdi mdi-arrow-up"></i>
-              </td>
-              <td class="text-warning">
-                {{improvement.neutralMentionCount}}
-              </td>
-              <td class="text-danger">
-                {{improvement.negativeMentionCount}}
-                <i class="mdi mdi-arrow-down"></i>
-              </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
-                  Detail
-                  <i class="mdi mdi-arrow-right-bold"></i>
-                </button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>

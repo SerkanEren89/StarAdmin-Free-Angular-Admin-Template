@@ -12,6 +12,7 @@ import {CategoryModel} from '../../../core/category/_models/category.model';
 import {CommentCategoryService} from '../../../core/category/_services/comment-category.service';
 import {CategorizationModel} from '../../../core/category/_models/categorization.model';
 import {CategorySentimentModel} from '../../../core/category/_models/category-sentiment.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-categorization',
@@ -39,6 +40,7 @@ export class CategorizationComponent implements OnInit {
   constructor(private commentService: CommentService,
               private categoryService: CategoryService,
               private commentCategoryService: CommentCategoryService,
+              private toastr: ToastrService,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -93,6 +95,7 @@ export class CategorizationComponent implements OnInit {
     this.categorization.commentCategoryList = this.categorySentimentList;
     this.commentCategoryService.saveCategorization(this.categorization)
       .subscribe((categorizationModel: CategorizationModel) => {
+        this.toastr.success('Categorization saved with success!');
       });
   }
 

@@ -7,7 +7,6 @@
 @import "../node_modules/compass-mixins/lib/animate";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/@mdi/font/scss/materialdesignicons";
-@import "../node_modules/font-awesome/scss/font-awesome";
 @import "./assets/styles/fonts";
 @import "./assets/styles/functions";
 @import "./assets/styles/mixins/background";
@@ -49,4 +48,5 @@
 @import "./assets/styles/misc";
 @import "./assets/styles/utilities";
 @import "./assets/styles/demo";
+@import '~ngx-toastr/toastr';
 /* You can add global styles to this file, and also import other style files */

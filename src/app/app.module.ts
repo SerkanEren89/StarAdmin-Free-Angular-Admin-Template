@@ -14,13 +14,17 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {InterceptService} from './core/_base/utils/intercept.service';
 import {ThemeModule} from './views/theme/theme.module';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+import {CategoryComponent} from './views/pages/category/category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InboxComponent,
     ImprovementComponent,
-    CategorizationComponent
+    CategorizationComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import {CategorizationComponent} from './views/pages/categorization/categorizati
     FormsModule,
     NgbModule,
     ChartsModule,
-    ThemeModule
+    ThemeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     InterceptService,

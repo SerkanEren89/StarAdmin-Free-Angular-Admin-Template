@@ -4,6 +4,7 @@ import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {ImprovementComponent} from './views/pages/improvement/improvement.component';
 import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
+import {CategoryComponent} from './views/pages/category/category.component';
 
 const routes: Routes = [
     {
@@ -28,6 +29,7 @@ const routes: Routes = [
         },
         {path: 'improvement', component: ImprovementComponent},
         {path: 'categorization', component: CategorizationComponent},
+        {path: 'category/:type', component: CategoryComponent},
         {path: 'inbox', component: InboxComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}

@@ -29,9 +29,12 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/flag-icon-css/css/flag-icon.min.css"
+              "node_modules/flag-icon-css/css/flag-icon.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+            ]
           },
           "configurations": {
             "production": {

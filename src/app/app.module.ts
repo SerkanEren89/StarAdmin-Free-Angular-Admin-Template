@@ -8,23 +8,19 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {InboxComponent} from './views/pages/inbox/inbox.component';
-import {ImprovementComponent} from './views/pages/improvement/improvement.component';
 import {ChartsModule} from 'ng2-charts';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {InterceptService} from './core/_base/utils/intercept.service';
 import {ThemeModule} from './views/theme/theme.module';
-import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {CategoryComponent} from './views/pages/category/category.component';
+import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InboxComponent,
-    ImprovementComponent,
-    CategorizationComponent,
-    CategoryComponent
+    CategorizationComponent
   ],
   imports: [
     BrowserModule,

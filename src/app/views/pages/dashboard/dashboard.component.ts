@@ -6,8 +6,6 @@ import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {Router} from '@angular/router';
 import {DashboardService} from '../../../core/dashboard/_service/dashboard.service';
-import {ImprovementModel} from '../../../core/improvement/_models/improvement.model';
-import {ImprovementService} from '../../../core/improvement/_services/improvement.service';
 import {TaskModel} from '../../../core/inbox/_models/task.model';
 import {EmployeeModel} from '../../../core/task/_models/employee.model';
 import {TaskService} from '../../../core/task/_services/task.service';
@@ -41,8 +39,6 @@ export class DashboardComponent implements OnInit {
   monthlyRating: MonthlyRatingsModel;
   commentCountRatings$: Observable<CommentCountRatingModel[]>;
   commentCountRatings: CommentCountRatingModel[];
-  improvementList$: Observable<ImprovementModel[]>;
-  improvementList: ImprovementModel[];
   categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
   competitionList$: Observable<CompetitionModel[]>;
@@ -72,7 +68,6 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService,
               private commentService: CommentService,
               private authService: AuthService,
-              private improvementService: ImprovementService,
               private taskService: TaskService,
               private competitionService: CompetitionService,
               private commentCategoryService: CommentCategoryService,
@@ -106,11 +101,6 @@ export class DashboardComponent implements OnInit {
       this.cdr.detectChanges();
     });
     this.currentUser = this.authService.currentUserValue;
-    this.improvementList$ = this.improvementService.getAllImprovementList();
-    this.improvementList$.subscribe((improvementList: ImprovementModel[]) => {
-      this.improvementList = improvementList;
-      this.cdr.detectChanges();
-    });
     this.categoryGroupList$ = this.commentCategoryService.getCategorySentimentCount();
     this.categoryGroupList$.subscribe((categoryGroupList: CategoryGroupModel[]) => {
       this.categoryGroupList = categoryGroupList;
@@ -205,6 +195,7 @@ export class DashboardComponent implements OnInit {
     this.commentList$ = this.commentService.getComments(page - 1, this.pageSize);
     this.processComments();
   }
+
   processComments() {
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList['content'];

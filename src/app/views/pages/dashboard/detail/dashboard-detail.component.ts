@@ -4,13 +4,11 @@ import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {ActivatedRoute} from '@angular/router';
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
-import {ImprovementModel} from '../../../../core/improvement/_models/improvement.model';
 import {CommentCountLanguageModel} from '../../../../core/inbox/_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../../../../core/inbox/_models/comment-count-traveled-with.model';
 import {EmployeeModel} from '../../../../core/task/_models/employee.model';
 import {TaskModel} from '../../../../core/inbox/_models/task.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ImprovementService} from '../../../../core/improvement/_services/improvement.service';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TaskService} from '../../../../core/task/_services/task.service';
 
@@ -24,8 +22,6 @@ import {TaskService} from '../../../../core/task/_services/task.service';
 export class DashboardDetailComponent implements OnInit {
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
-  assessmentByCategory$: Observable<ImprovementModel[]>;
-  assessmentByCategory: ImprovementModel[];
   commentsByLanguage$: Observable<CommentCountLanguageModel[]>;
   commentsByLanguage: CommentCountLanguageModel[] = [];
   commentsByTraveledWith$: Observable<CommentCountTraveledWithModel[]>;
@@ -38,19 +34,18 @@ export class DashboardDetailComponent implements OnInit {
   closeResult = '';
   source: string;
   lineChartData: ChartDataSets[] = [
-    { data: [72, 75, 77, 77, 80, 84], label: 'Bar' },
-    { data: [72, 74, 78, 79, 79, 79], label: 'Reception' },
-    { data: [70, 73, 75, 79, 80, 83], label: 'Rooms' },
-    { data: [72, 72, 72, 72, 73, 73], label: 'Cleanliness' },
-    { data: [74, 74, 75, 75, 75, 76], label: 'Pool' },
+    {data: [72, 75, 77, 77, 80, 84], label: 'Bar'},
+    {data: [72, 74, 78, 79, 79, 79], label: 'Reception'},
+    {data: [70, 73, 75, 79, 80, 83], label: 'Rooms'},
+    {data: [72, 72, 72, 72, 73, 73], label: 'Cleanliness'},
+    {data: [74, 74, 75, 75, 75, 76], label: 'Pool'},
   ];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
   resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
-  inputFormatter =  (x: EmployeeModel) => x.name + ' ' + x.surname;
+  inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
 
   constructor(private route: ActivatedRoute,
               private modalService: NgbModal,
-              private improvementService: ImprovementService,
               private commentService: CommentService,
               private taskService: TaskService,
               private cdr: ChangeDetectorRef) {
@@ -61,11 +56,6 @@ export class DashboardDetailComponent implements OnInit {
     this.commentList$ = this.commentService.getLatestCommentsBySource(this.source);
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
-      this.cdr.detectChanges();
-    });
-    this.assessmentByCategory$ = this.improvementService.getAllImprovementList();
-    this.assessmentByCategory$.subscribe((assessmentByCategory: ImprovementModel[]) => {
-      this.assessmentByCategory = assessmentByCategory;
       this.cdr.detectChanges();
     });
 
@@ -113,16 +103,18 @@ export class DashboardDetailComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
   translate(comment) {
     this.selectedComment = comment;
   }
+
   search = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;

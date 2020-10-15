@@ -1,20 +1,20 @@
 import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {CommentCategoryService} from '../../../core/category/_services/comment-category.service';
+import {CommentCategoryService} from '../../../../core/category/_services/comment-category.service';
 import {Observable} from 'rxjs';
-import {CommentModel} from '../../../core/inbox/_models/comment.model';
-import {CommentCategoryModel} from '../../../core/category/_models/comment-category.model';
-import {CommentService} from '../../../core/inbox/_services/comment.service';
+import {CommentModel} from '../../../../core/inbox/_models/comment.model';
+import {CommentCategoryModel} from '../../../../core/category/_models/comment-category.model';
+import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {ToastrService} from 'ngx-toastr';
-import {CategoryGroupModel} from '../../../core/category/_models/category-group.model';
+import {CategoryGroupModel} from '../../../../core/category/_models/category-group.model';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['../../../app.component.scss', './category.component.scss'],
+  selector: 'app-category-detail',
+  templateUrl: './category-detail.component.html',
+  styleUrls: ['../../../../app.component.scss', './category-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CategoryComponent implements OnInit {
+export class CategoryDetailComponent implements OnInit {
   commentCategoryList$: Observable<CommentCategoryModel[]>;
   commentCategoryList: CommentCategoryModel[] = [];
   categoryGroup$: Observable<CategoryGroupModel>;

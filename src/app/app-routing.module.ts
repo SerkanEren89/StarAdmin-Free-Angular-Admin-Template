@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {InboxComponent} from './views/pages/inbox/inbox.component';
-import {ImprovementComponent} from './views/pages/improvement/improvement.component';
 import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
-import {CategoryComponent} from './views/pages/category/category.component';
 
 const routes: Routes = [
     {
@@ -20,6 +18,10 @@ const routes: Routes = [
           loadChildren: () => import('src/app/views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
         },
         {
+          path: 'category',
+          loadChildren: () => import('src/app/views/pages/category/category.module').then(m => m.CategoryModule)
+        },
+        {
           path: 'competition',
           loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule)
         },
@@ -27,9 +29,7 @@ const routes: Routes = [
           path: 'task',
           loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule)
         },
-        {path: 'improvement', component: ImprovementComponent},
         {path: 'categorization', component: CategorizationComponent},
-        {path: 'category/:type', component: CategoryComponent},
         {path: 'inbox', component: InboxComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}

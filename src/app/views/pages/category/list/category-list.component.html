@@ -1,0 +1,42 @@
+<h5 class="card-title text-primary mb-4">Categories</h5>
+<div class="row">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
+       (click)="goToCategoryDetail(categoryGroup.category.name)"
+       *ngFor='let categoryGroup of categoryGroupList'>
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-shower category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')"></i>
+            <i class="fa fa-egg category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')"></i>
+            <i class="fa fa-hamburger category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('food')"></i>
+            <i class="fa fa-wifi category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')"></i>
+            <i class="fa fa-users category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')"></i>
+            <i class="fa fa-money category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')"></i>
+            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('location')"></i>
+            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')"></i>
+            <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0">%{{categoryGroup.score}}</h3>
+              <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
+              <p class="text-right mb-0">
+                <span class="text-danger">
+                {{categoryGroup.negativeCount}}
+                  <i class="fa fa-thumbs-down"></i>
+                </span>
+                /
+                <span class="text-success">
+                {{categoryGroup.positiveCount}}
+                  <i class="fa fa-thumbs-up"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

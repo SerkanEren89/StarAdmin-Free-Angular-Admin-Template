@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
-      <div class="card-body pagination-container">
+      <div class="pagination-container">
         <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
                         [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
@@ -13,6 +13,16 @@
              [class.selected]="selectedIndex === i"
              (click)="selectItem(comment, i)">
           <p class="comment-container">{{comment.content}}</p>
+          <div class="rating-container">
+            <span class="rating-text">{{comment.rating}} / 10</span>
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+
+            <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          </div>
           <div class="brand-container">
             <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
             <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
@@ -24,6 +34,7 @@
             <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'MM/dd/yyyy'}}</span>
+            <i class="fa fa-check-circle" *ngIf="comment.categorized"></i>
           </div>
         </div>
       </div>

@@ -75,6 +75,7 @@ export class CategorizationComponent implements OnInit {
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
     this.selectedIndex = index;
+    this.categoryList.forEach(category => category.sentiment = 'Action');
     this.getCategorizationForComment();
   }
 

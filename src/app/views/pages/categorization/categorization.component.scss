@@ -10,6 +10,7 @@
 .brand-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   img {
     margin-right: 10px;
     max-height: 25px;
@@ -20,6 +21,7 @@
   }
   .date {
     margin-left: 10px;
+    margin-right: 10px;
     font-size: 12px;
     font-weight: 300;
     align-self: center;
@@ -147,6 +149,7 @@
 }
 .pagination-container {
   padding: 0.3rem !important;
+  margin: 0;
 }
 .star {
   position: relative;
@@ -172,3 +175,5 @@
   float: right;
   padding-top: 20px;
 }
+
+

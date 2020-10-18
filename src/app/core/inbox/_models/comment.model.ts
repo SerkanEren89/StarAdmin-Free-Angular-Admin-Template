@@ -13,4 +13,5 @@ export class CommentModel {
   translatedText: string;
   ratingOverFive: number;
   url: string;
+  categorized: boolean;
 }

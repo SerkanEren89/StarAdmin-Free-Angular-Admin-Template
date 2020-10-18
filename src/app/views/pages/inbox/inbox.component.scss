@@ -166,3 +166,18 @@
 .pointer {
   cursor: pointer;
 }
+
+.title-container {
+  padding-left: 10px;
+  padding-right: 20px;
+  .parent {
+    padding-left: 0;
+  }
+  .title {
+    font-size: 15px;
+    background-color: #ffffff;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 20px;
+  }
+}

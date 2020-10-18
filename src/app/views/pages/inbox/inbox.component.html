@@ -1,4 +1,8 @@
-<h5 class="card-title text-primary mb-4">Reviews</h5>
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">Reviews</span>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
@@ -6,7 +10,8 @@
         <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
                         [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-                        aria-label="Default pagination" class="d-flex justify-content-center pagination-success"></ngb-pagination>
+                        aria-label="Default pagination"
+                        class="d-flex justify-content-center pagination-success"></ngb-pagination>
       </div>
       <div class="card-body inbox">
         <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
@@ -25,14 +30,22 @@
             <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="brand-container">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')"
+                 src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')"
+                 src="assets/images/hotelsCom.jpg">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')"
+                 src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')"
+                 src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')"
+                 src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')"
+                 src="assets/images/otelPuan.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')"
+                 src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')"
+                 src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'MM/dd/yyyy'}}</span>
           </div>
@@ -47,40 +60,59 @@
           <div class="summary-container">
             <div class="summary">
               <p class="title">
-                <i class="fa fa-star star pointer" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
-                <i class="fa fa-star-o star pointer" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
+                <i class="fa fa-star star pointer" *ngIf="selectedItem.starred"
+                   (click)="markAsStarred(selectedItem)"></i>
+                <i class="fa fa-star-o star pointer" *ngIf="!selectedItem.starred"
+                   (click)="markAsStarred(selectedItem)"></i>
                 {{selectedItem.content}}</p>
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('google')" src="assets/images/google.png">
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')"
+                   src="assets/images/bookingCom.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')"
+                   src="assets/images/hotelsCom.jpg">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')"
+                   src="assets/images/tripadvisor.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')"
+                   src="assets/images/tatilSepeti.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('google')"
+                   src="assets/images/google.png">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('otelpuan')"
+                   src="assets/images/otelPuan.png">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')"
+                   src="assets/images/odamax.jpg">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')"
+                   src="assets/images/agoda.png">
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</span>
-              <p class="written" >Written By: {{selectedItem.author}}</p>
-              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'MM/dd/yyyy'}}</span>
+              <p class="written">Written By: {{selectedItem.author}}</p>
+              <span class="written"
+                    *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'MM/dd/yyyy'}}</span>
             </div>
             <div class="review">
               <p class="rating"
-                 [ngClass]="{'text-danger': selectedItem.rating < 6, 'text-warning':(selectedItem.rating >= 6 && selectedItem.rating < 8), 'text-success':selectedItem.rating >= 8 }"> {{selectedItem.rating}} / 10</p>
+                 [ngClass]="{'text-danger': selectedItem.rating < 6, 'text-warning':(selectedItem.rating >= 6 && selectedItem.rating < 8), 'text-success':selectedItem.rating >= 8 }"> {{selectedItem.rating}}
+                / 10</p>
               <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
               </span>
               </ng-template>
-              <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+              <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true"
+                          [max]="5"></ngb-rating>
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>
           <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
           <div class="template-demo">
-            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
-            <button type="button" class="btn btn-warning" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
-            <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign Someone as a Task</button>
+            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i
+              class="fa fa-language"></i>Translate
+            </button>
+            <button type="button" class="btn btn-warning" (click)="markAsStarred(selectedItem)"><i
+              class="mdi mdi-star"></i>Mark as Important
+            </button>
+            <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign
+              Someone as a Task
+            </button>
           </div>
         </div>
       </div>
@@ -100,7 +132,7 @@
       <div class="summary">
         <p class="title">{{selectedItem.content}}</p>
         <span class="brand popup-brand">{{selectedItem.source}}</span>
-        <p class="written" >Written By: {{selectedItem.author}}</p>
+        <p class="written">Written By: {{selectedItem.author}}</p>
         <p class="written">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</p>
       </div>
     </div>

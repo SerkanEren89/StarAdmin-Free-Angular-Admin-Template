@@ -96,6 +96,7 @@ export class CategorizationComponent implements OnInit {
     this.categorization.commentCategoryList = this.categorySentimentList;
     this.commentCategoryService.saveCategorization(this.categorization)
       .subscribe((categorizationModel: CategorizationModel) => {
+        this.categorization.comment.categorized = true;
         this.toastr.success('Categorization saved with success!');
       });
   }

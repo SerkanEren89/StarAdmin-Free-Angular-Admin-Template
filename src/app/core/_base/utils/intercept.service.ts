@@ -43,6 +43,7 @@ export class InterceptService implements HttpInterceptor {
         },
         error => {
           if (error.status === 401) {
+            localStorage.removeItem('revxray-user');
             this.router.navigateByUrl('/auth/login');
           } else {
           }

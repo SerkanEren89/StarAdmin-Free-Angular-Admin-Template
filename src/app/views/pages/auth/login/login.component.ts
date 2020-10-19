@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authService: AuthService) {
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (localStorage.getItem('revxray-user')) {
       this.router.navigate(['/']);
     }
   }

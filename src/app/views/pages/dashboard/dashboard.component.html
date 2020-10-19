@@ -41,8 +41,6 @@
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0">{{commentCountRating.rating}}</h3>
               <p class="text-right mb-0">{{commentCountRating.commentCount}} Reviews</p>
-              <p *ngIf="commentCountRating.trend < 0" class="text-right mb-0 text-danger">{{commentCountRating.trend}} <i class="fa fa-thumbs-down"></i></p>
-              <p *ngIf="commentCountRating.trend >= 0" class="text-right mb-0 text-success">{{commentCountRating.trend}} <i class="fa fa-thumbs-up"></i></p>
             </div>
           </div>
         </div>

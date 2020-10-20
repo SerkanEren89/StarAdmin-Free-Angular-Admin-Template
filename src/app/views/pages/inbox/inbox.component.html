@@ -60,10 +60,13 @@
           <div class="summary-container">
             <div class="summary">
               <p class="title">
-                <i class="fa fa-star star pointer" *ngIf="selectedItem.starred"
-                   (click)="markAsStarred(selectedItem)"></i>
-                <i class="fa fa-star-o star pointer" *ngIf="!selectedItem.starred"
-                   (click)="markAsStarred(selectedItem)"></i>
+                <a *ngIf="selectedItem.starred"
+                   (click)="markAsStarred(selectedItem)"><i class="fa fa-star star-yellow pointer" ></i>
+                </a>
+                <a *ngIf="!selectedItem.starred"
+                   (click)="markAsStarred(selectedItem)">
+                  <i class="far fa-star star-yellow pointer"></i>
+                </a>
                 {{selectedItem.content}}</p>
               <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')"
                    src="assets/images/bookingCom.png">
@@ -107,8 +110,11 @@
             <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i
               class="fa fa-language"></i>Translate
             </button>
-            <button type="button" class="btn btn-warning" (click)="markAsStarred(selectedItem)"><i
+            <button type="button" class="btn btn-warning" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
               class="mdi mdi-star"></i>Mark as Important
+            </button>
+            <button type="button" class="btn btn-warning" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
+              class="mdi mdi-star"></i>Mark as Unimportant
             </button>
             <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign
               Someone as a Task

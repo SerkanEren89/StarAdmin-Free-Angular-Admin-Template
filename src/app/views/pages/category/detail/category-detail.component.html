@@ -78,7 +78,7 @@
             <div class="summary">
               <p class="title">
                 <i class="fas fa-star star pointer" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
-                <i class="fas fa-star-o star pointer" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
+                <i class="far fa-star star pointer" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
                 {{selectedItem.content}}</p>
               <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
               <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >

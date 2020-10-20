@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
@@ -22,6 +22,7 @@ import {UserModel} from '../../../core/auth/_models/user.model';
 import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
 import {CommentCategoryService} from '../../../core/category/_services/comment-category.service';
 import {CategoryGroupModel} from '../../../core/category/_models/category-group.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +32,7 @@ import {CategoryGroupModel} from '../../../core/category/_models/category-group.
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
   commentCountList$: Observable<CommentCountModel[]>;
@@ -72,6 +74,7 @@ export class DashboardComponent implements OnInit {
               private competitionService: CompetitionService,
               private commentCategoryService: CommentCategoryService,
               private modalService: NgbModal,
+              private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
               private router: Router) {
   }
@@ -139,8 +142,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  translate(comment) {
-    this.selectedComment = comment;
+  markAsStarred(selectedItem: CommentModel) {
+    selectedItem.starred = !selectedItem.starred;
+    this.commentService.updateComment(selectedItem.id, selectedItem)
+      .subscribe((commentModel: CommentModel) => {
+        this.toastr.success('This comment marked as imported');
+      });
+  }
+
+  translate(comment: CommentModel) {
+    this.commentService.getTranslatedComment(comment.id)
+      .subscribe((translatedComment: CommentModel) => {
+        this.selectedComment = translatedComment;
+        this.open(this.selectedComment, this.contentReviewDetail);
+      });
   }
 
   private getDismissReason(reason: any): string {
@@ -159,7 +174,7 @@ export class DashboardComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
@@ -181,13 +196,6 @@ export class DashboardComponent implements OnInit {
   changeHotel() {
     this.hotel = this.selectedHotel;
     this.modalService.dismissAll();
-  }
-
-  markAsStarred(comment: CommentModel) {
-    comment.starred = !comment.starred;
-    this.commentService.updateComment(comment.id, comment)
-      .subscribe((commentModel: CommentModel) => {
-      });
   }
 
   loadComments(page: number) {

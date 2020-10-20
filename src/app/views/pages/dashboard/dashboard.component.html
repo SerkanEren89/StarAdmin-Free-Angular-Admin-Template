@@ -147,8 +147,8 @@
             <tbody>
             <tr *ngFor="let comment of commentList">
               <td class="text star-container">
-                <i class="fa fa-star star pointer" *ngIf="comment.starred" (click)="markAsStarred(comment)"></i>
-                <i class="fa fa-star-o star pointer" *ngIf="!comment.starred" (click)="markAsStarred(comment)"></i>
+                <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
+                <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
@@ -163,7 +163,6 @@
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content == null">
-
               </td>
               <td>
                 <div>
@@ -185,8 +184,8 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>
-                <i class="fa fa-language action-button" (click)="translate(comment)"></i>
+                <!--<i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>-->
+                <a (click)="translate(comment)"><i class="fa fa-language action-button" ></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
               </td>
             </tr>
@@ -254,6 +253,7 @@
     <div class="summary-container">
       <div class="summary">
         <p class="title">{{selectedComment.content}}</p>
+        <p class="content-answer" *ngIf="selectedComment.translatedText != null">{{selectedComment.translatedText}}</p>
         <span class="brand popup-brand">{{selectedComment.source}}</span>
         <p class="written" >Written By: {{selectedComment.author}}</p>
         <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
@@ -262,8 +262,9 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-success"><i class="fa fa-language"></i>Translate</button>
-      <button type="button" class="btn btn-primary"><i class="mdi mdi-star"></i>Mark as Important</button>
+      <button type="button" class="btn btn-success" *ngIf="selectedComment.translatedText == null"><i class="fa fa-language"></i>Translate</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
+      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
     </div>
   </div>
 </ng-template>

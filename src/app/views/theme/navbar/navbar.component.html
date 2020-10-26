@@ -14,7 +14,8 @@
           <i class="mdi mdi mdi-bell"></i>
           <span *ngIf="commentsAfterLastLogin != null && commentsAfterLastLogin.length > 0" class="count">{{commentsAfterLastLogin.length}}</span>
         </a>
-        <div class="dropdown-menu navbar-dropdown preview-list" ngbDropdownMenu aria-labelledby="UserDropdown">
+        <div class="dropdown-menu navbar-dropdown preview-list" ngbDropdownMenu aria-labelledby="UserDropdown"
+             *ngIf="commentsAfterLastLogin != null && commentsAfterLastLogin.length > 0">
           <a class="dropdown-item preview-item" *ngFor="let comment of commentsAfterLastLogin">
             <div class="preview-thumbnail">
               <div class="preview-icon bg-success">

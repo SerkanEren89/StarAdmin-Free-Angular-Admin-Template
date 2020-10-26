@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
               lastLoginData => {
+                localStorage.setItem('lastComments', JSON.stringify(lastLoginData));
                 this.router.navigate([this.returnUrl]);
               },
               error => {

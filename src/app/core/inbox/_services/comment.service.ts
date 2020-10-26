@@ -19,7 +19,7 @@ export class CommentService {
   public commentsAfterLastLogin: Observable<CommentModel[]>;
 
   constructor(private http: HttpClient) {
-    this.commentsAfterLastLoginSubject = new BehaviorSubject<CommentModel[]>(null);
+    this.commentsAfterLastLoginSubject = new BehaviorSubject<CommentModel[]>(JSON.parse(localStorage.getItem('lastComments')));
     this.commentsAfterLastLogin = this.commentsAfterLastLoginSubject.asObservable();
   }
   public get commentsAfterLastLoginValue(): CommentModel[] {

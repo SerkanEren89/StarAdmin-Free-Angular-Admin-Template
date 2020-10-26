@@ -7,4 +7,6 @@ export class UserModel {
   token: string;
   hotelName: string;
   hotelId: number;
+  lastLogin: Date;
+  previousLogin: Date;
 }

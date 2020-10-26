@@ -12,49 +12,22 @@
       <li class="nav-item dropdown d-none d-xl-inline-block" ngbDropdown>
         <a class="nav-link dropdown-toggle" ngbDropdownToggle>
           <i class="mdi mdi mdi-bell"></i>
-          <span class="count">4</span>
+          <span *ngIf="commentsAfterLastLogin != null && commentsAfterLastLogin.length > 0" class="count">{{commentsAfterLastLogin.length}}</span>
         </a>
         <div class="dropdown-menu navbar-dropdown preview-list" ngbDropdownMenu aria-labelledby="UserDropdown">
-          <a class="dropdown-item preview-item">
+          <a class="dropdown-item preview-item" *ngFor="let comment of commentsAfterLastLogin">
             <div class="preview-thumbnail">
               <div class="preview-icon bg-success">
-                <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                <i class="mdi mx-0">{{comment.rating}}</i>
               </div>
             </div>
             <div class="preview-item-content">
-              <h6 class="preview-subject font-weight-medium">Application Error</h6>
+              <h6 class="preview-subject font-weight-medium">{{comment.author}}</h6>
               <p class="font-weight-light small-text">
-                Just now
+                {{comment.content}}
               </p>
             </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-warning">
-                <i class="mdi mdi-tune-vertical mx-0"></i>
-              </div>
-            </div>
-            <div class="preview-item-content">
-              <h6 class="preview-subject font-weight-medium">Settings</h6>
-              <p class="font-weight-light small-text">
-                Private message
-              </p>
-            </div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <div class="preview-icon bg-info">
-                <i class="mdi mdi-email-outline mx-0"></i>
-              </div>
-            </div>
-            <div class="preview-item-content">
-              <h6 class="preview-subject font-weight-medium">New user registration</h6>
-              <p class="font-weight-light small-text">
-                2 days ago
-              </p>
-            </div>
+            <div class="dropdown-divider"></div>
           </a>
         </div>
       </li>

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
+import {CommentService} from '../../../../core/inbox/_services/comment.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private commentService: CommentService) {
     // redirect to home if already logged in
     if (localStorage.getItem('revxray-user')) {
       this.router.navigate(['/']);
@@ -52,7 +54,15 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+          this.commentService.getCommentsAfterLastLogin(data.previousLogin)
+            .pipe(first())
+            .subscribe(
+              lastLoginData => {
+                this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                this.router.navigate([this.returnUrl]);
+              });
         },
         error => {
           this.loading = false;

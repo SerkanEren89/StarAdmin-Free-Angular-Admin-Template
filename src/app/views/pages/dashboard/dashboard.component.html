@@ -178,7 +178,7 @@
                 </div>
               </td>
               <td>
-                {{comment.commentDate  | date:'MM/dd/yyyy'}}
+                {{comment.commentDate  | date:'dd/MM/yyyy'}}
               </td>
               <td class="text-danger"
                   [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}} / 10
@@ -216,7 +216,7 @@
         <p class="title">{{selectedComment.content}}</p>
         <span class="brand popup-brand">{{selectedComment.source}}</span>
         <p class="written" >Written By: {{selectedComment.author}}</p>
-        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
       </div>
     </div>
     <form class="assignee-form">
@@ -258,7 +258,7 @@
         <p class="content-answer" *ngIf="selectedComment.translatedText != null">{{selectedComment.translatedText}}</p>
         <span class="brand popup-brand">{{selectedComment.source}}</span>
         <p class="written" >Written By: {{selectedComment.author}}</p>
-        <p class="written">Published on {{selectedComment.commentDate  | date:'MM/dd/yyyy'}}</p>
+        <p class="written">Published on {{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
       </div>
     </div>
   </div>

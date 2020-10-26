@@ -3,6 +3,8 @@ import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {CompetitionService} from '../../../core/competition/_services/competition.service';
 import {UserModel} from '../../../core/auth/_models/user.model';
+import {CommentModel} from '../../../core/inbox/_models/comment.model';
+import {CommentService} from '../../../core/inbox/_services/comment.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +15,7 @@ import {UserModel} from '../../../core/auth/_models/user.model';
 export class NavbarComponent implements OnInit {
 
   currentUser: UserModel;
+  commentsAfterLastLogin: CommentModel[];
   public sidebarOpened = false;
 
   toggleOffcanvas() {
@@ -25,12 +28,14 @@ export class NavbarComponent implements OnInit {
   }
 
   constructor(private authService: AuthService,
+              private commentService: CommentService,
               config: NgbDropdownConfig) {
     config.placement = 'bottom-right';
   }
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
+    this.commentsAfterLastLogin = this.commentService.commentsAfterLastLoginValue;
   }
 
   signOut() {

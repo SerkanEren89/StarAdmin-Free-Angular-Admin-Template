@@ -33,7 +33,7 @@
             <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
             <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
-            <span class="date">{{comment.commentDate  | date:'MM/dd/yyyy'}}</span>
+            <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
             <i class="fa fa-check-circle" *ngIf="comment.categorized"></i>
           </div>
         </div>
@@ -57,9 +57,9 @@
               <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
               <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
               <span class="brand">{{selectedItem.source}}</span>
-              <span class="brand">Published on {{selectedItem.commentDate  | date:'MM/dd/yyyy'}}</span>
+              <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
               <p class="written" >Written By: {{selectedItem.author}}</p>
-              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'MM/dd/yyyy'}}</span>
+              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>

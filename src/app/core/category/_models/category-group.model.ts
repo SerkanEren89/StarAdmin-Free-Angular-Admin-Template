@@ -7,4 +7,5 @@ export class CategoryGroupModel {
   neutralCount: number;
   score: number;
   totalMention: number;
+  selected: boolean;
 }

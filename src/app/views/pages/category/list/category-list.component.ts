@@ -3,6 +3,10 @@ import {Observable} from 'rxjs';
 import {CategoryGroupModel} from '../../../../core/category/_models/category-group.model';
 import {CommentCategoryService} from '../../../../core/category/_services/comment-category.service';
 import {Router} from '@angular/router';
+import {CommentCategoryModel} from '../../../../core/category/_models/comment-category.model';
+import {CommentModel} from '../../../../core/inbox/_models/comment.model';
+import {CommentService} from '../../../../core/inbox/_services/comment.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-list',
@@ -13,8 +17,22 @@ import {Router} from '@angular/router';
 export class CategoryListComponent implements OnInit {
   categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
+  selectedCategoryGroup: CategoryGroupModel;
+  commentCategoryList$: Observable<CommentCategoryModel[]>;
+  commentCategoryList: CommentCategoryModel[] = [];
+  categoryGroup$: Observable<CategoryGroupModel>;
+  categoryGroup: CategoryGroupModel;
+  commentList: CommentModel[] = [];
+  selectedItem: CommentModel;
+  type: string;
+  selectedIndex = 0;
+  totalElements = 0;
+  pageSize = 10;
+  page = 1;
 
   constructor(private commentCategoryService: CommentCategoryService,
+              private commentService: CommentService,
+              private toastr: ToastrService,
               private router: Router,
               private cdr: ChangeDetectorRef) {
   }
@@ -26,7 +44,58 @@ export class CategoryListComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
-  goToCategoryDetail(type: string) {
-    this.router.navigateByUrl('category/' + type);
+
+  goToCategoryDetail(categoryGroup: CategoryGroupModel) {
+    this.selectedCategoryGroup = categoryGroup;
+    this.categoryGroupList.forEach(item => item.selected = false);
+    categoryGroup.selected = true;
+    this.categoryGroup$ = this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name);
+    this.categoryGroup$.subscribe((item: CategoryGroupModel) => {
+      this.categoryGroup = item;
+      this.cdr.detectChanges();
+    });
+    this.commentCategoryList$ = this.commentCategoryService
+      .getCommentCategoriesByCategoryName(categoryGroup.category.name, this.page - 1, this.pageSize);
+    this.processComments();
+  }
+
+  loadComments(page: number) {
+    this.page = page;
+    this.commentCategoryList$ = this.commentCategoryService.getCommentCategoriesByCategoryName(this.type, this.page - 1, this.pageSize);
+    this.processComments();
+  }
+
+  processComments() {
+    this.commentList = [];
+    this.commentCategoryList$.subscribe((commentCategoryList: CommentCategoryModel[]) => {
+      this.commentCategoryList = commentCategoryList['content'];
+      this.commentCategoryList.forEach(commentCategory => this.commentList.push(commentCategory.comment));
+      this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+      this.selectedItem = this.commentList[0];
+      this.totalElements = commentCategoryList['totalElements'];
+      this.cdr.detectChanges();
+    });
+  }
+
+  markAsStarred(selectedItem: CommentModel) {
+    selectedItem.starred = !selectedItem.starred;
+    this.commentService.updateComment(selectedItem.id, selectedItem)
+      .subscribe((commentModel: CommentModel) => {
+        if (commentModel.starred) {
+        }
+        this.toastr.success('Review marked as important');
+      });
+  }
+
+  translate(selectedItem: CommentModel) {
+    this.commentService.getTranslatedComment(selectedItem.id)
+      .subscribe((translatedComment: CommentModel) => {
+        this.selectedItem = translatedComment;
+      });
+  }
+
+  selectItem(comment: CommentModel, index: number) {
+    this.selectedItem = comment;
+    this.selectedIndex = index;
   }
 }

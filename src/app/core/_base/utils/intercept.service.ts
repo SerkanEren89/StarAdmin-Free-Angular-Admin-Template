@@ -7,18 +7,22 @@ import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
 import {UserModel} from '../../auth/_models/user.model';
+import {LoaderService} from '../../general/_services/loader.service';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
-  constructor(private router: Router) {
+  private httpCount = 0;
+  constructor(private router: Router,
+              private loaderService: LoaderService) {
 
   }
 
   // intercept request and add token
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.httpCount === 0) {
+      this.loaderService.setHttpProgressStatus(true);
+    }
+    this.httpCount++;
     const url = request.url.includes('asset') ? '' : environment.url;
     const currentUser = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('revxray-user'))).getValue();
     if (currentUser != null) {
@@ -38,10 +42,11 @@ export class InterceptService implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-
+            this.finalizeRequest();
           }
         },
         error => {
+          this.finalizeRequest();
           if (error.status === 401) {
             localStorage.removeItem('revxray-user');
             this.router.navigateByUrl('/auth/login');
@@ -50,5 +55,11 @@ export class InterceptService implements HttpInterceptor {
         }
       )
     );
+  }
+  finalizeRequest() {
+    this.httpCount--;
+    if (this.httpCount === 0) {
+      this.loaderService.setHttpProgressStatus(false);
+    }
   }
 }

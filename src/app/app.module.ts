@@ -15,6 +15,7 @@ import {ThemeModule} from './views/theme/theme.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {CategorizationComponent} from './views/pages/categorization/categorizati
     ChartsModule,
     ThemeModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot()
   ],
   providers: [

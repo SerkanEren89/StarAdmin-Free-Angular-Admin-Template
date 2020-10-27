@@ -29,6 +29,7 @@
     "ng-bootstrap": "^1.6.3",
     "ng2-charts": "^2.3.2",
     "ngx-daterange": "^1.0.29",
+    "ngx-spinner": "^9.0.1",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.4",

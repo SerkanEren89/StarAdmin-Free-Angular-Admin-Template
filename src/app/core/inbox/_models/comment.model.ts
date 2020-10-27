@@ -1,3 +1,5 @@
+import {SentimentEnum} from '../../category/_models/sentiment.enum';
+
 export class CommentModel {
   id: number;
   content: string;
@@ -14,4 +16,5 @@ export class CommentModel {
   ratingOverFive: number;
   url: string;
   categorized: boolean;
+  sentiment: SentimentEnum;
 }

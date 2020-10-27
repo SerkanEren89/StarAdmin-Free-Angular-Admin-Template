@@ -46,6 +46,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   goToCategoryDetail(categoryGroup: CategoryGroupModel) {
+    this.page = 1;
     this.selectedCategoryGroup = categoryGroup;
     this.categoryGroupList.forEach(item => item.selected = false);
     categoryGroup.selected = true;
@@ -69,7 +70,10 @@ export class CategoryListComponent implements OnInit {
     this.commentList = [];
     this.commentCategoryList$.subscribe((commentCategoryList: CommentCategoryModel[]) => {
       this.commentCategoryList = commentCategoryList['content'];
-      this.commentCategoryList.forEach(commentCategory => this.commentList.push(commentCategory.comment));
+      this.commentCategoryList.forEach(commentCategory => {
+        commentCategory.comment.sentiment = commentCategory.generalSentiment;
+        this.commentList.push(commentCategory.comment);
+      });
       this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
       this.selectedItem = this.commentList[0];
       this.totalElements = commentCategoryList['totalElements'];
@@ -97,5 +101,12 @@ export class CategoryListComponent implements OnInit {
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
     this.selectedIndex = index;
+  }
+
+  filterBySentiment(sentiment: string) {
+    this.page = 1;
+    this.commentCategoryList$ = this.commentCategoryService.getCommentCategoriesByCategoryNameAndSentiment(this.categoryGroup.category.name,
+      sentiment, this.page - 1, this.pageSize);
+    this.processComments();
   }
 }

@@ -1,0 +1,32 @@
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+  .logo {
+    align-self: center;
+    width: 65%;
+  }
+  .subtitle {
+    align-self: center;
+    color: #308ee0;
+    margin-top: 10px;
+    font-size: 18px;
+  }
+}
+@media (min-width: 768px) {
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 35px;
+    .logo {
+      align-self: center;
+      width: 50%;
+    }
+    .subtitle {
+      align-self: center;
+      color: #6f8088;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+  }
+}

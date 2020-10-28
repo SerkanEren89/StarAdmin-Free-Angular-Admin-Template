@@ -1,8 +1,16 @@
 .content-wrapper {
-  width: 45%;
   align-self: center;
   flex-grow: 0;
 }
 .main-panel {
   width: 100%;
+}
+
+.content-wrapper {
+  width: 100% !important;;
+}
+@media (min-width: 768px) {
+  .content-wrapper {
+    width: 45% !important;
+  }
 }

@@ -8,11 +8,13 @@ import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
 import {UserModel} from '../../auth/_models/user.model';
 import {LoaderService} from '../../general/_services/loader.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
   private httpCount = 0;
   constructor(private router: Router,
+              private toastr: ToastrService,
               private loaderService: LoaderService) {
 
   }
@@ -51,6 +53,7 @@ export class InterceptService implements HttpInterceptor {
             localStorage.removeItem('revxray-user');
             this.router.navigateByUrl('/auth/login');
           } else {
+            this.toastr.error(error.error.message, 'Oops');
           }
         }
       )

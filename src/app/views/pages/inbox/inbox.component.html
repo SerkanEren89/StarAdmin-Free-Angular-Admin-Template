@@ -103,7 +103,7 @@
                           [max]="5"></ngb-rating>
             </div>
           </div>
-          <p class="content">{{selectedItem.content}}</p>
+          <p class="content" [innerHTML]=selectedItem.content></p>
           <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
           <div class="template-demo">

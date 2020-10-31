@@ -68,6 +68,7 @@
             <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('location')"></i>
             <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')"></i>
             <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
+            <i class="fa fa-hotel category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')"></i>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
@@ -97,7 +98,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="lineChartData.length > 0">
   <div class="col-lg-6 grid-margin stretch-card">
     <!--weather card-->
     <div class="card">

@@ -3,6 +3,61 @@
     <span class="input-group-text text-primary title">Categories</span>
   </div>
 </div>
+
+<div class="row" *ngIf="lineChartLabels.length > 0">
+  <div class="col-lg-8 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">By Category</h2>
+        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 grid-margin stretch-card performance">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Performance History</h2>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">The best performance</p>
+            <p class="display-3 mb-4 font-weight-light topic">{{categoryPeriodic.bestCategory.categoryName}}</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">{{(categoryPeriodic.bestCategory.score * 100) | number:'1.2-2'}} %</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst performance</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.worstCategory.categoryName}}</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">{{(categoryPeriodic.worstCategory.score * 100) | number:'1.2-2'}} %</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Best trend</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.bestPeriod.categoryName}}</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-success">%{{categoryPeriodic.increase | number:'1.2-2'}}</small>
+          </div>
+        </div>
+        <div class="wrapper d-flex justify-content-between">
+          <div class="side-left">
+            <p class="mb-2">Worst trend</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.worstPeriod.categoryName}}</p>
+          </div>
+          <div class="side-right">
+            <small class="rating text-danger">%{{categoryPeriodic.decrease | number:'1.2-2'}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
        (click)="goToCategoryDetail(categoryGroup)"
@@ -22,6 +77,7 @@
             <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
             <i class="fa fa-hotel category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('room')"></i>
             <i class="fa fa-volume-up category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('noisy-quite')"></i>
+            <i class="fa fa-hotel category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')"></i>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>

@@ -36,6 +36,22 @@ export class LineChartComponent {
     { // red
       backgroundColor: 'rgba(255,254,120,0.3)',
       borderColor: 'yellow',
+    },
+    { // red
+      backgroundColor: 'rgba(222,91,20,0.3)',
+      borderColor: 'orange',
+    },
+    { // red
+      backgroundColor: 'rgba(19,90,33,0.3)',
+      borderColor: 'blue',
+    },
+    { // red
+      backgroundColor: 'rgba(90,5,69,0.3)',
+      borderColor: 'pink',
+    },
+    { // red
+      backgroundColor: 'rgba(90,59,9,0.3)',
+      borderColor: 'gray',
     }
   ];
 

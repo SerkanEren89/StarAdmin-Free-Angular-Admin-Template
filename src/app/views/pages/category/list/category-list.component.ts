@@ -7,6 +7,10 @@ import {CommentCategoryModel} from '../../../../core/category/_models/comment-ca
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {ToastrService} from 'ngx-toastr';
+import {CategoryGraphModel} from '../../../../core/category/_models/category-graph.model';
+import {ChartDataSets} from 'chart.js';
+import {Label} from 'ng2-charts';
+import {CategoryPeriodModel} from '../../../../core/category/_models/category-period.model';
 
 @Component({
   selector: 'app-category-list',
@@ -17,11 +21,15 @@ import {ToastrService} from 'ngx-toastr';
 export class CategoryListComponent implements OnInit {
   categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
+  categoryPeriodic$: Observable<CategoryGraphModel>;
+  categoryPeriodic: CategoryGraphModel;
   selectedCategoryGroup: CategoryGroupModel;
   commentCategoryList$: Observable<CommentCategoryModel[]>;
   commentCategoryList: CommentCategoryModel[] = [];
   categoryGroup$: Observable<CategoryGroupModel>;
   categoryGroup: CategoryGroupModel;
+  lineChartData: ChartDataSets[] = [];
+  lineChartLabels: Label[] = [];
   commentList: CommentModel[] = [];
   selectedItem: CommentModel;
   type: string;
@@ -41,6 +49,13 @@ export class CategoryListComponent implements OnInit {
     this.categoryGroupList$ = this.commentCategoryService.getCategorySentimentCount();
     this.categoryGroupList$.subscribe((categoryGroupList: CategoryGroupModel[]) => {
       this.categoryGroupList = categoryGroupList;
+      this.cdr.detectChanges();
+    });
+    this.categoryPeriodic$ = this.commentCategoryService.findCategoryPeriodically();
+    this.categoryPeriodic$.subscribe((categoryPeriodic: CategoryGraphModel) => {
+      this.categoryPeriodic = categoryPeriodic;
+      this.lineChartLabels = this.categoryPeriodic.labels;
+      this.lineChartData = this.categoryPeriodic.item;
       this.cdr.detectChanges();
     });
   }

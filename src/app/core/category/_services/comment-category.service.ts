@@ -6,6 +6,8 @@ import {map} from 'rxjs/operators';
 import {CategorySentimentModel} from '../_models/category-sentiment.model';
 import {CategoryGroupModel} from '../_models/category-group.model';
 import {CommentCategoryModel} from '../_models/comment-category.model';
+import {MonthlyRatingsModel} from '../../dashboard/_models/monthly-ratings.model';
+import {CategoryGraphModel} from '../_models/category-graph.model';
 
 const API_COMMENT_CATEGORY_URL = 'comment-categories';
 
@@ -53,5 +55,9 @@ export class CommentCategoryService {
     params = params.append('size', String(pageSize));
     params = params.append('sentiment', sentiment);
     return this.http.get<CommentCategoryModel[]>(API_COMMENT_CATEGORY_URL + '/' + categoryName + '/category', {params: params});
+  }
+
+  findCategoryPeriodically(): Observable<CategoryGraphModel> {
+    return this.http.get<CategoryGraphModel>(API_COMMENT_CATEGORY_URL + '/periodic');
   }
 }

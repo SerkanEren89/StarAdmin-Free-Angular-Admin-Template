@@ -59,7 +59,7 @@
       <div class="card-body">
         <h4 class="card-title">Last {{commentList.length}} {{source}} Reviews</h4>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" #commentTable>
             <thead>
             <tr>
               <th style="width: 10%">
@@ -135,12 +135,12 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6 grid-margin">
+  <div class="col-lg-6 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Assessment By Language</h5>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" #languageTable>
             <thead>
             <tr>
               <th>
@@ -163,12 +163,6 @@
               <td>
                 {{commentCountLanguageModel.commentCount}}
               </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
-                  Detail
-                  <i class="mdi mdi-arrow-right-bold"></i>
-                </button>
-              </td>
             </tr>
             </tbody>
           </table>
@@ -176,12 +170,12 @@
       </div>
     </div>
   </div>
-  <div class="col-6 grid-margin">
+  <div class="col-lg-6 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Assessment By Travel Type</h5>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" #travelTypeTable>
             <thead>
             <tr>
               <th>
@@ -202,12 +196,6 @@
               </td>
               <td>
                 {{commentCountTraveledWithModel.commentCount}}
-              </td>
-              <td style="text-align: center; vertical-align: middle;">
-                <button class="btn btn-inverse-danger btn-rounded btn-fw btn-xs" type="button">
-                  Detail
-                  <i class="mdi mdi-arrow-right-bold"></i>
-                </button>
               </td>
             </tr>
             </tbody>

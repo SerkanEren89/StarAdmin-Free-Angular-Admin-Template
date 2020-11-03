@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
@@ -20,6 +20,9 @@ import {TaskService} from '../../../../core/task/_services/task.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardDetailComponent implements OnInit {
+  @ViewChild('commentTable') elRef;
+  @ViewChild('languageTable') elRefLanguage;
+  @ViewChild('travelTypeTable') elRefTravelType;
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
   commentsByLanguage$: Observable<CommentCountLanguageModel[]>;
@@ -57,18 +60,21 @@ export class DashboardDetailComponent implements OnInit {
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
       this.cdr.detectChanges();
+      this.addLabelTag();
     });
 
     this.commentsByLanguage$ = this.commentService.getCommentsByCountByLanguageAndSource(this.source);
     this.commentsByLanguage$.subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
       this.commentsByLanguage = commentCountLanguageModels;
       this.cdr.detectChanges();
+      this.addLabelTagToLanguageTable();
     });
 
     this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWithAndSource(this.source);
     this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
       this.commentsByTraveledWith = assessmentByTravelType;
       this.cdr.detectChanges();
+      this.addLabelTagToTravelType();
     });
 
     this.employeeList$ = this.taskService.getEmployeeList();
@@ -122,6 +128,37 @@ export class DashboardDetailComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  addLabelTag() {
+    const tableEl = this.elRef.nativeElement;
+    const thEls = tableEl.querySelectorAll('thead th');
+    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+      Array.from(tr.children).forEach(
+        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+      );
+    });
+  }
+  addLabelTagToLanguageTable() {
+    const tableEl = this.elRefLanguage.nativeElement;
+    const thEls = tableEl.querySelectorAll('thead th');
+    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+      Array.from(tr.children).forEach(
+        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+      );
+    });
+  }
+  addLabelTagToTravelType() {
+    const tableEl = this.elRefTravelType.nativeElement;
+    const thEls = tableEl.querySelectorAll('thead th');
+    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+      Array.from(tr.children).forEach(
+        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+      );
     });
   }
 }

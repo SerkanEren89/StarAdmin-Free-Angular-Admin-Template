@@ -1,6 +1,6 @@
-import {Component, Input} from "@angular/core";
-import {ChartDataSets} from "chart.js";
-import {Color, Label} from "ng2-charts";
+import {Component, Input} from '@angular/core';
+import {ChartDataSets} from 'chart.js';
+import {Color, Label} from 'ng2-charts';
 
 @Component({
   selector: 'app-line-chart',
@@ -14,6 +14,7 @@ export class LineChartComponent {
 
   lineChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
   };
 
   lineChartColors: Color[] = [

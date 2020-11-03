@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
@@ -30,9 +30,10 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['../../../app.component.scss', './dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
   @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
+  @ViewChild('commentTable') elRef;
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
   commentCountList$: Observable<CommentCountModel[]>;
@@ -125,6 +126,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+
+  }
+
   goToDetail(source: string) {
     this.router.navigateByUrl('dashboard/' + source);
   }
@@ -211,6 +216,17 @@ export class DashboardComponent implements OnInit {
       this.totalElements = commentList['totalElements'];
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
+      this.addLabelTag();
+    });
+  }
+  addLabelTag() {
+    const tableEl = this.elRef.nativeElement;
+    const thEls = tableEl.querySelectorAll('thead th');
+    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+      Array.from(tr.children).forEach(
+        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+      );
     });
   }
 }

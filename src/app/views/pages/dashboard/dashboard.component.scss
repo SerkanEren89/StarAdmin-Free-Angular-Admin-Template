@@ -30,7 +30,7 @@
   white-space: normal;
 }
 .table-bordered td:nth-child(1) {
-  width: 40%;
+
 }
 .table-bordered{
   table-layout: fixed;
@@ -239,4 +239,25 @@
   padding-left: 50px;
   border: 1px solid #e1dada;
   background-color: aliceblue;
+}
+@media screen and (max-width: 600px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+  }
+  table tr {
+    border: 1px solid #a19b9b;
+  }
+
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+  .star-container {
+    text-align: start;
+  }
 }

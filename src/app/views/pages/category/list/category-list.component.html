@@ -113,19 +113,19 @@
     <div class="card">
       <div class="card-body score-container">
         <div class="row">
-          <div class="col-md-3 d-flex align-items-center pointer" (click)="filterBySentiment('negative')">
+          <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('negative')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-thumbs-down icon-md text-danger"></i>
               <p class="mb-0 ml-1"> {{categoryGroup.negativeCount}} mentions </p></div>
           </div>
-          <div class="col-md-3 d-flex align-items-center pointer" (click)="filterBySentiment('neutral')">
+          <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('neutral')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-meh icon-md text-warning"></i>
               <p class="mb-0 ml-1"> {{categoryGroup.neutralCount}} mentions </p></div>
           </div>
-          <div class="col-md-3 d-flex align-items-center pointer" (click)="filterBySentiment('positive')">
+          <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('positive')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-thumbs-up icon-md text-success"></i>
               <p class="mb-0 ml-1"> {{categoryGroup.positiveCount}} mentions </p></div>
           </div>
-          <div class="col-md-3 d-flex align-items-center">
+          <div class="col-md-3 d-flex align-items-center category-filter">
             <div class="d-flex flex-row align-items-center"><i class="icon-md text-success"></i>
               <p class="mb-0 ml-1"> Score: {{categoryGroup.score}}%</p></div>
           </div>

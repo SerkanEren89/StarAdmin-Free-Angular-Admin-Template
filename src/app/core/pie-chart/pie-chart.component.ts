@@ -12,6 +12,7 @@ export class PieChartComponent {
   @Input() pieChartLabels: Label[] = [];
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
       position: 'top',
     },

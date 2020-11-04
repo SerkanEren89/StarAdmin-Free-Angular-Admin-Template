@@ -154,12 +154,12 @@
                 <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
                 <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
               </td>
-              <td class="text comment"
+              <td class="text comment full"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length <= 100">
                 {{comment.content}}
               </td>
-              <td class="text comment"
+              <td class="text comment full"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length > 100">
                 {{comment.content | slice:0:100}}...

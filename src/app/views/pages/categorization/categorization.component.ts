@@ -116,5 +116,12 @@ export class CategorizationComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
+
+  translate(selectedItem: CommentModel) {
+    this.commentService.getTranslatedComment(selectedItem.id)
+      .subscribe((translatedComment: CommentModel) => {
+        this.selectedItem = translatedComment;
+      });
+  }
 }
 

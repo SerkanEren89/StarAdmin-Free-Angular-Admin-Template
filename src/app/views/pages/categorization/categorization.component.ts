@@ -27,11 +27,10 @@ export class CategorizationComponent implements OnInit {
   categoryList: CategoryModel[];
   selectedItem: CommentModel;
   categorization: CategorizationModel = new CategorizationModel();
-  categorySentiment: CategorySentimentModel = new CategorySentimentModel();
   categorySentimentList: CategorySentimentModel[] = [];
   commentCategorySentiment$: Observable<CategorySentimentModel[]>;
   commentCategorySentiment: CategorySentimentModel[];
-  sentimentTypes: string[] = ['positive', 'negative', 'neutral'];
+  sentimentTypes: string[] = ['Action', 'positive', 'negative', 'neutral'];
   selectedIndex = 0;
   pageSize = 10;
   page = 1;
@@ -84,6 +83,7 @@ export class CategorizationComponent implements OnInit {
   }
 
   saveCategorization() {
+    this.categorySentimentList = [];
     this.categoryList.forEach(category => {
       if (category.sentiment !== 'Action') {
         const categorySentiment = new CategorySentimentModel();

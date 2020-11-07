@@ -65,6 +65,7 @@
           <p class="content">{{selectedItem.content}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
           <div class="template-demo">
+            <button type="button" class="btn btn-outline-dark" (click)="saveCategorization()">Save</button>
             <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
           </div>
 

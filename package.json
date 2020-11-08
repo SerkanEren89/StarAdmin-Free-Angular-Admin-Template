@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "~9.1.12",
     "@angular/common": "~9.1.12",
     "@angular/compiler": "~9.1.12",
@@ -29,6 +30,7 @@
     "ng-bootstrap": "^1.6.3",
     "ng2-charts": "^2.3.2",
     "ngx-daterange": "^1.0.29",
+    "ngx-daterangepicker-material": "^2.1.11",
     "ngx-spinner": "^9.0.1",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",

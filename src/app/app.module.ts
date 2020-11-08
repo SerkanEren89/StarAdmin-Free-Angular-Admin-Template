@@ -16,6 +16,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     ThemeModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxDaterangepickerMd.forRoot(),
+    NgxSliderModule
   ],
   providers: [
     InterceptService,

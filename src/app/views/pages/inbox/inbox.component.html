@@ -2,6 +2,11 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">Reviews</span>
   </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
+    <button type="button" class="btn btn-primary" (click)="openFilterModal(filter)"><i class="mdi mdi-filter"></i>
+      Filter Reviews
+    </button>
+  </div>
 </div>
 <div class="row">
   <div class="col-lg-3 grid-margin stretch-card">
@@ -127,6 +132,83 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #filter let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Filter Reviews</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xl-6 ">
+        <div class="item-container">
+          <div class="col-xl-3">
+            <label>Channel</label>
+          </div>
+          <div class="col-xl-9">
+            <div class="input-group rating-filter">
+              <label class="form-check-label" *ngFor="let commentSource of commentSources; let i = index;">
+                <input type="checkbox" value = "{{commentSource}}"
+                       (change)="changeFilteredChannel(i)"
+                       [checked]="commentSource.checked">{{commentSource.name}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6">
+        <div class="item-container">
+          <div class="col-xl-3">
+            <label>Rating</label>
+          </div>
+          <div class="col-xl-9">
+            <div class="input-group rating-filter">
+              <div class="input-group rating-filter">
+                <ngx-slider [(value)]="commentFilter.minRating" [(highValue)]="commentFilter.maxRating" [options]="options"></ngx-slider>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6 ">
+        <div class="item-container">
+          <div class="col-xl-3">
+            <label>Review Date</label>
+          </div>
+          <div class="col-xl-9">
+            <div class="input-group rating-filter">
+              <input type="text" matInput
+                     ngxDaterangepickerMd
+                     autocomplete="off"
+                     [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                     startKey="start"
+                     endKey="end"
+                     placeholder="Select date to filter"
+                     class="date-filter"
+                     [(ngModel)]="selected"
+                     name="daterange"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">Clear</button>
+    <button type="button" class="btn btn-outline-dark" (click)="getFilteredReviews()">Filter</button>
+  </div>
+</ng-template>
+
+
 
 <ng-template #content let-modal>
   <div class="modal-header">

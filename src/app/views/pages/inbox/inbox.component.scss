@@ -185,3 +185,56 @@
   color: #ffd500;
   font-size: 18px;
 }
+.filter-container {
+  margin-bottom: 15px;
+  align-items: center;
+  .date-filter {
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+  }
+}
+
+.modal-dialog,
+.modal-content {
+  /* 80% of window height */
+  height: 80%;
+}
+
+.modal-body {
+  /* 100% = dialog height, 120px = header + footer */
+  padding: 0 26px !important;
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
+  .item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    margin-top: 30px;
+  }
+}
+.channel-filter {
+  display: flex;
+  flex-direction: column;
+}
+.rating-filter {
+  width: 100%;
+}
+.filter-button {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  align-items: flex-end;
+}
+.date-filter {
+  width: 100%;
+  padding: 5px;
+}
+.form-check-label {
+  margin: 3px;
+  input {
+    margin-right: 5px;
+  }
+}

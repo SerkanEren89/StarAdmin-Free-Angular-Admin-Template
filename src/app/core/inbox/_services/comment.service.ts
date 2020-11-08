@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {CommentCountLanguageModel} from '../_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../_models/comment-count-traveled-with.model';
 import {UserModel} from '../../auth/_models/user.model';
+import {CommentFilterModel} from '../_models/comment-filter.model';
 
 const API_COMMENTS_URL = 'comments';
 
@@ -30,6 +31,12 @@ export class CommentService {
     params = params.append('page', String(page));
     params = params.append('size', String(pageSize));
     return this.http.get<CommentModel[]>(API_COMMENTS_URL, {params: params});
+  }
+  getCommentsByFilter(page: number, pageSize: number, filter: CommentFilterModel): Observable<CommentModel[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(pageSize));
+    return this.http.post<CommentModel[]>(API_COMMENTS_URL + '/filter', filter, {params: params});
   }
   getLatestComments(): Observable<CommentModel[]> {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/latest');

@@ -42,6 +42,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   monthlyRating: MonthlyRatingsModel;
   commentCountRatings$: Observable<CommentCountRatingModel[]>;
   commentCountRatings: CommentCountRatingModel[];
+  commentCountPeriods$: Observable<CommentCountModel[]>;
+  commentCountPeriods: CommentCountModel[];
   categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
   competitionList$: Observable<CompetitionModel[]>;
@@ -87,14 +89,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.commentCountList$.subscribe((commentCountList: CommentCountModel[]) => {
       this.commentCountList = commentCountList;
       for (const commentCountModel of commentCountList) {
-        this.pieChartLabels.push(commentCountModel.source);
-        this.pieChartData.push(commentCountModel.commentCount);
+        this.pieChartLabels.push(commentCountModel.label);
+        this.pieChartData.push(commentCountModel.count);
       }
       this.cdr.detectChanges();
     });
     this.commentCountRatings$ = this.dashboardService.getCommentCountAndRatings();
     this.commentCountRatings$.subscribe((commentCountRatings: CommentCountRatingModel[]) => {
       this.commentCountRatings = commentCountRatings;
+      this.cdr.detectChanges();
+    });
+
+    this.commentCountPeriods$ = this.dashboardService.getCommentCount();
+    this.commentCountPeriods$.subscribe((commentCount: CommentCountModel[]) => {
+      this.commentCountPeriods = commentCount;
       this.cdr.detectChanges();
     });
     this.monthlyRating$ = this.dashboardService.getMonthlyRating();

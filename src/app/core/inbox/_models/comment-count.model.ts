@@ -1,4 +1,4 @@
 export class CommentCountModel {
-  commentCount: number;
-  source: string;
+  count: number;
+  label: string;
 }

@@ -4,8 +4,7 @@ import {PieChartComponent} from './pie-chart/pie-chart.component';
 import {LineChartComponent} from './line-chart/line-chart.component';
 import {ChartsModule} from 'ng2-charts';
 import {FlagIconComponent} from './general/flag-icon/flag-icon.component';
-import {ToastrModule} from 'ngx-toastr';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BarChartComponent} from './bar-chart/bar-chart.component';
 
 @NgModule({
   imports: [
@@ -15,11 +14,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   declarations: [
     PieChartComponent,
     LineChartComponent,
+    BarChartComponent,
     FlagIconComponent
   ],
   exports: [
     PieChartComponent,
     LineChartComponent,
+    BarChartComponent,
     FlagIconComponent
   ],
   providers: []

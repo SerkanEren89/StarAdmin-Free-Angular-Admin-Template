@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
+import {InboxComponent} from './views/pages/inbox/inbox.component';
 
 const routes: Routes = [
     {
@@ -24,6 +24,10 @@ const routes: Routes = [
         {
           path: 'competition',
           loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule)
+        },
+        {
+          path: 'popularity',
+          loadChildren: () => import('src/app/views/pages/popularity/popularity.module').then(m => m.PopularityModule)
         },
         {
           path: 'task',

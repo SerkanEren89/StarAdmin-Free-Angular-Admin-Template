@@ -18,6 +18,7 @@ import {CategorizationComponent} from './views/pages/categorization/categorizati
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {PopularityComponent} from './views/pages/popularity/popularity.component';
 
 @NgModule({
   declarations: [

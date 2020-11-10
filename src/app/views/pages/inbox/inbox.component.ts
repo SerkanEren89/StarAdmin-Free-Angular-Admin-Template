@@ -172,7 +172,7 @@ export class InboxComponent implements OnInit {
   }
 
   shouldFilterResult() {
-    return this.commentFilter.channels.length > 0 ||
+    return (this.commentFilter.channels != null && this.commentFilter.channels.length > 0) ||
       (this.commentFilter.startDate != null && this.commentFilter.endDate != null);
   }
 

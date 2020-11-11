@@ -16,28 +16,28 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-primary mb-5">Popularity History</h2>
-        <div class="wrapper d-flex justify-content-between">
+        <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-2">Current month</p>
-            <p class="display-3 mb-4 font-weight-light topic">28 comments</p>
+            <p class="mb-3">Current month</p>
+            <p class="display-3 mb-4 font-weight-light topic">{{monthlyComments.currentMonthCount}} comments</p>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between">
+        <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-2">Last month</p>
-            <p class="display-3 mb-5 font-weight-light topic">38 comments</p>
+            <p class="mb-3">Last month</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.lastMonthCount}} comments</p>
           </div>
           <div class="side-right">
-            <small class="rating text-danger">1.2 average</small>
+            <small class="rating text-success">{{monthlyComments.lastMonthAverage}} daily average</small>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between">
+        <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-2">Last 6 month</p>
-            <p class="display-3 mb-5 font-weight-light topic">210 comments</p>
+            <p class="mb-3">Last 6 month</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last6MonthCount}} comments</p>
           </div>
           <div class="side-right">
-            <small class="rating text-danger">1.3 average</small>
+            <small class="rating text-success">{{monthlyComments.last6MonthAverage}} daily average</small>
           </div>
         </div>
       </div>

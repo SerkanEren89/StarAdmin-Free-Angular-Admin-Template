@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
-import {CompetitionModel} from '../../../core/competition/_models/competition.model';
 import {CompetitionService} from '../../../core/competition/_services/competition.service';
+import {CompetitionCountRatingModel} from '../../../core/competition/_models/competition-count-rating.model';
 
 @Component({
   selector: 'app-competition',
@@ -12,7 +12,7 @@ import {CompetitionService} from '../../../core/competition/_services/competitio
   encapsulation: ViewEncapsulation.None
 })
 export class CompetitionComponent implements OnInit {
-
+  @ViewChild('competitionTable') elRef;
   lineChartData: ChartDataSets[] = [
     { data: [72, 75, 77, 77, 80, 84], label: 'Barcelo İstanbul' },
     { data: [72, 74, 78, 79, 79, 79], label: 'The Marmara Taksim' },
@@ -22,17 +22,29 @@ export class CompetitionComponent implements OnInit {
   ];
   lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
 
-  competitionList$: Observable<CompetitionModel[]>;
-  competitionList: CompetitionModel[];
+  competitionCountRatingList$: Observable<CompetitionCountRatingModel[]>;
+  competitionCountRatingList: CompetitionCountRatingModel[];
   constructor(private competitionService: CompetitionService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.competitionList$ = this.competitionService.getCompetitionList();
-    this.competitionList$.subscribe((competitionList: CompetitionModel[]) => {
-      this.competitionList = competitionList;
+    this.competitionCountRatingList$ = this.competitionService.getCompetitionCountRatingList();
+    this.competitionCountRatingList$.subscribe((competitionCountRatingList: CompetitionCountRatingModel[]) => {
+      this.competitionCountRatingList = competitionCountRatingList;
       this.cdr.detectChanges();
+      this.addLabelTag();
+    });
+  }
+
+  addLabelTag() {
+    const tableEl = this.elRef.nativeElement;
+    const thEls = tableEl.querySelectorAll('thead th');
+    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+      Array.from(tr.children).forEach(
+        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+      );
     });
   }
 }

@@ -121,11 +121,10 @@
             <button type="button" class="btn btn-warning" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
               class="mdi mdi-star"></i>Mark as Unimportant
             </button>
-            <!--
+
             <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign
               Someone as a Task
             </button>
-            -->
           </div>
         </div>
       </div>
@@ -199,6 +198,22 @@
         </div>
       </div>
 
+      <div class="col-xl-6 ">
+        <div class="item-container">
+          <div class="col-xl-3">
+            <label>Starred</label>
+          </div>
+          <div class="col-xl-9">
+            <div class="input-group rating-filter">
+              <label class="form-check-label">
+                <input type="checkbox"
+                       [checked]="commentFilter.starred"
+                       (change)="commentFilter.starred = !commentFilter.starred">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

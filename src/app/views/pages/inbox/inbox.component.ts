@@ -165,6 +165,7 @@ export class InboxComponent implements OnInit {
     this.commentFilter = new CommentFilterModel();
     this.commentFilter.minRating = 0;
     this.commentFilter.maxRating = 10;
+    this.commentFilter.starred = false;
     this.page = 1;
     if (this.selected != null) {
       this.selected = null;
@@ -173,7 +174,8 @@ export class InboxComponent implements OnInit {
 
   shouldFilterResult() {
     return (this.commentFilter.channels != null && this.commentFilter.channels.length > 0) ||
-      (this.commentFilter.startDate != null && this.commentFilter.endDate != null);
+      (this.commentFilter.startDate != null && this.commentFilter.endDate != null) ||
+      this.commentFilter.starred;
   }
 
   open(content) {

@@ -4,4 +4,5 @@ export class CommentFilterModel {
   channels: string[];
   minRating: number;
   maxRating: number;
+  starred: boolean;
 }

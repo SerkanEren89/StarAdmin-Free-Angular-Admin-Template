@@ -1,15 +1,75 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {CompetitionModel} from '../_models/competition.model';
+import {CompetitionCountRatingModel} from '../_models/competition-count-rating.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompetitionService {
 
-  getCompetitionList() : Observable<CompetitionModel[]> {
-    let competitions: CompetitionModel[] = new Array<CompetitionModel>();
-    let competition1 : CompetitionModel = new CompetitionModel();
+  getCompetitionCountRatingList(): Observable<CompetitionCountRatingModel[]> {
+    const competitions: CompetitionCountRatingModel[] = new Array<CompetitionCountRatingModel>();
+    const competition1: CompetitionCountRatingModel = new CompetitionCountRatingModel();
+    competition1.id = 1;
+    competition1.name = 'Barcelo İstanbul';
+    competition1.todaysCount = 3;
+    competition1.lastMonthsCount = 83;
+    competition1.last6MonthsCount = 283;
+    competition1.bookingRating = 9.2;
+    competition1.hotelsComRating = 9.1;
+    competition1.tripAdvisorRating = 8.8;
+    competitions.push(competition1);
+
+    const competition2: CompetitionCountRatingModel = new CompetitionCountRatingModel();
+    competition2.id = 1;
+    competition2.name = 'Rixos Pera Istanbul';
+    competition2.todaysCount = 2;
+    competition2.lastMonthsCount = 98;
+    competition2.last6MonthsCount = 355;
+    competition2.bookingRating = 8.8;
+    competition2.hotelsComRating = 8.6;
+    competition2.tripAdvisorRating = 9.0;
+    competitions.push(competition2);
+
+    const competition3: CompetitionCountRatingModel = new CompetitionCountRatingModel();
+    competition3.id = 3;
+    competition3.name = 'CVK Park Bosphorus Hotel Istanbul';
+    competition3.todaysCount = 1;
+    competition3.lastMonthsCount = 83;
+    competition3.last6MonthsCount = 283;
+    competition3.bookingRating = 8.6;
+    competition3.hotelsComRating = 8.6;
+    competition3.tripAdvisorRating = 9;
+    competitions.push(competition3);
+
+    const competition4: CompetitionCountRatingModel = new CompetitionCountRatingModel();
+    competition4.id = 4;
+    competition4.name = 'The Marmara Taksim';
+    competition4.todaysCount = 4;
+    competition4.lastMonthsCount = 98;
+    competition4.last6MonthsCount = 352;
+    competition4.bookingRating = 8.3;
+    competition4.hotelsComRating = 8.4;
+    competition4.tripAdvisorRating = 9;
+    competitions.push(competition4);
+
+    const competition5: CompetitionCountRatingModel = new CompetitionCountRatingModel();
+    competition5.id = 5;
+    competition5.name = 'InterContinental Istanbul';
+    competition5.todaysCount = 1;
+    competition5.lastMonthsCount = 96;
+    competition5.last6MonthsCount = 96;
+    competition5.bookingRating = 8.6;
+    competition5.hotelsComRating = 8.8;
+    competition5.tripAdvisorRating = 9.0;
+    competitions.push(competition5);
+    return of(competitions);
+  }
+
+  getCompetitionList(): Observable<CompetitionModel[]> {
+    const competitions: CompetitionModel[] = new Array<CompetitionModel>();
+    const competition1: CompetitionModel = new CompetitionModel();
     competition1.id = 1;
     competition1.name = 'Barcelo İstanbul';
     competition1.rating = 8.8;
@@ -19,7 +79,7 @@ export class CompetitionService {
     competition1.reviewCount = 1770;
     competitions.push(competition1);
 
-    let competition2 : CompetitionModel = new CompetitionModel();
+    const competition2: CompetitionModel = new CompetitionModel();
     competition2.id = 2;
     competition2.name = 'Rixos Pera Istanbul';
     competition2.rating = 8.9;
@@ -29,7 +89,7 @@ export class CompetitionService {
     competition2.reviewCount = 1880;
     competitions.push(competition2);
 
-    let competition3 : CompetitionModel = new CompetitionModel();
+    const competition3: CompetitionModel = new CompetitionModel();
     competition3.id = 3;
     competition3.name = 'Pera Palace Hotel';
     competition3.rating = 8.6;
@@ -39,7 +99,7 @@ export class CompetitionService {
     competition3.reviewCount = 2200;
     competitions.push(competition3);
 
-    let competition4 : CompetitionModel = new CompetitionModel();
+    const competition4: CompetitionModel = new CompetitionModel();
     competition4.id = 4;
     competition4.name = 'The Marmara Taksim';
     competition4.rating = 8.6;
@@ -49,7 +109,7 @@ export class CompetitionService {
     competition4.reviewCount = 2200;
     competitions.push(competition4);
 
-    let competition5 : CompetitionModel = new CompetitionModel();
+    const competition5: CompetitionModel = new CompetitionModel();
     competition5.id = 5;
     competition5.name = 'InterContinental Istanbul';
     competition5.rating = 8.9;
@@ -59,7 +119,7 @@ export class CompetitionService {
     competition5.reviewCount = 2440;
     competitions.push(competition5);
 
-    let competition6 : CompetitionModel = new CompetitionModel();
+    const competition6: CompetitionModel = new CompetitionModel();
     competition6.id = 6;
     competition6.name = 'CVK Park Bosphorus Hotel Istanbul';
     competition6.rating = 8.9;
@@ -69,7 +129,7 @@ export class CompetitionService {
     competition6.reviewCount = 2440;
     competitions.push(competition6);
 
-    let competition7 : CompetitionModel = new CompetitionModel();
+    const competition7: CompetitionModel = new CompetitionModel();
     competition7.id = 7;
     competition7.name = 'Sheraton Istanbul City Center';
     competition7.rating = 9.0;
@@ -79,7 +139,7 @@ export class CompetitionService {
     competition7.reviewCount = 2440;
     competitions.push(competition7);
 
-    let competition8 : CompetitionModel = new CompetitionModel();
+    const competition8: CompetitionModel = new CompetitionModel();
     competition8.id = 8;
     competition8.name = 'Radisson Blu Hotel, Istanbul Pera';
     competition8.rating = 8.3;
@@ -89,7 +149,7 @@ export class CompetitionService {
     competition8.reviewCount = 100;
     competitions.push(competition8);
 
-    let competition9 : CompetitionModel = new CompetitionModel();
+    const competition9: CompetitionModel = new CompetitionModel();
     competition9.id = 9;
     competition9.name = 'Sofitel İstanbul Taksim';
     competition9.rating = 9.2;

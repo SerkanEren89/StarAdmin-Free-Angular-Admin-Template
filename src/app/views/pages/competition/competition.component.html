@@ -1,105 +1,204 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">Competition /
+      <span class="text-danger"> Coming soon</span>
+    </span>
+  </div>
+</div>
+
 <div class="row">
-  <div class="col-lg-8 grid-margin stretch-card">
-    <!--weather card-->
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-primary mb-5">By Category</h2>
-        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-shower category-icon"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Cleanliness</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-success standing">2nd</h3>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!--weather card ends-->
   </div>
-  <div class="col-lg-4 grid-margin stretch-card performance">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Performance History</h2>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">The best rating</p>
-            <p class="display-3 mb-4 font-weight-light topic brand-name">Barcelo İstanbul</p>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-bed category-icon"></i>
           </div>
-          <div class="side-right">
-            <small class="rating text-success">9.7</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Worst performance</p>
-            <p class="display-3 mb-5 font-weight-light topic brand-name">Radisson Blu Hotel, Istanbul Pera</p>
-          </div>
-          <div class="side-right">
-            <small class="rating text-danger">8.4</small>
+          <div class="float-right">
+            <p class="mb-0 text-right">Room & Comfort</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
+            </div>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Best trend</p>
-            <p class="display-3 mb-5 font-weight-light topic brand-name">The Marmara</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-location-arrow category-icon"></i>
           </div>
-          <div class="side-right">
-            <small class="rating text-success">%1.2</small>
+          <div class="float-right">
+            <p class="mb-0 text-right">Ambiance & Architecture</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-success standing">1st</h3>
+            </div>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Worst trend</p>
-            <p class="display-3 mb-5 font-weight-light topic brand-name">Radisson Blu Hotel, Istanbul Pera</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-users category-icon"></i>
           </div>
-          <div class="side-right">
-            <small class="rating text-danger">%-0.2</small>
+          <div class="float-right">
+            <p class="mb-0 text-right">Staff & Services</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-money-bill category-icon"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Pricing</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-concierge-bell category-icon"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Reception</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-success standing">2nd</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-wifi category-icon"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Wifi</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-danger standing">4th</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <i class="fa fa-egg category-icon"></i>
+          </div>
+          <div class="float-right">
+            <p class="mb-0 text-right">Breakfast</p>
+            <div class="fluid-container">
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing">4rd</h3>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Competition</h5>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" #competitionTable>
             <thead>
             <tr>
               <th>
-                Category
+                Hotel name
               </th>
               <th>
-                Overall Score
+                Today
               </th>
               <th>
-                Mentions
+                This Month
               </th>
               <th>
-                Positive
+                Last 6 Months
               </th>
               <th>
-                Neutral
+                Booking
               </th>
               <th>
-                Negative
+                Tripadvisor
+              </th>
+              <th>
+                Hotelscom
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competition of competitionList">
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList">
               <td>
-                {{competition.name}}
-              </td>
-              <td>
-                {{competition.rating}}
+                {{competitionCountRating.name}}
               </td>
               <td>
-                {{competition.reviewCount}}
+                {{competitionCountRating.todaysCount}}
               </td>
-              <td class="text-success"> {{competition.positiveCount}}
-                <i class="mdi mdi-arrow-up"></i>
+              <td>
+                {{competitionCountRating.lastMonthsCount}}
               </td>
-              <td class="text-warning"> {{competition.neutralCount}}
+              <td>
+                <span class="fa-pull-right">{{competitionCountRating.last6MonthsCount}}</span>
               </td>
-              <td class="text-danger"> {{competition.negativeCount}}
-                <i class="mdi mdi-arrow-down"></i>
+              <td class="text-success">
+                {{competitionCountRating.bookingRating}}
+              </td>
+              <td class="text-success">
+                {{competitionCountRating.tripAdvisorRating}}
+              </td>
+              <td class="text-success">
+                {{competitionCountRating.hotelsComRating}}
               </td>
             </tr>
             </tbody>

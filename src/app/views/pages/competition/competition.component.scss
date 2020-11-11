@@ -1,3 +1,4 @@
+@import 'src/styles';
 .star {
   position: relative;
   display: inline-block;
@@ -15,4 +16,55 @@
 }
 .brand-name {
   font-size: 1.0rem;
+}
+
+@media screen and (max-width: 880px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+  }
+  table tr {
+    border: 1px solid #a19b9b;
+  }
+
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+  .star-container {
+    text-align: start;
+  }
+}
+.table-bordered td:nth-child(1) {
+  word-wrap:break-word;
+  white-space: normal;
+}
+.table-bordered td:nth-child(1) {
+
+}
+.table-bordered{
+  table-layout: fixed;
+  .text {
+    line-height: 18px;
+    font-family: Poppins,Helvetica,sans-serif;
+    white-space: break-spaces;
+  }
+}
+.category-icon {
+  font-size: 30px;
+}
+.standing {
+  padding-top: 7px;
+}
+
+.table-bordered{
+  table-layout: fixed;
+  td {
+    line-height: 18px;
+    font-family: Poppins,Helvetica,sans-serif;
+  }
 }

@@ -6,7 +6,7 @@ import {TaskModel} from '../../../core/task/_models/task.model';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss'],
+  styleUrls: ['../../../app.component.scss', './task.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit {

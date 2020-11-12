@@ -172,8 +172,8 @@
             <tbody>
             <tr *ngFor="let comment of commentList">
               <td class="text star-container">
-                <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
-                <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
+                <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
+                <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
               </td>
               <td class="text comment full"
                   (click)="openDetailPopup(comment, contentReviewDetail)"

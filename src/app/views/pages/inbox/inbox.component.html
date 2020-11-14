@@ -53,6 +53,7 @@
                  src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
+            <i class="fa fa-check-circle" *ngIf="comment.answer != null"></i>
           </div>
         </div>
       </div>
@@ -109,8 +110,8 @@
             </div>
           </div>
           <p class="content" [innerHTML]=selectedItem.content></p>
-          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
+          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <div class="template-demo">
             <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i
               class="fa fa-language"></i>Translate

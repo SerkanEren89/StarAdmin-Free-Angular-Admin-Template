@@ -115,7 +115,7 @@ export class InboxComponent implements OnInit {
   processComments() {
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList['content'];
-      this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+      this.commentList.forEach(comment => comment.ratingOverFive = comment.rating / 2);
       this.totalElements = commentList['totalElements'];
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();

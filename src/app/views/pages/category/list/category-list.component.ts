@@ -78,7 +78,8 @@ export class CategoryListComponent implements OnInit {
 
   loadComments(page: number) {
     this.page = page;
-    this.commentCategoryList$ = this.commentCategoryService.getCommentCategoriesByCategoryName(this.type, this.page - 1, this.pageSize);
+    this.commentCategoryList$ = this.commentCategoryService
+      .getCommentCategoriesByCategoryName(this.selectedCategoryGroup.category.name, this.page - 1, this.pageSize);
     this.processComments();
   }
 

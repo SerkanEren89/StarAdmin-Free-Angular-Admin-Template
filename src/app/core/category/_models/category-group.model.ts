@@ -8,4 +8,6 @@ export class CategoryGroupModel {
   score: number;
   totalMention: number;
   selected: boolean;
+  rank: number;
+  hotelName: string;
 }

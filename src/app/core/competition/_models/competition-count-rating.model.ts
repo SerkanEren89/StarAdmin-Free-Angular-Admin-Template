@@ -1,10 +1,15 @@
 export class CompetitionCountRatingModel {
   id: number;
   name: string;
-  todaysCount: number;
-  lastMonthsCount: number;
-  last6MonthsCount: number;
+  hotelId: number;
+  hotelName: string;
   bookingRating: number;
   tripAdvisorRating: number;
   hotelsComRating: number;
+  googleRating: number;
+  hotelUpliftRating: number;
+  todaysCount: number;
+  lastWeekCount: number;
+  lastMonthCount: number;
+  last3MonthsCount: number;
 }

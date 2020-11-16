@@ -10,7 +10,6 @@ import {ToastrService} from 'ngx-toastr';
 import {CategoryGraphModel} from '../../../../core/category/_models/category-graph.model';
 import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
-import {CategoryPeriodModel} from '../../../../core/category/_models/category-period.model';
 
 @Component({
   selector: 'app-category-list',
@@ -51,6 +50,7 @@ export class CategoryListComponent implements OnInit {
       this.categoryGroupList = categoryGroupList;
       this.cdr.detectChanges();
     });
+    /*
     this.categoryPeriodic$ = this.commentCategoryService.findCategoryPeriodically();
     this.categoryPeriodic$.subscribe((categoryPeriodic: CategoryGraphModel) => {
       this.categoryPeriodic = categoryPeriodic;
@@ -58,6 +58,7 @@ export class CategoryListComponent implements OnInit {
       this.lineChartData = this.categoryPeriodic.item;
       this.cdr.detectChanges();
     });
+     */
   }
 
   goToCategoryDetail(categoryGroup: CategoryGroupModel) {

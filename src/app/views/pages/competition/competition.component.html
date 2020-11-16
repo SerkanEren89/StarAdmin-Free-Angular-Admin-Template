@@ -7,138 +7,97 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let competitionCategory of competitionCategoryList">
+    <div class="card card-statistics pointer" (click)="getHotelListByCategory(competitionCategory)">
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <i class="fa fa-shower category-icon"></i>
+            <i class="fa fa-shower category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('cleanliness')"></i>
+            <i class="fa fa-egg category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('breakfast')"></i>
+            <i class="fa fa-hamburger category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('food')"></i>
+            <i class="fa fa-wifi category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('wifi')"></i>
+            <i class="fa fa-users category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('staff')"></i>
+            <i class="fa fa-money-bill category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('pricing')"></i>
+            <i class="fa fa-location-arrow category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('location')"></i>
+            <i class="fa fa-guitar category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('ambiance')"></i>
+            <i class="fa fa-concierge-bell category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('reception')"></i>
+            <i class="fa fa-bed category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('room')"></i>
+            <i class="fa fa-volume-up category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('noisy-quite')"></i>
+            <i class="fa fa-hotel category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('amenities')"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Cleanliness</p>
+            <p class="mb-0 text-right">{{competitionCategory.category.name}}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-success standing">2nd</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-success standing" *ngIf="competitionCategory.rank == 1">{{competitionCategory.rank}}st</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-success standing" *ngIf="competitionCategory.rank == 2">{{competitionCategory.rank}}nd</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing" *ngIf="competitionCategory.rank == 3">{{competitionCategory.rank}}rd</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 4">{{competitionCategory.rank}}th</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 5">{{competitionCategory.rank}}th</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-bed category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Room & Comfort</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-location-arrow category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Ambiance & Architecture</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-success standing">1st</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-users category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Staff & Services</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-money-bill category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Pricing</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-warning standing">3rd</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-concierge-bell category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Reception</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-success standing">2nd</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-wifi category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Wifi</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-danger standing">4th</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
-      <div class="card-body pointer">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="fa fa-egg category-icon"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Breakfast</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-warning standing">4rd</h3>
-            </div>
-          </div>
+</div>
+
+<div class="row" *ngIf="competitionCategory.length > 0">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Ranking List for {{selectedCategory.category.name}}</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #rankingTable>
+            <thead>
+            <tr>
+              <th>
+                Hotel name
+              </th>
+              <th>
+                Positive
+              </th>
+              <th>
+                Neutral
+              </th>
+              <th>
+                Negative
+              </th>
+              <th>
+                Total
+              </th>
+              <th>
+                Score
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let competition of competitionCategory">
+              <td>
+                {{competition.hotelName}}
+              </td>
+              <td>
+                <span class="fa-pull-right text-success">{{competition.positiveCount}}
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right text-warning">{{competition.neutralCount}}
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competition.negativeCount}}
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competition.totalMention}}
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competition.score}}
+                </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -161,10 +120,13 @@
                 Today
               </th>
               <th>
-                This Month
+                Last Week
               </th>
               <th>
-                Last 6 Months
+                Last Month
+              </th>
+              <th>
+                Last 3 Months
               </th>
               <th>
                 Booking
@@ -175,21 +137,43 @@
               <th>
                 Hotelscom
               </th>
+              <th>
+                HotelUplift
+              </th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let competitionCountRating of competitionCountRatingList">
               <td>
-                {{competitionCountRating.name}}
+                {{competitionCountRating.hotelName}}
               </td>
               <td>
-                <span class="fa-pull-right">{{competitionCountRating.todaysCount}}</span>
+                <span class="fa-pull-right">{{competitionCountRating.todaysCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.todaysCount == 0 || competitionCountRating.todaysCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.todaysCount > 1">&nbsp;Reviews</span>
+                </span>
               </td>
               <td>
-                <span class="fa-pull-right">{{competitionCountRating.lastMonthsCount}}</span>
+                <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Reviews</span>
+                </span>
               </td>
               <td>
-                <span class="fa-pull-right">{{competitionCountRating.last6MonthsCount}}</span>
+                <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Reviews</span>
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Reviews</span>
+                </span>
               </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
@@ -199,6 +183,9 @@
               </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
+              </td>
+              <td class="text-success">
+                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
               </td>
             </tr>
             </tbody>

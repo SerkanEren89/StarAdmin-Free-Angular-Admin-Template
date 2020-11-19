@@ -17,13 +17,22 @@ export class PopularityComponent implements OnInit {
   monthlyComments: MonthlyCommentModel;
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
+  interval = 0;
 
   constructor(private popularityService: PopularityService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.monthlyComments$ = this.popularityService.getCommentCountMonthly();
+    this.processPopularity();
+  }
+
+  changeInterval(number: number) {
+    this.interval += number;
+    this.processPopularity();
+  }
+  processPopularity() {
+    this.monthlyComments$ = this.popularityService.getCommentCountMonthly(this.interval);
     this.monthlyComments$.subscribe((monthlyComments: MonthlyCommentModel) => {
       this.monthlyComments = monthlyComments;
       this.barChartLabels = this.monthlyComments.months;
@@ -31,5 +40,4 @@ export class PopularityComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
-
 }

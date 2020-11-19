@@ -9,3 +9,15 @@
     margin-bottom: 15px;
   }
 }
+.date-selection-container {
+  display: flex;
+  flex-direction: row;
+  .right{
+    display: flex;
+    justify-content: flex-end;
+    width: 65%;
+    .space {
+      margin: 5px;
+    }
+  }
+}

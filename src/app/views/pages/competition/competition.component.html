@@ -1,7 +1,6 @@
 <div class="row title-container">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
-    <span class="input-group-text text-primary title">Competition /
-      <span class="text-danger"> Coming soon</span>
+    <span class="input-group-text text-primary title">Competition
     </span>
   </div>
 </div>
@@ -34,6 +33,7 @@
               <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 4">{{competitionCategory.rank}}th</h3>
               <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 5">{{competitionCategory.rank}}th</h3>
             </div>
+            <p class="text-right mb-0">{{competitionCategory.score}} %</p>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competition of competitionCategory">
+            <tr *ngFor="let competition of competitionCategory" [class.selected]="competition.selected">
               <td>
                 {{competition.hotelName}}
               </td>
@@ -140,7 +140,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList">
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList" [class.selected]="competitionCountRating.selected">
               <td>
                 {{competitionCountRating.hotelName}}
               </td>

@@ -120,9 +120,6 @@
                 Today
               </th>
               <th>
-                Last Week
-              </th>
-              <th>
                 Last Month
               </th>
               <th>
@@ -152,13 +149,6 @@
                   <span class="fa-pull-right"
                         *ngIf="competitionCountRating.todaysCount == 0 || competitionCountRating.todaysCount == 1">&nbsp;Review</span>
                   <span class="fa-pull-right" *ngIf="competitionCountRating.todaysCount > 1">&nbsp;Reviews</span>
-                </span>
-              </td>
-              <td>
-                <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
-                  <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Reviews</span>
                 </span>
               </td>
               <td>

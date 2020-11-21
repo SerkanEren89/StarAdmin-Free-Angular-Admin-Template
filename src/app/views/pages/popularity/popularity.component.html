@@ -8,14 +8,14 @@
     <div class="card">
       <div class="card-body">
         <div class="date-selection-container">
-          <h2 class="card-title text-primary mb-5">Comment Counts by Channel</h2>
-          <div class="right">
-            <div (click)="changeInterval(1)">
-              <i class="fa fa-arrow-left space" ></i>
-            </div>
-            <div (click)="changeInterval(-1)" *ngIf="interval > 0">
-              <i class="fa fa-arrow-right space" ></i>
-            </div>
+          <h2 class="card-title text-primary">Comment Counts by Channel</h2>
+        </div>
+        <div class="right">
+          <div (click)="changeInterval(1)">
+            <i class="fa fa-arrow-left space" ></i>
+          </div>
+          <div (click)="changeInterval(-1)" *ngIf="interval > 0">
+            <i class="fa fa-arrow-right space" ></i>
           </div>
         </div>
         <app-bar-chart [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>

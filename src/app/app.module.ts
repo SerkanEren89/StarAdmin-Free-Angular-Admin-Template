@@ -18,12 +18,13 @@ import {CategorizationComponent} from './views/pages/categorization/categorizati
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
-import {PopularityComponent} from './views/pages/popularity/popularity.component';
+import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InboxComponent,
+    InboxPoolComponent,
     CategorizationComponent
   ],
   imports: [

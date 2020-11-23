@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-lg-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="pagination-container">
+        <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
+                        (pageChange)="loadComments($event)"
+                        [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                        aria-label="Default pagination" class="d-flex justify-content-center pagination-success"></ngb-pagination>
+      </div>
+      <div class="card-body inbox">
+        <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
+             [ngClass]="odd ? 'odd' : 'even'"
+             [class.selected]="selectedIndex === i"
+             (click)="selectItem(comment, i)">
+          <p class="comment-container">{{comment.content}}</p>
+          <div class="rating-container">
+            <span class="rating-text">{{comment.rating}} / 10</span>
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+
+            <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          </div>
+          <div class="brand-container">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+            <span class="brand">{{comment.source}}</span>
+            <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
+            <i class="fa fa-check-circle" *ngIf="comment.categorized"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9 grid-margin stretch-card comment-detail">
+    <div class="card">
+      {{totalElements}} total
+      <div class="card-body">
+        <div *ngIf="selectedItem != null">
+          <div class="summary-container">
+            <div class="summary">
+              <p class="title">
+                {{selectedItem.content}}</p>
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
+              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('google')" src="assets/images/google.png">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
+              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+              <span class="brand">{{selectedItem.source}}</span>
+              <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
+              <p class="written" >Written By: {{selectedItem.author}}</p>
+              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+          <p class="content">{{selectedItem.content}}</p>
+          <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
+          <div class="template-demo">
+            <button type="button" class="btn btn-outline-dark" (click)="saveCategorization()">Save</button>
+            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
+          </div>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Categories</th>
+              <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of categoryList">
+              <td>
+                {{category.name}}
+              </td>
+              <td class="overflow-hidden">
+                <div ngbDropdown container="body">
+                  <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{category.sentiment}}</button>
+                  <div ngbDropdownMenu>
+                    <button ngbDropdownItem *ngFor="let sentiment of sentimentTypes" (click)="selectSentiment(category, sentiment)">{{sentiment}}</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="button-container">
+            <button type="button" class="btn btn-outline-dark" (click)="saveCategorization()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

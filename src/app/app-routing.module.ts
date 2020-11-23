@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {InboxComponent} from './views/pages/inbox/inbox.component';
+import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 
 const routes: Routes = [
     {
@@ -35,6 +36,7 @@ const routes: Routes = [
         },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox', component: InboxComponent},
+        {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
       ]

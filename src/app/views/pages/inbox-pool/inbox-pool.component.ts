@@ -56,7 +56,7 @@ export class InboxPoolComponent implements OnInit {
 
   loadComments(page: number) {
     this.page = page;
-    this.commentList$ = this.commentService.getComments(page - 1, this.pageSize);
+    this.commentList$ = this.commentService.getCommentsForPool(page - 1, this.pageSize);
     this.processComments();
   }
 

@@ -48,7 +48,7 @@
       <div class="card-body">
         <h5 class="card-title mb-4">Ranking List for {{selectedCategory.category.name}}</h5>
         <div class="table-responsive">
-          <table class="table table-bordered css-serial" #rankingTable>
+          <table class="table table-bordered" #rankingTable>
             <thead>
             <tr>
               <th>#</th>
@@ -73,8 +73,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competition of competitionCategory" [class.selected]="competition.selected">
-              <td></td>
+            <tr *ngFor="let competition of competitionCategory; index as i" [class.selected]="competition.selected">
+              <td>{{i + 1}}</td>
               <td>
                 {{competition.hotelName}}
               </td>
@@ -113,15 +113,12 @@
       <div class="card-body">
         <h5 class="card-title mb-4">Competition</h5>
         <div class="table-responsive">
-          <table class="table table-bordered css-serial" #competitionTable>
+          <table class="table table-bordered" #competitionTable>
             <thead>
             <tr>
               <th>#</th>
               <th>
                 Hotel name
-              </th>
-              <th>
-                Today
               </th>
               <th>
                 Last Month
@@ -144,17 +141,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList" [class.selected]="competitionCountRating.selected">
-              <td></td>
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
+              <td>{{i + 1}}</td>
               <td>
                 {{competitionCountRating.hotelName}}
-              </td>
-              <td>
-                <span class="fa-pull-right">{{competitionCountRating.todaysCount}}
-                  <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.todaysCount == 0 || competitionCountRating.todaysCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.todaysCount > 1">&nbsp;Reviews</span>
-                </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}

@@ -11,18 +11,19 @@
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <i class="fa fa-shower category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('cleanliness')"></i>
-            <i class="fa fa-egg category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('breakfast')"></i>
+            <img class="mdi mdi-cube icon-lg category-icon" *ngIf="competitionCategory.category.name.toLowerCase().includes('overall')" src="assets/images/logo.png">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"  *ngIf="competitionCategory.category.name.toLowerCase().includes('cleanliness')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg" *ngIf="competitionCategory.category.name.toLowerCase().includes('breakfast')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"*ngIf="competitionCategory.category.name.toLowerCase().includes('ambiance')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"*ngIf="competitionCategory.category.name.toLowerCase().includes('amenities')">
             <i class="fa fa-hamburger category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('food')"></i>
             <i class="fa fa-wifi category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('wifi')"></i>
             <i class="fa fa-users category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('staff')"></i>
             <i class="fa fa-money-bill category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('pricing')"></i>
             <i class="fa fa-location-arrow category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('location')"></i>
-            <i class="fa fa-guitar category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('ambiance')"></i>
             <i class="fa fa-concierge-bell category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('reception')"></i>
             <i class="fa fa-bed category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('room')"></i>
-            <i class="fa fa-volume-up category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('noisy-quite')"></i>
-            <i class="fa fa-hotel category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('amenities')"></i>
+            <i class="fa fa-volume-up category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('noisy-quiet')"></i>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{competitionCategory.category.name}}</p>
@@ -47,9 +48,10 @@
       <div class="card-body">
         <h5 class="card-title mb-4">Ranking List for {{selectedCategory.category.name}}</h5>
         <div class="table-responsive">
-          <table class="table table-bordered" #rankingTable>
+          <table class="table table-bordered css-serial" #rankingTable>
             <thead>
             <tr>
+              <th>#</th>
               <th>
                 Hotel name
               </th>
@@ -72,6 +74,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let competition of competitionCategory" [class.selected]="competition.selected">
+              <td></td>
               <td>
                 {{competition.hotelName}}
               </td>
@@ -110,9 +113,10 @@
       <div class="card-body">
         <h5 class="card-title mb-4">Competition</h5>
         <div class="table-responsive">
-          <table class="table table-bordered" #competitionTable>
+          <table class="table table-bordered css-serial" #competitionTable>
             <thead>
             <tr>
+              <th>#</th>
               <th>
                 Hotel name
               </th>
@@ -141,6 +145,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let competitionCountRating of competitionCountRatingList" [class.selected]="competitionCountRating.selected">
+              <td></td>
               <td>
                 {{competitionCountRating.hotelName}}
               </td>

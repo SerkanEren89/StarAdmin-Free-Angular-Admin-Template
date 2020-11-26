@@ -60,9 +60,10 @@
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <i class="fa fa-shower category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')"></i>
-            <i class="fa fa-egg category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')"></i>
-            <i class="fa fa-hamburger category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('food')"></i>
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg" *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')">
             <i class="fa fa-wifi category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')"></i>
             <i class="fa fa-users category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')"></i>
             <i class="fa fa-money category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')"></i>
@@ -70,7 +71,6 @@
             <i class="fa fa-bed category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('room')"></i>
             <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')"></i>
             <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
-            <i class="fa fa-hotel category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')"></i>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>

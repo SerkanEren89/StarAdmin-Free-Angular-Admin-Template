@@ -25,7 +25,7 @@ export class PieChartComponent {
     }
   };
 
-  public pieChartType: ChartType = 'pie';
+  public pieChartType: ChartType = 'doughnut';
   public pieChartLegend = true;
   public pieChartColors = [
     {

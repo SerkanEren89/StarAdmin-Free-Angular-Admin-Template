@@ -14,6 +14,9 @@ import {EmployeeModel} from '../../../core/task/_models/employee.model';
 import {Moment} from 'moment';
 import {Options} from '@angular-slider/ngx-slider';
 import {CommentFilterModel} from '../../../core/inbox/_models/comment-filter.model';
+import {IClipboardResponse} from 'ngx-clipboard';
+import {TemplateService} from '../../../core/template/_services/template.service';
+import {TemplateModel} from '../../../core/template/_models/template.model';
 
 @Component({
   selector: 'app-inbox',
@@ -29,6 +32,9 @@ export class InboxComponent implements OnInit {
   employeeList: EmployeeModel[];
   selected: { start: Moment, end: Moment };
   commentFilter: CommentFilterModel;
+  templates$: Observable<TemplateModel[]>;
+  templates: TemplateModel[] = [];
+  selectedTemplate: TemplateModel;
   selectedIndex = 0;
   pageSize = 10;
   page = 1;
@@ -73,6 +79,7 @@ export class InboxComponent implements OnInit {
 
   constructor(private commentService: CommentService,
               private taskService: TaskService,
+              private templateService: TemplateService,
               private modalService: NgbModal,
               private cdr: ChangeDetectorRef) {
   }
@@ -84,6 +91,16 @@ export class InboxComponent implements OnInit {
     this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
       this.employeeList = employeeList;
       this.cdr.detectChanges();
+    });
+
+    this.templates$ = this.templateService.getTemplates();
+    this.templates$.subscribe((templates: TemplateModel[]) => {
+      this.templates = templates;
+      if (templates.length > 0) {
+        this.selectedTemplate = templates[0];
+      } else {
+        this.selectedTemplate = new TemplateModel();
+      }
     });
   }
 
@@ -107,6 +124,7 @@ export class InboxComponent implements OnInit {
     this.processComments();
     this.modalService.dismissAll();
   }
+
   getUnfilteredResult() {
     this.commentList$ = this.commentService.getComments(this.page - 1, this.pageSize);
     this.processComments();
@@ -192,6 +210,14 @@ export class InboxComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  selectTemplate(template: TemplateModel) {
+    this.selectedTemplate = template;
+  }
+
+  copyAndGo($event: IClipboardResponse) {
+    window.open(this.selectedItem.url, '_blank');
   }
 
   private getDismissReason(reason: any): string {

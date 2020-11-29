@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {MonthlyCommentModel} from '../_models/monthly-comment.model';
 
-const API_DASHBOARD_URL = 'popularities';
+const API_POPULARITY_URL = 'popularities';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,6 @@ export class PopularityService {
   getCommentCountMonthly(interval): Observable<MonthlyCommentModel> {
     let params = new HttpParams();
     params = params.append('interval', String(interval));
-    return this.http.get<MonthlyCommentModel>(API_DASHBOARD_URL + '/monthly', {params: params});
+    return this.http.get<MonthlyCommentModel>(API_POPULARITY_URL + '/monthly', {params: params});
   }
 }

@@ -34,6 +34,10 @@ const routes: Routes = [
           path: 'task',
           loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule)
         },
+        {
+          path: 'template',
+          loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox', component: InboxComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},

@@ -126,6 +126,10 @@
             <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign
               Someone as a Task
             </button>
+
+            <button type="button" class="btn btn-primary" (click)="open(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>
+              Answer
+            </button>
           </div>
         </div>
       </div>
@@ -263,6 +267,34 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #answer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-answer-title">Answer Review</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container ">
+        <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+        </div>
+      </div>
+      <div class="form-group answer">
+        <label>Answer</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
   </div>
 </ng-template>
 

@@ -19,6 +19,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component'
     NgxSpinnerModule,
     ToastrModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
-    NgxSliderModule
+    NgxSliderModule,
+    ClipboardModule
   ],
   providers: [
     InterceptService,

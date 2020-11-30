@@ -31,11 +31,41 @@
             </div>
           </form>
           <div class="button-container">
-            <button type="button" class="btn btn-outline-dark" (click)="addNew()">Add New</button>
-            <button type="button" class="btn btn-outline-dark" (click)="save(selectedItem)">Save</button>
+            <button type="button" class="btn btn-warning divider" (click)="open(answer)">Add New</button>
+            <button type="button" class="btn btn-primary" (click)="save(selectedItem)">Save</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #answer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-answer-title">Answer Review</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>Title</label>
+        <div class="input-group">
+          <input id="title" type="text" class="form-control" name="title"
+                 [(ngModel)]="newTemplate.title"/>
+        </div>
+      </div>
+      <div class="form-group answer">
+        <label>Answer</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="newTemplate.content"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save(newTemplate)">Save</button>
+  </div>
+</ng-template>

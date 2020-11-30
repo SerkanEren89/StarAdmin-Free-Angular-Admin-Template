@@ -7,5 +7,8 @@
   flex-direction: row;
   width: 100%;
   justify-content: flex-end;
+  .divider {
+    margin-right: 10px;
+  }
 }
 

@@ -44,4 +44,8 @@ export class TemplateComponent implements OnInit {
         this.toastr.success('Your template saved successfully');
       });
   }
+
+  addNew() {
+    this.selectedItem = new TemplateModel();
+  }
 }

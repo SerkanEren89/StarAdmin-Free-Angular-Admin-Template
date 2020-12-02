@@ -20,6 +20,7 @@ import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 import {ClipboardModule} from 'ngx-clipboard';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {ClipboardModule} from 'ngx-clipboard';
     ToastrModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
     NgxSliderModule,
-    ClipboardModule
+    ClipboardModule,
+    CoreModule
   ],
   providers: [
     InterceptService,

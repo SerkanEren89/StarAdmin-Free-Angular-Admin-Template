@@ -28,16 +28,7 @@
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="commentCountRating.source.toLowerCase().includes('google')" src="assets/images/google.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('holidaycheck')" src="assets/images/holidaycheck.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="commentCountRating.source.toLowerCase().includes('hoteluplift')" src="assets/images/logo.png">
+            <app-channel-icon [source]="commentCountRating.source.toLowerCase()"></app-channel-icon>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{commentCountRating.source}}</p>
@@ -192,14 +183,7 @@
               </td>
               <td>
                 <div>
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
-                  <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('holidaycheck')" src="assets/images/holidayCheck.png">
+                  <app-channel-icon class="icon" [source]="comment.source.toLowerCase()"></app-channel-icon>
                 </div>
               </td>
               <td>

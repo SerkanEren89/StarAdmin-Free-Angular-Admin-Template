@@ -1,7 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'flag-icon',
+  selector: 'app-flag-icon',
   templateUrl: './flag-icon.component.html'
 })
 export class FlagIconComponent {

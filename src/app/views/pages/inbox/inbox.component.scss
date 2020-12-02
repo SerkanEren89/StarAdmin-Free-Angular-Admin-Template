@@ -17,12 +17,17 @@
   .brand {
     font-size: 14px;
     align-self: center;
+    margin-right: 10px;
   }
   .date {
-    margin-left: 10px;
+    margin-right: 10px;
     font-size: 12px;
     font-weight: 300;
     align-self: center;
+  }
+  .answered {
+    align-self: center;
+    margin-left: auto;
   }
 }
 .comment-container {
@@ -39,11 +44,11 @@
   max-height:800px;
   border: 1px solid #e5e5e5;
   .odd {
-    padding: 1.88rem 1.81rem;
+    padding: 1.5rem 1.2rem;
     background: #f5f4f4;
   }
   .even {
-    padding: 1.88rem 1.81rem;
+    padding: 1.5rem 1.2rem;
   }
   .selected {
     border: 1px solid #a19b9b;
@@ -166,21 +171,6 @@
 .pointer {
   cursor: pointer;
 }
-
-.title-container {
-  padding-left: 10px;
-  padding-right: 20px;
-  .parent {
-    padding-left: 0;
-  }
-  .title {
-    font-size: 15px;
-    background-color: #ffffff;
-    border: none;
-    padding: 1rem;
-    margin-bottom: 20px;
-  }
-}
 .star-yellow {
   color: #ffd500;
   font-size: 18px;
@@ -224,9 +214,14 @@
 }
 .filter-button {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   float: right;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1rem;
+  button {
+    margin-left: 5px;
+  }
 }
 .date-filter {
   width: 100%;
@@ -240,4 +235,20 @@
 }
 .answer {
   margin-top: 30px;
+}
+.warning-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .warning-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    text-align: center;
+    .warning {
+      font-size: 60px;
+      margin-bottom: 40px;
+    }
+  }
 }

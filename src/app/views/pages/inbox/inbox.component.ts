@@ -17,6 +17,7 @@ import {CommentFilterModel} from '../../../core/inbox/_models/comment-filter.mod
 import {IClipboardResponse} from 'ngx-clipboard';
 import {TemplateService} from '../../../core/template/_services/template.service';
 import {TemplateModel} from '../../../core/template/_models/template.model';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-inbox',
@@ -114,15 +115,21 @@ export class InboxComponent implements OnInit {
   }
 
   getFilteredReviews() {
+    this.buildFilter();
+    debugger;
+    this.commentList$ = this.commentService.getCommentsByFilter(this.page - 1, this.pageSize, this.commentFilter);
+    this.processComments();
+    this.modalService.dismissAll();
+  }
+
+  private buildFilter() {
+    debugger;
     if (this.selected.start != null) {
       const startDate = this.selected.start.format('DD-MM-YYYY');
       const endDate = this.selected.end.format('DD-MM-YYYY');
       this.commentFilter.startDate = startDate;
       this.commentFilter.endDate = endDate;
     }
-    this.commentList$ = this.commentService.getCommentsByFilter(this.page - 1, this.pageSize, this.commentFilter);
-    this.processComments();
-    this.modalService.dismissAll();
   }
 
   getUnfilteredResult() {
@@ -138,6 +145,23 @@ export class InboxComponent implements OnInit {
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
     });
+  }
+
+  export() {
+    if (this.shouldFilterResult()) {
+      this.buildFilter();
+      this.commentService.exportCommentsByFilter(this.commentFilter).subscribe((byteArray: Uint8Array) => {
+        const blob = new Blob([byteArray]);
+        const date = new Date().toISOString().slice(0, 10);
+        FileSaver.saveAs(blob, 'ReviewExport' + date + '.xlsx');
+      });
+    } else {
+      this.commentService.exportComments().subscribe((byteArray: Uint8Array) => {
+        const blob = new Blob([byteArray]);
+        const date = new Date().toISOString().slice(0, 10);
+        FileSaver.saveAs(blob, 'ReviewExport' + date + '.xlsx');
+      });
+    }
   }
 
   search = (text$: Observable<string>) =>

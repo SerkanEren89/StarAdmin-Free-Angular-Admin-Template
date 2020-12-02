@@ -159,7 +159,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     selectedItem.starred = !selectedItem.starred;
     this.commentService.updateComment(selectedItem.id, selectedItem)
       .subscribe((commentModel: CommentModel) => {
-        this.toastr.success('This comment marked as imported');
+        if (commentModel.starred) {
+          this.toastr.success('This comment marked as imported');
+        } else {
+          this.toastr.success('This comment marked as imported');
+        }
       });
   }
 
@@ -187,7 +191,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
@@ -227,13 +231,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.addLabelTag();
     });
   }
+
   addLabelTag() {
     const tableEl = this.elRef.nativeElement;
     const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach(tr => {
       Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
       );
     });
   }

@@ -191,14 +191,7 @@
                 <i class="fas fa-star star pointer" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
                 <i class="far fa-star star pointer" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"></i>
                 {{selectedItem.content}}</p>
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-              <img class="mdi mdi-cube icon-lg icon" *ngIf="selectedItem.source.toLowerCase().includes('google')" src="assets/images/google.png">
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-              <img class="mdi mdi-cube icon-lg big-icon" *ngIf="selectedItem.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+              <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
               <p class="written" >Written By: {{selectedItem.author}}</p>

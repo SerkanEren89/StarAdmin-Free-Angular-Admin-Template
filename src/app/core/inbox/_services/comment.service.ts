@@ -48,6 +48,20 @@ export class CommentService {
     return this.http.post<CommentModel[]>(API_COMMENTS_URL + '/filter', filter, {params: params});
   }
 
+  exportComments(): Observable<Uint8Array> {
+    const httpOptions = {
+      'responseType': 'blob' as 'json'
+    };
+    return this.http.get<Uint8Array>(API_COMMENTS_URL + '/excel', httpOptions);
+  }
+
+  exportCommentsByFilter(filter: CommentFilterModel): Observable<Uint8Array> {
+    const httpOptions = {
+      'responseType': 'blob' as 'json'
+    };
+    return this.http.post<Uint8Array>(API_COMMENTS_URL + '/excel', filter, httpOptions);
+  }
+
   getLatestComments(): Observable<CommentModel[]> {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/latest');
   }

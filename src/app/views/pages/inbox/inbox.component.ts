@@ -116,14 +116,12 @@ export class InboxComponent implements OnInit {
 
   getFilteredReviews() {
     this.buildFilter();
-    debugger;
     this.commentList$ = this.commentService.getCommentsByFilter(this.page - 1, this.pageSize, this.commentFilter);
     this.processComments();
     this.modalService.dismissAll();
   }
 
   private buildFilter() {
-    debugger;
     if (this.selected.start != null) {
       const startDate = this.selected.start.format('DD-MM-YYYY');
       const endDate = this.selected.end.format('DD-MM-YYYY');

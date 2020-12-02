@@ -86,13 +86,6 @@
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0">%{{categoryGroup.score}}</h3>
               <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
-              <div class="progress-container">
-                <div *ngFor="let category of categoryGroup.last5Categorization">
-                  <i *ngIf="category == 2" class="fa fa-circle text-danger smile"></i>
-                  <i *ngIf="category == 1" class="fa fa-circle text-warning smile"></i>
-                  <i *ngIf="category == 0" class="fa fa-circle text-success smile"></i>
-                </div>
-              </div>
               <p class="text-right mb-0">
                 <span class="text-danger">
                 {{categoryGroup.negativeCount}}
@@ -109,6 +102,13 @@
                   <i class="fa fa-smile"></i>
                 </span>
               </p>
+              <div class="progress-container">
+                <div *ngFor="let category of categoryGroup.last5Categorization">
+                  <i *ngIf="category == 2" class="fa fa-circle text-danger smile"></i>
+                  <i *ngIf="category == 1" class="fa fa-circle text-warning smile"></i>
+                  <i *ngIf="category == 0" class="fa fa-circle text-success smile"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>

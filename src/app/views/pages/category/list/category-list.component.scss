@@ -16,7 +16,16 @@
     margin-bottom: 20px;
   }
 }
-
+.progress-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  .smile {
+    margin-left: 5px;
+  }
+}
 
 
 .rating-container {

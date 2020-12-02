@@ -7,9 +7,6 @@ import {CommentCategoryModel} from '../../../../core/category/_models/comment-ca
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {ToastrService} from 'ngx-toastr';
-import {CategoryGraphModel} from '../../../../core/category/_models/category-graph.model';
-import {ChartDataSets} from 'chart.js';
-import {Label} from 'ng2-charts';
 
 @Component({
   selector: 'app-category-list',
@@ -20,15 +17,11 @@ import {Label} from 'ng2-charts';
 export class CategoryListComponent implements OnInit {
   categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
-  categoryPeriodic$: Observable<CategoryGraphModel>;
-  categoryPeriodic: CategoryGraphModel;
   selectedCategoryGroup: CategoryGroupModel;
   commentCategoryList$: Observable<CommentCategoryModel[]>;
   commentCategoryList: CommentCategoryModel[] = [];
   categoryGroup$: Observable<CategoryGroupModel>;
   categoryGroup: CategoryGroupModel;
-  lineChartData: ChartDataSets[] = [];
-  lineChartLabels: Label[] = [];
   commentList: CommentModel[] = [];
   selectedItem: CommentModel;
   type: string;

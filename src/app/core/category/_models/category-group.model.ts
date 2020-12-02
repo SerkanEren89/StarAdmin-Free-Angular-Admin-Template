@@ -10,4 +10,5 @@ export class CategoryGroupModel {
   selected: boolean;
   rank: number;
   hotelName: string;
+  last5Categorization: number[];
 }

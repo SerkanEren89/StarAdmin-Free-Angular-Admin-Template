@@ -151,13 +151,13 @@ export class InboxComponent implements OnInit {
       this.commentService.exportCommentsByFilter(this.commentFilter).subscribe((byteArray: Uint8Array) => {
         const blob = new Blob([byteArray]);
         const date = new Date().toISOString().slice(0, 10);
-        FileSaver.saveAs(blob, 'ReviewExport' + date + '.xlsx');
+        FileSaver.saveAs(blob, 'ReviewExport_' + date + '.xlsx');
       });
     } else {
       this.commentService.exportComments().subscribe((byteArray: Uint8Array) => {
         const blob = new Blob([byteArray]);
         const date = new Date().toISOString().slice(0, 10);
-        FileSaver.saveAs(blob, 'ReviewExport' + date + '.xlsx');
+        FileSaver.saveAs(blob, 'ReviewExport_' + date + '.xlsx');
       });
     }
   }

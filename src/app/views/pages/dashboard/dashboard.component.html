@@ -274,8 +274,8 @@
   <div class="modal-footer">
     <div class="template-demo">
       <button type="button" class="btn btn-success" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
-      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
+      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
     </div>
   </div>
 </ng-template>

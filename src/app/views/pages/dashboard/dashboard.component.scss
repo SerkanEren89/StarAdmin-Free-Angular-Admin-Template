@@ -264,3 +264,17 @@
     text-align: start;
   }
 }
+.detail-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.written {
+  margin: 0;
+  margin-left: 10px;
+}
+.content-comment {
+  padding: 20px;
+  border: 1px solid #e1dada;
+  background-color: #e6e1e1;
+}

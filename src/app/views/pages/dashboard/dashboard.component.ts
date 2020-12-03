@@ -139,7 +139,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   goToDetail(source: string) {
-    this.router.navigateByUrl('dashboard/' + source);
+    if (!source.toLowerCase().includes('hoteluplift')) {
+      this.router.navigateByUrl('dashboard/' + source);
+    }
   }
 
   goToCategoryDetail(type: string) {

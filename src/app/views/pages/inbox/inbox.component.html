@@ -282,11 +282,11 @@
     <div class="warning-container">
       <i class="fa fa-exclamation-triangle warning text-warning"></i>
       <p *ngIf="!shouldFilterResult()">
-        There is no filter to apply. All of your review will be exported.<br><br>
+        There is no filter to apply. All of your review will be exported. You have {{totalElements}} in total.<br><br>
         Click Export button to continue.
       </p>
       <p *ngIf="shouldFilterResult()">
-        Results will be exported according to filter you applied.<br><br>
+        Results will be exported according to filter you applied. You have {{totalElements}} in total.<br><br>
         Click Export button to continue.
       </p>
     </div>

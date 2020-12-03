@@ -248,7 +248,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Assign</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Assign</button>
   </div>
 </ng-template>
 
@@ -263,17 +263,19 @@
   <div class="modal-body">
     <div class="summary-container">
       <div class="summary">
-        <p class="title">{{selectedComment.content}}</p>
+        <p class="content-comment">{{selectedComment.content}}</p>
         <p class="content-answer" *ngIf="selectedComment.translatedText != null">{{selectedComment.translatedText}}</p>
-        <span class="brand popup-brand">{{selectedComment.source}}</span>
-        <p class="written" >Written By: {{selectedComment.author}}</p>
-        <p class="written">Published on {{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
+        <div class="detail-container">
+          <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
+          <p class="written" >Written By: {{selectedComment.author}}</p>
+          <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
+        </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-success" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
       <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
     </div>

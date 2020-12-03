@@ -1,6 +1,9 @@
 <div class="row title-container">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
-    <span class="input-group-text text-primary title">Popularity</span>
+    <span class="input-group-text text-primary title">
+    <i class="menu-icon mdi mdi-graph title-icon"></i>
+      Popularity
+    </span>
   </div>
 </div>
 <div class="row" *ngIf="barChartLabels.length > 0">
@@ -49,6 +52,74 @@
           <div class="side-right">
             <small class="rating text-success">{{monthlyComments.last6MonthAverage}} daily average</small>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Popularity By Language</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #languageTable>
+            <thead>
+            <tr>
+              <th>
+                Language
+              </th>
+              <th>
+                Count
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let commentCountLanguageModel of commentsByLanguage">
+              <td>
+                <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
+                {{commentCountLanguageModel.language}}
+              </td>
+              <td>
+                {{commentCountLanguageModel.commentCount}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Popularity By Category</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #travelTypeTable>
+            <thead>
+            <tr>
+              <th>
+                Travel Type
+              </th>
+              <th>
+                Count
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let commentCountTraveledWithModel of commentsByTraveledWith">
+              <tr *ngIf="commentCountTraveledWithModel.traveledWith != null">
+                <td>
+                  {{commentCountTraveledWithModel.traveledWith}}
+                </td>
+                <td>
+                  {{commentCountTraveledWithModel.commentCount}}
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

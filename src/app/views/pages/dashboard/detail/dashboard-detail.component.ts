@@ -16,10 +16,11 @@ import {TaskService} from '../../../../core/task/_services/task.service';
 @Component({
   selector: 'app-dashboard-detail',
   templateUrl: './dashboard-detail.component.html',
-  styleUrls: ['./dashboard-detail.component.scss'],
+  styleUrls: ['../../../../app.component.scss', '../dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardDetailComponent implements OnInit {
+  @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
   @ViewChild('commentTable') elRef;
   @ViewChild('languageTable') elRefLanguage;
   @ViewChild('travelTypeTable') elRefTravelType;
@@ -36,14 +37,6 @@ export class DashboardDetailComponent implements OnInit {
 
   closeResult = '';
   source: string;
-  lineChartData: ChartDataSets[] = [
-    {data: [72, 75, 77, 77, 80, 84], label: 'Bar'},
-    {data: [72, 74, 78, 79, 79, 79], label: 'Reception'},
-    {data: [70, 73, 75, 79, 80, 83], label: 'Rooms'},
-    {data: [72, 72, 72, 72, 73, 73], label: 'Cleanliness'},
-    {data: [74, 74, 75, 75, 75, 76], label: 'Pool'},
-  ];
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
   resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
   inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
 
@@ -91,6 +84,14 @@ export class DashboardDetailComponent implements OnInit {
       });
   }
 
+  translate(comment: CommentModel) {
+    this.commentService.getTranslatedComment(comment.id)
+      .subscribe((translatedComment: CommentModel) => {
+        this.selectedComment = translatedComment;
+        this.open(this.selectedComment, this.contentReviewDetail);
+      });
+  }
+
   open(comment, content) {
     this.selectedComment = comment;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
@@ -110,17 +111,13 @@ export class DashboardDetailComponent implements OnInit {
     }
   }
 
-  translate(comment) {
-    this.selectedComment = comment;
-  }
-
   search = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length > 1 ? []
         : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;

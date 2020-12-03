@@ -8,7 +8,7 @@ import {CommentService} from '../../../../core/inbox/_services/comment.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['../auth.component.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

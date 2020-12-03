@@ -10,8 +10,10 @@ import {Component, Input} from '@angular/core';
 export class BarChartComponent {
   @Input() barChartData: ChartDataSets[] = [];
   @Input() barChartLabels: Label[] = [];
+  @Input() height: number;
   public barChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false
   };
 
   public barChartType: ChartType = 'bar';

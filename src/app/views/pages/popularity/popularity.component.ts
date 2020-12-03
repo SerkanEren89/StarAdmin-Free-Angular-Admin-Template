@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Label} from 'ng2-charts';
 import {ChartDataSets} from 'chart.js';
 import {PopularityService} from '../../../core/popularity/_services/popularity.service';
@@ -26,10 +26,13 @@ export class PopularityComponent implements OnInit {
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
   interval = 0;
+  height: number;
+  screenWidth: number;
 
   constructor(private popularityService: PopularityService,
               private commentService: CommentService,
               private cdr: ChangeDetectorRef) {
+    this.getScreenSize();
   }
 
   ngOnInit(): void {
@@ -66,10 +69,10 @@ export class PopularityComponent implements OnInit {
   addLabelTagToLanguageTable() {
     const tableEl = this.elRefLanguage.nativeElement;
     const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach(tr => {
       Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
       );
     });
   }
@@ -77,11 +80,22 @@ export class PopularityComponent implements OnInit {
   addLabelTagToTravelType() {
     const tableEl = this.elRefTravelType.nativeElement;
     const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
+    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
+    tableEl.querySelectorAll('tbody tr').forEach(tr => {
       Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
+        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
       );
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenWidth = window.innerWidth;
+    console.log(this.screenWidth);
+    if (this.screenWidth < 800) {
+      this.height = 350;
+    } else  {
+      this.height = 300;
+    }
   }
 }

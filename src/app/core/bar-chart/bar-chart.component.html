@@ -1,6 +1,5 @@
-<div style="display: block;">
+<div style="display: block;" [style.height.px]= height>
   <canvas baseChart
-          height="250"
           [datasets]="barChartData"
           [labels]="barChartLabels"
           [options]="barChartOptions"

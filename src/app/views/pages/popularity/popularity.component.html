@@ -21,7 +21,7 @@
             <i class="fa fa-arrow-right space" ></i>
           </div>
         </div>
-        <app-bar-chart [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>
+        <app-bar-chart [height]="height" [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-6 grid-margin">
+  <div class="col-lg-7 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Popularity By Language</h5>
@@ -72,6 +72,9 @@
               <th>
                 Count
               </th>
+              <th>
+                %
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -83,6 +86,9 @@
               <td>
                 {{commentCountLanguageModel.commentCount}}
               </td>
+              <td>
+                {{commentCountLanguageModel.percentage}}
+              </td>
             </tr>
             </tbody>
           </table>
@@ -91,7 +97,7 @@
     </div>
   </div>
 
-  <div class="col-lg-6 grid-margin">
+  <div class="col-lg-5 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Popularity By Category</h5>
@@ -105,6 +111,9 @@
               <th>
                 Count
               </th>
+              <th>
+                %
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -115,6 +124,9 @@
                 </td>
                 <td>
                   {{commentCountTraveledWithModel.commentCount}}
+                </td>
+                <td>
+                  {{commentCountTraveledWithModel.percentage}}
                 </td>
               </tr>
             </ng-container>

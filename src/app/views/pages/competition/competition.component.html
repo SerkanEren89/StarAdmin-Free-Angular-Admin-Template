@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let competitionCategory of competitionCategoryList">
+  <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let competitionCategory of competitionCategoryList">
     <div class="card card-statistics pointer" (click)="getHotelListByCategory(competitionCategory)">
       <div class="card-body pointer">
         <div class="clearfix">
@@ -118,30 +118,44 @@
           <table class="table table-bordered" #competitionTable>
             <thead>
             <tr>
-              <th class="small">#</th>
-              <th>
-                Hotel name
+              <th class="single">#</th>
+              <th class="double">
+                Hotel
               </th>
-              <th>
-                Last Week
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last Week
+                </span>
               </th>
-              <th>
-                Last Month
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last Month
+                </span>
               </th>
-              <th>
-                Last 3 Months
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last 3 Months
+                </span>
               </th>
-              <th class="small">
-                Booking
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                  Booking
+                </span>
               </th>
-              <th class="small">
-                Tripadvisor
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                   Tripadvisor
+                </span>
               </th>
-              <th class="small">
-                Hotelscom
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                  Hotels
+                </span>
               </th>
-              <th class="small">
-                HotelUplift
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                  HotelUplift
+                </span>
               </th>
             </tr>
             </thead>
@@ -151,25 +165,25 @@
               <td>
                 {{competitionCountRating.hotelName}}
               </td>
-              <td>
+              <td >
                 <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1"></span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1"></span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;</span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1"></span>
                 </span>
               </td>
               <td class="text-success">

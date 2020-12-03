@@ -188,7 +188,6 @@
 }
 .title-container {
   padding-left: 10px;
-  padding-right: 20px;
   .title {
     font-size: 15px;
     background-color: #ffffff;
@@ -277,4 +276,10 @@
   padding: 20px;
   border: 1px solid #e1dada;
   background-color: #e6e1e1;
+}
+.header-icon {
+  img {
+    width: 25px;
+    margin-right: 5px;
+  }
 }

@@ -99,11 +99,11 @@
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>
-          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
+          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
           <div class="template-demo">
-            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
-            <button type="button" class="btn btn-warning" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
+            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
+            <button type="button" class="btn btn-primary" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
           </div>
         </div>
       </div>

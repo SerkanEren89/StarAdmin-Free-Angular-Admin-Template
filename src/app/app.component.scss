@@ -19,6 +19,11 @@
     border: none;
     padding: 1rem;
     margin-bottom: 20px;
+    img {
+      width: 24px;
+      margin-right: 5px;
+      filter: invert(55%) sepia(64%) saturate(4239%) hue-rotate(187deg) brightness(96%) contrast(82%);
+    }
   }
   .title-icon {
     margin-right: 10px;

@@ -63,7 +63,7 @@
                 {{selectedItem.content}}</p>
               <app-channel-icon class="icon" [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
-              <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
+              <span class="brand">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
               <p class="written">Written By: {{selectedItem.author}}</p>
               <span class="written"
                     *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
@@ -79,6 +79,7 @@
               </ng-template>
               <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true"
                           [max]="5"></ngb-rating>
+              <a target="_blank" *ngIf="selectedItem.url != null" href={{selectedItem.url}}><i class="fa fa-link action-button"></i></a>
             </div>
           </div>
           <p class="content" [innerHTML]=selectedItem.content></p>
@@ -215,7 +216,7 @@
         <p class="title">{{selectedItem.content}}</p>
         <span class="brand popup-brand">{{selectedItem.source}}</span>
         <p class="written">Written By: {{selectedItem.author}}</p>
-        <p class="written">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
+        <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
       </div>
     </div>
     <form class="assignee-form">

@@ -83,8 +83,14 @@
             </div>
           </div>
           <p class="content" [innerHTML]=selectedItem.content></p>
-          <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
-          <p class="content-answer" *ngIf="selectedItem.answer != null">{{selectedItem.answer}}</p>
+          <div class="content-container" *ngIf="selectedItem.translatedText != null">
+            <p class="text-danger content-title">Translated Review: </p>
+            <p class="content-answer">{{selectedItem.translatedText}}</p>
+          </div>
+          <div class="content-container" *ngIf="selectedItem.answer != null">
+            <p class="text-danger content-title">Hotel's response:</p>
+            <p class="content-answer">{{selectedItem.answer}}</p>
+          </div>
           <div class="template-demo">
             <button type="button" class="btn btn-primary" (click)="translate(selectedItem)"><i
               class="mdi mdi-translate"></i>Translate

@@ -232,13 +232,6 @@
   font-size: 30px;
   max-width: 45px;
 }
-.content-answer {
-  padding: 20px;
-  line-height: 26px;
-  padding-left: 50px;
-  border: 1px solid #e1dada;
-  background-color: aliceblue;
-}
 @media screen and (max-width: 600px) {
   table thead {
     display: none;
@@ -276,6 +269,22 @@
   padding: 20px;
   border: 1px solid #e1dada;
   background-color: #fffbfb;
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  background-color: aliceblue;
+  margin-bottom: 15px;
+  padding: 15px;
+  .content-title {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .content-answer {
+    line-height: 26px;
+    padding-left: 40px;
+
+  }
 }
 .header-icon {
   img {

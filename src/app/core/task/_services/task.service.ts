@@ -3,7 +3,6 @@ import {TaskMockModel} from '../_models/task-mock.model';
 import {Observable, of} from 'rxjs';
 import {EmployeeModel} from '../_models/employee.model';
 import {HttpClient} from '@angular/common/http';
-import {TemplateModel} from '../../template/_models/template.model';
 import {map} from 'rxjs/operators';
 import {TaskModel} from '../_models/task.model';
 
@@ -22,6 +21,10 @@ export class TaskService {
       .pipe(map(result => {
         return result;
       }));
+  }
+
+  getTaskByUUID(uuid: string): Observable<TaskModel> {
+    return this.http.get<TaskModel>(API_TASK_URL + '/' + uuid);
   }
 
   getReportedTaskList(): Observable<TaskMockModel[]> {

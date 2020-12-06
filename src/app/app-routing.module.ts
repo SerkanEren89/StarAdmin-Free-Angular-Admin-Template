@@ -4,12 +4,14 @@ import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
+import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
 
 const routes: Routes = [
     {
       path: 'auth',
       loadChildren: () => import('src/app/views/pages/auth/auth.module').then(m => m.AuthModule)
     },
+    {path: 'task-management/:id', component: TaskManagementComponent},
     {
       path: '',
       component: BaseComponent,

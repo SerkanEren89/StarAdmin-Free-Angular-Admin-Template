@@ -21,13 +21,15 @@ import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {CoreModule} from './core/core.module';
+import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InboxComponent,
     InboxPoolComponent,
-    CategorizationComponent
+    CategorizationComponent,
+    TaskManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -184,7 +184,6 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-
                 <a (click)="openTaskModal(comment, contentTask)"><i class="fa fa-tasks action-button"></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
               </td>

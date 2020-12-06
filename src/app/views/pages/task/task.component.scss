@@ -1,5 +1,69 @@
-@import 'src/styles';
 .table td {
   line-height: 18px !important;
   white-space: normal !important;
+}
+
+.comment:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.full {
+  display: flex;
+  flex-direction: row;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  background-color: aliceblue;
+  margin-bottom: 15px;
+  padding: 15px;
+
+  .content-title {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  .content-answer {
+    line-height: 26px;
+    padding-left: 40px;
+
+  }
+}
+
+.detail-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status {
+  margin-bottom: 10px;
+  .author {
+    margin-left: auto;
+  }
+}
+
+.written {
+  margin: 0;
+  margin-left: 10px;
+}
+.finished {
+  margin-bottom: 10px;
+}
+.content-comment {
+  padding: 20px;
+  border: 1px solid #e1dada;
+  background-color: #fffbfb;
+}
+.assignee-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7dada;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.empty-text {
+  text-align: center;
 }

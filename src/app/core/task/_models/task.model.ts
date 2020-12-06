@@ -9,5 +9,6 @@ export class TaskModel {
   creator: UserModel;
   description: string;
   endDate: Date;
+  creationDate: Date;
   uuid: string;
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {TaskMockModel} from '../_models/task-mock.model';
 import {Observable, of} from 'rxjs';
 import {EmployeeModel} from '../_models/employee.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {TaskModel} from '../_models/task.model';
 
@@ -25,6 +25,13 @@ export class TaskService {
 
   getTaskByUUID(uuid: string): Observable<TaskModel> {
     return this.http.get<TaskModel>(API_TASK_URL + '/' + uuid);
+  }
+
+  getTasks(page: number, pageSize: number): Observable<TaskModel[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(pageSize));
+    return this.http.get<TaskModel[]>(API_TASK_URL, {params: params});
   }
 
   getReportedTaskList(): Observable<TaskMockModel[]> {

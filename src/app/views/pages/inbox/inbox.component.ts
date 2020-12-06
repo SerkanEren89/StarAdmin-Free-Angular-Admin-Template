@@ -8,9 +8,6 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
-import {TaskModel} from '../../../core/inbox/_models/task.model';
-import {TaskService} from '../../../core/task/_services/task.service';
-import {EmployeeModel} from '../../../core/task/_models/employee.model';
 import {Moment} from 'moment';
 import {Options} from '@angular-slider/ngx-slider';
 import {CommentFilterModel} from '../../../core/inbox/_models/comment-filter.model';
@@ -18,6 +15,12 @@ import {IClipboardResponse} from 'ngx-clipboard';
 import {TemplateService} from '../../../core/template/_services/template.service';
 import {TemplateModel} from '../../../core/template/_models/template.model';
 import * as FileSaver from 'file-saver';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {EmployeeService} from '../../../core/employee/_services/employee.service';
+import {EmployeeModel} from '../../../core/employee/_models/employee.model';
+import {TaskModel} from '../../../core/task/_models/task.model';
+import {TaskService} from '../../../core/task/_services/task.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-inbox',
@@ -29,7 +32,6 @@ export class InboxComponent implements OnInit {
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
   selectedItem: CommentModel;
-  employeeList$: Observable<EmployeeModel[]>;
   employeeList: EmployeeModel[];
   selected: { start: Moment, end: Moment };
   commentFilter: CommentFilterModel;
@@ -75,25 +77,21 @@ export class InboxComponent implements OnInit {
     checked: false
   }];
   public task: TaskModel = new TaskModel();
-  resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
-  inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
+  resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
+  inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private commentService: CommentService,
-              private taskService: TaskService,
+              private employeeService: EmployeeService,
               private templateService: TemplateService,
+              private taskService: TaskService,
               private modalService: NgbModal,
+              private toastr: ToastrService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.clearFilter();
     this.getUnfilteredResult();
-    this.employeeList$ = this.taskService.getEmployeeList();
-    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
-      this.employeeList = employeeList;
-      this.cdr.detectChanges();
-    });
-
     this.templates$ = this.templateService.getTemplates();
     this.templates$.subscribe((templates: TemplateModel[]) => {
       this.templates = templates;
@@ -163,12 +161,13 @@ export class InboxComponent implements OnInit {
   }
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(term => term.length > 1 ? []
-        : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1
+        ? []
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
@@ -219,12 +218,31 @@ export class InboxComponent implements OnInit {
       this.commentFilter.starred;
   }
 
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  selectTemplate(template: TemplateModel) {
+    this.selectedTemplate = template;
+  }
+
+  copyAndGo($event: IClipboardResponse) {
+    window.open(this.selectedItem.url, '_blank');
+  }
+
+  assignTask(task: TaskModel) {
+    const content = this.selectedItem.content;
+    if (task.employee.phoneNumber != null) {
+      let link = 'https://wa.me/' + task.employee.phoneNumber;
+      link = link + '?text=' + encodeURIComponent(content);
+      window.open(link, '_blank');
+    }
+    if (task.employee.phoneNumber != null) {
+      task.comment = this.selectedItem;
+      this.taskService.saveTasks(task)
+        .subscribe((saved: TaskModel) => {
+          this.toastr.success('Task assigned successfully');
+          this.cdr.detectChanges();
+        });
+    }
+    const contact = task.employee.phoneNumber;
+    this.modalService.dismissAll();
   }
 
   openFilterModal(content) {
@@ -235,12 +253,28 @@ export class InboxComponent implements OnInit {
     });
   }
 
-  selectTemplate(template: TemplateModel) {
-    this.selectedTemplate = template;
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
-  copyAndGo($event: IClipboardResponse) {
-    window.open(this.selectedItem.url, '_blank');
+  openTaskModal(content) {
+    this.task.employee = null;
+    if (this.employeeList == null) {
+      this.employeeService.getAllEmployees()
+        .subscribe((employeeList: EmployeeModel[]) => {
+          this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+        });
+    }
   }
 
   private getDismissReason(reason: any): string {

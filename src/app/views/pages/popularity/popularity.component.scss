@@ -1,6 +1,8 @@
 .performance {
   .topic {
     font-size: 1.3rem;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
   }
   .rating {
     font-size: 16px;
@@ -8,7 +10,9 @@
   .summary-item {
     margin-bottom: 15px;
     border: 1px solid #e5e5e5;
-    padding: 11px;
+    padding: 10px;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
 }
 .date-selection-container {
@@ -62,4 +66,7 @@
     font-family: Poppins,Helvetica,sans-serif;
     white-space: break-spaces;
   }
+}
+.align-center {
+  align-self: center;
 }

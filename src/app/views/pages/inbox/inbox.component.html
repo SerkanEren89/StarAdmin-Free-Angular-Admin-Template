@@ -5,7 +5,7 @@
       Reviews
     </span>
   </div>
-  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
     <button type="button" class="btn btn-primary" (click)="open(excel)"><i class="mdi mdi-file-excel"></i>
       Export to Excel
     </button>
@@ -102,7 +102,7 @@
               class="mdi mdi-star"></i>Mark as Unimportant
             </button>
 
-            <button type="button" class="btn btn-primary" (click)="open(content)"><i class="mdi mdi-file-document"></i>Assign
+            <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>Assign
               Someone as a Task
             </button>
 
@@ -209,7 +209,7 @@
 
 
 
-<ng-template #content let-modal>
+<ng-template #taskModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -220,9 +220,11 @@
     <div class="summary-container">
       <div class="summary">
         <p class="title">{{selectedItem.content}}</p>
-        <span class="brand popup-brand">{{selectedItem.source}}</span>
-        <p class="written">Written By: {{selectedItem.author}}</p>
-        <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
+        <div class="detail-container">
+          <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
+          <p class="written" >Written By: {{selectedItem.author}}</p>
+          <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
+        </div>
       </div>
     </div>
     <form class="assignee-form">
@@ -232,7 +234,7 @@
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
                  [inputFormatter]="inputFormatter"
-                 [(ngModel)]="task.assignee" [ngbTypeahead]="search"/>
+                 [(ngModel)]="task.employee" [ngbTypeahead]="search"/>
         </div>
       </div>
       <div class="form-group">
@@ -245,7 +247,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="assignTask(task)">Assign</button>
   </div>
 </ng-template>
 

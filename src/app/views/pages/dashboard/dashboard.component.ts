@@ -6,8 +6,6 @@ import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {Router} from '@angular/router';
 import {DashboardService} from '../../../core/dashboard/_service/dashboard.service';
-import {TaskModel} from '../../../core/inbox/_models/task.model';
-import {EmployeeModel} from '../../../core/task/_models/employee.model';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs-compat/add/operator/debounceTime';
@@ -23,6 +21,10 @@ import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratin
 import {CommentCategoryService} from '../../../core/category/_services/comment-category.service';
 import {CategoryGroupModel} from '../../../core/category/_models/category-group.model';
 import {ToastrService} from 'ngx-toastr';
+import {TaskModel} from '../../../core/task/_models/task.model';
+import {EmployeeService} from '../../../core/employee/_services/employee.service';
+import {EmployeeModel} from '../../../core/employee/_models/employee.model';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -50,7 +52,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   competitionList: CompetitionModel[];
   currentUser: UserModel;
   lineChartData: ChartDataSets[] = [];
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  lineChartLabels: Label[] = [];
   selectedComment: CommentModel;
   employeeList$: Observable<EmployeeModel[]>;
   employeeList: EmployeeModel[];
@@ -67,8 +69,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
 
-  resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
-  inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
+  resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
+  inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private dashboardService: DashboardService,
               private commentService: CommentService,
@@ -76,6 +78,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               private taskService: TaskService,
               private competitionService: CompetitionService,
               private commentCategoryService: CommentCategoryService,
+              private employeeService: EmployeeService,
               private modalService: NgbModal,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
@@ -119,12 +122,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.cdr.detectChanges();
     });
 
-    this.employeeList$ = this.taskService.getEmployeeList();
-    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
-      this.employeeList = employeeList;
-      this.cdr.detectChanges();
-    });
-
     this.competitionList$ = this.competitionService.getCompetitionList();
     this.competitionList$.subscribe((competitionList: CompetitionModel[]) => {
       this.competitionList = competitionList;
@@ -146,15 +143,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   goToCategoryDetail(type: string) {
     this.router.navigateByUrl('category/' + type);
-  }
-
-  open(comment, content) {
-    this.selectedComment = comment;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   markAsStarred(selectedItem: CommentModel) {
@@ -188,12 +176,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(term => term.length > 1 ? []
-        : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1
+        ? []
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
@@ -243,5 +232,50 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
       );
     });
+  }
+
+  open(comment, content) {
+    this.selectedComment = comment;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openTaskModal(comment: CommentModel, content: TemplateRef<any>) {
+    this.selectedComment = comment;
+    this.task.employee = null;
+    if (this.employeeList == null) {
+      this.employeeService.getAllEmployees()
+        .subscribe((employeeList: EmployeeModel[]) => {
+          this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+        });
+    }
+  }
+
+  assignTask(task: TaskModel) {
+    const content = this.selectedItem.content;
+    if (task.employee.phoneNumber != null) {
+      let link = 'https://wa.me/' + task.employee.phoneNumber;
+      link = link + '?text=' + encodeURIComponent(content);
+      window.open(link, '_blank');
+    }
+    if (task.employee.email != null) {
+      task.comment = this.selectedItem;
+      this.taskService.saveTasks(task)
+        .subscribe((saved: TaskModel) => {
+          this.toastr.success('Task assigned successfully');
+          this.cdr.detectChanges();
+        });
+    }
+    const contact = task.employee.phoneNumber;
+    this.modalService.dismissAll();
   }
 }

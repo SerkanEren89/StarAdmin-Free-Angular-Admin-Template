@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {TemplateModel} from '../../../core/template/_models/template.model';
 import {TemplateService} from '../../../core/template/_services/template.service';
@@ -12,10 +12,10 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   encapsulation: ViewEncapsulation.None
 })
 export class TemplateComponent implements OnInit {
+  @ViewChild('templateModal') public templateModal: TemplateRef<any>;
   templates$: Observable<TemplateModel[]>;
   templates: TemplateModel[] = [];
   newTemplate: TemplateModel;
-  selectedItem: TemplateModel;
   closeResult = '';
 
 
@@ -26,34 +26,21 @@ export class TemplateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.templates$ = this.templateService.getTemplates();
-    this.templates$.subscribe((templates: TemplateModel[]) => {
-      this.templates = templates;
-      if (templates.length > 0) {
-        this.selectedItem = templates[0];
-      } else {
-        this.selectedItem = new TemplateModel();
-      }
-      this.newTemplate = new TemplateModel();
-      this.cdr.detectChanges();
-    });
-  }
-
-  selectTemplate(template: TemplateModel) {
-    this.selectedItem = template;
+    this.newTemplate = new TemplateModel();
+    this.loadAllTemplate();
   }
 
   save(template: TemplateModel) {
     this.templateService.saveTemplates(template)
       .subscribe((templateModel: TemplateModel) => {
-        this.selectedItem = templateModel;
         this.modalService.dismissAll();
         this.toastr.success('Your template saved successfully');
       });
   }
 
   addNew() {
-    this.selectedItem = new TemplateModel();
+    this.newTemplate = new TemplateModel();
+    this.open(this.templateModal);
   }
 
   open(content) {
@@ -64,6 +51,18 @@ export class TemplateComponent implements OnInit {
     });
   }
 
+  delete(template: TemplateModel) {
+    this.templateService.deleteTemplate(template).subscribe(() => {
+      this.toastr.success('Template deleted successfully');
+      this.loadAllTemplate();
+    });
+  }
+
+  edit(template: TemplateModel) {
+    this.newTemplate = template;
+    this.open(this.templateModal);
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -72,5 +71,13 @@ export class TemplateComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  private loadAllTemplate() {
+    this.templateService.getTemplates().subscribe((templates: TemplateModel[]) => {
+      this.templates = templates;
+      this.newTemplate = new TemplateModel();
+      this.cdr.detectChanges();
+    });
   }
 }

@@ -159,6 +159,7 @@
   .written {
     font-size: 12px;
     margin-bottom: 3px;
+    margin-left: 10px;
   }
   .assignee-form {
     margin-top: 15px;
@@ -230,19 +231,6 @@
 .rating-filter {
   width: 100%;
 }
-.filter-button {
-  padding-right: 12px;
-  padding-left: 0;
-  display: flex;
-  flex-direction: row;
-  float: right;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 1rem;
-  button {
-    margin-left: 5px;
-  }
-}
 .date-filter {
   width: 100%;
   padding: 5px;
@@ -275,4 +263,9 @@
 .action-button{
   font-size: 14px;
   margin-right: 5px;
+}
+.detail-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

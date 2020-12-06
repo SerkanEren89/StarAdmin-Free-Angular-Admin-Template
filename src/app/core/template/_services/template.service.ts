@@ -23,4 +23,8 @@ export class TemplateService {
         return result;
       }));
   }
+
+  deleteTemplate(templateModel: TemplateModel): Observable<boolean> {
+    return this.http.delete<boolean>(API_TEMPLATE_URL + '/' + templateModel.id);
+  }
 }

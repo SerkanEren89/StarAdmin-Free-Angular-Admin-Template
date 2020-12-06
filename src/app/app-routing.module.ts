@@ -38,6 +38,10 @@ const routes: Routes = [
           path: 'template',
           loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule)
         },
+        {
+          path: 'employee',
+          loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox', component: InboxComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},

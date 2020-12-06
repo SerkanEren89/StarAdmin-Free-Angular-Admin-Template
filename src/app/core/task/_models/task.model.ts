@@ -1,11 +1,9 @@
+import {EmployeeModel} from '../../employee/_models/employee.model';
+import {CommentModel} from '../../inbox/_models/comment.model';
+
 export class TaskModel {
   id: number;
-  reviewId: string;
-  content: string;
-  reporter: string;
-  reporterQuestion: string;
-  assignee: string;
-  source: string;
-  reviewDate: Date;
-  status: string;
+  employee: EmployeeModel;
+  comment: CommentModel;
+  description: string;
 }

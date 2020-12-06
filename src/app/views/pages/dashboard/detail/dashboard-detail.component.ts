@@ -7,7 +7,7 @@ import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentCountLanguageModel} from '../../../../core/inbox/_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../../../../core/inbox/_models/comment-count-traveled-with.model';
 import {EmployeeModel} from '../../../../core/task/_models/employee.model';
-import {TaskModel} from '../../../../core/inbox/_models/task.model';
+import {TaskModel} from '../../../../core/task/_models/task.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TaskService} from '../../../../core/task/_services/task.service';

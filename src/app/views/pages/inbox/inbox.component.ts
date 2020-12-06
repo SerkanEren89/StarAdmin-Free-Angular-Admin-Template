@@ -227,21 +227,19 @@ export class InboxComponent implements OnInit {
   }
 
   assignTask(task: TaskModel) {
-    const content = this.selectedItem.content;
-    if (task.employee.phoneNumber != null) {
-      let link = 'https://wa.me/' + task.employee.phoneNumber;
-      link = link + '?text=' + encodeURIComponent(content);
-      window.open(link, '_blank');
-    }
-    if (task.employee.phoneNumber != null) {
-      task.comment = this.selectedItem;
-      this.taskService.saveTasks(task)
-        .subscribe((saved: TaskModel) => {
-          this.toastr.success('Task assigned successfully');
-          this.cdr.detectChanges();
-        });
-    }
-    const contact = task.employee.phoneNumber;
+    task.comment = this.selectedItem;
+    this.taskService.saveTasks(task)
+      .subscribe((saved: TaskModel) => {
+        this.toastr.success('Task assigned successfully');
+        this.cdr.detectChanges();
+        if (task.employee.phoneNumber != null) {
+          let link = 'https://wa.me/' + task.employee.phoneNumber;
+          const text = 'Hotel Uplift: you have new assignment. Click the link to see detail\n'
+            + 'https://app.hoteluplift.com/task-management/' + saved.uuid;
+          link = link + '?text=' + encodeURIComponent(text);
+          window.open(link, '_blank');
+        }
+      });
     this.modalService.dismissAll();
   }
 

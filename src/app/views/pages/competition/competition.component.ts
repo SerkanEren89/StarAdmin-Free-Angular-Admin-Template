@@ -14,6 +14,7 @@ import {TableService} from '../../../core/general/_services/table.service';
 export class CompetitionComponent implements OnInit {
   @ViewChild('competitionTable') competitionRef;
   @ViewChild('rankingTable') rankingRef;
+  @ViewChild('pricingTable') pricingRef;
   competitionCountRatingList$: Observable<CompetitionCountRatingModel[]>;
   competitionCountRatingList: CompetitionCountRatingModel[];
   competitionCategoryList$: Observable<CategoryGroupModel[]>;
@@ -34,6 +35,7 @@ export class CompetitionComponent implements OnInit {
       this.cdr.detectChanges();
       this.tableService.addLabelTag(this.competitionRef);
       this.tableService.addLabelTag(this.rankingRef);
+      this.tableService.addLabelTag(this.pricingRef);
     });
     this.competitionCategoryList$ = this.competitionService.getCompetitionCategoryList();
     this.competitionCategoryList$.subscribe((competitionCategoryList: CategoryGroupModel[]) => {

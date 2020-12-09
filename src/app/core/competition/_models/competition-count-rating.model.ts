@@ -13,4 +13,5 @@ export class CompetitionCountRatingModel {
   lastMonthCount: number;
   last3MonthsCount: number;
   selected: boolean;
+  priceText: string;
 }

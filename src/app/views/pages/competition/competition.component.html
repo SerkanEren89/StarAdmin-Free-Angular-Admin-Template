@@ -126,6 +126,44 @@
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
+        <h5 class="card-title mb-4">Pricing</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #pricingTable>
+            <thead>
+            <tr>
+              <th class="single">#</th>
+              <th class="double">
+                Hotel
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Price
+                </span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
+              <td>{{i + 1}}</td>
+              <td>
+                {{competitionCountRating.hotelName}}
+              </td>
+              <td >
+                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
         <h5 class="card-title mb-4">Competition</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #competitionTable>

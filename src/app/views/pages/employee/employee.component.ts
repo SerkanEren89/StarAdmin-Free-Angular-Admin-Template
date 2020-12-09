@@ -3,6 +3,7 @@ import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeModel} from '../../../core/employee/_models/employee.model';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
+import {TableService} from '../../../core/general/_services/table.service';
 
 @Component({
   selector: 'app-employee',
@@ -22,6 +23,7 @@ export class EmployeeComponent implements OnInit {
   constructor(private employeeService: EmployeeService,
               private toastr: ToastrService,
               private modalService: NgbModal,
+              private tableService: TableService,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -61,21 +63,9 @@ export class EmployeeComponent implements OnInit {
       this.employees = employees['content'];
       this.totalElements = employees['totalElements'];
       this.cdr.detectChanges();
-      this.addLabelTag();
+      this.tableService.addLabelTag(this.elRef);
     });
   }
-
-  addLabelTag() {
-    const tableEl = this.elRef.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach(tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-      );
-    });
-  }
-
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {

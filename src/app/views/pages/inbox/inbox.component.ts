@@ -167,7 +167,7 @@ export class InboxComponent implements OnInit {
       map(term => term.length < 1
         ? []
         : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
+    )
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;

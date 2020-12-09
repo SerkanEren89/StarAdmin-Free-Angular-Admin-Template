@@ -40,6 +40,10 @@
                   </div>
                 </div>
                 <p class="content" [innerHTML]=taskModel.comment.content></p>
+                <div class="content-container" *ngIf="taskModel.description != null">
+                  <p class="text-danger content-title">Note: </p>
+                  <p class="content-answer">{{taskModel.description}}</p>
+                </div>
                 <div class="content-container" *ngIf="taskModel.comment.translatedText != null">
                   <p class="text-danger content-title">Translated Review: </p>
                   <p class="content-answer">{{taskModel.comment.translatedText}}</p>

@@ -7,6 +7,7 @@ import {MonthlyCommentModel} from '../../../core/popularity/_models/monthly-comm
 import {CommentCountLanguageModel} from '../../../core/inbox/_models/comment-count-language.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {CommentCountTraveledWithModel} from '../../../core/inbox/_models/comment-count-traveled-with.model';
+import {TableService} from '../../../core/general/_services/table.service';
 
 @Component({
   selector: 'app-popularity',
@@ -31,6 +32,7 @@ export class PopularityComponent implements OnInit {
 
   constructor(private popularityService: PopularityService,
               private commentService: CommentService,
+              private tableService: TableService,
               private cdr: ChangeDetectorRef) {
     this.getScreenSize();
   }
@@ -56,35 +58,13 @@ export class PopularityComponent implements OnInit {
     this.commentsByLanguage$.subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
       this.commentsByLanguage = commentCountLanguageModels;
       this.cdr.detectChanges();
-      this.addLabelTagToLanguageTable();
+      this.tableService.addLabelTag(this.elRefLanguage);
     });
     this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWith();
     this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
       this.commentsByTraveledWith = assessmentByTravelType;
       this.cdr.detectChanges();
-      this.addLabelTagToTravelType();
-    });
-  }
-
-  addLabelTagToLanguageTable() {
-    const tableEl = this.elRefLanguage.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach(tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-      );
-    });
-  }
-
-  addLabelTagToTravelType() {
-    const tableEl = this.elRefTravelType.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach(tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-      );
+      this.tableService.addLabelTag(this.elRefTravelType);
     });
   }
 

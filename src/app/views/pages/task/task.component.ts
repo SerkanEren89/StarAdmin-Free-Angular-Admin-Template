@@ -2,6 +2,14 @@ import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncaps
 import {TaskService} from '../../../core/task/_services/task.service';
 import {TaskModel} from '../../../core/task/_models/task.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EmployeeModel} from '../../../core/employee/_models/employee.model';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {EmployeeService} from '../../../core/employee/_services/employee.service';
+import {TaskFilterModel} from '../../../core/task/_models/task-filter.model';
+import {Moment} from 'moment';
+import {TableService} from '../../../core/general/_services/table.service';
+import {TaskStatsModel} from '../../../core/task/_models/task-stats.model';
 
 @Component({
   selector: 'app-task',
@@ -11,19 +19,40 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TaskComponent implements OnInit {
   @ViewChild('taskTable') elRef;
+  tasks$: Observable<TaskModel[]>;
   tasks: TaskModel[] = [];
+  taskStats: TaskStatsModel;
+  employeeList: EmployeeModel[];
   selectedTask: TaskModel;
+  taskFilter: TaskFilterModel = new TaskFilterModel();
+  selected: { start: Moment, end: Moment };
+  filteredStatus = [];
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  statuses = [{
+    name: 'PENDING',
+    checked: false
+  }, {
+    name: 'FINISHED',
+    checked: false
+  }];
+  resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
+  inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private taskService: TaskService,
+              private employeeService: EmployeeService,
               private modalService: NgbModal,
+              private tableService: TableService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.getAllTasks();
+    this.taskService.getTaskStats()
+      .subscribe((taskStats: TaskStatsModel) => {
+        this.taskStats = taskStats;
+      });
   }
 
   private getAllTasks() {
@@ -31,21 +60,8 @@ export class TaskComponent implements OnInit {
       this.tasks = tasks['content'];
       this.totalElements = tasks['totalElements'];
       this.cdr.detectChanges();
-      this.addLabelTag();
+      this.tableService.addLabelTag(this.elRef);
     });
-  }
-
-  addLabelTag() {
-    if (this.elRef != null) {
-      const tableEl = this.elRef.nativeElement;
-      const thEls = tableEl.querySelectorAll('thead th');
-      const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-      tableEl.querySelectorAll('tbody tr').forEach(tr => {
-        Array.from(tr.children).forEach(
-          (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-        );
-      });
-    }
   }
 
   openDetailPopup(task: TaskModel, contentReviewDetail: TemplateRef<any>) {
@@ -58,5 +74,92 @@ export class TaskComponent implements OnInit {
   loadTasks(page: number) {
     this.page = page;
     this.getAllTasks();
+    if (this.shouldFilterResult()) {
+      this.getFilteredTasks();
+    } else {
+      this.getUnFilteredTasks();
+    }
   }
+
+  getFilteredTasks() {
+    this.buildFilter();
+    this.tasks$ = this.taskService.getTasksByFilter(this.page - 1, this.pageSize, this.taskFilter);
+    this.processTasks();
+    this.modalService.dismissAll();
+  }
+
+  getUnFilteredTasks() {
+    this.tasks$ = this.taskService.getTasks(this.page - 1, this.pageSize);
+    this.processTasks();
+  }
+
+  shouldFilterResult() {
+    return (this.taskFilter.statusList != null && this.taskFilter.statusList.length > 0) ||
+      (this.taskFilter.startDate != null && this.taskFilter.endDate != null) ||
+      (this.taskFilter.employee !== null);
+  }
+
+  private buildFilter() {
+    if (this.selected.start != null) {
+      const startDate = this.selected.start.format('DD-MM-YYYY');
+      const endDate = this.selected.end.format('DD-MM-YYYY');
+      this.taskFilter.startDate = startDate;
+      this.taskFilter.endDate = endDate;
+    }
+  }
+
+  clearFilter() {
+    this.filteredStatus = [];
+    this.statuses.forEach(status => status.checked = false);
+    this.taskFilter = new TaskFilterModel();
+    this.page = 1;
+    if (this.selected != null) {
+      this.selected = null;
+    }
+  }
+
+  filterTasks(content) {
+    if (this.employeeList == null) {
+      this.employeeService.getAllEmployees()
+        .subscribe((employeeList: EmployeeModel[]) => {
+          this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          }, (reason) => {
+          });
+        });
+    } else {
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
+    }
+  }
+
+  changeFilteredStatus(i: number) {
+    if (this.statuses) {
+      this.statuses[i].checked = !this.statuses[i].checked;
+      if (this.statuses[i].checked) {
+        this.filteredStatus.push(this.statuses[i].name);
+      }
+    }
+    this.taskFilter.statusList = this.filteredStatus;
+  }
+
+  processTasks() {
+    this.tasks$.subscribe((tasks: TaskModel[]) => {
+      this.tasks = tasks['content'];
+      this.totalElements = tasks['totalElements'];
+      this.selectedTask = this.tasks[0];
+      this.cdr.detectChanges();
+    });
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1
+        ? []
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 }

@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {CompetitionService} from '../../../core/competition/_services/competition.service';
 import {CompetitionCountRatingModel} from '../../../core/competition/_models/competition-count-rating.model';
 import {CategoryGroupModel} from '../../../core/category/_models/category-group.model';
+import {TableService} from '../../../core/general/_services/table.service';
 
 @Component({
   selector: 'app-competition',
@@ -22,6 +23,7 @@ export class CompetitionComponent implements OnInit {
   selectedCategory: CategoryGroupModel;
 
   constructor(private competitionService: CompetitionService,
+              private tableService: TableService,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -30,7 +32,8 @@ export class CompetitionComponent implements OnInit {
     this.competitionCountRatingList$.subscribe((competitionCountRatingList: CompetitionCountRatingModel[]) => {
       this.competitionCountRatingList = competitionCountRatingList;
       this.cdr.detectChanges();
-      this.addLabelTag();
+      this.tableService.addLabelTag(this.competitionRef);
+      this.tableService.addLabelTag(this.rankingRef);
     });
     this.competitionCategoryList$ = this.competitionService.getCompetitionCategoryList();
     this.competitionCategoryList$.subscribe((competitionCategoryList: CategoryGroupModel[]) => {
@@ -45,28 +48,8 @@ export class CompetitionComponent implements OnInit {
     this.competitionCategory$.subscribe((competitionCategory: CategoryGroupModel[]) => {
       this.competitionCategory = competitionCategory;
       this.cdr.detectChanges();
-      this.addLabelTag();
-    });
-  }
-
-  addLabelTag() {
-    if (this.competitionRef != null) {
-      const tableCompetition = this.competitionRef.nativeElement;
-      this.addLabelTagForTable(tableCompetition);
-    }
-    if (this.rankingRef != null) {
-      const tableRanking = this.rankingRef.nativeElement;
-      this.addLabelTagForTable(tableRanking);
-    }
-  }
-
-  addLabelTagForTable(tableEl) {
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach(tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-      );
+      this.tableService.addLabelTag(this.competitionRef);
+      this.tableService.addLabelTag(this.rankingRef);
     });
   }
 }

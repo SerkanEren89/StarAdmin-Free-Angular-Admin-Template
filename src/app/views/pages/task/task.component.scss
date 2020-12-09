@@ -41,10 +41,14 @@
 .status {
   margin-bottom: 10px;
   .author {
+    margin: 0;
     margin-left: auto;
   }
 }
-
+.category-icon {
+  font-size: 30px;
+  max-width: 45px;
+}
 .written {
   margin: 0;
   margin-left: 10px;
@@ -66,4 +70,58 @@
 }
 .empty-text {
   text-align: center;
+}
+@media screen and (max-width: 880px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+  }
+  table tr {
+    border: 1px solid #a19b9b;
+  }
+
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+  .star-container {
+    text-align: start;
+  }
+}
+.table-bordered td:nth-child(1) {
+  word-wrap:break-word;
+  white-space: normal;
+}
+.table-bordered td:nth-child(1) {
+
+}
+.table-bordered{
+  table-layout: fixed;
+  .text {
+    line-height: 18px;
+    font-family: Poppins,Helvetica,sans-serif;
+    white-space: break-spaces;
+  }
+}
+.form-check-label {
+  margin-right: 10px;
+  .status {
+    margin-right: 5px;
+  }
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+}
+.rating-filter {
+  width: 100%;
+}
+.date-filter {
+  width: 100%;
+  padding: 5px;
 }

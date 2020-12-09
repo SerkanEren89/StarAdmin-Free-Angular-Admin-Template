@@ -25,6 +25,7 @@ import {TaskModel} from '../../../core/task/_models/task.model';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
 import {EmployeeModel} from '../../../core/employee/_models/employee.model';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {TableService} from '../../../core/general/_services/table.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,7 +55,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   lineChartData: ChartDataSets[] = [];
   lineChartLabels: Label[] = [];
   selectedComment: CommentModel;
-  employeeList$: Observable<EmployeeModel[]>;
   employeeList: EmployeeModel[];
   closeResult = '';
   task: TaskModel = new TaskModel();
@@ -80,6 +80,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               private commentCategoryService: CommentCategoryService,
               private employeeService: EmployeeService,
               private modalService: NgbModal,
+              private tableService: TableService,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
               private router: Router) {
@@ -219,18 +220,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.totalElements = commentList['totalElements'];
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
-      this.addLabelTag();
-    });
-  }
-
-  addLabelTag() {
-    const tableEl = this.elRef.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map((el: any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach(tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) => td.setAttribute('label', tdLabels[ndx])
-      );
+      this.tableService.addLabelTag(this.elRef);
     });
   }
 
@@ -245,7 +235,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   openTaskModal(comment: CommentModel, content: TemplateRef<any>) {
     this.selectedComment = comment;
-    this.task.employee = null;
+    this.task = new TaskModel();
     if (this.employeeList == null) {
       this.employeeService.getAllEmployees()
         .subscribe((employeeList: EmployeeModel[]) => {
@@ -261,7 +251,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   assignTask(task: TaskModel) {
-    task.comment = this.selectedItem;
+    task.comment = this.selectedComment;
     this.taskService.saveTasks(task)
       .subscribe((saved: TaskModel) => {
         this.toastr.success('Task assigned successfully');

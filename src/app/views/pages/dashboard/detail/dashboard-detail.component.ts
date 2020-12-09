@@ -1,16 +1,16 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ChartDataSets} from 'chart.js';
-import {Label} from 'ng2-charts';
 import {ActivatedRoute} from '@angular/router';
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentCountLanguageModel} from '../../../../core/inbox/_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../../../../core/inbox/_models/comment-count-traveled-with.model';
-import {EmployeeModel} from '../../../../core/task/_models/employee.model';
 import {TaskModel} from '../../../../core/task/_models/task.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TaskService} from '../../../../core/task/_services/task.service';
+import {EmployeeModel} from '../../../../core/employee/_models/employee.model';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {TableService} from '../../../../core/general/_services/table.service';
 
 
 @Component({
@@ -37,13 +37,14 @@ export class DashboardDetailComponent implements OnInit {
 
   closeResult = '';
   source: string;
-  resultFormatter = (result: EmployeeModel) => result.name + ' ' + result.surname;
-  inputFormatter = (x: EmployeeModel) => x.name + ' ' + x.surname;
+  resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
+  inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private route: ActivatedRoute,
               private modalService: NgbModal,
               private commentService: CommentService,
               private taskService: TaskService,
+              private tableService: TableService,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -53,27 +54,21 @@ export class DashboardDetailComponent implements OnInit {
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
       this.cdr.detectChanges();
-      this.addLabelTag();
+      this.tableService.addLabelTag(this.elRef);
     });
 
     this.commentsByLanguage$ = this.commentService.getCommentsByCountByLanguageAndSource(this.source);
     this.commentsByLanguage$.subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
       this.commentsByLanguage = commentCountLanguageModels;
       this.cdr.detectChanges();
-      this.addLabelTagToLanguageTable();
+      this.tableService.addLabelTag(this.elRefLanguage);
     });
 
     this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWithAndSource(this.source);
     this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
       this.commentsByTraveledWith = assessmentByTravelType;
       this.cdr.detectChanges();
-      this.addLabelTagToTravelType();
-    });
-
-    this.employeeList$ = this.taskService.getEmployeeList();
-    this.employeeList$.subscribe((employeeList: EmployeeModel[]) => {
-      this.employeeList = employeeList;
-      this.cdr.detectChanges();
+      this.tableService.addLabelTag(this.elRefTravelType);
     });
   }
 
@@ -112,12 +107,13 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(term => term.length > 1 ? []
-        : this.employeeList.filter(
-          v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1
+        ? []
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
@@ -125,37 +121,6 @@ export class DashboardDetailComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  addLabelTag() {
-    const tableEl = this.elRef.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
-      );
-    });
-  }
-  addLabelTagToLanguageTable() {
-    const tableEl = this.elRefLanguage.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
-      );
-    });
-  }
-  addLabelTagToTravelType() {
-    const tableEl = this.elRefTravelType.nativeElement;
-    const thEls = tableEl.querySelectorAll('thead th');
-    const tdLabels = Array.from(thEls).map( (el:any) => el.innerText);
-    tableEl.querySelectorAll('tbody tr').forEach( tr => {
-      Array.from(tr.children).forEach(
-        (td: any, ndx) =>  td.setAttribute('label', tdLabels[ndx])
-      );
     });
   }
 }

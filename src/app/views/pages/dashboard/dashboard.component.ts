@@ -242,11 +242,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           this.employeeList = employeeList;
           this.cdr.detectChanges();
           this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
           }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
           });
         });
+    } else {
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
     }
   }
 

@@ -190,13 +190,13 @@
           </p>
         </div>
         <p class="content-comment">{{selectedTask.comment.content}}</p>
-        <div class="content-container" *ngIf="selectedTask.description != null">
-          <p class="text-danger content-title">Note: </p>
-          <p class="content-answer">{{selectedTask.description}}</p>
-        </div>
         <div class="content-container" *ngIf="selectedTask.comment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
+        </div>
+        <div class="content-container" *ngIf="selectedTask.description != null">
+          <p class="text-danger content-title">Note: </p>
+          <p class="content-answer">{{selectedTask.description}}</p>
         </div>
         <div class="detail-container">
           <app-channel-icon [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>

@@ -39,6 +39,7 @@
 .brand-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   img {
     margin-right: 10px;
     max-height: 25px;
@@ -60,6 +61,22 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  background-color: aliceblue;
+  margin-bottom: 15px;
+  padding: 15px;
+  .content-title {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .content-answer {
+    line-height: 26px;
+    padding-left: 40px;
+
+  }
 }
 .inbox {
   padding: 0 !important;
@@ -216,7 +233,7 @@
 
 .thumb {
   font-size: 16px;
-  margin-left: 5px;
+  margin-left: 8px;
 }
 .performance {
   .topic {

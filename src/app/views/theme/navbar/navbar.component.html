@@ -9,7 +9,7 @@
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center">
     <ul class="navbar-nav navbar-nav-right">
-      <li class="nav-item dropdown d-none d-xl-inline-block" ngbDropdown>
+      <li class="nav-item dropdown d-none d-xl-inline-block pointer" ngbDropdown>
         <a class="nav-link dropdown-toggle" ngbDropdownToggle>
           <i class="mdi mdi mdi-bell"></i>
           <span *ngIf="commentsAfterLastLogin != null && commentsAfterLastLogin.length > 0" class="count">{{commentsAfterLastLogin.length}}</span>
@@ -33,7 +33,7 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown  d-xl-inline-block" ngbDropdown>
+      <li class="nav-item dropdown  d-xl-inline-block pointer" ngbDropdown>
         <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle>
           <span class="profile-text">{{currentUser.firstName}} {{currentUser.lastName}}</span>
         </a>

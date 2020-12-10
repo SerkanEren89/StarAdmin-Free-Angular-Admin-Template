@@ -126,7 +126,7 @@
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Pricing</h5>
+        <h5 class="card-title mb-4">Rating & Pricing</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #pricingTable>
             <thead>
@@ -134,59 +134,6 @@
               <th class="single">#</th>
               <th class="double">
                 Hotel
-              </th>
-              <th class="single small-padding">
-                <span class="fa-pull-right">
-                  Price
-                </span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
-              <td>{{i + 1}}</td>
-              <td>
-                {{competitionCountRating.hotelName}}
-              </td>
-              <td >
-                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4">Competition</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" #competitionTable>
-            <thead>
-            <tr>
-              <th class="single">#</th>
-              <th class="double">
-                Hotel
-              </th>
-              <th class="single small-padding">
-                <span class="fa-pull-right">
-                  Last Week
-                </span>
-              </th>
-              <th class="single small-padding">
-                <span class="fa-pull-right">
-                  Last Month
-                </span>
-              </th>
-              <th class="single small-padding">
-                <span class="fa-pull-right">
-                  Last 3 Months
-                </span>
               </th>
               <th class="single small-padding">
                  <span class="fa-pull-right">
@@ -208,6 +155,11 @@
                   HotelUplift
                 </span>
               </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Price
+                </span>
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -215,27 +167,6 @@
               <td>{{i + 1}}</td>
               <td>
                 {{competitionCountRating.hotelName}}
-              </td>
-              <td >
-                <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
-                  <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1"></span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1"></span>
-                </span>
-              </td>
-              <td>
-                <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
-                  <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;</span>
-                </span>
-              </td>
-              <td>
-                <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
-                  <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1"></span>
-                </span>
               </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
@@ -248,6 +179,88 @@
               </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
+              </td>
+              <td >
+                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Review Counts</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #competitionTable>
+            <thead>
+            <tr>
+              <th class="single">#</th>
+              <th class="double">
+                Hotel
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Today
+                </span>
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last Week
+                </span>
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last Month
+                </span>
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Last 3 Months
+                </span>
+              </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
+              <td>{{i + 1}}</td>
+              <td>
+                {{competitionCountRating.hotelName}}
+              </td>
+              <td >
+                <span class="fa-pull-right">{{competitionCountRating.todaysCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.todaysCount == 0 || competitionCountRating.todaysCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.todaysCount > 1">&nbsp;Reviews</span>
+                </span>
+              </td>
+              <td >
+                <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Reviews</span>
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Reviews</span>
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
+                  <span class="fa-pull-right"
+                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Review</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Reviews</span>
+                </span>
               </td>
             </tr>
             </tbody>

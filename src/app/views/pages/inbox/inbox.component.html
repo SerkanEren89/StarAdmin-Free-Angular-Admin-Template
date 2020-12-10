@@ -107,7 +107,7 @@
             </button>
 
             <button type="button" class="btn btn-primary" (click)="open(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>
-              Answer
+              Reply
             </button>
           </div>
         </div>
@@ -253,7 +253,7 @@
 
 <ng-template #answer let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Answer Review</h4>
+    <h4 class="modal-title" id="modal-answer-title">Reply Review</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -267,7 +267,7 @@
         </div>
       </div>
       <div class="form-group answer">
-        <label>Answer</label>
+        <label>Reply</label>
         <div class="input-group">
           <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
         </div>

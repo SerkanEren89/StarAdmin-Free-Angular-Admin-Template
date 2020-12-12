@@ -225,7 +225,7 @@
 .cursor-pointer {
   cursor: pointer;
 }
-.pagination-container {
+.see-all-container {
   display: flex;
   flex-direction: row;
   float: right;
@@ -234,9 +234,6 @@
     margin-top: 25px;
     margin-right: 10px;
     cursor: pointer;
-  }
-  .pagination {
-    margin-top: 20px;
   }
 }
 .category-icon {

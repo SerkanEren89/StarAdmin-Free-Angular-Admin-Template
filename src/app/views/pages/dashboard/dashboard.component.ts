@@ -245,11 +245,6 @@ export class DashboardComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  loadComments(page: number) {
-    this.page = page;
-    this.processComments(page);
-  }
-
   processComments(page: number) {
     if (this.competitorHotel == null) {
       this.commentService.getComments(page - 1, this.pageSize)

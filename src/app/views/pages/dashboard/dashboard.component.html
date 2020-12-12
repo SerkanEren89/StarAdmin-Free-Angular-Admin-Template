@@ -194,14 +194,8 @@
             </tr>
             </tbody>
           </table>
-          <div class="pagination-container">
-            <div class="pagination-container">
-              <a class="see-all text-primary" routerLink="/inbox">See all reviews</a>
-              <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
-                              (pageChange)="loadComments($event)"
-                              [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-                              aria-label="Default pagination" class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
-            </div>
+          <div class="see-all-container">
+            <a class="see-all text-primary" routerLink="/inbox">See all reviews</a>
           </div>
         </div>
       </div>

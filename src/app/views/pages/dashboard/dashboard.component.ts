@@ -1,18 +1,16 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardService} from '../../../core/dashboard/_service/dashboard.service';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs-compat/add/operator/debounceTime';
 import 'rxjs-compat/add/operator/distinctUntilChanged';
 import 'rxjs-compat/add/operator/map';
-import {CompetitionModel} from '../../../core/competition/_models/competition.model';
-import {CompetitionService} from '../../../core/competition/_services/competition.service';
 import {CommentCountModel} from '../../../core/inbox/_models/comment-count.model';
 import {CommentCountRatingModel} from '../../../core/dashboard/_models/comment-count-rating.model';
 import {AuthService} from '../../../core/auth/_service/auth.service';
@@ -26,6 +24,8 @@ import {EmployeeService} from '../../../core/employee/_services/employee.service
 import {EmployeeModel} from '../../../core/employee/_models/employee.model';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {TableService} from '../../../core/general/_services/table.service';
+import {HotelService} from '../../../core/hotel/_services/hotel.service';
+import {HotelModel} from '../../../core/hotel/_models/hotel.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,24 +33,17 @@ import {TableService} from '../../../core/general/_services/table.service';
   styleUrls: ['../../../app.component.scss', './dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
 
   @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
   @ViewChild('commentTable') elRef;
-  commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
-  commentCountList$: Observable<CommentCountModel[]>;
   commentCountList: CommentCountModel[];
-  monthlyRating$: Observable<MonthlyRatingsModel>;
   monthlyRating: MonthlyRatingsModel;
-  commentCountRatings$: Observable<CommentCountRatingModel[]>;
   commentCountRatings: CommentCountRatingModel[];
-  commentCountPeriods$: Observable<CommentCountModel[]>;
   commentCountPeriods: CommentCountModel[];
-  categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
-  competitionList$: Observable<CompetitionModel[]>;
-  competitionList: CompetitionModel[];
+  competitionList: HotelModel[];
   currentUser: UserModel;
   lineChartData: ChartDataSets[] = [];
   lineChartLabels: Label[] = [];
@@ -59,8 +52,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   closeResult = '';
   task: TaskModel = new TaskModel();
   form: any;
-  selectedHotel: CompetitionModel;
-  hotel: CompetitionModel;
+  competitorHotel: HotelModel;
+  selectedCompetitor: HotelModel;
   selectedItem: CommentModel;
   totalElements = 0;
   pageSize = 10;
@@ -76,74 +69,124 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               private commentService: CommentService,
               private authService: AuthService,
               private taskService: TaskService,
-              private competitionService: CompetitionService,
+              private hotelService: HotelService,
               private commentCategoryService: CommentCategoryService,
               private employeeService: EmployeeService,
               private modalService: NgbModal,
               private tableService: TableService,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
+              private route: ActivatedRoute,
               private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
-    this.commentList$ = this.commentService.getComments(this.page - 1, this.pageSize);
-    this.processComments();
-    this.commentCountList$ = this.commentService.getCommentsByCount();
-    this.commentCountList$.subscribe((commentCountList: CommentCountModel[]) => {
-      this.commentCountList = commentCountList;
-      for (const commentCountModel of commentCountList) {
-        this.pieChartLabels.push(commentCountModel.label);
-        this.pieChartData.push(commentCountModel.count);
+    const uuid = this.route.snapshot.paramMap.get('uuid');
+    if (uuid == null) {
+      this.getInitialDataForMainHotel();
+    } else {
+      this.competitionList = this.hotelService.savedCompetitors;
+      if (this.competitionList == null) {
+        this.hotelService.getCompetitors()
+          .subscribe((competitionList: HotelModel[]) => {
+            this.competitionList = competitionList;
+            this.hotelService.savedCompetitors = competitionList;
+            this.competitorHotel = this.competitionList.find(competitior => competitior.uuid = uuid);
+            this.getInitialDataForCompetitorHotel();
+            this.cdr.detectChanges();
+          });
+      } else {
+        this.competitorHotel = this.competitionList.find(competitior => competitior.uuid === uuid);
+        this.getInitialDataForCompetitorHotel();
       }
-      this.cdr.detectChanges();
-    });
-    this.commentCountRatings$ = this.dashboardService.getCommentCountAndRatings();
-    this.commentCountRatings$.subscribe((commentCountRatings: CommentCountRatingModel[]) => {
-      this.commentCountRatings = commentCountRatings;
-      this.cdr.detectChanges();
-    });
+    }
+  }
 
-    this.commentCountPeriods$ = this.dashboardService.getCommentCount();
-    this.commentCountPeriods$.subscribe((commentCount: CommentCountModel[]) => {
-      this.commentCountPeriods = commentCount;
-      this.cdr.detectChanges();
-    });
-    this.monthlyRating$ = this.dashboardService.getMonthlyRating();
-    this.monthlyRating$.subscribe((monthlyRating: MonthlyRatingsModel) => {
+  getInitialDataForMainHotel() {
+    this.processComments(this.page);
+    this.commentService.getCommentsByCount()
+      .subscribe((commentCountList: CommentCountModel[]) => {
+        this.commentCountList = commentCountList;
+        for (const commentCountModel of commentCountList) {
+          this.pieChartLabels.push(commentCountModel.label);
+          this.pieChartData.push(commentCountModel.count);
+        }
+        this.cdr.detectChanges();
+      });
+    this.dashboardService.getCommentCountAndRatings()
+      .subscribe((commentCountRatings: CommentCountRatingModel[]) => {
+        this.commentCountRatings = commentCountRatings;
+        this.cdr.detectChanges();
+      });
+
+    this.dashboardService.getCommentCount()
+      .subscribe((commentCount: CommentCountModel[]) => {
+        this.commentCountPeriods = commentCount;
+        this.cdr.detectChanges();
+      });
+    this.dashboardService.getMonthlyRating().subscribe((monthlyRating: MonthlyRatingsModel) => {
       this.monthlyRating = monthlyRating;
       this.lineChartLabels = this.monthlyRating.months;
       this.lineChartData = this.monthlyRating.item;
       this.cdr.detectChanges();
     });
     this.currentUser = this.authService.currentUserValue;
-    this.categoryGroupList$ = this.commentCategoryService.getCategorySentimentCount();
-    this.categoryGroupList$.subscribe((categoryGroupList: CategoryGroupModel[]) => {
-      this.categoryGroupList = categoryGroupList;
-      this.cdr.detectChanges();
-    });
-
-    this.competitionList$ = this.competitionService.getCompetitionList();
-    this.competitionList$.subscribe((competitionList: CompetitionModel[]) => {
-      this.competitionList = competitionList;
-      this.selectedHotel = this.competitionList[0];
-      this.hotel = this.competitionList[0];
-      this.cdr.detectChanges();
-    });
+    this.commentCategoryService.getCategorySentimentCount()
+      .subscribe((categoryGroupList: CategoryGroupModel[]) => {
+        this.categoryGroupList = categoryGroupList;
+        this.cdr.detectChanges();
+      });
   }
 
-  ngAfterViewInit() {
+  getInitialDataForCompetitorHotel() {
+    const hotelId = this.competitorHotel.id;
+    this.processComments(this.page);
+    this.commentService.getCommentsByCountForHotelId(hotelId)
+      .subscribe((commentCountList: CommentCountModel[]) => {
+        this.commentCountList = commentCountList;
+        for (const commentCountModel of commentCountList) {
+          this.pieChartLabels.push(commentCountModel.label);
+          this.pieChartData.push(commentCountModel.count);
+        }
+        this.cdr.detectChanges();
+      });
+    this.dashboardService.getCommentCountAndRatingsForHotelId(hotelId)
+      .subscribe((commentCountRatings: CommentCountRatingModel[]) => {
+        this.commentCountRatings = commentCountRatings;
+        this.cdr.detectChanges();
+      });
 
+    this.dashboardService.getCommentCountForHotelId(hotelId)
+      .subscribe((commentCount: CommentCountModel[]) => {
+        this.commentCountPeriods = commentCount;
+        this.cdr.detectChanges();
+      });
+    this.dashboardService.getMonthlyRatingForHotelId(hotelId)
+      .subscribe((monthlyRating: MonthlyRatingsModel) => {
+        this.monthlyRating = monthlyRating;
+        this.lineChartLabels = this.monthlyRating.months;
+        this.lineChartData = this.monthlyRating.item;
+        this.cdr.detectChanges();
+      });
+    this.currentUser = this.authService.currentUserValue;
+    this.commentCategoryService.getCategorySentimentCountForHotelId(hotelId)
+      .subscribe((categoryGroupList: CategoryGroupModel[]) => {
+        this.categoryGroupList = categoryGroupList;
+        this.cdr.detectChanges();
+      });
   }
 
   goToDetail(source: string) {
-    if (!source.toLowerCase().includes('hoteluplift')) {
+    if (!source.toLowerCase().includes('hoteluplift') && this.competitorHotel == null) {
       this.router.navigateByUrl('dashboard/' + source);
     }
   }
 
   goToCategoryDetail(type: string) {
-    this.router.navigateByUrl('category/' + type);
+    if (this.competitorHotel == null) {
+      this.router.navigateByUrl('category/' + type);
+    }
   }
 
   markAsStarred(selectedItem: CommentModel) {
@@ -186,42 +229,49 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
-    this.selectedComment = comment;
-    this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  openHotelSelectionPopup(contentCompetition: TemplateRef<any>) {
-    this.modalService.open(contentCompetition, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    if (this.competitorHotel == null) {
+      this.selectedComment = comment;
+      this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
   }
 
   changeHotel() {
-    this.hotel = this.selectedHotel;
+    this.competitorHotel = this.selectedCompetitor;
+    this.router.navigateByUrl('dashboard/' + this.competitorHotel.uuid);
     this.modalService.dismissAll();
   }
 
   loadComments(page: number) {
     this.page = page;
-    this.commentList$ = this.commentService.getComments(page - 1, this.pageSize);
-    this.processComments();
+    this.processComments(page);
   }
 
-  processComments() {
-    this.commentList$.subscribe((commentList: CommentModel[]) => {
-      this.commentList = commentList['content'];
-      this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
-      this.totalElements = commentList['totalElements'];
-      this.selectedItem = this.commentList[0];
-      this.cdr.detectChanges();
-      this.tableService.addLabelTag(this.elRef);
-    });
+  processComments(page: number) {
+    if (this.competitorHotel == null) {
+      this.commentService.getComments(page - 1, this.pageSize)
+        .subscribe((commentList: CommentModel[]) => {
+          this.commentList = commentList['content'];
+          this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+          this.totalElements = commentList['totalElements'];
+          this.selectedItem = this.commentList[0];
+          this.cdr.detectChanges();
+          this.tableService.addLabelTag(this.elRef);
+        });
+    } else {
+      this.commentService.getCommentsForHotelId(this.competitorHotel.id, page - 1, this.pageSize)
+        .subscribe((commentList: CommentModel[]) => {
+          this.commentList = commentList['content'];
+          this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+          this.totalElements = commentList['totalElements'];
+          this.selectedItem = this.commentList[0];
+          this.cdr.detectChanges();
+          this.tableService.addLabelTag(this.elRef);
+        });
+    }
   }
 
   open(comment, content) {
@@ -240,6 +290,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.employeeService.getAllEmployees()
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          }, (reason) => {
+          });
+        });
+    } else {
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
+    }
+  }
+
+  openCompetitorModal(content: TemplateRef<any>) {
+    if (this.competitionList == null) {
+      this.hotelService.getCompetitors()
+        .subscribe((competitionList: HotelModel[]) => {
+          this.competitionList = competitionList;
+          this.hotelService.savedCompetitors = competitionList;
           this.cdr.detectChanges();
           this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {

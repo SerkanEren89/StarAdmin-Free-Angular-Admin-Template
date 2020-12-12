@@ -42,6 +42,7 @@ export class InboxComponent implements OnInit {
   pageSize = 10;
   page = 1;
   totalElements;
+  totalPages;
   closeResult = '';
   filteredChannel = [];
   options: Options = {
@@ -138,6 +139,7 @@ export class InboxComponent implements OnInit {
       this.commentList = commentList['content'];
       this.commentList.forEach(comment => comment.ratingOverFive = comment.rating / 2);
       this.totalElements = commentList['totalElements'];
+      this.totalPages = Math.ceil(this.totalElements / this.pageSize);
       this.selectedItem = this.commentList[0];
       this.cdr.detectChanges();
     });

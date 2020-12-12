@@ -27,6 +27,13 @@ export class TaskService {
     return this.http.get<TaskModel>(API_TASK_URL + '/' + uuid);
   }
 
+  remindTask(task: TaskModel): Observable<TaskModel> {
+    return this.http.post<TaskModel>(API_TASK_URL + '/reminder', task)
+      .pipe(map(result => {
+        return result;
+      }));
+  }
+
   getTasks(page: number, pageSize: number): Observable<TaskModel[]> {
     let params = new HttpParams();
     params = params.append('page', String(page));

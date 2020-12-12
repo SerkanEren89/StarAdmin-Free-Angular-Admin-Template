@@ -18,11 +18,23 @@ export class DashboardService {
     return this.http.get<CommentCountRatingModel[]>(API_DASHBOARD_URL + '/comment-count-ratings');
   }
 
+  getCommentCountAndRatingsForHotelId(hotelId: number): Observable<CommentCountRatingModel[]> {
+    return this.http.get<CommentCountRatingModel[]>(API_DASHBOARD_URL + '/comment-count-ratings/' + hotelId);
+  }
+
   getCommentCount(): Observable<CommentCountModel[]> {
     return this.http.get<CommentCountModel[]>(API_DASHBOARD_URL + '/comment-count');
   }
 
+  getCommentCountForHotelId(hotelId: number): Observable<CommentCountModel[]> {
+    return this.http.get<CommentCountModel[]>(API_DASHBOARD_URL + '/comment-count/' + hotelId);
+  }
+
   getMonthlyRating(): Observable<MonthlyRatingsModel> {
     return this.http.get<MonthlyRatingsModel>(API_DASHBOARD_URL + '/monthly-ratings');
+  }
+
+  getMonthlyRatingForHotelId(hotelId: number): Observable<MonthlyRatingsModel> {
+    return this.http.get<MonthlyRatingsModel>(API_DASHBOARD_URL + '/monthly-ratings/' + hotelId);
   }
 }

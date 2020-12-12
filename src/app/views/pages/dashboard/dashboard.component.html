@@ -1,10 +1,14 @@
 <div class="row title-container">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
-    <span class="input-group-text text-primary title">{{currentUser.hotelName}}</span>
+    <span class="input-group-text text-primary title" *ngIf="competitorHotel == null && currentUser != null">
+      {{currentUser.hotelName}}
+    </span>
+    <span class="input-group-text text-primary title" *ngIf="competitorHotel != null">
+      {{competitorHotel.name}}</span>
   </div>
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
-    <button type="button" class="btn btn-primary" (click)="openHotelSelectionPopup(contentCompetition)">
+    <button type="button" class="btn btn-primary" (click)="openCompetitorModal(contentCompetition)">
       Select Competitor
     </button>
   </div>
@@ -121,16 +125,16 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="commentList.length > 0">
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Reviews</h4>
+        <h4 class="card-title">Last Reviews</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #commentTable>
             <thead>
             <tr>
-              <th style="width: 10%">
+              <th style="width: 10%" *ngIf="competitorHotel == null">
                 Starred
               </th>
               <th style="width: 50%">
@@ -152,7 +156,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let comment of commentList">
-              <td class="text star-container">
+              <td class="text star-container" *ngIf="competitorHotel == null">
                 <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
                 <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
               </td>
@@ -184,16 +188,21 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <a (click)="openTaskModal(comment, contentTask)"><i class="fa fa-tasks action-button"></i></a>
+                <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
               </td>
             </tr>
             </tbody>
           </table>
-          <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
-                          (pageChange)="loadComments($event)"
-                          [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-                          aria-label="Default pagination" class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
+          <div class="pagination-container">
+            <div class="pagination-container">
+              <a class="see-all text-primary" routerLink="/inbox">See all reviews</a>
+              <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
+                              (pageChange)="loadComments($event)"
+                              [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                              aria-label="Default pagination" class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -281,27 +290,37 @@
 
 <ng-template #contentCompetition let-modalCompetiton>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-competition">Select Competitor/Coming soon</h4>
+    <h4 class="modal-title" id="modal-competition">Select Competitor</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalCompetiton.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div class="summary-container">
+    <div class="summary-container" *ngIf="competitionList.length > 0">
       <div class="summary">
         <div *ngFor="let competition of competitionList">
           <label for="enum_answer_{{competition.name}}">
-            <input id="enum_answer_{{competition.name}}" [value]='competition' type="radio" name="enums" [(ngModel)]="selectedHotel">
+            <input id="enum_answer_{{competition.name}}" [value]='competition' type="radio" name="enums" [(ngModel)]="selectedCompetitor">
             {{competition.name}}
           </label>
         </div>
+      </div>
+    </div>
 
+    <div class="warning-body" *ngIf="competitionList.length == 0">
+      <div class="warning-container">
+        <i class="fa fa-exclamation-triangle warning text-warning"></i>
+        <p>
+          Please contact us to give your competition list.
+        </p>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-success" (click)="changeHotel()">Change Hotel</button>
+      <button type="button" class="btn btn-primary" (click)="changeHotel()" *ngIf="competitionList.length > 0">
+        Change Hotel
+      </button>
     </div>
   </div>
 </ng-template>

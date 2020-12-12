@@ -33,6 +33,10 @@ export class CommentCategoryService {
     return this.http.get<CategoryGroupModel[]>(API_COMMENT_CATEGORY_URL + '/category-sentiment-count');
   }
 
+  getCategorySentimentCountForHotelId(hotelId: number): Observable<CategoryGroupModel[]> {
+    return this.http.get<CategoryGroupModel[]>(API_COMMENT_CATEGORY_URL + '/category-sentiment-count/' + hotelId);
+  }
+
   getCategorySentimentCountByCategoryName(category): Observable<CategoryGroupModel> {
     return this.http.get<CategoryGroupModel>(API_COMMENT_CATEGORY_URL + '/category-sentiment-count' + '/' + category + '/category');
   }

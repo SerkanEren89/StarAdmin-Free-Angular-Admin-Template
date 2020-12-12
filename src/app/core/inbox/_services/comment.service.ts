@@ -34,6 +34,13 @@ export class CommentService {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL, {params: params});
   }
 
+  getCommentsForHotelId(hotelId: number, page: number, pageSize: number): Observable<CommentModel[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(pageSize));
+    return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/' + hotelId, {params: params});
+  }
+
   getCommentsForPool(page: number, pageSize: number): Observable<CommentModel[]> {
     let params = new HttpParams();
     params = params.append('page', String(page));
@@ -82,6 +89,10 @@ export class CommentService {
 
   getCommentsByCount(): Observable<CommentCountModel[]> {
     return this.http.get<CommentCountModel[]>(API_COMMENTS_URL + '/count');
+  }
+
+  getCommentsByCountForHotelId(hotelId: number): Observable<CommentCountModel[]> {
+    return this.http.get<CommentCountModel[]>(API_COMMENTS_URL + '/count/' + hotelId);
   }
 
   getCommentsByCountByLanguage(): Observable<CommentCountLanguageModel[]> {

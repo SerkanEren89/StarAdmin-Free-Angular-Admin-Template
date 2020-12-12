@@ -18,6 +18,10 @@ import {NgxDateRangeModule} from 'ngx-daterange';
         component: DashboardComponent
       },
       {
+        path: ':uuid',
+        component: DashboardComponent
+      },
+      {
         path: ':source',
         component: DashboardDetailComponent
       }

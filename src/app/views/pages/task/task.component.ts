@@ -10,6 +10,7 @@ import {TaskFilterModel} from '../../../core/task/_models/task-filter.model';
 import {Moment} from 'moment';
 import {TableService} from '../../../core/general/_services/table.service';
 import {TaskStatsModel} from '../../../core/task/_models/task-stats.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-task',
@@ -42,6 +43,7 @@ export class TaskComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               private employeeService: EmployeeService,
+              private toastr: ToastrService,
               private modalService: NgbModal,
               private tableService: TableService,
               private cdr: ChangeDetectorRef) {
@@ -161,5 +163,21 @@ export class TaskComponent implements OnInit {
       map(term => term.length < 1
         ? []
         : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+    );
+
+  remindTask() {
+    this.taskService.remindTask(this.selectedTask)
+      .subscribe((saved: TaskModel) => {
+        this.toastr.success('Reminder sent successfully');
+        this.cdr.detectChanges();
+        if (this.selectedTask.employee.phoneNumber != null) {
+          let link = 'https://wa.me/' + this.selectedTask.employee.phoneNumber;
+          const text = 'Hotel Uplift: reminder for your assignment! Click the link to see detail\n'
+            + 'https://app.hoteluplift.com/task-management/' + saved.uuid;
+          link = link + '?text=' + encodeURIComponent(text);
+          window.open(link, '_blank');
+        }
+      });
+    this.modalService.dismissAll();
+  }
 }

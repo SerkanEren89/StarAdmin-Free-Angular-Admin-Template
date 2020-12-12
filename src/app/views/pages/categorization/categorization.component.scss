@@ -35,6 +35,7 @@
   text-overflow: ellipsis;
 }
 .inbox {
+  flex: initial !important;
   padding: 0 !important;
   overflow-y:auto;
   height:auto;
@@ -148,6 +149,7 @@
   }
 }
 .pagination-container {
+  flex: initial !important;
   padding: 0.3rem !important;
   margin: 0;
 }

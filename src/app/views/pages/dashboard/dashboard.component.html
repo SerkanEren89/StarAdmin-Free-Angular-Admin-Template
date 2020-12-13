@@ -262,6 +262,11 @@
     <div class="summary-container">
       <div class="summary">
         <p class="content-comment">{{selectedComment.content}}</p>
+        <div class="detail-container">
+          <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
+          <p class="written" >Written By: {{selectedComment.author}}</p>
+          <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
+        </div>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedComment.translatedText}}</p>
@@ -269,11 +274,6 @@
         <div class="content-container" *ngIf="selectedComment.answer != null">
           <p class="text-danger content-title">Hotel's response:</p>
           <p class="content-answer">{{selectedComment.answer}}</p>
-        </div>
-        <div class="detail-container">
-          <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedComment.author}}</p>
-          <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
       </div>
     </div>

@@ -19,12 +19,12 @@ import {ClipboardModule} from 'ngx-clipboard';
         component: DashboardComponent
       },
       {
-        path: ':uuid',
-        component: DashboardComponent
+        path: 'detail/:source',
+        component: DashboardDetailComponent
       },
       {
-        path: ':source',
-        component: DashboardDetailComponent
+        path: ':uuid',
+        component: DashboardComponent
       }
     ]),
     FormsModule,

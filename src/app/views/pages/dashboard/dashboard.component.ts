@@ -185,7 +185,7 @@ export class DashboardComponent implements OnInit {
 
   goToDetail(source: string) {
     if (!source.toLowerCase().includes('hoteluplift') && this.competitorHotel == null) {
-      this.router.navigateByUrl('dashboard/' + source);
+      this.router.navigateByUrl('dashboard/detail/' + source);
     }
   }
 

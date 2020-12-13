@@ -67,8 +67,9 @@
     white-space: break-spaces;
   }
 }
-.align-center {
-  align-self: center;
+.average-item {
+  align-self: flex-end;
+  padding-bottom: 10px;
 }
 .arrow-container {
   display: flex;

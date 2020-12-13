@@ -61,7 +61,7 @@
               <p class="text-right mb-0">
                 <span class="text-danger">
                 {{categoryGroup.negativeCount}}
-                  <i class="fa fa-thumbs-down"></i>
+                  <i class="fa fa-angry"></i>
                 </span>
                 /
                 <span class="text-warning">
@@ -71,7 +71,7 @@
                 /
                 <span class="text-success">
                 {{categoryGroup.positiveCount}}
-                  <i class="fa fa-thumbs-up"></i>
+                  <i class="fa fa-smile"></i>
                 </span>
               </p>
             </div>
@@ -134,7 +134,10 @@
               <th style="width: 10%" *ngIf="competitorHotel == null">
                 Starred
               </th>
-              <th style="width: 50%">
+              <th style="width: 10%">
+                Answered
+              </th>
+              <th style="width: 40%">
                 Review
               </th>
               <th style="width: 10%">
@@ -157,12 +160,16 @@
                 <a *ngIf="!comment.starred" (click)="markAsStarred(comment)"><i class="far fa-star star pointer" ></i></a>
                 <a *ngIf="comment.starred" (click)="!markAsStarred(comment)"><i class="fa fa-star star pointer" ></i></a>
               </td>
-              <td class="text comment full"
+              <td class="text star-container">
+                <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
+                     *ngIf="comment.answer != null">
+              </td>
+              <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length <= 100">
                 {{comment.content}}
               </td>
-              <td class="text comment full"
+              <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length > 100">
                 {{comment.content | slice:0:100}}...
@@ -187,6 +194,7 @@
               <td class="text-primary">
                 <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button"></i></a>
               </td>
             </tr>
             </tbody>
@@ -313,5 +321,33 @@
         Change Hotel
       </button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #reply let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-answer-title">Reply Review</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container ">
+        <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+        </div>
+      </div>
+      <div class="form-group answer">
+        <label>Reply</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
   </div>
 </ng-template>

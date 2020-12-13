@@ -95,7 +95,7 @@
             <p class="content-answer">{{selectedItem.answer}}</p>
           </div>
           <div class="template-demo">
-            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)"><i
+            <button type="button" class="btn btn-primary" *ngIf="selectedItem.translatedText == null" (click)="translate(selectedItem)"><i
               class="mdi mdi-translate"></i>Translate
             </button>
             <button type="button" class="btn btn-primary" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
@@ -292,7 +292,7 @@
   </div>
   <div class="modal-body warning-body">
     <div class="warning-container">
-      <i class="fa fa-exclamation-triangle warning text-warning"></i>
+      <i class="fa fa-info-circle warning text-primary"></i>
       <p *ngIf="!shouldFilterResult()">
         No filters applied. All of your reviews will be exported. You have {{totalElements}} in total.<br><br>
         Click Export button to continue.

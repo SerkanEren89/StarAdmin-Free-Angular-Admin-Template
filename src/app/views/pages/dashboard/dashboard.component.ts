@@ -26,6 +26,9 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {TableService} from '../../../core/general/_services/table.service';
 import {HotelService} from '../../../core/hotel/_services/hotel.service';
 import {HotelModel} from '../../../core/hotel/_models/hotel.model';
+import {TemplateModel} from '../../../core/template/_models/template.model';
+import {TemplateService} from '../../../core/template/_services/template.service';
+import {IClipboardResponse} from 'ngx-clipboard';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,6 +52,8 @@ export class DashboardComponent implements OnInit {
   lineChartLabels: Label[] = [];
   selectedComment: CommentModel;
   employeeList: EmployeeModel[];
+  templates: TemplateModel[];
+  selectedTemplate: TemplateModel;
   closeResult = '';
   task: TaskModel = new TaskModel();
   form: any;
@@ -72,6 +77,7 @@ export class DashboardComponent implements OnInit {
               private hotelService: HotelService,
               private commentCategoryService: CommentCategoryService,
               private employeeService: EmployeeService,
+              private templateService: TemplateService,
               private modalService: NgbModal,
               private tableService: TableService,
               private toastr: ToastrService,
@@ -315,6 +321,33 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  openReplyModal(content: TemplateRef<any>) {
+    if (this.templates == null) {
+      this.templateService.getTemplates()
+        .subscribe((templateModels: TemplateModel[]) => {
+          this.templates = templateModels;
+          if (this.templates.length > 0) {
+            this.selectedTemplate = this.templates[0];
+          } else {
+            this.selectedTemplate = new TemplateModel();
+          }
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          }, (reason) => {
+          });
+        });
+    } else {
+      if (this.templates.length > 0) {
+        this.selectedTemplate = this.templates[0];
+      } else {
+        this.selectedTemplate = new TemplateModel();
+      }
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
+    }
+  }
+
   assignTask(task: TaskModel) {
     task.comment = this.selectedComment;
     this.taskService.saveTasks(task)
@@ -330,5 +363,13 @@ export class DashboardComponent implements OnInit {
         }
       });
     this.modalService.dismissAll();
+  }
+
+  selectTemplate(template: TemplateModel) {
+    this.selectedTemplate = template;
+  }
+
+  copyAndGo($event: IClipboardResponse) {
+    window.open(this.selectedItem.url, '_blank');
   }
 }

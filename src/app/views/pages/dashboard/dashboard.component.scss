@@ -240,6 +240,9 @@
   font-size: 30px;
   max-width: 45px;
 }
+.answered-icon {
+  width: 20px !important;
+}
 @media screen and (max-width: 600px) {
   table thead {
     display: none;
@@ -329,4 +332,7 @@
       margin-bottom: 40px;
     }
   }
+}
+.answer {
+  margin-top: 30px;
 }

@@ -35,7 +35,6 @@ export class InboxComponent implements OnInit {
   selectedItem: CommentModel;
   selected: { start: Moment, end: Moment };
   commentFilter: CommentFilterModel;
-  templates$: Observable<TemplateModel[]>;
   templates: TemplateModel[] = [];
   selectedTemplate: TemplateModel;
   selectedIndex = 0;
@@ -93,8 +92,8 @@ export class InboxComponent implements OnInit {
   ngOnInit() {
     this.clearFilter();
     this.getUnfilteredResult();
-    this.templates$ = this.templateService.getTemplates();
-    this.templates$.subscribe((templates: TemplateModel[]) => {
+    this.templateService.getTemplates()
+      .subscribe((templates: TemplateModel[]) => {
       this.templates = templates;
       if (templates.length > 0) {
         this.selectedTemplate = templates[0];

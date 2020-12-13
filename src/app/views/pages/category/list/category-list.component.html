@@ -20,7 +20,9 @@
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">%{{categoryGroup.score}}</h3>
+              <h3 class="font-weight-medium text-right mb-0" [class.text-danger]="categoryGroup.score <= 50"
+                  [class.text-warning]="categoryGroup.score > 50 && categoryGroup.score < 70">
+                %{{categoryGroup.score}}</h3>
               <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
               <p class="text-right mb-0">
                 <span class="text-danger">
@@ -61,19 +63,19 @@
         <div class="row">
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('negative')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-angry icon-md text-danger"></i>
-              <p class="mb-0 ml-1"> {{categoryGroup.negativeCount}} mentions </p></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.negativeCount}} mentions </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('neutral')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-meh icon-md text-warning"></i>
-              <p class="mb-0 ml-1"> {{categoryGroup.neutralCount}} mentions </p></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.neutralCount}} mentions </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('positive')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-smile icon-md text-success"></i>
-              <p class="mb-0 ml-1"> {{categoryGroup.positiveCount}} mentions </p></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.positiveCount}} mentions </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center category-filter">
             <div class="d-flex flex-row align-items-center"><i class="icon-md text-success"></i>
-              <p class="mb-0 ml-1"> Score: {{categoryGroup.score}}%</p></div>
+              <p class="mb-0 ml-1"> Success Score: {{categoryGroup.score}}%</p></div>
           </div>
         </div>
       </div>
@@ -81,6 +83,13 @@
   </div>
 </div>
 
+<div class="row title-container" *ngIf="categoryGroup != null">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
+    <span class="input-group-text text-primary title category-title">
+      <span>{{categoryGroup.category.name}}</span>
+    </span>
+  </div>
+</div>
 <div class="row" *ngIf="commentCategoryList.length > 0">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">

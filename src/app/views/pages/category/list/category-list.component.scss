@@ -256,6 +256,11 @@
 .category-filter {
   margin-bottom: 10px;
 }
+.category-filter:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
 .float-right {
   width: 70%;
 }
@@ -271,4 +276,7 @@
   font-size: 12px;
   margin-bottom: 3px;
   margin-left: 10px;
+}
+.category-title {
+  padding-left: 10px;
 }

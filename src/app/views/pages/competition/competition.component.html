@@ -22,6 +22,11 @@
               </th>
               <th class="single small-padding">
                  <span class="fa-pull-right">
+                   <app-channel-icon [source]="'hoteluplift'"></app-channel-icon>
+                </span>
+              </th>
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
                   <app-channel-icon [source]="'booking'"></app-channel-icon>
                 </span>
               </th>
@@ -33,11 +38,6 @@
               <th class="single small-padding">
                  <span class="fa-pull-right">
                    <app-channel-icon [source]="'hotelscom'"></app-channel-icon>
-                </span>
-              </th>
-              <th class="single small-padding">
-                 <span class="fa-pull-right">
-                   <app-channel-icon [source]="'hoteluplift'"></app-channel-icon>
                 </span>
               </th>
               <th class="single small-padding">
@@ -54,6 +54,9 @@
               <td>
                 {{competitionCountRating.hotelName}}
               </td>
+              <td class="text-success bold-text">
+                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
+              </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
               </td>
@@ -62,9 +65,6 @@
               </td>
               <td class="text-success">
                 <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>

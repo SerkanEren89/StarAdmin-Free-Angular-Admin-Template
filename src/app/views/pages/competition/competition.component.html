@@ -114,35 +114,6 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">
-          <img class="mdi mdi-cube icon-lg category-icon"
-               *ngIf="selectedCategory.category.name.toLowerCase().includes('overall')"
-               src="assets/images/logo.png">
-          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"
-               *ngIf="selectedCategory.category.name.toLowerCase().includes('cleanliness')">
-          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg"
-               *ngIf="selectedCategory.category.name.toLowerCase().includes('breakfast')">
-          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"
-               *ngIf="selectedCategory.category.name.toLowerCase().includes('ambiance')">
-          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"
-               *ngIf="selectedCategory.category.name.toLowerCase().includes('amenities')">
-          <i class="fa fa-hamburger category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('food')"></i>
-          <i class="fa fa-wifi category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('wifi')"></i>
-          <i class="fa fa-users category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('staff')"></i>
-          <i class="fa fa-money-bill category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('pricing')"></i>
-          <i class="fa fa-location-arrow category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('location')"></i>
-          <i class="fa fa-concierge-bell category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('reception')"></i>
-          <i class="fa fa-bed category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('room')"></i>
-          <i class="fa fa-volume-up category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('noisy-quiet')"></i>
-          <i class="fa fa-car category-icon"
-             *ngIf="selectedCategory.category.name.toLowerCase().includes('carpark')"></i>
           Ranking List for {{selectedCategory.category.name}}
         </h5>
         <div class="table-responsive">

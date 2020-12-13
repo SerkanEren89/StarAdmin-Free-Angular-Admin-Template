@@ -13,6 +13,13 @@
   flex-direction: row;
 }
 
+.float-right {
+  width: 70%;
+}
+.float-left {
+  width: 30%;
+}
+
 .content-container {
   display: flex;
   flex-direction: column;
@@ -48,6 +55,12 @@
 .category-icon {
   font-size: 30px;
   max-width: 45px;
+}
+.table-center {
+  text-align: center;
+}
+.table-icon {
+  font-size: 16px;
 }
 .written {
   margin: 0;

@@ -10,5 +10,6 @@ export class TaskModel {
   description: string;
   endDate: Date;
   creationDate: Date;
+  taskStatus: string;
   uuid: string;
 }

@@ -129,6 +129,15 @@
     <div class="card">
       <div class="card-body">
         <div *ngIf="selectedItem != null">
+          <div>
+            <p class="total-info text-primary">{{totalElements}}
+              <span *ngIf="totalElements > 1">reviews are </span>
+              <span *ngIf="totalElements <= 1">review is </span>
+              recognized in
+              {{categoryGroup.category.name}} category
+              <span *ngIf="selectedSentiment != null"> with {{selectedSentiment}} sentiment</span>
+            </p>
+          </div>
           <div class="summary-container">
             <div class="summary">
               <p class="title">

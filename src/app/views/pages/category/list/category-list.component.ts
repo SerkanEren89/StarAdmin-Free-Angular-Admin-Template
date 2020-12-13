@@ -31,6 +31,7 @@ export class CategoryListComponent implements OnInit {
   employeeList: EmployeeModel[];
   public task: TaskModel = new TaskModel();
   type: string;
+  selectedSentiment: string;
   selectedIndex = 0;
   totalElements = 0;
   pageSize = 10;
@@ -59,6 +60,7 @@ export class CategoryListComponent implements OnInit {
   goToCategoryDetail(categoryGroup: CategoryGroupModel) {
     this.page = 1;
     this.selectedCategoryGroup = categoryGroup;
+    this.selectedSentiment = null;
     this.categoryGroupList.forEach(item => item.selected = false);
     categoryGroup.selected = true;
     this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name)
@@ -119,6 +121,7 @@ export class CategoryListComponent implements OnInit {
 
   filterBySentiment(sentiment: string) {
     this.page = 1;
+    this.selectedSentiment = sentiment;
     this.commentCategoryList$ = this.commentCategoryService.getCommentCategoriesByCategoryNameAndSentiment(this.categoryGroup.category.name,
       sentiment, this.page - 1, this.pageSize);
     this.processComments();

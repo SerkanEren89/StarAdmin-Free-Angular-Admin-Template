@@ -1,0 +1,8 @@
+:root {
+  --font-size: 30px;
+  --max-width: 45px;
+}
+.category-icon {
+  font-size: var(--fontSize);
+  max-width: var(--maxWidth);
+}

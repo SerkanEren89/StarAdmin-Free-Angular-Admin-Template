@@ -35,6 +35,14 @@
   </div>
 </div>
 
+<div class="row title-container" *ngIf="categoryGroupList != null && categoryGroupList.length > 0">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
+    <span class="input-group-text text-primary title">
+      <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg">
+      Popular Categories
+    </span>
+  </div>
+</div>
 <div class="row">
   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
        (click)="goToCategoryDetail(categoryGroup.category.name)"
@@ -43,18 +51,7 @@
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg" *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')">
-            <i class="fa fa-wifi category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')"></i>
-            <i class="fa fa-users category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')"></i>
-            <i class="fa fa-money category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')"></i>
-            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('location')"></i>
-            <i class="fa fa-bed category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('room')"></i>
-            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')"></i>
-            <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
-            <i class="fa fa-car category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('carpark')"></i>
+            <app-category-icon [category]="categoryGroup.category.name" [fontSize] = "30" [maxWidth]="45"></app-category-icon>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>

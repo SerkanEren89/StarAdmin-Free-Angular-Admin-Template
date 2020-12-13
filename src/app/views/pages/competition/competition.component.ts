@@ -52,6 +52,8 @@ export class CompetitionComponent implements OnInit {
       this.cdr.detectChanges();
       this.tableService.addLabelTag(this.competitionRef);
       this.tableService.addLabelTag(this.rankingRef);
+      const toScroll = document.getElementById('competitionCategory');
+      toScroll.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
   }
 }

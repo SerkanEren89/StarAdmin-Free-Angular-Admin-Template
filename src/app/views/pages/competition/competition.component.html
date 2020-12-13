@@ -8,34 +8,98 @@
 </div>
 
 <div class="row">
-  <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let competitionCategory of competitionCategoryList">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Rating & Pricing</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #pricingTable>
+            <thead>
+            <tr>
+              <th class="single">#</th>
+              <th class="double">
+                Hotel
+              </th>
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                  <app-channel-icon [source]="'booking'"></app-channel-icon>
+                </span>
+              </th>
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                   <app-channel-icon [source]="'tripadvisor'"></app-channel-icon>
+                </span>
+              </th>
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                   <app-channel-icon [source]="'hotelscom'"></app-channel-icon>
+                </span>
+              </th>
+              <th class="single small-padding">
+                 <span class="fa-pull-right">
+                   <app-channel-icon [source]="'hoteluplift'"></app-channel-icon>
+                </span>
+              </th>
+              <th class="single small-padding">
+                <span class="fa-pull-right">
+                  Price
+                </span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
+                [class.selected]="competitionCountRating.selected">
+              <td>{{i + 1}}</td>
+              <td>
+                {{competitionCountRating.hotelName}}
+              </td>
+              <td class="text-success">
+                <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
+              </td>
+              <td class="text-success">
+                <span class="fa-pull-right">{{competitionCountRating.tripAdvisorRating}}</span>
+              </td>
+              <td class="text-success">
+                <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
+              </td>
+              <td class="text-success">
+                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
+              </td>
+              <td>
+                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card"
+       *ngFor="let competitionCategory of competitionCategoryList">
     <div class="card card-statistics pointer" (click)="getHotelListByCategory(competitionCategory)">
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg category-icon" *ngIf="competitionCategory.category.name.toLowerCase().includes('overall')" src="assets/images/logo.png">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"  *ngIf="competitionCategory.category.name.toLowerCase().includes('cleanliness')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg" *ngIf="competitionCategory.category.name.toLowerCase().includes('breakfast')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"*ngIf="competitionCategory.category.name.toLowerCase().includes('ambiance')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"*ngIf="competitionCategory.category.name.toLowerCase().includes('amenities')">
-            <i class="fa fa-hamburger category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('food')"></i>
-            <i class="fa fa-wifi category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('wifi')"></i>
-            <i class="fa fa-users category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('staff')"></i>
-            <i class="fa fa-money-bill category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('pricing')"></i>
-            <i class="fa fa-location-arrow category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('location')"></i>
-            <i class="fa fa-concierge-bell category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('reception')"></i>
-            <i class="fa fa-bed category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('room')"></i>
-            <i class="fa fa-volume-up category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('noisy-quiet')"></i>
-            <i class="fa fa-car category-icon"  *ngIf="competitionCategory.category.name.toLowerCase().includes('carpark')"></i>
+            <app-category-icon [category]="competitionCategory.category.name" [fontSize] = "30" [maxWidth]="45"></app-category-icon>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{competitionCategory.category.name}}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0 text-success standing" *ngIf="competitionCategory.rank == 1">{{competitionCategory.rank}}st</h3>
-              <h3 class="font-weight-medium text-right mb-0 text-success standing" *ngIf="competitionCategory.rank == 2">{{competitionCategory.rank}}nd</h3>
-              <h3 class="font-weight-medium text-right mb-0 text-warning standing" *ngIf="competitionCategory.rank == 3">{{competitionCategory.rank}}rd</h3>
-              <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 4">{{competitionCategory.rank}}th</h3>
-              <h3 class="font-weight-medium text-right mb-0 text-danger standing" *ngIf="competitionCategory.rank == 5">{{competitionCategory.rank}}th</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-success standing"
+                  *ngIf="competitionCategory.rank == 1">{{competitionCategory.rank}}st</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-success standing"
+                  *ngIf="competitionCategory.rank == 2">{{competitionCategory.rank}}nd</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-warning standing"
+                  *ngIf="competitionCategory.rank == 3">{{competitionCategory.rank}}rd</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-danger standing"
+                  *ngIf="competitionCategory.rank == 4">{{competitionCategory.rank}}th</h3>
+              <h3 class="font-weight-medium text-right mb-0 text-danger standing"
+                  *ngIf="competitionCategory.rank == 5">{{competitionCategory.rank}}th</h3>
             </div>
             <p class="text-right mb-0">{{competitionCategory.score}} %</p>
           </div>
@@ -45,11 +109,42 @@
   </div>
 </div>
 
-<div class="row" *ngIf="competitionCategory.length > 0">
+<div class="row" *ngIf="competitionCategory.length > 0" id="competitionCategory">
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Ranking List for {{selectedCategory.category.name}}</h5>
+        <h5 class="card-title mb-4">
+          <img class="mdi mdi-cube icon-lg category-icon"
+               *ngIf="selectedCategory.category.name.toLowerCase().includes('overall')"
+               src="assets/images/logo.png">
+          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"
+               *ngIf="selectedCategory.category.name.toLowerCase().includes('cleanliness')">
+          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg"
+               *ngIf="selectedCategory.category.name.toLowerCase().includes('breakfast')">
+          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"
+               *ngIf="selectedCategory.category.name.toLowerCase().includes('ambiance')">
+          <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"
+               *ngIf="selectedCategory.category.name.toLowerCase().includes('amenities')">
+          <i class="fa fa-hamburger category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('food')"></i>
+          <i class="fa fa-wifi category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('wifi')"></i>
+          <i class="fa fa-users category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('staff')"></i>
+          <i class="fa fa-money-bill category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('pricing')"></i>
+          <i class="fa fa-location-arrow category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('location')"></i>
+          <i class="fa fa-concierge-bell category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('reception')"></i>
+          <i class="fa fa-bed category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('room')"></i>
+          <i class="fa fa-volume-up category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('noisy-quiet')"></i>
+          <i class="fa fa-car category-icon"
+             *ngIf="selectedCategory.category.name.toLowerCase().includes('carpark')"></i>
+          Ranking List for {{selectedCategory.category.name}}
+        </h5>
         <div class="table-responsive">
           <table class="table table-bordered" #rankingTable>
             <thead>
@@ -126,76 +221,6 @@
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Rating & Pricing</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" #pricingTable>
-            <thead>
-            <tr>
-              <th class="single">#</th>
-              <th class="double">
-                Hotel
-              </th>
-              <th class="single small-padding">
-                 <span class="fa-pull-right">
-                  Booking
-                </span>
-              </th>
-              <th class="single small-padding">
-                 <span class="fa-pull-right">
-                   Tripadvisor
-                </span>
-              </th>
-              <th class="single small-padding">
-                 <span class="fa-pull-right">
-                  Hotels
-                </span>
-              </th>
-              <th class="single small-padding">
-                 <span class="fa-pull-right">
-                  HotelUplift
-                </span>
-              </th>
-              <th class="single small-padding">
-                <span class="fa-pull-right">
-                  Price
-                </span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
-              <td>{{i + 1}}</td>
-              <td>
-                {{competitionCountRating.hotelName}}
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.tripAdvisorRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
-              </td>
-              <td >
-                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
         <h5 class="card-title mb-4">Review Counts</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #competitionTable>
@@ -229,19 +254,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i" [class.selected]="competitionCountRating.selected">
+            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
+                [class.selected]="competitionCountRating.selected">
               <td>{{i + 1}}</td>
               <td>
                 {{competitionCountRating.hotelName}}
               </td>
-              <td >
+              <td>
                 <span class="fa-pull-right">{{competitionCountRating.todaysCount}}
                   <span class="fa-pull-right"
                         *ngIf="competitionCountRating.todaysCount == 0 || competitionCountRating.todaysCount == 1">&nbsp;Review</span>
                   <span class="fa-pull-right" *ngIf="competitionCountRating.todaysCount > 1">&nbsp;Reviews</span>
                 </span>
               </td>
-              <td >
+              <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
                   <span class="fa-pull-right"
                         *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>

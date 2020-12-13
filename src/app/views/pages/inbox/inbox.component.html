@@ -30,10 +30,12 @@
              [ngClass]="odd ? 'odd' : 'even'"
              [class.selected]="selectedIndex === i"
              (click)="selectItem(comment, i)">
-          <p class="comment-container">{{comment.content}}</p>
           <div class="brand-container">
             <app-channel-icon class="icon" [source]="comment.source.toLowerCase()"></app-channel-icon>
             <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
+          </div>
+          <p class="comment-container">{{comment.content}}</p>
+          <div class="inbox-star-container">
             <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
@@ -103,8 +105,8 @@
               class="mdi mdi-star"></i>Mark as Unimportant
             </button>
 
-            <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>Assign
-              Someone as a Task
+            <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>
+              Assign Task
             </button>
 
             <button type="button" class="btn btn-primary" (click)="open(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>

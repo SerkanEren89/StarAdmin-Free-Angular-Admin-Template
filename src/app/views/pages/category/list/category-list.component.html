@@ -7,62 +7,6 @@
   </div>
 </div>
 
-<!--
-<div class="row" *ngIf="lineChartLabels.length > 0">
-  <div class="col-lg-8 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-primary mb-5">By Category</h2>
-        <app-line-chart [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 grid-margin stretch-card performance">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Performance History</h2>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">The best performance</p>
-            <p class="display-3 mb-4 font-weight-light topic">{{categoryPeriodic.bestCategory.categoryName}}</p>
-          </div>
-          <div class="side-right">
-            <small class="rating text-success">{{(categoryPeriodic.bestCategory.score * 100) | number:'1.2-2'}} %</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Worst performance</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.worstCategory.categoryName}}</p>
-          </div>
-          <div class="side-right">
-            <small class="rating text-danger">{{(categoryPeriodic.worstCategory.score * 100) | number:'1.2-2'}} %</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Best trend</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.bestPeriod.categoryName}}</p>
-          </div>
-          <div class="side-right">
-            <small class="rating text-success">%{{categoryPeriodic.increase | number:'1.2-2'}}</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Worst trend</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{categoryPeriodic.worstPeriod.categoryName}}</p>
-          </div>
-          <div class="side-right">
-            <small class="rating text-danger">%{{categoryPeriodic.decrease | number:'1.2-2'}}</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
 <div class="row">
   <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card"
        (click)="goToCategoryDetail(categoryGroup)"
@@ -71,18 +15,7 @@
       <div class="card-body pointer">
         <div class="clearfix">
           <div class="float-left">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg"  *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg" *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')">
-            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg"*ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')">
-            <i class="fa fa-hamburger category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('food')"></i>
-            <i class="fa fa-wifi category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')"></i>
-            <i class="fa fa-users category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')"></i>
-            <i class="fa fa-money-bill category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')"></i>
-            <i class="fa fa-location-arrow category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('location')"></i>
-            <i class="fa fa-concierge-bell category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')"></i>
-            <i class="fa fa-bed category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('room')"></i>
-            <i class="fa fa-volume-up category-icon"  *ngIf="categoryGroup.category.name.toLowerCase().includes('noisy-quiet')"></i>
+            <app-category-icon [category]="categoryGroup.category.name" [fontSize] = "30" [maxWidth]="45"></app-category-icon>
           </div>
           <div class="float-right">
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
@@ -121,7 +54,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="categoryGroup != null">
+<div class="row" *ngIf="categoryGroup != null" id="emotionElement">
   <div class="col-12 grid-margin">
     <div class="card">
       <div class="card-body score-container">
@@ -162,10 +95,12 @@
              [ngClass]="odd ? 'odd' : 'even'"
              [class.selected]="selectedIndex === i"
              (click)="selectItem(comment, i)">
-          <p class="comment-container">{{comment.content}}</p>
           <div class="brand-container">
             <app-channel-icon class="icon" [source]="comment.source.toLowerCase()"></app-channel-icon>
             <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
+          </div>
+          <p class="comment-container">{{comment.content}}</p>
+          <div class="inbox-star-container">
             <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
@@ -220,9 +155,55 @@
           <div class="template-demo">
             <button type="button" class="btn btn-primary" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
             <button type="button" class="btn btn-primary" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
+            <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>
+              Assign Task
+            </button>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #taskModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="summary-container">
+      <div class="summary">
+        <p class="title">{{selectedItem.content}}</p>
+        <div class="detail-container">
+          <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
+          <p class="written" >Written By: {{selectedItem.author}}</p>
+          <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
+        </div>
+      </div>
+    </div>
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>Assignee</label>
+        <div class="input-group">
+          <input id="assignee" type="text" class="form-control" name="assignee"
+                 [resultFormatter]="resultFormatter"
+                 [inputFormatter]="inputFormatter"
+                 [(ngModel)]="task.employee" [ngbTypeahead]="search"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <div class="input-group">
+          <textarea id="description" type="text" class="form-control"
+                    name="description" [(ngModel)]="task.description" rows="3"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="assignTask(task)">Assign</button>
+  </div>
+</ng-template>

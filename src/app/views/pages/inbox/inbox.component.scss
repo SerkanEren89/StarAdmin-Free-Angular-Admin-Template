@@ -10,8 +10,8 @@
 .brand-container {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
   img {
-    margin-right: 10px;
     max-height: 25px;
   }
   .brand {
@@ -21,13 +21,18 @@
   }
   .date {
     margin-right: 10px;
-    font-size: 12px;
-    font-weight: 300;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 400;
     align-self: center;
   }
+}
+.inbox-star-container {
+  display: flex;
+  flex-direction: row;
   .answered {
     align-self: center;
-    margin-left: auto;
+    margin-left: 20px;
   }
 }
 .comment-container {
@@ -36,6 +41,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 10px;
 }
 .inbox {
   flex: initial !important;
@@ -272,5 +278,5 @@
   align-items: center;
 }
 .total {
-  padding: 5px;
+  padding: 7px;
 }

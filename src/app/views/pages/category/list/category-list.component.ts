@@ -7,6 +7,12 @@ import {CommentCategoryModel} from '../../../../core/category/_models/comment-ca
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {ToastrService} from 'ngx-toastr';
+import {TaskModel} from '../../../../core/task/_models/task.model';
+import {EmployeeModel} from '../../../../core/employee/_models/employee.model';
+import {EmployeeService} from '../../../../core/employee/_services/employee.service';
+import {TaskService} from '../../../../core/task/_services/task.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-category-list',
@@ -15,43 +21,39 @@ import {ToastrService} from 'ngx-toastr';
   encapsulation: ViewEncapsulation.None
 })
 export class CategoryListComponent implements OnInit {
-  categoryGroupList$: Observable<CategoryGroupModel[]>;
   categoryGroupList: CategoryGroupModel[];
   selectedCategoryGroup: CategoryGroupModel;
   commentCategoryList$: Observable<CommentCategoryModel[]>;
   commentCategoryList: CommentCategoryModel[] = [];
-  categoryGroup$: Observable<CategoryGroupModel>;
   categoryGroup: CategoryGroupModel;
   commentList: CommentModel[] = [];
   selectedItem: CommentModel;
+  employeeList: EmployeeModel[];
+  public task: TaskModel = new TaskModel();
   type: string;
   selectedIndex = 0;
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
+  inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private commentCategoryService: CommentCategoryService,
               private commentService: CommentService,
+              private employeeService: EmployeeService,
+              private taskService: TaskService,
               private toastr: ToastrService,
+              private modalService: NgbModal,
               private router: Router,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.categoryGroupList$ = this.commentCategoryService.getCategorySentimentCount();
-    this.categoryGroupList$.subscribe((categoryGroupList: CategoryGroupModel[]) => {
-      this.categoryGroupList = categoryGroupList;
-      this.cdr.detectChanges();
-    });
-    /*
-    this.categoryPeriodic$ = this.commentCategoryService.findCategoryPeriodically();
-    this.categoryPeriodic$.subscribe((categoryPeriodic: CategoryGraphModel) => {
-      this.categoryPeriodic = categoryPeriodic;
-      this.lineChartLabels = this.categoryPeriodic.labels;
-      this.lineChartData = this.categoryPeriodic.item;
-      this.cdr.detectChanges();
-    });
-     */
+    this.commentCategoryService.getCategorySentimentCount()
+      .subscribe((categoryGroupList: CategoryGroupModel[]) => {
+        this.categoryGroupList = categoryGroupList;
+        this.cdr.detectChanges();
+      });
   }
 
   goToCategoryDetail(categoryGroup: CategoryGroupModel) {
@@ -59,11 +61,11 @@ export class CategoryListComponent implements OnInit {
     this.selectedCategoryGroup = categoryGroup;
     this.categoryGroupList.forEach(item => item.selected = false);
     categoryGroup.selected = true;
-    this.categoryGroup$ = this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name);
-    this.categoryGroup$.subscribe((item: CategoryGroupModel) => {
-      this.categoryGroup = item;
-      this.cdr.detectChanges();
-    });
+    this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name)
+      .subscribe((item: CategoryGroupModel) => {
+        this.categoryGroup = item;
+        this.cdr.detectChanges();
+      });
     this.commentCategoryList$ = this.commentCategoryService
       .getCommentCategoriesByCategoryName(categoryGroup.category.name, this.page - 1, this.pageSize);
     this.processComments();
@@ -88,6 +90,8 @@ export class CategoryListComponent implements OnInit {
       this.selectedItem = this.commentList[0];
       this.totalElements = commentCategoryList['totalElements'];
       this.cdr.detectChanges();
+      const toScroll = document.getElementById('emotionElement');
+      toScroll.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
   }
 
@@ -119,4 +123,48 @@ export class CategoryListComponent implements OnInit {
       sentiment, this.page - 1, this.pageSize);
     this.processComments();
   }
+
+  openTaskModal(content) {
+    this.task.employee = null;
+    if (this.employeeList == null) {
+      this.employeeService.getAllEmployees()
+        .subscribe((employeeList: EmployeeModel[]) => {
+          this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          }, (reason) => {
+          });
+        });
+    } else {
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
+    }
+  }
+
+  assignTask(task: TaskModel) {
+    task.comment = this.selectedItem;
+    this.taskService.saveTasks(task)
+      .subscribe((saved: TaskModel) => {
+        this.toastr.success('Task assigned successfully');
+        this.cdr.detectChanges();
+        if (task.employee.phoneNumber != null) {
+          let link = 'https://wa.me/' + task.employee.phoneNumber;
+          const text = 'Hotel Uplift: you have new assignment. Click the link to see detail\n'
+            + 'https://app.hoteluplift.com/task-management/' + saved.uuid;
+          link = link + '?text=' + encodeURIComponent(text);
+          window.open(link, '_blank');
+        }
+      });
+    this.modalService.dismissAll();
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1
+        ? []
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
 }

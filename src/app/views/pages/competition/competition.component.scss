@@ -55,8 +55,8 @@
   }
 }
 .category-icon {
-  font-size: 30px;
-  max-width: 45px;
+  font-size: 16px;
+  max-width: 24px;
 }
 .standing {
   padding-top: 7px;
@@ -95,5 +95,10 @@
   width: 30%;
 }
 .small-padding {
-
+  padding-top: 8px !important;
+  padding-bottom: 12px !important;
+}
+.img-xs, .table td img, .table th img {
+  width: 24px !important;
+  height: 24px !important;;
 }

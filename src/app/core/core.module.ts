@@ -6,6 +6,7 @@ import {ChartsModule} from 'ng2-charts';
 import {FlagIconComponent} from './general/flag-icon/flag-icon.component';
 import {BarChartComponent} from './bar-chart/bar-chart.component';
 import {ChannelIconComponent} from './channel-icon/channel-icon.component';
+import {CategoryIconComponent} from './category-icon/category-icon.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {ChannelIconComponent} from './channel-icon/channel-icon.component';
     PieChartComponent,
     LineChartComponent,
     ChannelIconComponent,
+    CategoryIconComponent,
     BarChartComponent,
     FlagIconComponent
   ],
@@ -23,6 +25,7 @@ import {ChannelIconComponent} from './channel-icon/channel-icon.component';
     PieChartComponent,
     LineChartComponent,
     ChannelIconComponent,
+    CategoryIconComponent,
     BarChartComponent,
     FlagIconComponent
   ],

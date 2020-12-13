@@ -31,8 +31,8 @@ import {ToastrService} from 'ngx-toastr';
 export class InboxComponent implements OnInit {
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
-  selectedItem: CommentModel;
   employeeList: EmployeeModel[];
+  selectedItem: CommentModel;
   selected: { start: Moment, end: Moment };
   commentFilter: CommentFilterModel;
   templates$: Observable<TemplateModel[]>;

@@ -246,8 +246,13 @@ export class DashboardComponent implements OnInit {
   }
 
   changeHotel() {
-    this.competitorHotel = this.selectedCompetitor;
-    this.router.navigateByUrl('dashboard/' + this.competitorHotel.uuid);
+    if (!this.selectedCompetitor.selected) {
+      this.competitorHotel = this.selectedCompetitor;
+      this.router.navigateByUrl('dashboard/' + this.competitorHotel.uuid);
+    } else {
+      this.competitorHotel = null;
+      this.router.navigateByUrl('dashboard');
+    }
     this.modalService.dismissAll();
   }
 

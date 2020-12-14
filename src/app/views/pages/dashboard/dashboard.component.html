@@ -163,6 +163,7 @@
               <td class="text star-container">
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
+                <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button text-primary"></i></a>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
@@ -194,7 +195,6 @@
               <td class="text-primary">
                 <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
-                <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button"></i></a>
               </td>
             </tr>
             </tbody>
@@ -295,18 +295,19 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="summary-container" *ngIf="competitionList.length > 0">
+    <div class="summary-container" *ngIf="competitionList.length > 1">
       <div class="summary">
         <div *ngFor="let competition of competitionList">
           <label for="enum_answer_{{competition.name}}">
             <input id="enum_answer_{{competition.name}}" [value]='competition' type="radio" name="enums" [(ngModel)]="selectedCompetitor">
-            {{competition.name}}
+            <b *ngIf="competition.selected">{{competition.name}}</b>
+            <span *ngIf="!competition.selected">{{competition.name}}</span>
           </label>
         </div>
       </div>
     </div>
 
-    <div class="warning-body" *ngIf="competitionList.length == 0">
+    <div class="warning-body" *ngIf="competitionList.length == 1">
       <div class="warning-container">
         <i class="fa fa-exclamation-triangle warning text-warning"></i>
         <p>
@@ -333,6 +334,10 @@
   </div>
   <div class="modal-body">
     <form class="assignee-form">
+      <div *ngIf="templates.length == 0" class="info-container">
+        <i class="fa fa-info-circle info text-primary"></i>
+        <p>You don't have any template. You can create one from your settings menu</p>
+      </div>
       <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container ">
         <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
         <div ngbDropdownMenu>

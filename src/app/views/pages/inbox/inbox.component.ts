@@ -50,31 +50,31 @@ export class InboxComponent implements OnInit {
   };
   commentSources = [{
     name: 'BOOKING',
-    checked: false
+    checked: true
   }, {
     name: 'HOTELSCOM',
-    checked: false
+    checked: true
   }, {
     name: 'TRIPADVISOR',
-    checked: false
+    checked: true
   }, {
     name: 'AGODA',
-    checked: false
+    checked: true
   }, {
     name: 'GOOGLE',
-    checked: false
+    checked: true
   }, {
     name: 'HOLIDAYCHECK',
-    checked: false
+    checked: true
   }, {
     name: 'OTELPUAN',
-    checked: false
+    checked: true
   }, {
     name: 'ODAMAX',
-    checked: false
+    checked: true
   }, {
     name: 'TATILSEPETI',
-    checked: false
+    checked: true
   }];
   public task: TaskModel = new TaskModel();
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
@@ -201,7 +201,7 @@ export class InboxComponent implements OnInit {
 
   clearFilter() {
     this.filteredChannel = [];
-    this.commentSources.forEach(source => source.checked = false);
+    this.commentSources.forEach(source => source.checked = true);
     this.commentFilter = new CommentFilterModel();
     this.commentFilter.minRating = 0;
     this.commentFilter.maxRating = 10;
@@ -245,7 +245,7 @@ export class InboxComponent implements OnInit {
   }
 
   openFilterModal(content) {
-    this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(content, {size: 'filter', ariaLabelledBy: 'modal-basic-title', scrollable: true, centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

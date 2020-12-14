@@ -33,6 +33,7 @@
   .answered {
     align-self: center;
     margin-left: 20px;
+    width: 20px !important;
   }
 }
 .comment-container {
@@ -238,6 +239,7 @@
 }
 .rating-filter {
   width: 100%;
+  align-items: center;
 }
 .date-filter {
   width: 100%;
@@ -279,4 +281,41 @@
 }
 .total {
   padding: 7px;
+}
+.filter-title {
+  font-size: 14px !important;
+  padding-top: 5px;
+  font-weight: 500;
+}
+.channel-item {
+  margin-right: 10px;
+}
+.modal-filter {
+  max-width: 55%;
+}
+.channel-big-icon {
+  max-width: 50px !important;
+  margin: 8px;
+}
+.channel-icon {
+  max-width: 35px !important;
+  margin: 8px;
+}
+@media screen and (max-width: 600px) {
+  .modal-filter {
+    margin: 0 auto;
+    max-width: 80%;
+  }
+  .channel-big-icon {
+    max-width: 40px !important;
+    margin: 5px;
+  }
+  .channel-icon {
+    max-width: 40px !important;
+    margin: 5px;
+  }
+}
+.total-info {
+  margin-bottom: 20px;
+  text-align: end;
 }

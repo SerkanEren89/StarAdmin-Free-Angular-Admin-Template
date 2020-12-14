@@ -18,7 +18,6 @@
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card">
       <div class="card-body pagination-container">
-        <p class="text-primary total" *ngIf="totalElements">{{totalElements}} items showing in {{totalPages}} page</p>
         <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
                         [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
@@ -43,7 +42,8 @@
             </ng-template>
 
             <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-            <i class="fa fa-reply answered text-success" *ngIf="comment.answer != null"></i>
+            <img class="mdi mdi-cube icon-lg answered" src="assets/svg/answered.svg"
+                 *ngIf="comment.answer != null">
           </div>
         </div>
       </div>
@@ -53,6 +53,13 @@
     <div class="card">
       <div class="card-body">
         <div *ngIf="selectedItem != null">
+          <div>
+            <p class="total-info text-primary">{{totalElements}}
+              <span *ngIf="totalElements > 1">reviews </span>
+              <span *ngIf="totalElements <= 1">review </span>
+              showing in {{totalPages}} page
+            </p>
+          </div>
           <div class="summary-container">
             <div class="summary">
               <p class="title">
@@ -128,81 +135,79 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-xl-6 ">
-        <div class="item-container">
-          <div class="col-xl-3">
-            <label>Channel</label>
-          </div>
-          <div class="col-xl-9">
-            <div class="input-group rating-filter">
-              <label class="form-check-label" *ngFor="let commentSource of commentSources; let i = index;">
-                <input type="checkbox" value = "{{commentSource}}"
-                       (change)="changeFilteredChannel(i)"
-                       [checked]="commentSource.checked">{{commentSource.name}}
-              </label>
-            </div>
+    <form class="assignee-form">
+      <div class="form-group">
+        <label class="filter-title">Review Date</label>
+        <div class="input-group">
+          <input type="text" matInput
+                 ngxDaterangepickerMd
+                 autocomplete="off"
+                 [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                 startKey="start"
+                 endKey="end"
+                 placeholder="Select date to filter"
+                 class="date-filter"
+                 [(ngModel)]="selected"
+                 name="daterange"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="filter-title">Rating</label>
+        <div class="input-group rating-filter">
+          <div class="input-group rating-filter">
+            <ngx-slider [(value)]="commentFilter.minRating" [(highValue)]="commentFilter.maxRating" [options]="options"></ngx-slider>
           </div>
         </div>
       </div>
 
-      <div class="col-xl-6">
-        <div class="item-container">
-          <div class="col-xl-3">
-            <label>Rating</label>
-          </div>
-          <div class="col-xl-9">
-            <div class="input-group rating-filter">
-              <div class="input-group rating-filter">
-                <ngx-slider [(value)]="commentFilter.minRating" [(highValue)]="commentFilter.maxRating" [options]="options"></ngx-slider>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="form-group">
+        <label class="filter-title">Channel</label>
+        <div class="input-group rating-filter">
+          <div class="input-group rating-filter">
 
-    <div class="row">
-      <div class="col-xl-6 ">
-        <div class="item-container">
-          <div class="col-xl-3">
-            <label>Review Date</label>
-          </div>
-          <div class="col-xl-9">
-            <div class="input-group rating-filter">
-              <input type="text" matInput
-                     ngxDaterangepickerMd
-                     autocomplete="off"
-                     [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
-                     startKey="start"
-                     endKey="end"
-                     placeholder="Select date to filter"
-                     class="date-filter"
-                     [(ngModel)]="selected"
-                     name="daterange"/>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-xl-6 ">
-        <div class="item-container">
-          <div class="col-xl-3">
-            <label>Starred</label>
-          </div>
-          <div class="col-xl-9">
-            <div class="input-group rating-filter">
-              <label class="form-check-label">
+              <div class="channel-item" *ngFor="let commentSource of commentSources; let i = index;">
                 <input type="checkbox"
-                       [checked]="commentFilter.starred"
-                       (change)="commentFilter.starred = !commentFilter.starred">
-              </label>
-            </div>
+                       (change)="changeFilteredChannel(i)"
+                       [checked]="commentSource.checked">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('booking')"
+                     src="assets/images/bookingCom.png">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hotelscom')"
+                     src="assets/images/hotelsCom.jpg">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tripadvisor')"
+                     src="assets/images/tripadvisor.png">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tatilsepeti')"
+                     src="assets/images/tatilSepeti.png">
+                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('google')"
+                     src="assets/images/google.png">
+                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('otelpuan')"
+                     src="assets/images/otelPuan.png">
+                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('odamax')"
+                     src="assets/images/odamax.jpg">
+                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('agoda')"
+                     src="assets/images/agoda.png">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hoteluplift')"
+                     src="assets/images/logo.png">
+                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('holidaycheck')"
+                     src="assets/images/holidayCheck.png">
+              </div>
           </div>
         </div>
       </div>
 
-    </div>
+      <div class="form-group">
+        <label class="filter-title">Starred</label>
+        <div class="input-group rating-filter">
+          <div class="input-group rating-filter">
+            <label class="form-check-label">
+              <input type="checkbox"
+                     [checked]="commentFilter.starred"
+                     (change)="commentFilter.starred = !commentFilter.starred">
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">Clear</button>

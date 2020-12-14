@@ -6,6 +6,22 @@
     </span>
   </div>
 </div>
+<div class="row" *ngIf="competitionList != null && competitionList.length == 0">
+  <div class="col-12 grid-margin">
+    <div class="warning-body">
+      <div class="warning-container">
+        <div class="card full-width">
+          <div class="card-body">
+            <i class="fa fa-exclamation-triangle warning text-warning"></i>
+            <p>
+              Please contact us to give your competition list.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-12 grid-margin">

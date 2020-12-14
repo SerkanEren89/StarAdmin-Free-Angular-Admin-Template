@@ -105,3 +105,18 @@
   width: 24px !important;
   height: 24px !important;;
 }
+.warning-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .warning-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    .warning {
+      font-size: 60px;
+      margin-bottom: 40px;
+    }
+  }
+}

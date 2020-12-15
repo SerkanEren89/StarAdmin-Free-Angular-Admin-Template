@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {ChartDataSets} from 'chart.js';
@@ -37,7 +37,7 @@ import {IClipboardResponse} from 'ngx-clipboard';
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
-
+  focus$ = new Subject<string>();
   @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
   @ViewChild('commentTable') elRef;
   commentList: CommentModel[] = [];
@@ -225,14 +225,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 1
-        ? []
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$).pipe(
+      map(term => (term === '' ? this.employeeList
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
     );
+  };
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     if (this.competitorHotel == null) {

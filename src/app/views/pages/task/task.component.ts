@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {TaskModel} from '../../../core/task/_models/task.model';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeModel} from '../../../core/employee/_models/employee.model';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
 import {TaskFilterModel} from '../../../core/task/_models/task-filter.model';
@@ -20,6 +20,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class TaskComponent implements OnInit {
   @ViewChild('taskTable') elRef;
+  focus$ = new Subject<string>();
   tasks$: Observable<TaskModel[]>;
   tasks: TaskModel[] = [];
   taskStats: TaskStatsModel;
@@ -156,14 +157,15 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 1
-        ? []
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$).pipe(
+      map(term => (term === '' ? this.employeeList
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
     );
+  };
 
   remindTask() {
     this.taskService.remindTask(this.selectedTask)

@@ -3,6 +3,7 @@ import {TaskService} from '../../../core/task/_services/task.service';
 import {ActivatedRoute} from '@angular/router';
 import {TaskModel} from '../../../core/task/_models/task.model';
 import {ToastrService} from 'ngx-toastr';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-task-management',
@@ -12,10 +13,22 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class TaskManagementComponent implements OnInit {
   taskModel: TaskModel;
+  resultStatuses = [{
+    title: 'Successfully Completed',
+    value: 'SUCCESSFULLYCOMPLETED'
+  }, {
+    title: 'Can not be completed',
+    value: 'CANNOTBECOMPLETED'
+  }, {
+    title: 'Will be Considered Later',
+    value: 'WILLBECONSIDEREDLATER'
+  }];
+  selectedStatus: { title: string; value: string };
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
               private toastr: ToastrService,
+              private modalService: NgbModal,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -24,16 +37,33 @@ export class TaskManagementComponent implements OnInit {
     this.taskService.getTaskByUUID(id)
       .subscribe((taskModel: TaskModel) => {
         this.taskModel = taskModel;
+        this.selectedStatus = this.resultStatuses[0];
+        this.taskModel.resultStatus = this.selectedStatus.value;
         this.cdr.detectChanges();
       });
   }
 
   finish(taskModel: TaskModel) {
-    taskModel.endDate = new Date();
-    this.taskService.saveTasks(taskModel)
+  }
+
+  selectStatus(resultStatus: { title: string; value: string }) {
+    this.selectedStatus = resultStatus;
+    this.taskModel.resultStatus = this.selectedStatus.value;
+  }
+
+  finalize() {
+    this.taskModel.endDate = new Date();
+    this.taskService.saveTasks(this.taskModel)
       .subscribe((saved: TaskModel) => {
-        this.toastr.success('Task finished with successfully');
+        this.toastr.success('Task closed successfully');
+        this.modalService.dismissAll();
         this.cdr.detectChanges();
       });
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    }, (reason) => {
+    });
   }
 }

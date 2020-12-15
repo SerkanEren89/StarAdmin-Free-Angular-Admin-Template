@@ -11,5 +11,7 @@ export class TaskModel {
   endDate: Date;
   creationDate: Date;
   taskStatus: string;
+  resultStatus: string;
+  resultNote: string;
   uuid: string;
 }

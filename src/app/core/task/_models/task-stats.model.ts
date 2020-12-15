@@ -1,5 +1,5 @@
 export class TaskStatsModel {
-  closed: number;
+  finished: number;
   pending: number;
   reminder: number;
   total: number;

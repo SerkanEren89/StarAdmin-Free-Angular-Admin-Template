@@ -30,13 +30,6 @@
                     <p class="rating"
                        [ngClass]="{'text-danger': taskModel.comment.rating < 6, 'text-warning':(taskModel.comment.rating >= 6 && taskModel.comment.rating < 8), 'text-success':taskModel.comment.rating >= 8 }"> {{taskModel.comment.rating}}
                       / 10</p>
-                    <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-              </span>
-                    </ng-template>
-                    <ngb-rating [(rate)]="taskModel.comment.ratingOverFive" [starTemplate]="t" [readonly]="true"
-                                [max]="5"></ngb-rating>
                   </div>
                 </div>
                 <p class="content" [innerHTML]=taskModel.comment.content></p>
@@ -53,7 +46,7 @@
                   <p class="content-answer">{{taskModel.comment.answer}}</p>
                 </div>
                 <div class="template-demo">
-                  <button type="button" class="btn btn-primary" *ngIf="taskModel.endDate == null" (click)="finish(taskModel)"><i
+                  <button type="button" class="btn btn-primary" *ngIf="taskModel.endDate == null" (click)="open(finishTask)"><i
                     class="mdi mdi-check"></i>Finish Task
                   </button>
                 </div>
@@ -68,3 +61,32 @@
 </div>
 
 
+<ng-template #finishTask let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Finish Task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedStatus.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let resultStatus of resultStatuses" (click)="selectStatus(resultStatus)">{{resultStatus.title}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Result Note</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="taskModel.resultNote"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="finalize()">Finalize</button>
+  </div>
+</ng-template>

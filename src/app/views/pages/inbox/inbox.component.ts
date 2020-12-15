@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
@@ -29,6 +29,7 @@ import {ToastrService} from 'ngx-toastr';
   encapsulation: ViewEncapsulation.None
 })
 export class InboxComponent implements OnInit {
+  focus$ = new Subject<string>();
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
   employeeList: EmployeeModel[];
@@ -161,14 +162,15 @@ export class InboxComponent implements OnInit {
     }
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 1
-        ? []
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$).pipe(
+      map(term => (term === '' ? this.employeeList
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  };
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;
@@ -245,7 +247,8 @@ export class InboxComponent implements OnInit {
   }
 
   openFilterModal(content) {
-    this.modalService.open(content, {size: 'filter', ariaLabelledBy: 'modal-basic-title', scrollable: true, centered: true}).result.then((result) => {
+    this.modalService.open(content, {size: 'filter', ariaLabelledBy: 'modal-basic-title', scrollable: true, centered: true})
+      .result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

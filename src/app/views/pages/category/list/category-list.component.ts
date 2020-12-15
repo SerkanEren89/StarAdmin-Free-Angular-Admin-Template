@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {CategoryGroupModel} from '../../../../core/category/_models/category-group.model';
 import {CommentCategoryService} from '../../../../core/category/_services/comment-category.service';
 import {Router} from '@angular/router';
@@ -21,6 +21,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class CategoryListComponent implements OnInit {
+  focus$ = new Subject<string>();
   categoryGroupList: CategoryGroupModel[];
   selectedCategoryGroup: CategoryGroupModel;
   commentCategoryList$: Observable<CommentCategoryModel[]>;
@@ -162,12 +163,13 @@ export class CategoryListComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 1
-        ? []
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$).pipe(
+      map(term => (term === '' ? this.employeeList
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  };
 }

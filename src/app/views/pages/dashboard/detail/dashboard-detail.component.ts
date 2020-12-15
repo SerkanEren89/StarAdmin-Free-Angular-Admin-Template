@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentCountLanguageModel} from '../../../../core/inbox/_models/comment-count-language.model';
@@ -24,6 +24,7 @@ export class DashboardDetailComponent implements OnInit {
   @ViewChild('commentTable') elRef;
   @ViewChild('languageTable') elRefLanguage;
   @ViewChild('travelTypeTable') elRefTravelType;
+  focus$ = new Subject<string>();
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[] = [];
   commentsByLanguage$: Observable<CommentCountLanguageModel[]>;
@@ -106,14 +107,15 @@ export class DashboardDetailComponent implements OnInit {
     }
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 1
-        ? []
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$).pipe(
+      map(term => (term === '' ? this.employeeList
+        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  };
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;

@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
-import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
 
@@ -44,8 +43,11 @@ const routes: Routes = [
           path: 'employee',
           loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule)
         },
+        {
+          path: 'inbox',
+          loadChildren: () => import('src/app/views/pages/inbox/inbox.module').then(m => m.InboxModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
-        {path: 'inbox', component: InboxComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}

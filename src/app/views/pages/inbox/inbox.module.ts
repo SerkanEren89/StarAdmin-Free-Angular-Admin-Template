@@ -3,9 +3,14 @@ import {CoreModule} from '../../../core/core.module';
 import {CommonModule} from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
-import {TaskComponent} from './task.component';
 import {FormsModule} from '@angular/forms';
+import {InboxComponent} from './inbox.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import { ShareButtonsPopupModule} from 'ngx-sharebuttons/popup';
 import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {ClipboardModule} from 'ngx-clipboard';
+
 
 @NgModule({
   imports: [
@@ -15,17 +20,20 @@ import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
     RouterModule.forChild([
       {
         path: '',
-        component: TaskComponent
+        component: InboxComponent,
       }
     ]),
     FormsModule,
     NgxDaterangepickerMd.forRoot(),
+    NgxSliderModule,
+    ClipboardModule,
+    CoreModule
   ],
   providers: [],
   declarations: [
-    TaskComponent,
+    InboxComponent
   ]
 })
-export class TaskModule {
+export class InboxModule {
 
 }

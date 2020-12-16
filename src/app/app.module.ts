@@ -7,7 +7,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
-import {InboxComponent} from './views/pages/inbox/inbox.component';
 import {ChartsModule} from 'ng2-charts';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {InterceptService} from './core/_base/utils/intercept.service';
@@ -16,17 +15,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
-import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
-import {ClipboardModule} from 'ngx-clipboard';
 import {CoreModule} from './core/core.module';
 import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InboxComponent,
     InboxPoolComponent,
     CategorizationComponent,
     TaskManagementComponent,
@@ -43,9 +38,6 @@ import {TaskManagementComponent} from './views/pages/task-management/task-manage
     BrowserAnimationsModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
-    NgxDaterangepickerMd.forRoot(),
-    NgxSliderModule,
-    ClipboardModule,
     CoreModule
   ],
   providers: [

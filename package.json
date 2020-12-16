@@ -33,6 +33,7 @@
     "ngx-clipboard": "^14.0.1",
     "ngx-daterange": "^1.0.29",
     "ngx-daterangepicker-material": "^2.3.0",
+    "ngx-device-detector": "^2.0.4",
     "ngx-spinner": "^9.0.1",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",

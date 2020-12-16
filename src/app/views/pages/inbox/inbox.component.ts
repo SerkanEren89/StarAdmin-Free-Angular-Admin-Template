@@ -21,6 +21,7 @@ import {EmployeeModel} from '../../../core/employee/_models/employee.model';
 import {TaskModel} from '../../../core/task/_models/task.model';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {ToastrService} from 'ngx-toastr';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-inbox',
@@ -44,6 +45,7 @@ export class InboxComponent implements OnInit {
   totalElements;
   totalPages;
   closeResult = '';
+  isMobile = false;
   filteredChannel = [];
   options: Options = {
     floor: 0,
@@ -87,12 +89,14 @@ export class InboxComponent implements OnInit {
               private taskService: TaskService,
               private modalService: NgbModal,
               private toastr: ToastrService,
+              private deviceService: DeviceDetectorService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.clearFilter();
     this.getUnfilteredResult();
+    this.isMobile = this.deviceService.isMobile();
     this.templateService.getTemplates()
       .subscribe((templates: TemplateModel[]) => {
       this.templates = templates;

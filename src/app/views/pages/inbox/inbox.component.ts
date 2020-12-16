@@ -192,11 +192,14 @@ export class InboxComponent implements OnInit {
   }
 
   changeFilteredChannel(i: number) {
+    this.filteredChannel = [];
     if (this.commentSources) {
       this.commentSources[i].checked = !this.commentSources[i].checked;
-      if (this.commentSources[i].checked) {
-        this.filteredChannel.push(this.commentSources[i].name);
-      }
+      this.commentSources.forEach(item => {
+        if (item.checked) {
+          this.filteredChannel.push(item.name);
+        }
+      });
     }
     this.commentFilter.channels = this.filteredChannel;
   }

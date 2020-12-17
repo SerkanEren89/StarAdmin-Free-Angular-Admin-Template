@@ -14,4 +14,5 @@ export class TaskModel {
   resultStatus: string;
   resultNote: string;
   uuid: string;
+  days: number;
 }

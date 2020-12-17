@@ -266,6 +266,12 @@
           <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
           <p class="written" >Written By: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
+          <a target="_blank" class="share-icon" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
+            <i class="fa fa-share action-button"></i>
+          </a>
+          <a target="_blank" class="share-icon" *ngIf="isMobile" href="whatsapp://send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
+            <i class="fa fa-share action-button"></i>
+          </a>
         </div>
         <p class="content-comment">{{selectedComment.content}}</p>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">

@@ -80,8 +80,8 @@
               <h3 class="font-weight-medium text-right mb-0 text-success" *ngIf="taskStats.successRate > 70">{{taskStats.successRate}}</h3>
               <h3 class="font-weight-medium text-right mb-0 text-warning" *ngIf="taskStats.successRate >= 50 && taskStats.successRate <= 70">{{taskStats.successRate}}</h3>
               <h3 class="font-weight-medium text-right mb-0 text-danger" *ngIf="taskStats.successRate < 50">{{taskStats.successRate}}</h3>
+              <p class="text-right mb-0">{{taskStats.finished}} / {{taskStats.total}}</p>
             </div>
-
           </div>
         </div>
       </div>
@@ -101,10 +101,10 @@
               <th>
                 Assigned
               </th>
-              <th style="width: 8%">
+              <th style="width: 15%">
                 Status
               </th>
-              <th style="width: 25%">
+              <th style="width: 30%">
                 Review
               </th>
               <th style="width: 15%">
@@ -113,11 +113,8 @@
               <th style="width: 15%">
                 Result Note
               </th>
-              <th style="width: 12%">
+              <th style="width: 15%">
                 Result Status
-              </th>
-              <th>
-                Created At
               </th>
             </tr>
             </thead>
@@ -127,11 +124,12 @@
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 {{task.employee.firstName}} {{task.employee.lastName}}
               </td>
-              <td class="comment"
+              <td class="comment table-center"
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 <i class="fa fa-clock table-icon text-warning" *ngIf="task.taskStatus == 'PENDING'"></i>
                 <i class="fa fa-check table-icon text-success" *ngIf="task.taskStatus == 'CLOSED'"></i>
                 <i class="fa fa-hourglass-end table-icon text-danger" *ngIf="task.taskStatus == 'REMINDER'"></i>
+                <span *ngIf="task.days > 0" class="interval-text">{{task.days}} days ago</span>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(task, contentTaskDetail)"
@@ -156,10 +154,6 @@
                 <span class="text-success" *ngIf="task.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
                 <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> Can not be completed</span>
                 <span class="text-warning" *ngIf="task.resultStatus == 'WILLBECONSIDEREDLATER'"> Will be considered later</span>
-              </td>
-              <td class="comment"
-                  (click)="openDetailPopup(task, contentTaskDetail)">
-                {{task.creationDate | date:'dd/MM/yyyy'}}
               </td>
             </tr>
             </tbody>
@@ -230,7 +224,7 @@
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
         </div>
         <div class="content-container" *ngIf="selectedTask.description != null">
-          <p class="text-danger content-title">Note: </p>
+          <p class="text-danger content-title">Note from {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
           <p class="content-answer">{{selectedTask.description}}</p>
         </div>
         <div class="content-container" *ngIf="selectedTask.resultNote != null">

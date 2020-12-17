@@ -29,6 +29,7 @@ import {HotelModel} from '../../../core/hotel/_models/hotel.model';
 import {TemplateModel} from '../../../core/template/_models/template.model';
 import {TemplateService} from '../../../core/template/_services/template.service';
 import {IClipboardResponse} from 'ngx-clipboard';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-dashboard',
@@ -63,6 +64,7 @@ export class DashboardComponent implements OnInit {
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  isMobile: boolean;
 
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -83,11 +85,13 @@ export class DashboardComponent implements OnInit {
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private deviceService: DeviceDetectorService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
     const uuid = this.route.snapshot.paramMap.get('uuid');
     if (uuid == null) {
       this.getInitialDataForMainHotel();

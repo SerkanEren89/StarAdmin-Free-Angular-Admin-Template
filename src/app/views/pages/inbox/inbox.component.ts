@@ -231,7 +231,6 @@ export class InboxComponent implements OnInit {
   }
 
   copyAndGo($event: IClipboardResponse) {
-    debugger
     window.open(this.selectedItem.url, '_blank');
   }
 

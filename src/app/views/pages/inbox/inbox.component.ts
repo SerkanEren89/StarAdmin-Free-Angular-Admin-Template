@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {merge, Observable, Subject} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -46,6 +46,8 @@ export class InboxComponent implements OnInit {
   totalPages;
   closeResult = '';
   isMobile = false;
+  newTemplateFlow: boolean;
+  newTemplate: TemplateModel;
   filteredChannel = [];
   options: Options = {
     floor: 0,
@@ -229,6 +231,7 @@ export class InboxComponent implements OnInit {
   }
 
   copyAndGo($event: IClipboardResponse) {
+    debugger
     window.open(this.selectedItem.url, '_blank');
   }
 
@@ -254,7 +257,6 @@ export class InboxComponent implements OnInit {
       .result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
@@ -262,7 +264,6 @@ export class InboxComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
@@ -284,13 +285,34 @@ export class InboxComponent implements OnInit {
     }
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  openReplyPopup(answer: TemplateRef<any>) {
+    this.selectedTemplate = new TemplateModel();
+    this.newTemplate = new TemplateModel();
+    this.modalService.open(answer, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  toNewTemplate() {
+    this.newTemplateFlow = true;
+    this.newTemplate = new TemplateModel();
+    this.newTemplate.content = this.selectedTemplate.content;
+  }
+
+  cancelTemplateFlow() {
+    this.newTemplateFlow = false;
+  }
+
+  saveNewTemplate() {
+    this.templateService.saveTemplates(this.newTemplate)
+      .subscribe((templateModel: TemplateModel) => {
+        this.templateService.getTemplates()
+          .subscribe((templates: TemplateModel[]) => {
+            this.templates = templates;
+            this.selectedTemplate = new TemplateModel();
+            this.newTemplateFlow = false;
+          });
+        this.toastr.success('Your template saved successfully');
+      });
   }
 }

@@ -126,7 +126,7 @@
               Assign Task
             </button>
 
-            <button type="button" class="btn btn-primary" (click)="open(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>
+            <button type="button" class="btn btn-primary" (click)="openReplyPopup(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>
               Reply
             </button>
           </div>
@@ -178,31 +178,31 @@
           <div class="input-group rating-filter">
 
 
-              <div class="channel-item" *ngFor="let commentSource of commentSources; let i = index;">
-                <input type="checkbox"
-                       (change)="changeFilteredChannel(i)"
-                       [checked]="commentSource.checked">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('booking')"
-                     src="assets/images/bookingCom.png">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hotelscom')"
-                     src="assets/images/hotelsCom.jpg">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tripadvisor')"
-                     src="assets/images/tripadvisor.png">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tatilsepeti')"
-                     src="assets/images/tatilSepeti.png">
-                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('google')"
-                     src="assets/images/google.png">
-                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('otelpuan')"
-                     src="assets/images/otelPuan.png">
-                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('odamax')"
-                     src="assets/images/odamax.jpg">
-                <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('agoda')"
-                     src="assets/images/agoda.png">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hoteluplift')"
-                     src="assets/images/logo.png">
-                <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('holidaycheck')"
-                     src="assets/images/holidayCheck.png">
-              </div>
+            <div class="channel-item" *ngFor="let commentSource of commentSources; let i = index;">
+              <input type="checkbox"
+                     (change)="changeFilteredChannel(i)"
+                     [checked]="commentSource.checked">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('booking')"
+                   src="assets/images/bookingCom.png">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hotelscom')"
+                   src="assets/images/hotelsCom.jpg">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tripadvisor')"
+                   src="assets/images/tripadvisor.png">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('tatilsepeti')"
+                   src="assets/images/tatilSepeti.png">
+              <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('google')"
+                   src="assets/images/google.png">
+              <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('otelpuan')"
+                   src="assets/images/otelPuan.png">
+              <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('odamax')"
+                   src="assets/images/odamax.jpg">
+              <img class="mdi mdi-cube icon-lg channel-big-icon" *ngIf="commentSource.name.toLowerCase().includes('agoda')"
+                   src="assets/images/agoda.png">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('hoteluplift')"
+                   src="assets/images/logo.png">
+              <img class="mdi mdi-cube icon-lg channel-icon" *ngIf="commentSource.name.toLowerCase().includes('holidaycheck')"
+                   src="assets/images/holidayCheck.png">
+            </div>
           </div>
         </div>
       </div>
@@ -280,23 +280,35 @@
     </button>
   </div>
   <div class="modal-body">
-    <form class="assignee-form">
+    <form class="reply-form" *ngIf="!newTemplateFlow">
       <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container">
         <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
         <div ngbDropdownMenu>
           <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
         </div>
       </div>
+    </form>
+    <form class="reply-form" *ngIf="newTemplateFlow">
       <div class="form-group answer">
-        <label>Reply</label>
+        <label>Title</label>
         <div class="input-group">
-          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+          <input id="title" type="text" class="form-control" name="title"
+                 [(ngModel)]="newTemplate.title"/>
         </div>
       </div>
     </form>
+    <div class="form-group answer">
+      <label>Template</label>
+      <div class="input-group">
+        <textarea type="text" name="content" class="form-control" #inputTarget rows="6" [(ngModel)]="selectedTemplate.content"></textarea>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
+    <button type="button" class="btn btn-outline-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
   </div>
 </ng-template>
 

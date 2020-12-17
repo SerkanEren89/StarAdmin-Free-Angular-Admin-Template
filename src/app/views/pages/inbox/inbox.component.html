@@ -93,7 +93,7 @@
                 <a target="_blank" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share action-button"></i>
                 </a>
-                <a target="_blank" *ngIf="isMobile" href="https://web.whatsapp.com/send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
+                <a target="_blank" *ngIf="isMobile" href="whatsapp://send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share action-button"></i>
                 </a>
                 <a target="_blank" *ngIf="selectedItem.url != null" href={{selectedItem.url}}>

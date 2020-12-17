@@ -127,7 +127,7 @@
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 {{task.employee.firstName}} {{task.employee.lastName}}
               </td>
-              <td class="comment table-center"
+              <td class="comment"
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 <i class="fa fa-clock table-icon text-warning" *ngIf="task.taskStatus == 'PENDING'"></i>
                 <i class="fa fa-check table-icon text-success" *ngIf="task.taskStatus == 'CLOSED'"></i>

@@ -17,6 +17,7 @@ export class TemplateComponent implements OnInit {
   templates: TemplateModel[] = [];
   newTemplate: TemplateModel;
   closeResult = '';
+  selectedTemplate: TemplateModel;
 
 
   constructor(private templateService: TemplateService,
@@ -34,6 +35,7 @@ export class TemplateComponent implements OnInit {
     this.templateService.saveTemplates(template)
       .subscribe((templateModel: TemplateModel) => {
         this.modalService.dismissAll();
+        this.loadAllTemplate();
         this.toastr.success('Your template saved successfully');
       });
   }
@@ -48,13 +50,6 @@ export class TemplateComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  delete(template: TemplateModel) {
-    this.templateService.deleteTemplate(template).subscribe(() => {
-      this.toastr.success('Template deleted successfully');
-      this.loadAllTemplate();
     });
   }
 
@@ -79,5 +74,24 @@ export class TemplateComponent implements OnInit {
       this.newTemplate = new TemplateModel();
       this.cdr.detectChanges();
     });
+  }
+
+  openDeletePopup(deleteModal: TemplateRef<any>, template: TemplateModel) {
+    this.selectedTemplate = template;
+    this.modalService.open(deleteModal, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  deleteTemplate() {
+    this.templateService.deleteTemplate(this.selectedTemplate).subscribe(() => {
+      this.toastr.success('Template deleted successfully');
+      this.modalService.dismissAll();
+      this.loadAllTemplate();
+    });
+  }
+
+  cancel() {
+    this.modalService.dismissAll();
   }
 }

@@ -43,7 +43,7 @@
               </td>
 
               <td class="text-primary">
-                <a (click)="delete(template)"><i class="fa fa-trash action-button" ></i></a>
+                <a (click)="openDeletePopup(delete, template)"><i class="fa fa-trash action-button" ></i></a>
                 <a (click)="edit(template)"><i class="fa fa-pencil-alt action-button" ></i></a>
               </td>
             </tr>
@@ -83,5 +83,27 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="save(newTemplate)">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-excel-title">Delete Template</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body warning-body">
+    <div class="warning-container">
+      <i class="fa fa-exclamation-triangle warning text-warning"></i>
+      <p>
+        Do you really want to delete this template?
+      </p>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-warning" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteTemplate()">Delete</button>
   </div>
 </ng-template>

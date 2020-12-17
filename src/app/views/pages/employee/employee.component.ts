@@ -4,6 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeModel} from '../../../core/employee/_models/employee.model';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
 import {TableService} from '../../../core/general/_services/table.service';
+import {TaskModel} from '../../../core/task/_models/task.model';
 
 @Component({
   selector: 'app-employee',
@@ -16,6 +17,7 @@ export class EmployeeComponent implements OnInit {
   @ViewChild('employeeModal') public employeeModal: TemplateRef<any>;
   newEmployee: EmployeeModel;
   employees: EmployeeModel[] = [];
+  selectedEmployee: EmployeeModel;
   totalElements = 0;
   pageSize = 10;
   page = 1;
@@ -41,13 +43,6 @@ export class EmployeeComponent implements OnInit {
       });
   }
 
-  delete(employee: EmployeeModel) {
-    this.employeeService.deleteEmployee(employee).subscribe(() => {
-      this.toastr.success('Employee deleted successfully');
-      this.getAllEmployees();
-    });
-  }
-
   edit(employee: EmployeeModel) {
     this.newEmployee = employee;
     this.open(this.employeeModal);
@@ -66,6 +61,7 @@ export class EmployeeComponent implements OnInit {
       this.tableService.addLabelTag(this.elRef);
     });
   }
+
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {
@@ -75,5 +71,24 @@ export class EmployeeComponent implements OnInit {
   addNew() {
     this.newEmployee = new EmployeeModel();
     this.open(this.employeeModal);
+  }
+
+  openDeletePopup(deleteModal: TemplateRef<any>, employee: EmployeeModel) {
+    this.selectedEmployee = employee;
+    this.modalService.open(deleteModal, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  deleteEmployee() {
+    this.employeeService.deleteEmployee(this.selectedEmployee).subscribe(() => {
+      this.toastr.success('Employee deleted successfully');
+      this.modalService.dismissAll();
+      this.getAllEmployees();
+    });
+  }
+
+  cancel() {
+    this.modalService.dismissAll();
   }
 }

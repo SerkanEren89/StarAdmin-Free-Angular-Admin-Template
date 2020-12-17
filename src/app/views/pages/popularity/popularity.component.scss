@@ -21,11 +21,8 @@
 }
 .right{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
-  margin: 10px;
-  margin-left: 30px;
-  margin-right: 30px;
   .space {
     margin: 5px;
     font-size: 24px;
@@ -74,6 +71,7 @@
 .arrow-container {
   display: flex;
   flex-direction: row;
+  margin: 10px;
   align-items: center;
   cursor: pointer;
 }

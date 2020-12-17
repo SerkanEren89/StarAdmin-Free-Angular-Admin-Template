@@ -235,7 +235,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="remindTask()">Remind Task</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="selectedTask.taskStatus == 'PENDING' || selectedTask.taskStatus == 'REMINDER'" (click)="remindTask()">Remind Task</button>
   </div>
 </ng-template>
 

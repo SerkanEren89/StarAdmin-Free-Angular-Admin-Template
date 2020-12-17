@@ -11,8 +11,14 @@
     margin-right: 10px;
   }
 }
-
-
+.table-bordered{
+  table-layout: fixed;
+  .text {
+    line-height: 18px;
+    font-family: Poppins,Helvetica,sans-serif;
+    color: black;
+  }
+}
 .action-button {
   margin-right: 10px;
   font-size: 14px;

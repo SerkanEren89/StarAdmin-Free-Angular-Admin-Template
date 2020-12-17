@@ -100,11 +100,7 @@ export class InboxComponent implements OnInit {
     this.templateService.getTemplates()
       .subscribe((templates: TemplateModel[]) => {
       this.templates = templates;
-      if (templates.length > 0) {
-        this.selectedTemplate = templates[0];
-      } else {
         this.selectedTemplate = new TemplateModel();
-      }
     });
   }
 

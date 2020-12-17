@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {TaskModel} from '../../../core/task/_models/task.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -174,8 +174,8 @@ export class TaskComponent implements OnInit {
         this.cdr.detectChanges();
         if (this.selectedTask.employee.phoneNumber != null) {
           let link = 'https://wa.me/' + this.selectedTask.employee.phoneNumber;
-          const text = 'Hotel Uplift: ' + this.selectedTask.creator.firstName + ' ' +  this.selectedTask.creator.lastName +
-          ' sends you a reminder for your assignment! Click the link to see detail\n'
+          const text = 'Hotel Uplift: ' + this.selectedTask.creator.firstName + ' ' + this.selectedTask.creator.lastName +
+            ' sends you a reminder for your assignment! Click the link to see detail\n'
             + 'https://app.hoteluplift.com/task-management/' + saved.uuid;
           link = link + '?text=' + encodeURIComponent(text);
           window.open(link, '_blank');

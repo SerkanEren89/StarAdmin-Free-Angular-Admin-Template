@@ -22,6 +22,7 @@ import {TaskModel} from '../../../core/task/_models/task.model';
 import {TaskService} from '../../../core/task/_services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-inbox',
@@ -82,10 +83,12 @@ export class InboxComponent implements OnInit {
     checked: true
   }];
   public task: TaskModel = new TaskModel();
+  showAddEmployeeFlow: boolean;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
-  constructor(private commentService: CommentService,
+  constructor(private router: Router,
+              private commentService: CommentService,
               private employeeService: EmployeeService,
               private templateService: TemplateService,
               private taskService: TaskService,
@@ -101,9 +104,9 @@ export class InboxComponent implements OnInit {
     this.isMobile = this.deviceService.isMobile();
     this.templateService.getTemplates()
       .subscribe((templates: TemplateModel[]) => {
-      this.templates = templates;
+        this.templates = templates;
         this.selectedTemplate = new TemplateModel();
-    });
+      });
   }
 
   loadComments(page: number) {
@@ -169,8 +172,21 @@ export class InboxComponent implements OnInit {
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$).pipe(
-      map(term => (term === '' ? this.employeeList
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+      map(term => {
+        if (term.length < 1) {
+          return this.employeeList;
+        }
+        this.showAddEmployeeFlow = false;
+        const searchResults = this.employeeList
+          .filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          .slice(0, 10);
+        if (searchResults.length > 0) {
+          return searchResults;
+        } else {
+          this.showAddEmployeeFlow = true;
+          return [];
+        }
+      })
     );
   };
 
@@ -313,5 +329,9 @@ export class InboxComponent implements OnInit {
           });
         this.toastr.success('Your template saved successfully');
       });
+  }
+  addNewEmployee() {
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('/employee');
   }
 }

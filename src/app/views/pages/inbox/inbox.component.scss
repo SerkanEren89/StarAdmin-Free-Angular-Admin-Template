@@ -222,7 +222,7 @@
 
 .modal-body {
   /* 100% = dialog height, 120px = header + footer */
-  padding: 0 26px !important;
+  padding: 20px 26px !important;
   max-height: calc(100% - 120px);
   overflow-y: scroll;
   .item-container {

@@ -76,6 +76,11 @@
               </th>
               <th>
                 <span class="fa-pull-right">
+                Rating
+                </span>
+              </th>
+              <th>
+                <span class="fa-pull-right">
                   %
                 </span>
               </th>
@@ -94,6 +99,13 @@
               </td>
               <td>
                 <span class="fa-pull-right">
+                  <span class="text-success fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage >= 9"> {{commentCountLanguageModel.ratingAverage}}</span>
+                  <span class="text-warning fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage < 9 && commentCountLanguageModel.ratingAverage >= 8"> {{commentCountLanguageModel.ratingAverage}}</span>
+                  <span class="text-danger fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage < 8"> {{commentCountLanguageModel.ratingAverage}}</span>
+                </span>
+              </td>
+              <td>
+                <span class="fa-pull-right">
                   {{commentCountLanguageModel.percentage}}
                 </span>
               </td>
@@ -108,17 +120,22 @@
   <div class="col-lg-5 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4 text-primary">Travel Type</h5>
+        <h5 class="card-title mb-4 text-primary">Traveler Type</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #travelTypeTable>
             <thead>
             <tr>
               <th>
-                Travel Type
+                Traveler Type
               </th>
               <th>
                 <span class="fa-pull-right">
                   Count
+                </span>
+              </th>
+              <th>
+                <span class="fa-pull-right">
+                Rating
                 </span>
               </th>
               <th>
@@ -138,6 +155,11 @@
                   <span class="fa-pull-right">
                     {{commentCountTraveledWithModel.commentCount}}
                   </span>
+                </td>
+                <td>
+                  <span class="text-success fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage >= 9"> {{commentCountTraveledWithModel.ratingAverage}}</span>
+                  <span class="text-warning fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 9 && commentCountTraveledWithModel.ratingAverage >= 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
+                  <span class="text-danger fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
                 </td>
                 <td>
                   <span  class="fa-pull-right">

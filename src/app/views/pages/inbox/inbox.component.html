@@ -258,11 +258,21 @@
                  (focus)="focus$.next($event.target.value)"/>
         </div>
       </div>
+
+      <div *ngIf="showAddEmployeeFlow" class="warning-body">
+        <div class="warning-container ">
+          <p>The employee does not exist</p>
+          <p>
+            <a href="/employee" (click)="addNewEmployee()">Click to add new employee</a>
+          </p>
+        </div>
+      </div>
+
       <div class="form-group">
         <label>Description</label>
         <div class="input-group">
           <textarea id="description" type="text" class="form-control"
-                    name="description" [(ngModel)]="task.description" rows="3"></textarea>
+                    name="description" [(ngModel)]="task.description" rows="6"></textarea>
         </div>
       </div>
     </form>

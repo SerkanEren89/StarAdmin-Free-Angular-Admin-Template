@@ -47,6 +47,10 @@ const routes: Routes = [
           path: 'inbox',
           loadChildren: () => import('src/app/views/pages/inbox/inbox.module').then(m => m.InboxModule)
         },
+        {
+          path: 'crm',
+          loadChildren: () => import('src/app/views/pages/crm/crm.module').then(m => m.CrmModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

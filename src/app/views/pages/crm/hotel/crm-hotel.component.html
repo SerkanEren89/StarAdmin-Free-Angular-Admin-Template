@@ -1,0 +1,114 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+      <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg">
+      Hotel
+    </span>
+  </div>
+</div>
+
+<div class="row" *ngIf="hotels.length > 0">
+  <div class="col-lg-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Tasks</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered" #taskTable>
+            <thead>
+            <tr>
+              <th style="width: 15%">
+                Name
+              </th>
+              <th style="width: 15%">
+                Contact Person
+              </th>
+              <th style="width: 10%">
+                Contact Number
+              </th>
+              <th>
+                Last login
+              </th>
+              <th>
+                Previous login
+              </th>
+              <th style="width: 30%">
+                Address
+              </th>
+              <th style="width: 10%">
+                Address
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let hotel of hotels">
+              <td>
+                {{hotel.name}}
+              </td>
+              <td>
+                {{hotel.contactPerson}}
+              </td>
+              <td>
+                {{hotel.contactNumber}}
+              </td>
+              <td class="comment">
+                <span *ngIf="hotel.user != null">{{hotel.user.lastLogin  | date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td class="comment">
+                <span *ngIf="hotel.user != null">{{hotel.user.previousLogin  | date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td class="comment">
+                {{hotel.address}}
+              </td>
+              <td class="text-primary">
+                <a (click)="edit(hotel)"><i class="fa fa-pencil-alt action-button" ></i></a>
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+          <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
+                          (pageChange)="loadHotels($event)"
+                          [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                          aria-label="Default pagination"
+                          class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-answer-title">Edit Hotel</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Contact Person</label>
+        <div class="input-group">
+          <input id="contactPerson" type="text" class="form-control" name="contactPerson"
+                 [(ngModel)]="newHotel.contactPerson"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Contact number</label>
+        <div class="input-group">
+          <input id="contactNumber" type="text" class="form-control" name="contactNumber"
+                 [(ngModel)]="newHotel.contactNumber"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="newHotel.address"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="save(newHotel)">Save</button>
+  </div>
+</ng-template>

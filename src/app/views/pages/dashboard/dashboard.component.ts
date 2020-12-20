@@ -30,6 +30,7 @@ import {TemplateModel} from '../../../core/template/_models/template.model';
 import {TemplateService} from '../../../core/template/_services/template.service';
 import {IClipboardResponse} from 'ngx-clipboard';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {ResponseRateModel} from '../../../core/dashboard/_models/response-rate.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,6 +58,7 @@ export class DashboardComponent implements OnInit {
   selectedTemplate: TemplateModel;
   closeResult = '';
   task: TaskModel = new TaskModel();
+  responseRateModel: ResponseRateModel;
   form: any;
   competitorHotel: HotelModel;
   selectedCompetitor: HotelModel;
@@ -147,6 +149,10 @@ export class DashboardComponent implements OnInit {
         this.categoryGroupList = categoryGroupList;
         this.cdr.detectChanges();
       });
+    this.dashboardService.getResponseRate().subscribe((responseRateModel: ResponseRateModel) => {
+      this.responseRateModel = responseRateModel;
+      this.cdr.detectChanges();
+    });
   }
 
   getInitialDataForCompetitorHotel() {
@@ -185,6 +191,10 @@ export class DashboardComponent implements OnInit {
         this.categoryGroupList = categoryGroupList;
         this.cdr.detectChanges();
       });
+    this.dashboardService.getResponseRateByHotelId(hotelId).subscribe((responseRateModel: ResponseRateModel) => {
+      this.responseRateModel = responseRateModel;
+      this.cdr.detectChanges();
+    });
   }
 
   goToDetail(source: string) {

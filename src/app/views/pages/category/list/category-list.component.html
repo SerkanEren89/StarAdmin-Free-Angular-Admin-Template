@@ -86,7 +86,50 @@
 <div class="row title-container" *ngIf="categoryGroup != null">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
     <span class="input-group-text text-primary title category-title">
-      <span>{{categoryGroup.category.name}}</span>
+      <span *ngIf="categoryGroup.category.name.toLowerCase().includes('overall')">
+            <img class="mdi mdi-cube icon-lg category-icon"
+                 src="assets/images/logo.png">
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('cleanliness')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/cleanliness.svg">
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('breakfast')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/breakfast.svg">
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('ambiance')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/ambiance.svg">
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('amenities')">
+            <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/amenities.svg">
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('food')">
+            <i class="fa fa-hamburger category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('wifi')">
+            <i class="fa fa-wifi category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('staff')">
+            <i class="fa fa-users category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('pricing')">
+            <i class="fa fa-money-bill category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('location')">
+            <i class="fa fa-location-arrow category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('reception')">
+            <i class="fa fa-concierge-bell category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('room')">
+            <i class="fa fa-bed category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('quiet-noisy')">
+            <i class="fa fa-volume-up category-icon"></i>
+          </span>
+          <span *ngIf="categoryGroup.category.name.toLowerCase().includes('carpark')">
+            <i class="fa fa-car category-icon"></i>
+          </span>
+      <span class="category-title">{{categoryGroup.category.name}}</span>
     </span>
   </div>
 </div>

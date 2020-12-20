@@ -25,17 +25,11 @@
               <th style="width: 10%">
                 Contact Number
               </th>
-              <th>
-                Last login
-              </th>
-              <th>
-                Previous login
-              </th>
               <th style="width: 30%">
                 Address
               </th>
-              <th style="width: 10%">
-                Address
+              <th style="width: 20%">
+                Action
               </th>
             </tr>
             </thead>
@@ -51,16 +45,11 @@
                 {{hotel.contactNumber}}
               </td>
               <td class="comment">
-                <span *ngIf="hotel.user != null">{{hotel.user.lastLogin  | date:'dd/MM/yyyy'}}</span>
-              </td>
-              <td class="comment">
-                <span *ngIf="hotel.user != null">{{hotel.user.previousLogin  | date:'dd/MM/yyyy'}}</span>
-              </td>
-              <td class="comment">
                 {{hotel.address}}
               </td>
               <td class="text-primary">
-                <a (click)="edit(hotel)"><i class="fa fa-pencil-alt action-button" ></i></a>
+                <a (click)="edit(hotel)"><i class="fa fa-pencil-alt crm-action"></i></a>
+                <a (click)="showLastLogins(hotel)"><i class="fa fa-sign-in-alt crm-action"></i></a>
               </td>
 
             </tr>
@@ -90,25 +79,47 @@
         <label>Contact Person</label>
         <div class="input-group">
           <input id="contactPerson" type="text" class="form-control" name="contactPerson"
-                 [(ngModel)]="newHotel.contactPerson"/>
+                 [(ngModel)]="hotelToEdit.contactPerson"/>
         </div>
       </div>
       <div class="form-group">
         <label>Contact number</label>
         <div class="input-group">
           <input id="contactNumber" type="text" class="form-control" name="contactNumber"
-                 [(ngModel)]="newHotel.contactNumber"/>
+                 [(ngModel)]="hotelToEdit.contactNumber"/>
         </div>
       </div>
       <div class="form-group">
         <label>Address</label>
         <div class="input-group">
-          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="newHotel.address"></textarea>
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="12"
+                    [(ngModel)]="hotelToEdit.address"></textarea>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save(newHotel)">Save</button>
+    <button type="button" class="btn btn-primary" (click)="save(hotelToEdit)">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #lastLoginModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-last-login-title">Last Logins for {{selectedHotel.user.firstName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul *ngIf="userLogins.length > 0">
+      <li *ngFor="let userLogin of userLogins">
+        {{userLogin.loginDate  | date:'dd/MM/yyyy, h:mm a'}}
+      </li>
+    </ul>
+    <p *ngIf="userLogins.length == 0">
+      There is no login for this user
+    </p>
+  </div>
+  <div class="modal-footer">
   </div>
 </ng-template>

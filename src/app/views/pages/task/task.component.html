@@ -215,8 +215,11 @@
         </div>
         <div class="detail-container">
           <app-channel-icon [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>
-          <p class="written">Written By: {{selectedTask.comment.author}}</p>
+          <p class="written"> {{selectedTask.comment.author}}</p>
           <p class="written">{{selectedTask.comment.commentDate  | date:'dd/MM/yyyy'}}</p>
+          <p class="written rating-bar"
+             [ngClass]="{'text-danger': selectedTask.comment.rating < 6, 'text-warning':(selectedTask.comment.rating >= 6 && selectedTask.comment.rating < 8), 'text-success':selectedTask.comment.rating >= 8 }"> {{selectedTask.comment.rating}}
+            / 10</p>
         </div>
         <p class="content-comment">{{selectedTask.comment.content}}</p>
         <div class="content-container" *ngIf="selectedTask.comment.translatedText != null">

@@ -46,7 +46,7 @@ export class TemplateComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
     });

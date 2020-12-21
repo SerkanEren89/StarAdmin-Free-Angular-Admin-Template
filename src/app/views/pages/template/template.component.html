@@ -20,7 +20,7 @@
               <th style="width: 30%">
                 Title
               </th>
-              <th style="width: 60%">
+              <th style="width: 50%">
                 Content
               </th>
               <th>
@@ -30,14 +30,17 @@
             </thead>
             <tbody>
             <tr *ngFor="let template of templates">
-              <td>
+              <td class="template-content"
+                  (click)="edit(template)">
                 {{template.title}}
               </td>
-              <td class="text comment full"
+              <td class="template-content"
+                  (click)="edit(template)"
                   *ngIf="template.content != null && template.content.length <= 100">
                 {{template.content}}
               </td>
-              <td class="text comment full"
+              <td class="template-content"
+                  (click)="edit(template)"
                   *ngIf="template.content!= null && template.content.length > 100">
                 {{template.content | slice:0:100}}...
               </td>

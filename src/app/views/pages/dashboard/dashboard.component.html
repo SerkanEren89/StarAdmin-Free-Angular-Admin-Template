@@ -188,12 +188,22 @@
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length <= 100">
-                {{comment.content}}
+                <span *ngIf="!comment.content.includes('There are no comments')">
+                  {{comment.content}}
+                </span>
+                <i *ngIf="comment.content.includes('There are no comments')">
+                  {{comment.content}}
+                </i>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length > 100">
-                {{comment.content | slice:0:100}}...
+                <span *ngIf="!comment.content.includes('There are no comments')">
+                  {{comment.content | slice:0:100}}...
+                </span>
+                <i *ngIf="comment.content.includes('There are no comments')">
+                  {{comment.content}}
+                </i>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
@@ -287,13 +297,15 @@
           <p class="written" >Written By: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
           <a target="_blank" class="share-icon" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
-            <i class="fa fa-share action-button"></i>
+            <i class="fa fa-share"></i>
+            Share
           </a>
           <a target="_blank" class="share-icon" *ngIf="isMobile" href="whatsapp://send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
             <i class="fa fa-share action-button"></i>
           </a>
         </div>
-        <p class="content-comment">{{selectedComment.content}}</p>
+        <p *ngIf="!selectedComment.content.includes('There are no comments')" class="content-comment">{{selectedComment.content}}</p>
+        <p *ngIf="selectedComment.content.includes('There are no comments')"class="content-comment"><i>{{selectedComment.content}}</i></p>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedComment.translatedText}}</p>

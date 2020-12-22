@@ -90,19 +90,23 @@
               <ngb-rating [(rate)]="selectedItem.ratingOverFive" [starTemplate]="t" [readonly]="true"
                           [max]="5"></ngb-rating>
               <div>
-                <a target="_blank" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
+                <a class="action-container" target="_blank" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share-alt action-button"></i>
+                  Share
                 </a>
-                <a target="_blank" *ngIf="isMobile" href="whatsapp://send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
+                <a class="action-container" target="_blank" *ngIf="isMobile" href="whatsapp://send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share-alt action-button"></i>
+                  Share
                 </a>
-                <a target="_blank" *ngIf="selectedItem.url != null" href={{selectedItem.url}}>
+                <a class="action-container" target="_blank" *ngIf="selectedItem.url != null" href={{selectedItem.url}}>
                   <i class="fa fa-link action-button"></i>
+                  Link
                 </a>
               </div>
             </div>
           </div>
-          <p class="content" [innerHTML]=selectedItem.content></p>
+          <p *ngIf="!selectedItem.content.includes('There are no comments')" class="content" [innerHTML]=selectedItem.content></p>
+          <p *ngIf="selectedItem.content.includes('There are no comments')"><i><span class="content" [innerHTML]=selectedItem.content></span></i></p>
           <div class="content-container" *ngIf="selectedItem.translatedText != null">
             <p class="text-danger content-title">Translated Review: </p>
             <p class="content-answer">{{selectedItem.translatedText}}</p>

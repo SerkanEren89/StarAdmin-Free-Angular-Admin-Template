@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {UserModel} from '../_models/user.model';
 import {Router} from '@angular/router';
+import {ChangePasswordModel} from '../_models/change-password.model';
 
 const API_AUTH_URL = 'auth';
 
@@ -46,6 +47,13 @@ export class AuthService {
           return null;
         })
       );
+  }
+
+  changePassword(changePasswordModel: ChangePasswordModel): Observable<UserModel> {
+    return this.http.post<UserModel>(API_AUTH_URL + '/change-password', changePasswordModel)
+      .pipe(map(result => {
+        return result;
+      }));
   }
 
   logout() {

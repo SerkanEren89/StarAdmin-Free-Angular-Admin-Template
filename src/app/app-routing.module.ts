@@ -51,6 +51,10 @@ const routes: Routes = [
           path: 'crm',
           loadChildren: () => import('src/app/views/pages/crm/crm.module').then(m => m.CrmModule)
         },
+        {
+          path: 'change-password',
+          loadChildren: () => import('src/app/views/pages/change-password/change-password.module').then(m => m.ChangePasswordModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

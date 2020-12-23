@@ -3,6 +3,7 @@ import {SentimentEnum} from '../../category/_models/sentiment.enum';
 export class CommentModel {
   id: number;
   content: string;
+  title: string;
   answer: string;
   commentDate: Date;
   travelDate: Date;

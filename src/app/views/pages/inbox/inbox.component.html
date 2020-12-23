@@ -70,7 +70,9 @@
                    (click)="markAsStarred(selectedItem)">
                   <i class="far fa-star star-yellow pointer"></i>
                 </a>
-                {{selectedItem.content}}</p>
+                <span *ngIf="selectedItem.title == null || selectedItem.title == ''">{{selectedItem.content}}</span>
+                <span *ngIf="selectedItem.title != null">{{selectedItem.title}}</span>
+              </p>
               <app-channel-icon class="icon" [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>

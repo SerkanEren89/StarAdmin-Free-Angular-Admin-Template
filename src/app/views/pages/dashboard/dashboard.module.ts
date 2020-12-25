@@ -8,6 +8,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule, NgbPaginationModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxDateRangeModule} from 'ngx-daterange';
 import {ClipboardModule} from 'ngx-clipboard';
+import {TooltipModule, TooltipOptions} from 'ng2-tooltip-directive';
+export const MyDefaultTooltipOptions: TooltipOptions = {
+  'show-delay': 200,
+  'placement': 'top'
+};
 
 @NgModule({
   imports: [
@@ -34,6 +39,7 @@ import {ClipboardModule} from 'ngx-clipboard';
     NgbPaginationModule,
     ClipboardModule,
     NgbModule,
+    TooltipModule.forRoot(MyDefaultTooltipOptions as TooltipOptions)
   ],
   providers: [],
   declarations: [

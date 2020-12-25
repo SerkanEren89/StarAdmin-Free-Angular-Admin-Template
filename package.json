@@ -30,6 +30,7 @@
     "flag-icon-css": "^3.5.0",
     "ng-bootstrap": "^1.6.3",
     "ng2-charts": "^2.3.2",
+    "ng2-tooltip-directive": "^2.9.22",
     "ngx-clipboard": "^14.0.1",
     "ngx-daterange": "^1.0.29",
     "ngx-daterangepicker-material": "^2.3.0",

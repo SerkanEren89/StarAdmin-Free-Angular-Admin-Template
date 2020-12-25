@@ -183,7 +183,9 @@
               <td class="text star-container">
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
-                <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button text-primary"></i></a>
+                <span tooltip="Reply">
+                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button text-primary" tooltip="Tooltip on left"></i></a>
+                </span>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
@@ -223,8 +225,12 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
-                <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                <span tooltip="Assign Task">
+                  <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
+                </span>
+                <span tooltip="Go to Source">
+                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                </span>
               </td>
             </tr>
             </tbody>

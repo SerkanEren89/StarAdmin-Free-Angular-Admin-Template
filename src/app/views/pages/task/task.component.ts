@@ -36,7 +36,10 @@ export class TaskComponent implements OnInit {
     name: 'PENDING',
     checked: false
   }, {
-    name: 'FINISHED',
+    name: 'CLOSED',
+    checked: false
+  }, {
+    name: 'REMINDER',
     checked: false
   }];
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
@@ -103,7 +106,7 @@ export class TaskComponent implements OnInit {
   }
 
   private buildFilter() {
-    if (this.selected.start != null) {
+    if (this.selected != null && this.selected.start != null) {
       const startDate = this.selected.start.format('DD-MM-YYYY');
       const endDate = this.selected.end.format('DD-MM-YYYY');
       this.taskFilter.startDate = startDate;
@@ -182,5 +185,17 @@ export class TaskComponent implements OnInit {
         }
       });
     this.modalService.dismissAll();
+  }
+
+  filterByStatus(status: string) {
+    this.taskFilter = new TaskFilterModel();
+    this.taskFilter.statusList = [];
+    const selectedStatus = this.statuses.filter(item => item.name === status);
+    if (selectedStatus.length > 0) {
+      this.taskFilter.statusList.push(selectedStatus[0].name);
+      this.getFilteredTasks();
+    } else {
+      this.getAllTasks();
+    }
   }
 }

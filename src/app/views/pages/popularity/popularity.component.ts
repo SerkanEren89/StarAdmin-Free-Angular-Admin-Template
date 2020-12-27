@@ -2,12 +2,12 @@ import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild, ViewEncap
 import {Label} from 'ng2-charts';
 import {ChartDataSets} from 'chart.js';
 import {PopularityService} from '../../../core/popularity/_services/popularity.service';
-import {Observable} from 'rxjs';
 import {MonthlyCommentModel} from '../../../core/popularity/_models/monthly-comment.model';
 import {CommentCountLanguageModel} from '../../../core/inbox/_models/comment-count-language.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {CommentCountTraveledWithModel} from '../../../core/inbox/_models/comment-count-traveled-with.model';
 import {TableService} from '../../../core/general/_services/table.service';
+import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
 
 @Component({
   selector: 'app-popularity',
@@ -18,17 +18,34 @@ import {TableService} from '../../../core/general/_services/table.service';
 export class PopularityComponent implements OnInit {
   @ViewChild('languageTable') elRefLanguage;
   @ViewChild('travelTypeTable') elRefTravelType;
-  monthlyComments$: Observable<MonthlyCommentModel>;
   monthlyComments: MonthlyCommentModel;
-  commentsByLanguage$: Observable<CommentCountLanguageModel[]>;
   commentsByLanguage: CommentCountLanguageModel[] = [];
-  commentsByTraveledWith$: Observable<CommentCountTraveledWithModel[]>;
   commentsByTraveledWith: CommentCountTraveledWithModel[] = [];
+  monthlyRating: MonthlyRatingsModel;
+  lineChartData: ChartDataSets[] = [];
+  lineChartLabels: Label[] = [];
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
   interval = 0;
   height: number;
   screenWidth: number;
+  overallPerformance: number;
+  lineChartOptionsData = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            steps: 1,
+            stepValue: 1,
+            max: 10,
+            min: 7
+          }
+        }
+      ]
+    }
+  };
 
   constructor(private popularityService: PopularityService,
               private commentService: CommentService,
@@ -47,25 +64,42 @@ export class PopularityComponent implements OnInit {
   }
 
   processPopularity() {
-    this.monthlyComments$ = this.popularityService.getCommentCountMonthly(this.interval);
-    this.monthlyComments$.subscribe((monthlyComments: MonthlyCommentModel) => {
-      this.monthlyComments = monthlyComments;
-      this.barChartLabels = this.monthlyComments.months;
-      this.barChartData = this.monthlyComments.item;
-      this.cdr.detectChanges();
-    });
-    this.commentsByLanguage$ = this.commentService.getCommentsByCountByLanguage();
-    this.commentsByLanguage$.subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
-      this.commentsByLanguage = commentCountLanguageModels;
-      this.cdr.detectChanges();
-      this.tableService.addLabelTag(this.elRefLanguage);
-    });
-    this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWith();
-    this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
-      this.commentsByTraveledWith = assessmentByTravelType;
-      this.cdr.detectChanges();
-      this.tableService.addLabelTag(this.elRefTravelType);
-    });
+    this.popularityService.getCommentCountMonthly(this.interval)
+      .subscribe((monthlyComments: MonthlyCommentModel) => {
+        this.monthlyComments = monthlyComments;
+        this.barChartLabels = this.monthlyComments.months;
+        this.barChartData = this.monthlyComments.item;
+        this.cdr.detectChanges();
+      });
+    this.commentService.getCommentsByCountByLanguage()
+      .subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
+        this.commentsByLanguage = commentCountLanguageModels;
+        this.cdr.detectChanges();
+        this.tableService.addLabelTag(this.elRefLanguage);
+      });
+    this.commentService.getCommentsByCountByTraveledWith()
+      .subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
+        this.commentsByTraveledWith = assessmentByTravelType;
+        this.cdr.detectChanges();
+        this.tableService.addLabelTag(this.elRefTravelType);
+      });
+    this.popularityService.getAverageMonthlyRating()
+      .subscribe((monthlyRating: MonthlyRatingsModel) => {
+        this.monthlyRating = monthlyRating;
+        const hotelData = monthlyRating.item[0].data;
+        const currentData = monthlyRating.item[1].data;
+        let betterPerformanceCount = 0;
+        for (let i = 0; i < hotelData.length; i++) {
+          if (hotelData[i] > currentData [i]) {
+            betterPerformanceCount++;
+          }
+        }
+        this.overallPerformance = Math.round(100 * (betterPerformanceCount / hotelData.length) * 10) / 10;
+        this.lineChartLabels = this.monthlyRating.months;
+        this.lineChartData = this.monthlyRating.item;
+
+        this.cdr.detectChanges();
+      });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -74,7 +108,7 @@ export class PopularityComponent implements OnInit {
     console.log(this.screenWidth);
     if (this.screenWidth < 800) {
       this.height = 350;
-    } else  {
+    } else {
       this.height = 300;
     }
   }

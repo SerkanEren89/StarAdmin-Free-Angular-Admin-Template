@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ChartDataSets} from 'chart.js';
 import {Color, Label} from 'ng2-charts';
 
@@ -8,27 +8,40 @@ import {Color, Label} from 'ng2-charts';
   styleUrls: ['./line-chart.component.scss']
 })
 
-export class LineChartComponent {
+export class LineChartComponent implements OnInit {
   @Input() lineChartData: ChartDataSets[] = [];
   @Input() lineChartLabels: Label[] = [];
-
-  lineChartOptions = {
+  @Input() height: number;
+  @Input() lineChartOptions: {};
+  lineChartOptionsData: {} = {
     responsive: true,
     maintainAspectRatio: false,
   };
 
   lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgb(198, 231, 251)',
+    { // grey
+      backgroundColor: 'rgba(144,176,227,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // dark grey
       backgroundColor: 'rgba(77,83,96,0.2)',
       borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
       backgroundColor: 'rgba(255,0,0,0.3)',
       borderColor: 'red',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // red
       backgroundColor: 'rgba(150,255,51,0.3)',
@@ -59,4 +72,15 @@ export class LineChartComponent {
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
+
+  ngOnInit(): void {
+    if (this.lineChartOptions != null) {
+      this.lineChartOptionsData = this.lineChartOptions;
+    } else {
+      this.lineChartOptionsData = {
+        responsive: true,
+        maintainAspectRatio: false,
+      };
+    }
+  }
 }

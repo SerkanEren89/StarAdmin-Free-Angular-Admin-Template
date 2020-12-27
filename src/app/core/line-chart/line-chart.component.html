@@ -1,9 +1,8 @@
-<div class="chart-container">
+<div class="chart-container" [style.height.px]= height>
   <canvas baseChart
-          height="400"
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
-          [options]="lineChartOptions"
+          [options]="lineChartOptionsData"
           [colors]="lineChartColors"
           [legend]="lineChartLegend"
           [chartType]="lineChartType"

@@ -26,6 +26,8 @@ export class PopularityComponent implements OnInit {
   lineChartLabels: Label[] = [];
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
+  barChartDataCommentCount: ChartDataSets[] = [];
+  barChartLabelsCommentCount: Label[] = [];
   interval = 0;
   height: number;
   screenWidth: number;
@@ -40,7 +42,7 @@ export class PopularityComponent implements OnInit {
             steps: 1,
             stepValue: 1,
             max: 10,
-            min: 7
+            min: 5
           }
         }
       ]
@@ -64,6 +66,13 @@ export class PopularityComponent implements OnInit {
   }
 
   processPopularity() {
+    this.popularityService.getCommentCountByMonth()
+      .subscribe((monthlyComments: MonthlyCommentModel) => {
+        this.monthlyComments = monthlyComments;
+        this.barChartLabelsCommentCount = this.monthlyComments.months;
+        this.barChartDataCommentCount = this.monthlyComments.item;
+        this.cdr.detectChanges();
+      });
     this.popularityService.getCommentCountMonthly(this.interval)
       .subscribe((monthlyComments: MonthlyCommentModel) => {
         this.monthlyComments = monthlyComments;

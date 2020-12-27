@@ -22,4 +22,8 @@ export class PopularityService {
   getAverageMonthlyRating(): Observable<MonthlyRatingsModel> {
     return this.http.get<MonthlyRatingsModel>(API_POPULARITY_URL + '/average-monthly');
   }
+
+  getCommentCountByMonth(): Observable<MonthlyCommentModel> {
+    return this.http.get<MonthlyCommentModel>(API_POPULARITY_URL + '/monthly-count');
+  }
 }

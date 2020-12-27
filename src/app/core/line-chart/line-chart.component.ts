@@ -16,12 +16,21 @@ export class LineChartComponent implements OnInit {
   lineChartOptionsData: {} = {
     responsive: true,
     maintainAspectRatio: false,
+    fill: false
   };
 
   lineChartColors: Color[] = [
     { // grey
       backgroundColor: 'rgba(144,176,227,0.2)',
       borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
@@ -34,14 +43,6 @@ export class LineChartComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // red
       backgroundColor: 'rgba(150,255,51,0.3)',
@@ -79,7 +80,7 @@ export class LineChartComponent implements OnInit {
     } else {
       this.lineChartOptionsData = {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: false
       };
     }
   }

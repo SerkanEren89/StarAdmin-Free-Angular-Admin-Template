@@ -184,26 +184,26 @@
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
                 <span tooltip="Reply">
-                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null"><i class="fa fa-reply action-button text-primary" tooltip="Tooltip on left"></i></a>
+                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary" tooltip="Tooltip on left"></i></a>
                 </span>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length <= 100">
-                <span *ngIf="!comment.content.includes('There are no comments')">
+                <span *ngIf="!comment.content.includes(noReviewText)">
                   {{comment.content}}
                 </span>
-                <i *ngIf="comment.content.includes('There are no comments')">
+                <i *ngIf="comment.content.includes(noReviewText)">
                   {{comment.content}}
                 </i>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length > 100">
-                <span *ngIf="!comment.content.includes('There are no comments')">
+                <span *ngIf="!comment.content.includes(noReviewText)">
                   {{comment.content | slice:0:100}}...
                 </span>
-                <i *ngIf="comment.content.includes('There are no comments')">
+                <i *ngIf="comment.content.includes(noReviewText)">
                   {{comment.content}}
                 </i>
               </td>
@@ -310,8 +310,8 @@
             <i class="fa fa-share action-button"></i>
           </a>
         </div>
-        <p *ngIf="!selectedComment.content.includes('There are no comments')" class="content-comment">{{selectedComment.content}}</p>
-        <p *ngIf="selectedComment.content.includes('There are no comments')"class="content-comment"><i>{{selectedComment.content}}</i></p>
+        <p *ngIf="!selectedComment.content.includes(noReviewText)" class="content-comment">{{selectedComment.content}}</p>
+        <p *ngIf="selectedComment.content.includes(noReviewText)" class="content-comment"><i>{{selectedComment.content}}</i></p>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedComment.translatedText}}</p>

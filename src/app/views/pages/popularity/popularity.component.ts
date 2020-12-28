@@ -27,7 +27,6 @@ export class PopularityComponent implements OnInit {
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
   barChartDataCommentCount: ChartDataSets[] = [];
-  barChartLabelsCommentCount: Label[] = [];
   interval = 0;
   height: number;
   screenWidth: number;
@@ -66,13 +65,6 @@ export class PopularityComponent implements OnInit {
   }
 
   processPopularity() {
-    this.popularityService.getCommentCountByMonth()
-      .subscribe((monthlyComments: MonthlyCommentModel) => {
-        this.monthlyComments = monthlyComments;
-        this.barChartLabelsCommentCount = this.monthlyComments.months;
-        this.barChartDataCommentCount = this.monthlyComments.item;
-        this.cdr.detectChanges();
-      });
     this.popularityService.getCommentCountMonthly(this.interval)
       .subscribe((monthlyComments: MonthlyCommentModel) => {
         this.monthlyComments = monthlyComments;
@@ -95,15 +87,6 @@ export class PopularityComponent implements OnInit {
     this.popularityService.getAverageMonthlyRating()
       .subscribe((monthlyRating: MonthlyRatingsModel) => {
         this.monthlyRating = monthlyRating;
-        const hotelData = monthlyRating.item[0].data;
-        const currentData = monthlyRating.item[1].data;
-        let betterPerformanceCount = 0;
-        for (let i = 0; i < hotelData.length; i++) {
-          if (hotelData[i] > currentData [i]) {
-            betterPerformanceCount++;
-          }
-        }
-        this.overallPerformance = Math.round(100 * (betterPerformanceCount / hotelData.length) * 10) / 10;
         this.lineChartLabels = this.monthlyRating.months;
         this.lineChartData = this.monthlyRating.item;
 

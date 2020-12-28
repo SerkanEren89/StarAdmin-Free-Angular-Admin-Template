@@ -2,29 +2,17 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/popularity.svg">
-      Popularity
+      Hotel Stats
     </span>
   </div>
 </div>
-<div class="row" *ngIf="lineChartData.length > 0">
+<div class="row" *ngIf="lineChartData.length > 0 && barChartLabels.length > 0">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <p class="graph-title text-primary">Review Score</p>
         <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
         <p class="graph-title text-primary">Review Count</p>
-        <app-bar-chart [height]="height" [barChartData]="barChartDataCommentCount" [barChartLabels]="barChartLabelsCommentCount"></app-bar-chart>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row" *ngIf="barChartLabels.length > 0">
-  <div class="col-lg-7 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="date-selection-container">
-          <h2 class="card-title text-primary">Comment Counts by Channel</h2>
-        </div>
         <app-bar-chart [height]="height" [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>
         <div class="right">
           <div (click)="changeInterval(1)" class="arrow-container text-primary">
@@ -33,6 +21,65 @@
           <div (click)="changeInterval(-1)" *ngIf="interval > 0" class="arrow-container text-primary">
             <span>Next</span> <i class="fa fa-arrow-right space" ></i>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="barChartLabels.length > 0">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4 text-primary">Traveler Type</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered" #travelTypeTable>
+            <thead>
+            <tr>
+              <th>
+                Traveler Type
+              </th>
+              <th>
+                <span class="fa-pull-right">
+                  Count
+                </span>
+              </th>
+              <th>
+                <span class="fa-pull-right">
+                Rating
+                </span>
+              </th>
+              <th>
+                 <span class="fa-pull-right">
+                  %
+                </span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let commentCountTraveledWithModel of commentsByTraveledWith">
+              <tr *ngIf="commentCountTraveledWithModel.traveledWith != null">
+                <td>
+                  {{commentCountTraveledWithModel.traveledWith}}
+                </td>
+                <td>
+                  <span class="fa-pull-right">
+                    {{commentCountTraveledWithModel.commentCount}}
+                  </span>
+                </td>
+                <td>
+                  <span class="text-success fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage >= 9"> {{commentCountTraveledWithModel.ratingAverage}}</span>
+                  <span class="text-warning fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 9 && commentCountTraveledWithModel.ratingAverage >= 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
+                  <span class="text-danger fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
+                </td>
+                <td>
+                  <span  class="fa-pull-right">
+                    {{commentCountTraveledWithModel.percentage}}
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -70,7 +117,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-7 grid-margin">
+  <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4 text-primary">Language</h5>
@@ -122,64 +169,6 @@
                 </span>
               </td>
             </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-5 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4 text-primary">Traveler Type</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" #travelTypeTable>
-            <thead>
-            <tr>
-              <th>
-                Traveler Type
-              </th>
-              <th>
-                <span class="fa-pull-right">
-                  Count
-                </span>
-              </th>
-              <th>
-                <span class="fa-pull-right">
-                Rating
-                </span>
-              </th>
-              <th>
-                 <span class="fa-pull-right">
-                  %
-                </span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let commentCountTraveledWithModel of commentsByTraveledWith">
-              <tr *ngIf="commentCountTraveledWithModel.traveledWith != null">
-                <td>
-                  {{commentCountTraveledWithModel.traveledWith}}
-                </td>
-                <td>
-                  <span class="fa-pull-right">
-                    {{commentCountTraveledWithModel.commentCount}}
-                  </span>
-                </td>
-                <td>
-                  <span class="text-success fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage >= 9"> {{commentCountTraveledWithModel.ratingAverage}}</span>
-                  <span class="text-warning fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 9 && commentCountTraveledWithModel.ratingAverage >= 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
-                  <span class="text-danger fa-pull-right" *ngIf="commentCountTraveledWithModel.ratingAverage < 8"> {{commentCountTraveledWithModel.ratingAverage}}</span>
-                </td>
-                <td>
-                  <span  class="fa-pull-right">
-                    {{commentCountTraveledWithModel.percentage}}
-                  </span>
-                </td>
-              </tr>
-            </ng-container>
             </tbody>
           </table>
         </div>

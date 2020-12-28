@@ -23,6 +23,7 @@ import {TaskService} from '../../../core/task/_services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {Router} from '@angular/router';
+import {AppSettings} from '../../../core/consts/AppSettings';
 
 @Component({
   selector: 'app-inbox',
@@ -49,6 +50,7 @@ export class InboxComponent implements OnInit {
   isMobile = false;
   newTemplateFlow: boolean;
   newTemplate: TemplateModel;
+  noReviewText: string;
   filteredChannel = [];
   options: Options = {
     floor: 0,
@@ -101,6 +103,7 @@ export class InboxComponent implements OnInit {
   ngOnInit() {
     this.clearFilter();
     this.getUnfilteredResult();
+    this.noReviewText = AppSettings.NO_REVIEW;
     this.isMobile = this.deviceService.isMobile();
     this.templateService.getTemplates()
       .subscribe((templates: TemplateModel[]) => {
@@ -276,7 +279,7 @@ export class InboxComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
     });
@@ -289,12 +292,12 @@ export class InboxComponent implements OnInit {
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
           this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }
@@ -303,7 +306,7 @@ export class InboxComponent implements OnInit {
   openReplyPopup(answer: TemplateRef<any>) {
     this.selectedTemplate = new TemplateModel();
     this.newTemplate = new TemplateModel();
-    this.modalService.open(answer, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(answer, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {
     });
   }

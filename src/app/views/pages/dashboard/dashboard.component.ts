@@ -31,6 +31,7 @@ import {TemplateService} from '../../../core/template/_services/template.service
 import {IClipboardResponse} from 'ngx-clipboard';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ResponseRateModel} from '../../../core/dashboard/_models/response-rate.model';
+import {AppSettings} from '../../../core/consts/AppSettings';
 
 @Component({
   selector: 'app-dashboard',
@@ -67,6 +68,7 @@ export class DashboardComponent implements OnInit {
   pageSize = 10;
   page = 1;
   isMobile: boolean;
+  noReviewText: string;
 
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
               private router: Router,
               private deviceService: DeviceDetectorService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.noReviewText = AppSettings.NO_REVIEW;
   }
 
   ngOnInit() {
@@ -252,7 +255,8 @@ export class DashboardComponent implements OnInit {
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     if (this.competitorHotel == null) {
       this.selectedComment = comment;
-      this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(contentReviewDetail, {size: 'xl',
+        ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -297,7 +301,7 @@ export class DashboardComponent implements OnInit {
 
   open(comment, content) {
     this.selectedComment = comment;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -312,12 +316,12 @@ export class DashboardComponent implements OnInit {
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
           this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }
@@ -352,7 +356,7 @@ export class DashboardComponent implements OnInit {
             this.selectedTemplate = new TemplateModel();
           }
           this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
@@ -362,7 +366,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.selectedTemplate = new TemplateModel();
       }
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }

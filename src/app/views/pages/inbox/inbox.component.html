@@ -107,8 +107,8 @@
               </div>
             </div>
           </div>
-          <p *ngIf="!selectedItem.content.includes('There are no comments')" class="content" [innerHTML]=selectedItem.content></p>
-          <p *ngIf="selectedItem.content.includes('There are no comments')"><i><span class="content" [innerHTML]=selectedItem.content></span></i></p>
+          <p *ngIf="!selectedItem.content.includes(noReviewText)" class="content" [innerHTML]=selectedItem.content></p>
+          <p *ngIf="selectedItem.content.includes(noReviewText)"><i><span class="content" [innerHTML]=selectedItem.content></span></i></p>
           <div class="content-container" *ngIf="selectedItem.translatedText != null">
             <p class="text-danger content-title">Translated Review: </p>
             <p class="content-answer">{{selectedItem.translatedText}}</p>
@@ -132,7 +132,9 @@
               Assign Task
             </button>
 
-            <button type="button" class="btn btn-primary" (click)="openReplyPopup(answer)"><i class="mdi mdi-reply-all" *ngIf="selectedItem.url != null"></i>
+            <button type="button" class="btn btn-primary"
+                    *ngIf="selectedItem.url != null && selectedItem.content != noReviewText"
+                    (click)="openReplyPopup(answer)"><i class="mdi mdi-reply-all"></i>
               Reply
             </button>
           </div>
@@ -314,9 +316,9 @@
       </div>
     </form>
     <div class="form-group answer">
-      <label>Template</label>
+      <label>Reply Text</label>
       <div class="input-group">
-        <textarea type="text" name="content" class="form-control" #inputTarget rows="6" [(ngModel)]="selectedTemplate.content"></textarea>
+        <textarea type="text" name="content" class="form-control" placeholder="Place your answer here" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>

@@ -27,9 +27,9 @@ export class ChangePasswordComponent implements OnInit {
 
   changePassword() {
     if (this.changePasswordModel.oldPassword === undefined ||
-      this.changePasswordModel.oldPasswordRepeat === undefined ||
+      this.changePasswordModel.newPasswordRepeat === undefined ||
       this.changePasswordModel.newPassword === undefined ||
-      this.changePasswordModel.oldPassword !== this.changePasswordModel.oldPasswordRepeat) {
+      this.changePasswordModel.newPassword !== this.changePasswordModel.newPasswordRepeat) {
       this.invalid = true;
     }
     if (!this.invalid) {

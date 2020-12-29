@@ -57,6 +57,8 @@ export class DashboardComponent implements OnInit {
   employeeList: EmployeeModel[];
   templates: TemplateModel[];
   selectedTemplate: TemplateModel;
+  newTemplate: TemplateModel;
+  newTemplateFlow: boolean;
   closeResult = '';
   task: TaskModel = new TaskModel();
   responseRateModel: ResponseRateModel;
@@ -350,26 +352,45 @@ export class DashboardComponent implements OnInit {
       this.templateService.getTemplates()
         .subscribe((templateModels: TemplateModel[]) => {
           this.templates = templateModels;
-          if (this.templates.length > 0) {
-            this.selectedTemplate = this.templates[0];
-          } else {
-            this.selectedTemplate = new TemplateModel();
-          }
+          this.selectedTemplate = new TemplateModel();
+          this.selectedTemplate.title = 'Select template';
+          this.newTemplate = new TemplateModel();
           this.cdr.detectChanges();
           this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
-      if (this.templates.length > 0) {
-        this.selectedTemplate = this.templates[0];
-      } else {
-        this.selectedTemplate = new TemplateModel();
-      }
+      this.selectedTemplate = new TemplateModel();
+      this.selectedTemplate.title = 'Select template';
+      this.newTemplate = new TemplateModel();
       this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }
+  }
+
+  toNewTemplate() {
+    this.newTemplateFlow = true;
+    this.newTemplate = new TemplateModel();
+    this.newTemplate.content = this.selectedTemplate.content;
+  }
+
+  cancelTemplateFlow() {
+    this.newTemplateFlow = false;
+  }
+
+  saveNewTemplate() {
+    this.templateService.saveTemplates(this.newTemplate)
+      .subscribe((templateModel: TemplateModel) => {
+        this.templateService.getTemplates()
+          .subscribe((templates: TemplateModel[]) => {
+            this.templates = templates;
+            this.selectedTemplate = new TemplateModel();
+            this.newTemplateFlow = false;
+          });
+        this.toastr.success('Your template saved successfully');
+      });
   }
 
   assignTask(task: TaskModel) {

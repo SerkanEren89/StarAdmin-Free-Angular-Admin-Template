@@ -7,7 +7,7 @@ import {merge, Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
 import {TaskFilterModel} from '../../../core/task/_models/task-filter.model';
-import {Moment} from 'moment';
+import moment, {Moment} from 'moment';
 import {TableService} from '../../../core/general/_services/table.service';
 import {TaskStatsModel} from '../../../core/task/_models/task-stats.model';
 import {ToastrService} from 'ngx-toastr';
@@ -27,7 +27,8 @@ export class TaskComponent implements OnInit {
   employeeList: EmployeeModel[];
   selectedTask: TaskModel;
   taskFilter: TaskFilterModel = new TaskFilterModel();
-  selected: { start: Moment, end: Moment };
+  selected: any;
+  maxDate: any;
   filteredStatus = [];
   totalElements = 0;
   pageSize = 10;
@@ -59,6 +60,11 @@ export class TaskComponent implements OnInit {
       .subscribe((taskStats: TaskStatsModel) => {
         this.taskStats = taskStats;
       });
+    this.selected = {
+      start: moment().add(-1, 'months'),
+      end: moment()
+    };
+    this.maxDate = moment();
   }
 
   private getAllTasks() {

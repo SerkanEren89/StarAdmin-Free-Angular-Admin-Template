@@ -163,6 +163,7 @@
                  opens="center"
                  autoApply="true"
                  [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                 [maxDate]="maxDate"
                  startKey="start"
                  endKey="end"
                  placeholder="Select date to filter"
@@ -247,18 +248,18 @@
   <div class="modal-body">
     <div class="summary-container">
       <div class="summary">
-        <p class="title">{{selectedItem.content}}</p>
         <div class="detail-container">
           <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
           <p class="written" >Written By: {{selectedItem.author}}</p>
           <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
+        <p class="title content-comment">{{selectedItem.content}}</p>
       </div>
     </div>
     <form class="assignee-form">
       <div class="form-group">
         <label>Assignee</label>
-        <div class="input-group">
+        <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
                  [inputFormatter]="inputFormatter"
@@ -299,10 +300,13 @@
   </div>
   <div class="modal-body">
     <form class="reply-form" *ngIf="!newTemplateFlow">
-      <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container">
-        <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
-        <div ngbDropdownMenu>
-          <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+      <div class="form-group">
+        <label>Template</label>
+        <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedTemplate.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+          </div>
         </div>
       </div>
     </form>

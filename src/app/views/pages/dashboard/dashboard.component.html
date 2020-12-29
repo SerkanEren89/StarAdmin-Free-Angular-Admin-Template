@@ -254,18 +254,18 @@
   <div class="modal-body">
     <div class="summary-container">
       <div class="summary">
-        <p class="title">{{selectedComment.content}}</p>
         <div class="detail-container">
           <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
           <p class="written" >Written By: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
+        <p class="title content-comment">{{selectedComment.content}}</p>
       </div>
     </div>
     <form class="assignee-form">
       <div class="form-group">
         <label>Assignee</label>
-        <div class="input-group">
+        <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
                  [inputFormatter]="inputFormatter"
@@ -378,26 +378,38 @@
     </button>
   </div>
   <div class="modal-body">
-    <form class="assignee-form">
-      <div *ngIf="templates.length == 0" class="info-container">
-        <i class="fa fa-info-circle info text-primary"></i>
-        <p>You don't have any template. You can create one from your settings menu</p>
-      </div>
-      <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container ">
-        <button class="btn btn-outline-primary btn-sm full-width" ngbDropdownToggle>{{selectedTemplate.title}}</button>
-        <div ngbDropdownMenu>
-          <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
-        </div>
-      </div>
-      <div class="form-group answer">
-        <label>Reply</label>
-        <div class="input-group">
-          <textarea type="text" name="content" class="form-control" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+    <form class="assignee-form" *ngIf="!newTemplateFlow">
+      <div class="form-group">
+        <label>Template</label>
+        <div ngbDropdown container="body" *ngIf="templates.length > 0" class="template-container">
+          <button class="btn btn-outline-primary btn-sm " ngbDropdownToggle>{{selectedTemplate.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+          </div>
         </div>
       </div>
     </form>
+    <form class="reply-form" *ngIf="newTemplateFlow">
+      <div class="form-group answer">
+        <label>Title</label>
+        <div class="input-group">
+          <input id="title" type="text" class="form-control" name="title"
+                 [(ngModel)]="newTemplate.title"/>
+        </div>
+      </div>
+    </form>
+    <div class="form-group answer">
+      <label>Reply</label>
+      <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget
+                    placeholder="Place your answer here" rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
     <button type="button" class="btn btn-outline-dark" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
+    <button type="button" class="btn btn-outline-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
   </div>
 </ng-template>

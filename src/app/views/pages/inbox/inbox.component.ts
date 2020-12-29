@@ -8,7 +8,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
-import {Moment} from 'moment';
+import moment from 'moment';
 import {Options} from '@angular-slider/ngx-slider';
 import {CommentFilterModel} from '../../../core/inbox/_models/comment-filter.model';
 import {IClipboardResponse} from 'ngx-clipboard';
@@ -37,7 +37,8 @@ export class InboxComponent implements OnInit {
   commentList: CommentModel[];
   employeeList: EmployeeModel[];
   selectedItem: CommentModel;
-  selected: { start: Moment, end: Moment };
+  selected: any;
+  maxDate: any;
   commentFilter: CommentFilterModel;
   templates: TemplateModel[] = [];
   selectedTemplate: TemplateModel;
@@ -110,6 +111,11 @@ export class InboxComponent implements OnInit {
         this.templates = templates;
         this.selectedTemplate = new TemplateModel();
       });
+    this.maxDate = moment();
+    this.selected = {
+      start: moment().add(-3, 'months'),
+      end: moment()
+    };
   }
 
   loadComments(page: number) {
@@ -271,7 +277,7 @@ export class InboxComponent implements OnInit {
   }
 
   openFilterModal(content) {
-    this.modalService.open(content, {size: 'filter', ariaLabelledBy: 'modal-basic-title', scrollable: true, centered: true})
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true, centered: true})
       .result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -305,6 +311,7 @@ export class InboxComponent implements OnInit {
 
   openReplyPopup(answer: TemplateRef<any>) {
     this.selectedTemplate = new TemplateModel();
+    this.selectedTemplate.title = 'Select template';
     this.newTemplate = new TemplateModel();
     this.modalService.open(answer, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {
@@ -333,6 +340,7 @@ export class InboxComponent implements OnInit {
         this.toastr.success('Your template saved successfully');
       });
   }
+
   addNewEmployee() {
     this.modalService.dismissAll();
     this.router.navigateByUrl('/employee');

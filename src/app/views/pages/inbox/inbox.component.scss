@@ -172,10 +172,6 @@
   .assignee-form {
     margin-top: 15px;
   }
-  .modal-body {
-    padding: 20px 26px;
-    background-color: #fafbfb;
-  }
 }
 .pagination-container {
   flex: initial !important;
@@ -305,4 +301,8 @@
   margin-bottom: 20px;
   text-align: end;
 }
-
+.content-comment {
+  padding: 20px;
+  border: 1px solid #e1dada;
+  background-color: #fffbfb;
+}

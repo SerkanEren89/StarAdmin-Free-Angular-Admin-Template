@@ -180,6 +180,17 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+        <label class="filter-title">Traveler Type</label>
+        <div class="input-group rating-filter">
+          <div ngbDropdown container="body" *ngIf="travelerTypes.length > 0" class="title-container">
+            <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedTravellerType.name}}</button>
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem *ngFor="let travelerType of travelerTypes" (click)="selectTravellerType(travelerType)">{{travelerType.name}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="form-group">
         <label class="filter-title">Channel</label>
@@ -293,7 +304,7 @@
 
 <ng-template #answer let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Reply Review</h4>
+    <h4 class="modal-title" id="modal-answer-title">Reply Customer Review</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -301,7 +312,7 @@
   <div class="modal-body">
     <form class="reply-form" *ngIf="!newTemplateFlow">
       <div class="form-group">
-        <label>Template</label>
+        <label>Saved Templates</label>
         <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container">
           <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedTemplate.title}}</button>
           <div ngbDropdownMenu>
@@ -320,17 +331,20 @@
       </div>
     </form>
     <div class="form-group answer">
-      <label>Reply Text</label>
+      <label>Reply Response</label>
       <div class="input-group">
-        <textarea type="text" name="content" class="form-control" placeholder="Place your answer here" #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+        <textarea type="text" name="content" class="form-control" placeholder="Dear Guest,&#10;&#10;Your response will be here..." #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
-    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
-    <button type="button" class="btn btn-outline-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
-    <button type="button" class="btn btn-outline-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
+    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
+    <button type="button" class="btn btn-primary"
+            tooltip="You will be redirected to the {{this.selectedItem.source}} where you can paste your response" placement="right"
+            *ngIf="!newTemplateFlow" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">
+      Copy & Go</button>
+    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
+    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
   </div>
 </ng-template>
 

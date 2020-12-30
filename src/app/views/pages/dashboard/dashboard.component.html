@@ -146,16 +146,16 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Last Reviews</h4>
+        <h4 class="card-title">Last 10 Customer Reviews</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #commentTable>
             <thead>
             <tr>
               <th style="width: 10%" *ngIf="competitorHotel == null">
-                Starred
+                Highlight
               </th>
               <th style="width: 10%">
-                Answered
+                Reply
               </th>
               <th style="width: 40%">
                 Review
@@ -183,8 +183,8 @@
               <td class="text star-container">
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
-                <span tooltip="Reply">
-                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary" tooltip="Tooltip on left"></i></a>
+                <span tooltip="Reply customer review">
+                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
                 </span>
               </td>
               <td class="text comment"
@@ -372,7 +372,7 @@
 
 <ng-template #reply let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Reply Review</h4>
+    <h4 class="modal-title" id="modal-answer-title">Reply Customer Review</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -380,7 +380,7 @@
   <div class="modal-body">
     <form class="assignee-form" *ngIf="!newTemplateFlow">
       <div class="form-group">
-        <label>Template</label>
+        <label>Saved Templates</label>
         <div ngbDropdown container="body" *ngIf="templates.length > 0" class="template-container">
           <button class="btn btn-outline-primary btn-sm " ngbDropdownToggle>{{selectedTemplate.title}}</button>
           <div ngbDropdownMenu>
@@ -399,17 +399,21 @@
       </div>
     </form>
     <div class="form-group answer">
-      <label>Reply</label>
+      <label>Your Response</label>
       <div class="input-group">
           <textarea type="text" name="content" class="form-control" #inputTarget
-                    placeholder="Place your answer here" rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+                    placeholder="Dear Guest,&#10;&#10;Your response will be here..." rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
-    <button type="button" class="btn btn-outline-dark" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">Copy & Go</button>
-    <button type="button" class="btn btn-outline-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
-    <button type="button" class="btn btn-outline-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
+    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
+    <button type="button" class="btn btn-primary"
+            tooltip="You will be redirected to the {{this.selectedItem.source}} where you can paste your response" placement="right"
+            (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">
+      Copy & Go
+    </button>
+    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
+    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
   </div>
 </ng-template>

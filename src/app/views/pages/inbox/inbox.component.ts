@@ -24,6 +24,7 @@ import {ToastrService} from 'ngx-toastr';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {Router} from '@angular/router';
 import {AppSettings} from '../../../core/consts/AppSettings';
+import {CommonService} from '../../../core/general/_services/common.service';
 
 @Component({
   selector: 'app-inbox',
@@ -42,6 +43,7 @@ export class InboxComponent implements OnInit {
   commentFilter: CommentFilterModel;
   templates: TemplateModel[] = [];
   selectedTemplate: TemplateModel;
+  selectedTravellerType: any;
   selectedIndex = 0;
   pageSize = 10;
   page = 1;
@@ -57,35 +59,9 @@ export class InboxComponent implements OnInit {
     floor: 0,
     ceil: 10
   };
-  commentSources = [{
-    name: 'BOOKING',
-    checked: true
-  }, {
-    name: 'HOTELSCOM',
-    checked: true
-  }, {
-    name: 'TRIPADVISOR',
-    checked: true
-  }, {
-    name: 'AGODA',
-    checked: true
-  }, {
-    name: 'GOOGLE',
-    checked: true
-  }, {
-    name: 'HOLIDAYCHECK',
-    checked: true
-  }, {
-    name: 'OTELPUAN',
-    checked: true
-  }, {
-    name: 'ODAMAX',
-    checked: true
-  }, {
-    name: 'TATILSEPETI',
-    checked: true
-  }];
-  public task: TaskModel = new TaskModel();
+  commentSources;
+  travelerTypes;
+  task: TaskModel = new TaskModel();
   showAddEmployeeFlow: boolean;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
@@ -98,10 +74,14 @@ export class InboxComponent implements OnInit {
               private modalService: NgbModal,
               private toastr: ToastrService,
               private deviceService: DeviceDetectorService,
+              private commonService: CommonService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.commentSources = this.commonService.getChannelFilter();
+    this.travelerTypes = this.commonService.getTravelerTypes();
+    this.selectedTravellerType = this.travelerTypes[0];
     this.clearFilter();
     this.getUnfilteredResult();
     this.noReviewText = AppSettings.NO_REVIEW;
@@ -238,6 +218,10 @@ export class InboxComponent implements OnInit {
     this.commentFilter.minRating = 0;
     this.commentFilter.maxRating = 10;
     this.commentFilter.starred = false;
+    this.selectedTravellerType = {
+      name: 'All',
+      value: 'All'
+    };
     this.page = 1;
     if (this.selected != null) {
       this.selected = null;
@@ -248,11 +232,17 @@ export class InboxComponent implements OnInit {
     return (this.commentFilter.channels != null && this.commentFilter.channels.length > 0) ||
       (this.commentFilter.startDate != null && this.commentFilter.endDate != null) ||
       (this.commentFilter.minRating !== 0 || this.commentFilter.maxRating !== 10) ||
+      this.commentFilter.travellerType !== 'ALL' ||
       this.commentFilter.starred;
   }
 
   selectTemplate(template: TemplateModel) {
     this.selectedTemplate = template;
+  }
+
+  selectTravellerType(travellerType) {
+    this.selectedTravellerType = travellerType;
+    this.commentFilter.travellerType = travellerType.value;
   }
 
   copyAndGo($event: IClipboardResponse) {

@@ -5,4 +5,5 @@ export class CommentFilterModel {
   minRating: number;
   maxRating: number;
   starred: boolean;
+  travellerType: any;
 }

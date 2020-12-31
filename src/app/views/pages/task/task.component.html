@@ -253,7 +253,7 @@
     <form class="assignee-form">
       <div class="form-group">
         <label>Employee</label>
-        <div class="input-group">
+        <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
                  [inputFormatter]="inputFormatter"
@@ -293,7 +293,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">Clear</button>
-    <button type="button" class="btn btn-outline-dark" (click)="getFilteredTasks()">Filter</button>
+    <button type="button" class="btn btn-danger" (click)="clearFilter()">Clear</button>
+    <button type="button" class="btn btn-primary" (click)="getFilteredTasks()">Filter</button>
   </div>
 </ng-template>

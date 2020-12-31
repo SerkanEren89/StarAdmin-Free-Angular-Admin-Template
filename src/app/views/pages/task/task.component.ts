@@ -11,6 +11,7 @@ import moment, {Moment} from 'moment';
 import {TableService} from '../../../core/general/_services/table.service';
 import {TaskStatsModel} from '../../../core/task/_models/task-stats.model';
 import {ToastrService} from 'ngx-toastr';
+import {CommonService} from '../../../core/general/_services/common.service';
 
 @Component({
   selector: 'app-task',
@@ -33,16 +34,7 @@ export class TaskComponent implements OnInit {
   totalElements = 0;
   pageSize = 10;
   page = 1;
-  statuses = [{
-    name: 'PENDING',
-    checked: false
-  }, {
-    name: 'CLOSED',
-    checked: false
-  }, {
-    name: 'REMINDER',
-    checked: false
-  }];
+  statuses;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
@@ -51,10 +43,12 @@ export class TaskComponent implements OnInit {
               private toastr: ToastrService,
               private modalService: NgbModal,
               private tableService: TableService,
+              private commonService: CommonService,
               private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.statuses = this.commonService.getTaskFilterStatus();
     this.getAllTasks();
     this.taskService.getTaskStats()
       .subscribe((taskStats: TaskStatsModel) => {
@@ -78,7 +72,8 @@ export class TaskComponent implements OnInit {
 
   openDetailPopup(task: TaskModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedTask = task;
-    this.modalService.open(contentReviewDetail, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(contentReviewDetail, {size: 'xl',
+      ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {
     });
   }
@@ -131,17 +126,17 @@ export class TaskComponent implements OnInit {
   }
 
   filterTasks(content) {
-    if (this.employeeList == null) {
+    if (this.employeeList === null) {
       this.employeeService.getAllEmployees()
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
           this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }

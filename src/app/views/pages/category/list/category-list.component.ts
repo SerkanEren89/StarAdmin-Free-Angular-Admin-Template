@@ -135,12 +135,18 @@ export class CategoryListComponent implements OnInit {
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
           this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {
+            size: 'xl',
+            ariaLabelledBy: 'modal-basic-title', scrollable: true
+          }).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {
+        size: 'xl',
+        ariaLabelledBy: 'modal-basic-title', scrollable: true
+      }).result.then((result) => {
       }, (reason) => {
       });
     }

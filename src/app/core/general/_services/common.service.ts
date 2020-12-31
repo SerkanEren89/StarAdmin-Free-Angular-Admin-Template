@@ -34,6 +34,7 @@ export class CommonService {
       checked: true
     }];
   }
+
   getTravelerTypes() {
     return [
       {
@@ -64,5 +65,18 @@ export class CommonService {
         name: 'Other',
         value: 'OTHER'
       }];
+  }
+
+  getTaskFilterStatus() {
+    return [{
+      name: 'PENDING',
+      checked: false
+    }, {
+      name: 'CLOSED',
+      checked: false
+    }, {
+      name: 'REMINDER',
+      checked: false
+    }];
   }
 }

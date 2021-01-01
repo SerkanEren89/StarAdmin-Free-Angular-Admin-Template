@@ -23,76 +23,88 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i> Rating & Pricing</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" #pricingTable>
-            <thead>
-            <tr>
-              <th class="single">#</th>
-              <th class="double">
-                Hotel
-              </th>
-              <th class="single small-padding">
+<ngb-tabset>
+  <ngb-tab title="Basic">
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i> Rating & Pricing</h5>
+          <div class="table-responsive" *ngIf="competitionCountRatingList != null">
+            <table class="table table-bordered" #pricingTable>
+              <thead>
+              <tr>
+                <th class="single">#</th>
+                <th class="double">
+                  Hotel
+                </th>
+                <th class="single small-padding">
                  <span class="fa-pull-right">
                    <app-channel-icon [source]="'hoteluplift'"></app-channel-icon>
                 </span>
-              </th>
-              <th class="single small-padding">
+                </th>
+                <th class="single small-padding">
                  <span class="fa-pull-right">
                   <app-channel-icon [source]="'booking'"></app-channel-icon>
                 </span>
-              </th>
-              <th class="single small-padding">
+                </th>
+                <th class="single small-padding">
                  <span class="fa-pull-right">
                    <app-channel-icon [source]="'tripadvisor'"></app-channel-icon>
                 </span>
-              </th>
-              <th class="single small-padding">
+                </th>
+                <th class="single small-padding">
                  <span class="fa-pull-right">
                    <app-channel-icon [source]="'hotelscom'"></app-channel-icon>
                 </span>
-              </th>
-              <th class="single small-padding">
+                </th>
+                <th class="single small-padding">
                 <span class="fa-pull-right">
                   Price
                 </span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
-                [class.selected]="competitionCountRating.selected">
-              <td>{{i + 1}}</td>
-              <td>
-                {{competitionCountRating.hotelName}}
-              </td>
-              <td class="text-success bold-text">
-                <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.tripAdvisorRating}}</span>
-              </td>
-              <td class="text-success">
-                <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
-              </td>
-              <td>
-                <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
+                  [class.selected]="competitionCountRating.selected">
+                <td>{{i + 1}}</td>
+                <td>
+                  {{competitionCountRating.hotelName}}
+                </td>
+                <td class="text-success bold-text">
+                  <span class="fa-pull-right">{{competitionCountRating.hotelUpliftRating}}</span>
+                </td>
+                <td class="text-success">
+                  <span class="fa-pull-right">{{competitionCountRating.bookingRating}}</span>
+                </td>
+                <td class="text-success">
+                  <span class="fa-pull-right">{{competitionCountRating.tripAdvisorRating}}</span>
+                </td>
+                <td class="text-success">
+                  <span class="fa-pull-right">{{competitionCountRating.hotelsComRating}}</span>
+                </td>
+                <td>
+                  <span class="fa-pull-right">{{competitionCountRating.priceText}}</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>Detail</ng-template>
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body" *ngIf="lineChartData.length > 0">
+          <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
 
 <div class="row">
   <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card"
@@ -299,22 +311,22 @@
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Rev.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Rev.</span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Rev.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Rev.</span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Review</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Reviews</span>
+                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Rev.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Rev.</span>
                 </span>
               </td>
             </tr>

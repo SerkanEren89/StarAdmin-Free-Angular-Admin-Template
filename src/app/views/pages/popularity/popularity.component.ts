@@ -21,7 +21,6 @@ export class PopularityComponent implements OnInit {
   monthlyComments: MonthlyCommentModel;
   commentsByLanguage: CommentCountLanguageModel[] = [];
   commentsByTraveledWith: CommentCountTraveledWithModel[] = [];
-  monthlyRating: MonthlyRatingsModel;
   lineChartData: ChartDataSets[] = [];
   lineChartLabels: Label[] = [];
   barChartData: ChartDataSets[] = [];
@@ -86,9 +85,8 @@ export class PopularityComponent implements OnInit {
       });
     this.popularityService.getAverageMonthlyRating()
       .subscribe((monthlyRating: MonthlyRatingsModel) => {
-        this.monthlyRating = monthlyRating;
-        this.lineChartLabels = this.monthlyRating.months;
-        this.lineChartData = this.monthlyRating.item;
+        this.lineChartLabels = monthlyRating.months;
+        this.lineChartData = monthlyRating.item;
 
         this.cdr.detectChanges();
       });
@@ -97,7 +95,6 @@ export class PopularityComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
     this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth);
     if (this.screenWidth < 800) {
       this.height = 350;
     } else {

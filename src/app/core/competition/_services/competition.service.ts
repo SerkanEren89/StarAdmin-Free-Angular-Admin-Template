@@ -4,8 +4,9 @@ import {CompetitionCountRatingModel} from '../_models/competition-count-rating.m
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {CompetitionModel} from '../_models/competition.model';
 import {CategoryGroupModel} from '../../category/_models/category-group.model';
+import {MonthlyRatingsModel} from '../../dashboard/_models/monthly-ratings.model';
 
-const API_COMMENTS_URL = 'competitions';
+const API_COMPETIONS_URL = 'competitions';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +17,21 @@ export class CompetitionService {
   }
 
   getCompetitionCountRatingList(): Observable<CompetitionCountRatingModel[]> {
-    return this.http.get<CompetitionCountRatingModel[]>(API_COMMENTS_URL + '/ratings-counts');
+    return this.http.get<CompetitionCountRatingModel[]>(API_COMPETIONS_URL + '/ratings-counts');
   }
 
   getCompetitionCategoryList(): Observable<CategoryGroupModel[]> {
-    return this.http.get<CategoryGroupModel[]>(API_COMMENTS_URL + '/category');
+    return this.http.get<CategoryGroupModel[]>(API_COMPETIONS_URL + '/category');
   }
 
   getCompetitionCategoryListByCategory(category: string): Observable<CategoryGroupModel[]> {
     let params = new HttpParams();
     params = params.append('category', category);
-    return this.http.get<CategoryGroupModel[]>(API_COMMENTS_URL + '/category', {params: params});
+    return this.http.get<CategoryGroupModel[]>(API_COMPETIONS_URL + '/category', {params: params});
+  }
+
+  getAverageMonthlyRating(): Observable<MonthlyRatingsModel> {
+    return this.http.get<MonthlyRatingsModel>(API_COMPETIONS_URL + '/average-monthly');
   }
 
   getCompetitionCountRatingListMock(): Observable<CompetitionCountRatingModel[]> {

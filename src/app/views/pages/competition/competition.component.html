@@ -68,7 +68,10 @@
               <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
                   [class.selected]="competitionCountRating.selected">
                 <td>{{i + 1}}</td>
-                <td>
+                <td *ngIf="competitionCountRating.selected">
+                  {{competitionCountRating.hotelName}}
+                </td>
+                <td class="comment" *ngIf="!competitionCountRating.selected" (click)="goToCompetitorDashboard(competitionCountRating.uuid)">
                   {{competitionCountRating.hotelName}}
                 </td>
                 <td class="text-success bold-text">
@@ -302,7 +305,10 @@
             <tr *ngFor="let competitionCountRating of competitionCountRatingList; index as i"
                 [class.selected]="competitionCountRating.selected">
               <td>{{i + 1}}</td>
-              <td>
+              <td *ngIf="competitionCountRating.selected">
+                {{competitionCountRating.hotelName}}
+              </td>
+              <td class="comment" *ngIf="!competitionCountRating.selected" (click)="goToCompetitorDashboard(competitionCountRating.uuid)">
                 {{competitionCountRating.hotelName}}
               </td>
               <td>

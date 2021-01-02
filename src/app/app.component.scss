@@ -97,3 +97,14 @@
   padding: 20px 26px !important;
   background-color: #fafbfb;
 }
+.comment:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.tab-content {
+  padding: 0 !important;
+  margin-bottom: 30px;
+}
+.nav-pills, .nav-tabs {
+  margin-bottom: 0 !important;
+}

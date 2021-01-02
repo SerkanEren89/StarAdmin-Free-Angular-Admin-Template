@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
           .subscribe((competitionList: HotelModel[]) => {
             this.competitionList = competitionList;
             this.hotelService.savedCompetitors = competitionList;
-            this.competitorHotel = this.competitionList.find(competitior => competitior.uuid = uuid);
+            this.competitorHotel = this.competitionList.find(competitior => competitior.uuid === uuid);
             this.getInitialDataForCompetitorHotel();
             this.cdr.detectChanges();
           });

@@ -9,6 +9,7 @@ import {HotelService} from '../../../core/hotel/_services/hotel.service';
 import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-competition',
@@ -47,9 +48,11 @@ export class CompetitionComponent implements OnInit {
       ]
     }
   };
+
   constructor(private competitionService: CompetitionService,
               private hotelService: HotelService,
               private tableService: TableService,
+              private router: Router,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -100,5 +103,9 @@ export class CompetitionComponent implements OnInit {
     } else {
       this.height = 350;
     }
+  }
+
+  goToCompetitorDashboard(uuid: string) {
+    this.router.navigateByUrl('dashboard/' + uuid);
   }
 }

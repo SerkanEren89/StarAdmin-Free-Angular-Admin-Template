@@ -37,6 +37,7 @@ export class ChangePasswordComponent implements OnInit {
         .subscribe((user: UserModel) => {
           this.changePasswordModel = new ChangePasswordModel();
           this.toastr.success('Your password saved successfully');
+          this.authService.logout();
         });
     }
   }

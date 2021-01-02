@@ -1,5 +1,6 @@
 export class CompetitionCountRatingModel {
   id: number;
+  uuid: string;
   name: string;
   hotelId: number;
   hotelName: string;

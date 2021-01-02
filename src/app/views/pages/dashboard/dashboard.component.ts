@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit {
   page = 1;
   isMobile: boolean;
   noReviewText: string;
+  showAddEmployeeFlow = false;
 
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -249,8 +250,21 @@ export class DashboardComponent implements OnInit {
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$).pipe(
-      map(term => (term === '' ? this.employeeList
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+      map(term => {
+        if (term.length < 1) {
+          return this.employeeList;
+        }
+        this.showAddEmployeeFlow = false;
+        const searchResults = this.employeeList
+          .filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          .slice(0, 10);
+        if (searchResults.length > 0) {
+          return searchResults;
+        } else {
+          this.showAddEmployeeFlow = true;
+          return this.employeeList;
+        }
+      })
     );
   };
 
@@ -416,5 +430,9 @@ export class DashboardComponent implements OnInit {
 
   copyAndGo($event: IClipboardResponse) {
     window.open(this.selectedItem.url, '_blank');
+  }
+  addNewEmployee() {
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('/employee');
   }
 }

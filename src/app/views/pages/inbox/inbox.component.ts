@@ -173,7 +173,7 @@ export class InboxComponent implements OnInit {
           return searchResults;
         } else {
           this.showAddEmployeeFlow = true;
-          return [];
+          return this.employeeList;
         }
       })
     );

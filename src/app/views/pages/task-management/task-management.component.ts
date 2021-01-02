@@ -17,7 +17,7 @@ export class TaskManagementComponent implements OnInit {
     title: 'Successfully Completed',
     value: 'SUCCESSFULLYCOMPLETED'
   }, {
-    title: 'Can not be completed',
+    title: 'Cannot be completed',
     value: 'CANNOTBECOMPLETED'
   }, {
     title: 'Will be Considered Later',

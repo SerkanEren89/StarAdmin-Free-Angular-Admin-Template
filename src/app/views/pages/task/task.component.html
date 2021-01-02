@@ -184,7 +184,7 @@
               <td class="comment"
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 <span class="text-success" *ngIf="task.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
-                <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> Can not be completed</span>
+                <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> Cannot be completed</span>
                 <span class="text-warning" *ngIf="task.resultStatus == 'WILLBECONSIDEREDLATER'"> Will be considered later</span>
               </td>
             </tr>
@@ -239,7 +239,7 @@
             <div class="col-lg-6 col-md-12 col-sm-12">
               <p class="written author task-result">
                 <span class="text-success" *ngIf="selectedTask.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
-                <span class="text-danger" *ngIf="selectedTask.resultStatus == 'CANNOTBECOMPLETED'"> Can not be completed</span>
+                <span class="text-danger" *ngIf="selectedTask.resultStatus == 'CANNOTBECOMPLETED'"> Cannot be completed</span>
                 <span class="text-warning" *ngIf="selectedTask.resultStatus == 'WILLBECONSIDEREDLATER'"> Will be considered later</span>
               </p>
             </div>

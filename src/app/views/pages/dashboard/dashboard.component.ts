@@ -269,15 +269,13 @@ export class DashboardComponent implements OnInit {
   };
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
-    if (this.competitorHotel == null) {
-      this.selectedComment = comment;
-      this.modalService.open(contentReviewDetail, {size: 'xl',
-        ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    }
+    this.selectedComment = comment;
+    this.modalService.open(contentReviewDetail, {size: 'xl',
+      ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   changeHotel() {

@@ -89,6 +89,38 @@
   </div>
 </div>
 
+<div class="row" *ngIf="employees != null">
+  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-margin stretch-card task-status" *ngFor="let employee of employees" (click)="filterByEmployee(employee.employeeId)">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix employee-container">
+          <div class="float-employee">
+            <p class="mb-0 name">{{employee.firstName}} {{employee.lastName}}</p>
+          </div>
+          <div class="float-count">
+            <h3 class="text-right mb-0">{{employee.taskCount}}</h3>
+            <p class="text-right mb-0">Task</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 grid-margin stretch-card" (click)="filterByStatus('ALL')">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="clearfix">
+          <div class="float-left">
+            <p class="category-icon">{{taskStats.total}}</p>
+          </div>
+          <div class="float-right">
+            <p class="text-right mb-0">Total</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row" *ngIf="tasks.length > 0">
   <div class="col-lg-12 grid-margin">
     <div class="card">
@@ -189,7 +221,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="summary-container">
+    <div class="summary-container" *ngIf="!reminderFlow">
       <div class="summary">
         <div class="assignee-container">
           <div class="detail-container status">
@@ -236,9 +268,51 @@
         </div>
       </div>
     </div>
+    <div class="summary-container" *ngIf="reminderFlow">
+      <div class="summary">
+        <div class="assignee-container">
+          <div class="detail-container status">
+            <p class="written">Created at: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}</p>
+            <p class="author">Assigned
+              to: {{selectedTask.employee.firstName }} {{selectedTask.employee.lastName }}</p>
+          </div>
+        </div>
+        <div class="detail-container">
+          <app-channel-icon [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>
+          <p class="written"> {{selectedTask.comment.author}}</p>
+          <p class="written">{{selectedTask.comment.commentDate  | date:'dd/MM/yyyy'}}</p>
+          <p class="written rating-bar"
+             [ngClass]="{'text-danger': selectedTask.comment.rating < 6, 'text-warning':(selectedTask.comment.rating >= 6 && selectedTask.comment.rating < 8), 'text-success':selectedTask.comment.rating >= 8 }"> {{selectedTask.comment.rating}}
+            / 10</p>
+        </div>
+        <p class="content-comment">{{selectedTask.comment.content}}</p>
+        <div class="content-container" *ngIf="selectedTask.comment.translatedText != null">
+          <p class="text-danger content-title">Translated Review: </p>
+          <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
+        </div>
+        <div class="content-container" *ngIf="selectedTask.description != null">
+          <p class="text-danger content-title">Note from {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
+          <p class="content-answer">{{selectedTask.description}}</p>
+        </div>
+        <p>Remind via: </p>
+        <div *ngIf="selectedTask.employee.phoneNumber != null">
+          <input type="checkbox"
+                 [checked]="remindWhatsapp"
+                 (change)="remindWhatsapp = !remindWhatsapp"> Whatsapp
+        </div>
+        <div *ngIf="selectedTask.employee.email != null">
+          <input type="checkbox"
+                 [checked]="remindEmail"
+                 (change)="remindEmail = !remindEmail">
+           Mail
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" *ngIf="selectedTask.taskStatus == 'PENDING' || selectedTask.taskStatus == 'REMINDER'" (click)="remindTask()">Remind Task</button>
+    <button type="button" class="btn btn-danger"
+            *ngIf="(selectedTask.taskStatus == 'PENDING' || selectedTask.taskStatus == 'REMINDER') && reminderFlow" (click)="reminderFlow = false">Cancel</button>
+    <button type="button" class="btn btn-primary" *ngIf="selectedTask.taskStatus == 'PENDING' || selectedTask.taskStatus == 'REMINDER'" (click)="remindTask()">Remind Task</button>
   </div>
 </ng-template>
 

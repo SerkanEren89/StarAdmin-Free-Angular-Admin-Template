@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {TaskModel} from '../_models/task.model';
 import {TaskFilterModel} from '../_models/task-filter.model';
 import {TaskStatsModel} from '../_models/task-stats.model';
+import {TaskEmployeeModel} from '../_models/task-employee.model';
 
 const API_TASK_URL = 'tasks';
 
@@ -43,6 +44,10 @@ export class TaskService {
 
   getTaskStats(): Observable<TaskStatsModel> {
     return this.http.get<TaskStatsModel>(API_TASK_URL + '/stats');
+  }
+
+  getEmployeeTaskCounts(): Observable<TaskEmployeeModel[]> {
+    return this.http.get<TaskEmployeeModel[]>(API_TASK_URL + '/employees');
   }
 
   getTasksByFilter(page: number, pageSize: number, filter: TaskFilterModel): Observable<TaskModel[]> {

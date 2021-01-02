@@ -7,11 +7,12 @@ import {merge, Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {EmployeeService} from '../../../core/employee/_services/employee.service';
 import {TaskFilterModel} from '../../../core/task/_models/task-filter.model';
-import moment, {Moment} from 'moment';
+import moment from 'moment';
 import {TableService} from '../../../core/general/_services/table.service';
 import {TaskStatsModel} from '../../../core/task/_models/task-stats.model';
 import {ToastrService} from 'ngx-toastr';
 import {CommonService} from '../../../core/general/_services/common.service';
+import {TaskEmployeeModel} from '../../../core/task/_models/task-employee.model';
 
 @Component({
   selector: 'app-task',
@@ -35,6 +36,10 @@ export class TaskComponent implements OnInit {
   pageSize = 10;
   page = 1;
   statuses;
+  employees: TaskEmployeeModel[];
+  reminderFlow = false;
+  remindEmail = true;
+  remindWhatsapp = true;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
@@ -54,6 +59,10 @@ export class TaskComponent implements OnInit {
       .subscribe((taskStats: TaskStatsModel) => {
         this.taskStats = taskStats;
       });
+    this.taskService.getEmployeeTaskCounts()
+      .subscribe((employees: TaskEmployeeModel[]) => {
+        this.employees = employees;
+      });
     this.selected = {
       start: moment().add(-1, 'months'),
       end: moment()
@@ -72,8 +81,11 @@ export class TaskComponent implements OnInit {
 
   openDetailPopup(task: TaskModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedTask = task;
-    this.modalService.open(contentReviewDetail, {size: 'xl',
-      ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.reminderFlow = false;
+    this.modalService.open(contentReviewDetail, {
+      size: 'xl',
+      ariaLabelledBy: 'modal-basic-title', scrollable: true
+    }).result.then((result) => {
     }, (reason) => {
     });
   }
@@ -172,20 +184,28 @@ export class TaskComponent implements OnInit {
   };
 
   remindTask() {
-    this.taskService.remindTask(this.selectedTask)
-      .subscribe((saved: TaskModel) => {
-        this.toastr.success('Reminder sent successfully');
-        this.cdr.detectChanges();
-        if (this.selectedTask.employee.phoneNumber != null) {
-          let link = 'https://wa.me/' + this.selectedTask.employee.phoneNumber;
-          const text = 'Hotel Uplift: ' + this.selectedTask.creator.firstName + ' ' + this.selectedTask.creator.lastName +
-            ' sends you a reminder for your assignment! Click the link to see detail\n'
-            + 'https://app.hoteluplift.com/task-management/' + saved.uuid;
-          link = link + '?text=' + encodeURIComponent(text);
-          window.open(link, '_blank');
-        }
-      });
-    this.modalService.dismissAll();
+    if (this.reminderFlow) {
+      if (this.remindEmail && this.selectedTask.employee.email != null) {
+        this.taskService.remindTask(this.selectedTask)
+          .subscribe((saved: TaskModel) => {
+            this.toastr.success('Reminder sent successfully');
+            this.cdr.detectChanges();
+          });
+      }
+      if (this.remindWhatsapp && this.selectedTask.employee.phoneNumber != null) {
+        let link = 'https://wa.me/' + this.selectedTask.employee.phoneNumber;
+        const text = 'Hotel Uplift: ' + this.selectedTask.creator.firstName + ' ' + this.selectedTask.creator.lastName +
+          ' sends you a reminder for your assignment! Click the link to see detail\n'
+          + 'https://app.hoteluplift.com/task-management/' + this.selectedTask.uuid;
+        link = link + '?text=' + encodeURIComponent(text);
+        window.open(link, '_blank');
+      }
+      this.modalService.dismissAll();
+    } else {
+      this.reminderFlow = true;
+      this.remindEmail = true;
+      this.remindWhatsapp = true;
+    }
   }
 
   filterByStatus(status: string) {
@@ -198,5 +218,13 @@ export class TaskComponent implements OnInit {
     } else {
       this.getAllTasks();
     }
+  }
+
+  filterByEmployee(id: number) {
+    this.taskFilter = new TaskFilterModel();
+    this.taskFilter.employee = new EmployeeModel();
+    this.taskFilter.employee.id = id;
+    this.tasks$ = this.taskService.getTasksByFilter(this.page - 1, this.pageSize, this.taskFilter);
+    this.processTasks();
   }
 }

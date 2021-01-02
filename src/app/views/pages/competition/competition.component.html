@@ -28,7 +28,7 @@
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i> Rating & Pricing</h5>
+          <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i>  Rating & Pricing</h5>
           <div class="table-responsive" *ngIf="competitionCountRatingList != null">
             <table class="table table-bordered" #pricingTable>
               <thead>
@@ -99,6 +99,7 @@
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body" *ngIf="lineChartData.length > 0">
+          <h5 class="card-title mb-4"><i class="fa fa-chart-line"></i>  Monthly Ratings</h5>
           <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
         </div>
       </div>

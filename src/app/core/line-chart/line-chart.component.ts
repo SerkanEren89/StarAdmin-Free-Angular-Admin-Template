@@ -21,7 +21,7 @@ export class LineChartComponent implements OnInit {
 
   lineChartColors: Color[] = [
     { // grey
-      backgroundColor: 'rgba(144,176,227,0.2)',
+      backgroundColor: 'transparent',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -29,7 +29,7 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -37,7 +37,7 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
+      backgroundColor: 'transparent',
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
@@ -45,27 +45,27 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
-      backgroundColor: 'rgba(150,255,51,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'green',
     },
     { // red
-      backgroundColor: 'rgba(255,254,120,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'yellow',
     },
     { // red
-      backgroundColor: 'rgba(222,91,20,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'orange',
     },
     { // red
-      backgroundColor: 'rgba(19,90,33,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'blue',
     },
     { // red
-      backgroundColor: 'rgba(90,5,69,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'pink',
     },
     { // red
-      backgroundColor: 'rgba(90,59,9,0.3)',
+      backgroundColor: 'transparent',
       borderColor: 'gray',
     }
   ];

@@ -303,7 +303,7 @@
           <p class="text-danger content-title">Note from {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
           <p class="content-answer">{{selectedTask.description}}</p>
         </div>
-        <p>Remind via: </p>
+        <p>Which channel do you prefer to send reminder message? </p>
         <div *ngIf="selectedTask.employee.phoneNumber != null">
           <input type="checkbox"
                  [checked]="remindWhatsapp"

@@ -28,6 +28,7 @@ export class TaskComponent implements OnInit {
   taskStats: TaskStatsModel;
   employeeList: EmployeeModel[];
   selectedTask: TaskModel;
+  newTask: TaskModel = new TaskModel();
   taskFilter: TaskFilterModel = new TaskFilterModel();
   selected: any;
   maxDate: any;
@@ -137,8 +138,8 @@ export class TaskComponent implements OnInit {
     }
   }
 
-  filterTasks(content) {
-    if (this.employeeList === null) {
+  openTaskModal(content) {
+    if (this.employeeList == null) {
       this.employeeService.getAllEmployees()
         .subscribe((employeeList: EmployeeModel[]) => {
           this.employeeList = employeeList;
@@ -178,8 +179,19 @@ export class TaskComponent implements OnInit {
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$).pipe(
-      map(term => (term === '' ? this.employeeList
-        : this.employeeList.filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+      map(term => {
+        if (term.length < 1) {
+          return this.employeeList;
+        }
+        const searchResults = this.employeeList
+          .filter(v => v.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          .slice(0, 10);
+        if (searchResults.length > 0) {
+          return searchResults;
+        } else {
+          return this.employeeList;
+        }
+      })
     );
   };
 
@@ -226,5 +238,23 @@ export class TaskComponent implements OnInit {
     this.taskFilter.employee.id = id;
     this.tasks$ = this.taskService.getTasksByFilter(this.page - 1, this.pageSize, this.taskFilter);
     this.processTasks();
+  }
+
+  createTask() {
+    if (this.newTask.employee === null) {
+      this.toastr.error('Please add employee to create task');
+      return;
+    }
+    if (this.newTask.description === null) {
+      this.toastr.error('Please add note to create task');
+      return;
+    }
+    this.taskService.saveTasks(this.newTask)
+      .subscribe((createdTask: TaskModel) => {
+        this.toastr.success('Task created successfully');
+        this.page = 0;
+        this.getUnFilteredTasks();
+        this.cdr.detectChanges();
+      });
   }
 }

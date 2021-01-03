@@ -154,17 +154,21 @@
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
-.employee-container {
-  display: flex;
-  flex-direction: row;
-  .float-employee {
-    width: 70%;
-    .name {
-      font-size: 16px;
+.employee-item {
+  padding: 1rem 1.2rem !important;
+  .employee-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .float-employee {
+      width: 70%;
+      .name {
+        font-size: 16px;
+      }
     }
-  }
-  .float-count {
-    width: 30%;
-  }
+    .float-count {
+      width: 30%;
+    }
 
+  }
 }

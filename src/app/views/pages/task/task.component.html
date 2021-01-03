@@ -6,7 +6,10 @@
     </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
-    <button type="button" class="btn btn-primary" (click)="filterTasks(filter)"><i class="mdi mdi-filter"></i>
+    <button type="button" class="btn btn-primary" (click)="openTaskModal(newTaskModal)"><i class="mdi mdi-plus"></i>
+      Create Task
+    </button>
+    <button type="button" class="btn btn-primary" (click)="openTaskModal(filterModal)"><i class="mdi mdi-filter"></i>
       Filter Tasks
     </button>
   </div>
@@ -92,7 +95,7 @@
 <div class="row" *ngIf="employees != null">
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-margin stretch-card task-status" *ngFor="let employee of employees" (click)="filterByEmployee(employee.employeeId)">
     <div class="card card-statistics">
-      <div class="card-body pointer">
+      <div class="card-body pointer employee-item">
         <div class="clearfix employee-container">
           <div class="float-employee">
             <p class="mb-0 name">{{employee.firstName}} {{employee.lastName}}</p>
@@ -105,9 +108,9 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 grid-margin stretch-card" (click)="filterByStatus('ALL')">
+  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 grid-margin stretch-card" *ngIf="taskStats != null" (click)="filterByStatus('ALL')">
     <div class="card card-statistics">
-      <div class="card-body pointer">
+      <div class="card-body pointer employee-item">
         <div class="clearfix">
           <div class="float-left">
             <p class="category-icon">{{taskStats.total}}</p>
@@ -165,13 +168,17 @@
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(task, contentTaskDetail)"
-                  *ngIf="task.comment.content != null && task.comment.content.length <= 100">
+                  *ngIf="task.comment != null && task.comment.content != null && task.comment.content.length <= 100">
                 {{task.comment.content}}
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(task, contentTaskDetail)"
-                  *ngIf="task.comment.content != null && task.comment.content.length > 100">
+                  *ngIf="task.comment != null &&  task.comment.content != null && task.comment.content.length > 100">
                 {{task.comment.content | slice:0:100}}...
+              </td>
+              <td class="text comment"
+                  (click)="openDetailPopup(task, contentTaskDetail)"
+                  *ngIf="task.comment == null">
               </td>
               <td class="comment"
                   (click)="openDetailPopup(task, contentTaskDetail)">
@@ -245,7 +252,7 @@
             </div>
           </div>
         </div>
-        <div class="detail-container">
+        <div class="detail-container" *ngIf="selectedTask.comment != null">
           <app-channel-icon [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>
           <p class="written"> {{selectedTask.comment.author}}</p>
           <p class="written">{{selectedTask.comment.commentDate  | date:'dd/MM/yyyy'}}</p>
@@ -253,8 +260,8 @@
              [ngClass]="{'text-danger': selectedTask.comment.rating < 6, 'text-warning':(selectedTask.comment.rating >= 6 && selectedTask.comment.rating < 8), 'text-success':selectedTask.comment.rating >= 8 }"> {{selectedTask.comment.rating}}
             / 10</p>
         </div>
-        <p class="content-comment">{{selectedTask.comment.content}}</p>
-        <div class="content-container" *ngIf="selectedTask.comment.translatedText != null">
+        <p class="content-comment" *ngIf="selectedTask.comment != null">{{selectedTask.comment.content}}</p>
+        <div class="content-container" *ngIf="selectedTask.comment != null && selectedTask.comment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
         </div>
@@ -277,16 +284,18 @@
               to: {{selectedTask.employee.firstName }} {{selectedTask.employee.lastName }}</p>
           </div>
         </div>
-        <div class="detail-container">
-          <app-channel-icon [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>
+        <div class="detail-container" *ngIf="selectedTask.comment != null">
+          <app-channel-icon *ngIf="selectedTask.comment != null" [source]="selectedTask.comment.source.toLowerCase()"></app-channel-icon>
+          <app-channel-icon *ngIf="selectedTask.comment == null" [source]="'hoteluplift'"></app-channel-icon>
+
           <p class="written"> {{selectedTask.comment.author}}</p>
           <p class="written">{{selectedTask.comment.commentDate  | date:'dd/MM/yyyy'}}</p>
           <p class="written rating-bar"
              [ngClass]="{'text-danger': selectedTask.comment.rating < 6, 'text-warning':(selectedTask.comment.rating >= 6 && selectedTask.comment.rating < 8), 'text-success':selectedTask.comment.rating >= 8 }"> {{selectedTask.comment.rating}}
             / 10</p>
         </div>
-        <p class="content-comment">{{selectedTask.comment.content}}</p>
-        <div class="content-container" *ngIf="selectedTask.comment.translatedText != null">
+        <p class="content-comment" *ngIf="selectedTask.comment != null">{{selectedTask.comment.content}}</p>
+        <div class="content-container" *ngIf="selectedTask.comment != null && selectedTask.comment.translatedText != null">
           <p class="text-danger content-title">Translated Review: </p>
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
         </div>
@@ -316,7 +325,7 @@
   </div>
 </ng-template>
 
-<ng-template #filter let-modal>
+<ng-template #filterModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Filter Status</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -369,5 +378,39 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="clearFilter()">Clear</button>
     <button type="button" class="btn btn-primary" (click)="getFilteredTasks()">Filter</button>
+  </div>
+</ng-template>
+
+<ng-template #newTaskModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-create-task">Create New Task</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>Employee</label>
+        <div class="input-group task-input">
+          <input id="newAssignee" type="text" class="form-control" name="assignee"
+                 [resultFormatter]="resultFormatter"
+                 [inputFormatter]="inputFormatter"
+                 [(ngModel)]="newTask.employee" [ngbTypeahead]="search"
+                 (focus)="focus$.next($event.target.value)"
+          />
+        </div>
+      </div>
+      <div class="form-group answer">
+        <label>Note</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget
+                    placeholder="Add your task content here" rows="12" [(ngModel)]="newTask.description"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="createTask()">Create</button>
   </div>
 </ng-template>

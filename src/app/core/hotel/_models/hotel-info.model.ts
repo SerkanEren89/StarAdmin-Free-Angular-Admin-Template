@@ -1,4 +1,5 @@
 import {UserModel} from '../../auth/_models/user.model';
+import {HotelContactModel} from './hotel-contact.model';
 
 export class HotelInfoModel {
   id: number;
@@ -7,6 +8,8 @@ export class HotelInfoModel {
   contactPerson: string;
   contactNumber: string;
   address: string;
+  contactNotes: string;
   selected: boolean;
   user: UserModel;
+  hotelContactList: HotelContactModel[];
 }

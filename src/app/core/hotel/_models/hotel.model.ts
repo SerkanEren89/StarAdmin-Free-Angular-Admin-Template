@@ -4,6 +4,5 @@ export class HotelModel {
   name: string;
   contactPerson: string;
   contactNumber: string;
-  address: string;
   selected: boolean;
 }

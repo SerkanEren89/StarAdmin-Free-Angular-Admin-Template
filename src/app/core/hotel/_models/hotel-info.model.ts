@@ -10,6 +10,7 @@ export class HotelInfoModel {
   address: string;
   contactNotes: string;
   selected: boolean;
+  hotelStatus: string;
   user: UserModel;
   hotelContactList: HotelContactModel[];
 }

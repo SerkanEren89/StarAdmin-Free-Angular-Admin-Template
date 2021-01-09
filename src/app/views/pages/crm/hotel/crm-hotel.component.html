@@ -11,7 +11,7 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Tasks</h4>
+        <h4 class="card-title">CRM</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #taskTable>
             <thead>
@@ -26,10 +26,13 @@
                 Contact Person
               </th>
               <th style="width: 10%">
-                Contact Number
+                Mail List
               </th>
-              <th style="width: 25%">
-                Address
+              <th style="width: 15%">
+                Information
+              </th>
+              <th style="width: 10%">
+                Status
               </th>
               <th style="width: 20%">
                 Action
@@ -53,13 +56,21 @@
                 <span *ngIf="hotel.hotelContactList.length <= 1">{{hotel.hotelContactList.length}} Contact</span>
                 <span *ngIf="hotel.hotelContactList.length > 1">{{hotel.hotelContactList.length}} Contacts</span>
               </td>
-              <td class="comment">
-                {{hotel.address}}
+              <td class="comment" (click)="showHotelInformation(hotel)">
+                hotel information
               </td>
-              <td class="text-primary">
-
+              <td (click)="openHotelStatusModal(hotel)" class="comment">
+                {{hotel.hotelStatus}}
               </td>
-
+              <td>
+                <span tooltip="Send weekly reviews" (click)="showActionsModal(hotel)">
+                  <a><i class="fa fa-reply action-button text-primary action-icon"></i></a>
+                </span>
+                <span tooltip="Send rating and competition">
+                  <a><i class="fa fa-reply action-button text-primary" tooltip="Send rating and competition mail"
+                        placement="right"></i></a>
+                </span>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -173,6 +184,20 @@
 
     <form>
       <div class="form-group">
+        <div class="form-group">
+          <label>First Name</label>
+          <div class="input-group">
+            <input id="firstName" type="text" class="form-control" name="firstName"
+                   [(ngModel)]="newHotelContact.firstName"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <div class="input-group">
+            <input id="lastName" type="text" class="form-control" name="lastName"
+                   [(ngModel)]="newHotelContact.lastName"/>
+          </div>
+        </div>
         <label>Mail</label>
         <div class="input-group">
           <input id="mail" type="text" class="form-control" name="contactPerson"
@@ -180,7 +205,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Name/position</label>
+        <label>Position</label>
         <div class="input-group">
           <input id="position" type="text" class="form-control" name="contactNumber"
                  [(ngModel)]="newHotelContact.position"/>
@@ -190,5 +215,155 @@
     </form>
   </div>
   <div class="modal-footer">
+  </div>
+</ng-template>
+
+<ng-template #hotelInformationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-hotel-information-title">Hotel information</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Number of Rooms</label>
+        <div class="input-group">
+          <input id="numberOfRooms" type="text" class="form-control" name="numberOfRooms"
+                 [(ngModel)]="hotelInformation.numberOfRoom"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Room Price</label>
+        <div class="input-group">
+          <input id="roomPrice" type="text" class="form-control" name="roomPrice"
+                 [(ngModel)]="hotelInformation.price"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number Of Employees</label>
+        <div class="input-group">
+          <input id="numberOfEmployees" type="text" class="form-control" name="numberOfEmployees"
+                 [(ngModel)]="hotelInformation.numberOfEmployee"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone number</label>
+        <div class="input-group">
+          <input id="phoneNumber" type="text" class="form-control" name="phoneNumber"
+                 [(ngModel)]="hotelInformation.phoneNumber"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <div class="input-group">
+          <textarea type="text" name="content" class="form-control" #inputTarget rows="4"
+                    [(ngModel)]="hotelInformation.notes"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <div class="input-group">
+          <input id="address" type="text" class="form-control" name="address"
+                 [(ngModel)]="hotelInformation.address"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Country</label>
+        <div class="input-group">
+          <input id="country" type="text" class="form-control" name="country"
+                 [(ngModel)]="hotelInformation.country"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Region</label>
+        <div class="input-group">
+          <input id="region" type="text" class="form-control" name="region"
+                 [(ngModel)]="hotelInformation.region"/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveHotelInformation()">Save</button>
+  </div>
+</ng-template>
+<ng-template #hotelStatusModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Select Status</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <div class="status-container" *ngIf="emptyStatus">
+          <p>Select status to continue</p>
+        </div>
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedStatus.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let hotelStatus of hotelStatuses"
+                    (click)="selectStatus(hotelStatus)">{{hotelStatus.title}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #actionModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-actions-title">Actions</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <div class="status-container" *ngIf="emptyStatus">
+          <p>Select status to continue</p>
+        </div>
+        <div ngbDropdown container="body" class="title-container ">
+          <div class="channel-item" *ngFor="let hotelContact of hotelContacts; let i = index;">
+            <input type="checkbox"
+                   (change)="changeSelectStatus()"
+                   [checked]="hotelContact.selected">
+            <span class="action-name" *ngIf="hotelContact.firstName || hotelContact.lastName">
+              {{hotelContact.firstName}} {{hotelContact.lastName}}
+            </span>
+            <span class="action-name" *ngIf="hotelContact.mail">
+              {{hotelContact.mail}}
+            </span>
+            <span>
+              {{hotelContact.position}}
+            </span>
+          </div>
+        </div>
+
+        <div ngbDropdown container="body" class="title-container  report-container">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedReportType.value}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let report of reportTypes"
+                    (click)="selectReport(report)">{{report.value}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p *ngIf="actionError != null">
+
+    </p>
+    <div class="status-container" *ngIf="actionError != null">
+      <p>{{actionError}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="handleActions()">Send</button>
   </div>
 </ng-template>

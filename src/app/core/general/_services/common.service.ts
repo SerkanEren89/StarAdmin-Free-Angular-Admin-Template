@@ -79,4 +79,54 @@ export class CommonService {
       checked: false
     }];
   }
+
+  getHotelStatuses() {
+    return [{
+      title: 'Select status',
+      value: 'Action'
+    }, {
+      title: 'Active (Free)',
+      value: 'ACTIVE_FREE'
+    }, {
+      title: 'Active (Demo)',
+      value: 'ACTIVE_DEMO'
+    }, {
+      title: 'Active (Paid)',
+      value: 'ACTIVE_PAID'
+    }, {
+      title: 'Active (Loyal)',
+      value: 'ACTIVE_LOYAL'
+    }, {
+      title: 'Deactive (Payment Waited)',
+      value: 'DEACTIVE_PAYMENT'
+    }, {
+      title: 'Deactive',
+      value: 'DEACTIVE'
+    }, {
+      title: 'Only Contact Information',
+      value: 'POTENTIAL_1'
+    }, {
+      title: 'Talked/Zoomed With',
+      value: 'POTENTIAL_2'
+    }, {
+      title: 'Agreement Waited',
+      value: 'POTENTIAL_3'
+    }];
+  }
+
+  getReportTypes() {
+    return [{
+      name: 'Select status',
+      value: 'Action'
+    }, {
+      name: 'WEEKLY_REVIEW',
+      value: 'Weekly Review'
+    }, {
+      name: 'GENERAL_VIEW',
+      value: 'General View'
+    }, {
+      name: 'CATEGORIES',
+      value: 'Categories'
+    }];
+  }
 }

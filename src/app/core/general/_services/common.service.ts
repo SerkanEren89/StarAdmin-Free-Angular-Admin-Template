@@ -122,11 +122,18 @@ export class CommonService {
       name: 'WEEKLY_REVIEW',
       value: 'Weekly Review'
     }, {
-      name: 'GENERAL_VIEW',
-      value: 'General View'
+      name: 'RANKING_REPORT',
+      value: 'Ranking Report'
     }, {
+      name: 'COMPETITION_REPORT',
+      value: 'Competition Report'
+    }
+    /*
+    , {
       name: 'CATEGORIES',
       value: 'Categories'
-    }];
+    }
+     */
+    ];
   }
 }

@@ -333,7 +333,7 @@
         <div ngbDropdown container="body" class="title-container ">
           <div class="channel-item" *ngFor="let hotelContact of hotelContacts; let i = index;">
             <input type="checkbox"
-                   (change)="changeSelectStatus()"
+                   (change)="hotelContact.selected = !hotelContact.selected"
                    [checked]="hotelContact.selected">
             <span class="action-name" *ngIf="hotelContact.firstName || hotelContact.lastName">
               {{hotelContact.firstName}} {{hotelContact.lastName}}

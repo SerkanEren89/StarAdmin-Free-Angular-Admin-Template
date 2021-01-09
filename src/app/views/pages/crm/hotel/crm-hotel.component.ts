@@ -133,7 +133,7 @@ export class CrmHotelComponent implements OnInit {
       .subscribe((hotelContacts: HotelContactModel[]) => {
         this.hotelContacts = hotelContacts;
         this.hotelContacts.forEach(contact => contact.selected = true);
-        this.changeSelectStatus();
+        this.setReportsToSent();
         this.modalService.open(this.actionModal, {size: 'xl'});
         this.cdr.detectChanges();
       });
@@ -244,6 +244,7 @@ export class CrmHotelComponent implements OnInit {
   }
 
   handleActions() {
+    this.setReportsToSent();
     this.actionError = null;
     if (this.selectedReportType.value === 'Action') {
       this.actionError = 'Select report type to continue';
@@ -265,7 +266,7 @@ export class CrmHotelComponent implements OnInit {
     }
   }
 
-  changeSelectStatus() {
+  setReportsToSent() {
     const sentList = [];
     for (const hotelContact of this.hotelContacts) {
       if (hotelContact.selected) {

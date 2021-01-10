@@ -192,7 +192,8 @@
                   (click)="openDetailPopup(task, contentTaskDetail)">
                 <span class="text-success" *ngIf="task.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
                 <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> Cannot be completed</span>
-                <span class="text-warning" *ngIf="task.resultStatus == 'WILLBECONSIDEREDLATER'"> Will be considered later</span>
+                <span class="text-success" *ngIf="task.resultStatus == 'PARTIALLYCOMPLETED'"> Partially completed</span>
+                <span class="text-warning" *ngIf="task.resultStatus == 'NOTTECHNICALLYPOSSIBLE'"> Not technically possible</span>
               </td>
             </tr>
             </tbody>

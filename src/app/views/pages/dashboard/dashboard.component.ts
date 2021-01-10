@@ -368,7 +368,8 @@ export class DashboardComponent implements OnInit {
           this.selectedTemplate.title = 'Select template';
           this.newTemplate = new TemplateModel();
           this.cdr.detectChanges();
-          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {keyboard: false, backdrop: 'static',
+            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
           }, (reason) => {
           });
         });
@@ -376,7 +377,8 @@ export class DashboardComponent implements OnInit {
       this.selectedTemplate = new TemplateModel();
       this.selectedTemplate.title = 'Select template';
       this.newTemplate = new TemplateModel();
-      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {keyboard: false, backdrop: 'static',
+        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
       }, (reason) => {
       });
     }

@@ -311,11 +311,11 @@
           <p class="written" >Written By: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
           <a target="_blank" class="share-icon" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
-            <i class="fa fa-share"></i>
+            <i class="fa fa-share-alt"></i>
             Share
           </a>
           <a target="_blank" class="share-icon" *ngIf="isMobile" href="whatsapp://send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
-            <i class="fa fa-share action-button"></i>
+            <i class="fa fa-share-alt action-button"></i>
           </a>
         </div>
         <p *ngIf="!selectedComment.content.includes(noReviewText)" class="content-comment">{{selectedComment.content}}</p>

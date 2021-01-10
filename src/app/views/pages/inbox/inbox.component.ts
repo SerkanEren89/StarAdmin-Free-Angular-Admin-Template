@@ -303,7 +303,8 @@ export class InboxComponent implements OnInit {
     this.selectedTemplate = new TemplateModel();
     this.selectedTemplate.title = 'Select template';
     this.newTemplate = new TemplateModel();
-    this.modalService.open(answer, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(answer, {keyboard: false, backdrop: 'static',
+      size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {
     });
   }

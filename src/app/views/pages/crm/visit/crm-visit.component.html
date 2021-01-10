@@ -39,6 +39,9 @@
                 <span *ngIf="hotel.hotelVisitList.length > 0">
                   {{hotel.hotelVisitList[0].visitDate | date:'dd/MM/yyyy'}} {{hotel.hotelVisitList[0].visitType}}
                 </span>
+                <span *ngIf="hotel.hotelVisitList.length == 0">
+                  Add Visit
+                </span>
               </td>
             </tr>
             </tbody>

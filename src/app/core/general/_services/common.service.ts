@@ -136,4 +136,26 @@ export class CommonService {
      */
     ];
   }
+  getVisitTypes() {
+    return [{
+      name: 'Select status',
+      value: 'Action'
+    }, {
+      name: 'FACE2FACE',
+      value: 'FACE2FACE'
+    }, {
+      name: 'ZOOM',
+      value: 'ZOOM'
+    }, {
+      name: 'PHONE',
+      value: 'PHONE'
+    }
+    /*
+    , {
+      name: 'CATEGORIES',
+      value: 'Categories'
+    }
+     */
+    ];
+  }
 }

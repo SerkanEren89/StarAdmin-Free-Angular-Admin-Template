@@ -1,5 +1,6 @@
 import {UserModel} from '../../auth/_models/user.model';
 import {HotelContactModel} from './hotel-contact.model';
+import {HotelVisitModel} from './hotel-visit.model';
 
 export class HotelInfoModel {
   id: number;
@@ -13,4 +14,5 @@ export class HotelInfoModel {
   hotelStatus: string;
   user: UserModel;
   hotelContactList: HotelContactModel[];
+  hotelVisitList: HotelVisitModel[];
 }

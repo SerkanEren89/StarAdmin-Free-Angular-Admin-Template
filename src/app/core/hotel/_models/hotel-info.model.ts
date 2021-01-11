@@ -12,6 +12,7 @@ export class HotelInfoModel {
   contactNotes: string;
   selected: boolean;
   hotelStatus: string;
+  categorizied: boolean;
   user: UserModel;
   hotelContactList: HotelContactModel[];
   hotelVisitList: HotelVisitModel[];

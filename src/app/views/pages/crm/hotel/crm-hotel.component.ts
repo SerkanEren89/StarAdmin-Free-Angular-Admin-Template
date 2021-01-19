@@ -175,6 +175,11 @@ export class CrmHotelComponent implements OnInit {
     this.updateHotelContact(hotelContact);
   }
 
+  updateNewReviewStatus(hotelContact: HotelContactModel) {
+    hotelContact.sentNewReviewMail = !hotelContact.sentNewReviewMail;
+    this.updateHotelContact(hotelContact);
+  }
+
   deactivateHotelContact(hotelContact: HotelContactModel) {
     hotelContact.active = false;
     this.updateHotelContact(hotelContact);

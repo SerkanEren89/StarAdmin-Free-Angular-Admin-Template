@@ -1,22 +1,27 @@
 .table-bordered td:nth-child(1) {
-  word-wrap:break-word;
+  word-wrap: break-word;
   white-space: normal;
 }
+
 .table-bordered td:nth-child(1) {
 
 }
-.table-bordered{
+
+.table-bordered {
   table-layout: fixed;
+
   .text {
     line-height: 18px;
-    font-family: Poppins,Helvetica,sans-serif;
+    font-family: Poppins, Helvetica, sans-serif;
     color: black;
   }
 }
+
 .table td {
   line-height: 18px !important;
   white-space: normal !important;
 }
+
 @media screen and (max-width: 600px) {
   table thead {
     display: none;
@@ -41,20 +46,33 @@
     text-align: start;
   }
 }
+
 .crm-action {
   margin: 5px;
 }
+
 .status-container {
   background-color: #f7dada;
   padding: 5px;
   margin-bottom: 20px;
 }
+
 .action-icon {
   margin-right: 10px;
 }
+
 .action-name {
   margin-right: 15px;
 }
+
 .report-container {
   margin-top: 20px;
+}
+
+.contact-table {
+  margin-bottom: 15px;
+}
+
+.small {
+  width: 10%;
 }

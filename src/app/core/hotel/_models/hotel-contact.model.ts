@@ -9,4 +9,5 @@ export class HotelContactModel {
   lastName: string;
   hotelId: number;
   selected: boolean;
+  sentNewReviewMail: boolean;
 }

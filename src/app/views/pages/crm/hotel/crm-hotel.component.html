@@ -19,13 +19,13 @@
               <th style="width: 15%">
                 Name
               </th>
-              <th style="width: 10%">
+              <th style="width: 15%">
                 Last Login
               </th>
               <th style="width: 15%">
                 Competition
               </th>
-              <th style="width: 15%">
+              <th style="width: 10%">
                 Contact Person
               </th>
               <th style="width: 10%">
@@ -154,14 +154,20 @@
     </button>
   </div>
   <div class="modal-body">
-    <table class="table table-bordered" *ngIf="hotelContacts.length > 0">
+    <table class="table table-bordered contact-table" *ngIf="hotelContacts.length > 0">
       <thead>
       <tr>
-        <th>
+        <th style="width: 25%">
+          Name
+        </th>
+        <th style="width: 25%">
           Email
         </th>
         <th>
           Position
+        </th>
+        <th style="width: 15%">
+          New Review Mail
         </th>
         <th>
           Action
@@ -171,10 +177,21 @@
       <tbody>
       <tr *ngFor="let hotelContact of hotelContacts">
         <td class="text star-container">
+          {{hotelContact.firstName}} {{hotelContact.lastName}}
+        </td>
+        <td class="text star-container">
           {{hotelContact.mail}}
         </td>
         <td class="text star-container">
           {{hotelContact.position}}
+        </td>
+        <td class="text star-container">
+          <span tooltip="Disable New Review Mail" (click)="updateNewReviewStatus(hotelContact)" *ngIf="hotelContact.sentNewReviewMail">
+            <i class="fa fa-check action-button text-primary action-icon"></i>
+          </span>
+          <span tooltip="Enable New Review Mail" (click)="updateNewReviewStatus(hotelContact)" *ngIf="!hotelContact.sentNewReviewMail">
+            <i class="fa fa-times action-button text-danger action-icon"></i>
+          </span>
         </td>
         <td class="text star-container">
           <a (click)="deleteHotelContact(hotelContact)"><i class="fa fa-trash crm-action"></i></a>

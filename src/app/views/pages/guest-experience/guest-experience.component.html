@@ -28,6 +28,7 @@
                                   [max]="10"></ngb-rating>
 
                       <p class="rating"
+                         *ngIf="guestModel.rating > 0"
                          [ngClass]="{'text-danger': guestModel.rating < 6, 'text-warning':(guestModel.rating >= 6 && guestModel.rating < 8), 'text-success':guestModel.rating >= 8 }"> {{guestModel.rating}}
                         / 10</p>
                     </div>

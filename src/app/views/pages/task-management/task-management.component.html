@@ -1,60 +1,62 @@
 <div class="container-scroller">
-  <div class="container-fluid">
-    <div class="content-wrapper">
-      <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8 grid-margin stretch-card comment-detail">
-          <div class="card">
-            <div class="card-body">
-              <div *ngIf="taskModel != null">
-                <div class="employee-container">
-                  <div class="summary">
-                    <p class="title">
-                      Hey {{taskModel.employee.firstName}} {{taskModel.employee.lastName}},</p>
-                    <p>You have new task assigned by {{taskModel.creator.firstName}} {{taskModel.creator.lastName}}</p>
+  <div class="container-fluid page-body-wrapper main-page">
+    <div class="main-panel full-width">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8 grid-margin stretch-card comment-detail">
+            <div class="card">
+              <div class="card-body">
+                <div *ngIf="taskModel != null">
+                  <div class="employee-container">
+                    <div class="summary">
+                      <p class="title">
+                        Hey {{taskModel.employee.firstName}} {{taskModel.employee.lastName}},</p>
+                      <p>You have new task assigned by {{taskModel.creator.firstName}} {{taskModel.creator.lastName}}</p>
+                    </div>
+                    <div class="review">
+                      <!--<p> 4 days ago</p>-->
+                    </div>
                   </div>
-                  <div class="review">
-                    <!--<p> 4 days ago</p>-->
+                  <div class="summary-container">
+                    <div class="summary">
+                      <p class="title">
+                        {{taskModel.comment.content}}</p>
+                      <app-channel-icon class="icon" [source]="taskModel.comment.source.toLowerCase()"></app-channel-icon>
+                      <span class="brand">{{taskModel.comment.source}}</span>
+                      <span class="brand">{{taskModel.comment.commentDate  | date:'dd/MM/yyyy'}}</span>
+                      <p class="written">Written By: {{taskModel.comment.author}}</p>
+                    </div>
+                    <div class="review">
+                      <p class="rating"
+                         [ngClass]="{'text-danger': taskModel.comment.rating < 6, 'text-warning':(taskModel.comment.rating >= 6 && taskModel.comment.rating < 8), 'text-success':taskModel.comment.rating >= 8 }"> {{taskModel.comment.rating}}
+                        / 10</p>
+                    </div>
                   </div>
-                </div>
-                <div class="summary-container">
-                  <div class="summary">
-                    <p class="title">
-                      {{taskModel.comment.content}}</p>
-                    <app-channel-icon class="icon" [source]="taskModel.comment.source.toLowerCase()"></app-channel-icon>
-                    <span class="brand">{{taskModel.comment.source}}</span>
-                    <span class="brand">{{taskModel.comment.commentDate  | date:'dd/MM/yyyy'}}</span>
-                    <p class="written">Written By: {{taskModel.comment.author}}</p>
+                  <p class="content" [innerHTML]=taskModel.comment.content></p>
+                  <div class="content-container" *ngIf="taskModel.description != null">
+                    <p class="text-danger content-title">Note: </p>
+                    <p class="content-answer">{{taskModel.description}}</p>
                   </div>
-                  <div class="review">
-                    <p class="rating"
-                       [ngClass]="{'text-danger': taskModel.comment.rating < 6, 'text-warning':(taskModel.comment.rating >= 6 && taskModel.comment.rating < 8), 'text-success':taskModel.comment.rating >= 8 }"> {{taskModel.comment.rating}}
-                      / 10</p>
+                  <div class="content-container" *ngIf="taskModel.comment.translatedText != null">
+                    <p class="text-danger content-title">Translated Review: </p>
+                    <p class="content-answer">{{taskModel.comment.translatedText}}</p>
                   </div>
-                </div>
-                <p class="content" [innerHTML]=taskModel.comment.content></p>
-                <div class="content-container" *ngIf="taskModel.description != null">
-                  <p class="text-danger content-title">Note: </p>
-                  <p class="content-answer">{{taskModel.description}}</p>
-                </div>
-                <div class="content-container" *ngIf="taskModel.comment.translatedText != null">
-                  <p class="text-danger content-title">Translated Review: </p>
-                  <p class="content-answer">{{taskModel.comment.translatedText}}</p>
-                </div>
-                <div class="content-container" *ngIf="taskModel.comment.answer != null">
-                  <p class="text-danger content-title">Hotel's response:</p>
-                  <p class="content-answer">{{taskModel.comment.answer}}</p>
-                </div>
-                <div class="template-demo">
-                  <button type="button" class="btn btn-primary" *ngIf="taskModel.endDate == null" (click)="open(finishTask)"><i
-                    class="mdi mdi-check"></i>Finish Task
-                  </button>
+                  <div class="content-container" *ngIf="taskModel.comment.answer != null">
+                    <p class="text-danger content-title">Hotel's response:</p>
+                    <p class="content-answer">{{taskModel.comment.answer}}</p>
+                  </div>
+                  <div class="template-demo">
+                    <button type="button" class="btn btn-primary" *ngIf="taskModel.endDate == null" (click)="open(finishTask)"><i
+                      class="mdi mdi-check"></i>Finish Task
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-lg-2"></div>
         </div>
-        <div class="col-lg-2"></div>
       </div>
     </div>
   </div>

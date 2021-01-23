@@ -10,6 +10,10 @@ const routes: Routes = [
       path: 'auth',
       loadChildren: () => import('src/app/views/pages/auth/auth.module').then(m => m.AuthModule)
     },
+    {
+      path: 'guest-experience',
+      loadChildren: () => import('src/app/views/pages/guest-experience/guest-experience.module').then(m => m.GuestExperienceModule)
+    },
     {path: 'task-management/:id', component: TaskManagementComponent},
     {
       path: '',
@@ -50,6 +54,14 @@ const routes: Routes = [
         {
           path: 'crm',
           loadChildren: () => import('src/app/views/pages/crm/crm.module').then(m => m.CrmModule)
+        },
+        {
+          path: 'hotel-template',
+          loadChildren: () => import('src/app/views/pages/hotel-template/hotel-template.module').then(m => m.HotelTemplateModule)
+        },
+        {
+          path: 'guest',
+          loadChildren: () => import('src/app/views/pages/guest/guest.module').then(m => m.GuestModule)
         },
         {
           path: 'change-password',

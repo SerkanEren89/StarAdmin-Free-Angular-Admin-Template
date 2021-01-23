@@ -2,7 +2,6 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserModel} from '../../../core/auth/_models/user.model';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {ChangePasswordModel} from '../../../core/auth/_models/change-password.model';
-import {TemplateModel} from '../../../core/template/_models/template.model';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

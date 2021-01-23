@@ -1,0 +1,43 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+    <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/review.svg">
+      Hotel Templates
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-8 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div ngbDropdown container="body" class="template-selection title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedType.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let templateType of templateTypes" (click)="selectStatus(templateType)">{{templateType.title}}</button>
+          </div>
+        </div>
+        <quill-editor #Editor [styles]="{height: '200px'}"
+                      (onEditorCreated)="onEditorCreated($event)"
+                      format="html"
+                      [(ngModel)]="hotelTemplateModel.content"
+                      (onContentChanged)="contentChange($event);"
+                      placeholder=''
+                      [ngModelOptions]="{standalone: true}">
+        </quill-editor>
+        <button type="button" class="btn btn-primary template-button" (click)="saveTemplate()">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body pagination-container">
+        <h4 class="card-title">Tags</h4>
+        <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertText(tag.name)">
+         {{tag.name}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

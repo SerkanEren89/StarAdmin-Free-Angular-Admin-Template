@@ -1,4 +1,8 @@
 @import '../styles';
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
 
 :host {
   padding: 0;
@@ -108,3 +112,7 @@
 .nav-pills, .nav-tabs {
   margin-bottom: 0 !important;
 }
+.template-demo {
+  float: right;
+}
+

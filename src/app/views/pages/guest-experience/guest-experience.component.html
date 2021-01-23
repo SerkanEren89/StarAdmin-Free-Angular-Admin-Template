@@ -1,0 +1,55 @@
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper main-page">
+    <div class="main-panel full-width">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8 grid-margin stretch-card comment-detail">
+            <div class="card">
+              <div class="card-body" *ngIf="guestModel">
+                <div class="summary">
+                  <p class="question-title">
+                    Dear {{guestModel.firstName}}, <br><br>
+                    As {{guestModel.hotelName}}, that you have a good experience, we just want to ask you one question:
+                  </p>
+                </div>
+
+                <div class="question-container">
+                  <p class="rating-title">Can you please rate your overall experience so far:</p>
+                  <div class="summary-container">
+                    <div class="summary">
+                      <ng-template #t let-fill="fill">
+                      <span class="star" [class.full]="fill === 100">
+                        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                      </span>
+                      </ng-template>
+
+                      <ngb-rating [(rate)]="guestModel.rating" [starTemplate]="t"
+                                  [max]="10"></ngb-rating>
+
+                      <p class="rating"
+                         [ngClass]="{'text-danger': guestModel.rating < 6, 'text-warning':(guestModel.rating >= 6 && guestModel.rating < 8), 'text-success':guestModel.rating >= 8 }"> {{guestModel.rating}}
+                        / 10</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="title">Is there something you want to add?</label>
+                    <div class="input-group">
+                      <textarea type="text" name="content" class="form-control review-text" placeholder="Dear Guest,&#10;&#10;Please share your experience here..." #inputTarget rows="16" [(ngModel)]="guestModel.guestNote"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="template-demo">
+                  <button type="button" class="btn btn-primary" (click)="rate()"><i
+                    class="mdi mdi-check"></i>Rate Your Experience
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

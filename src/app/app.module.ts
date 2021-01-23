@@ -24,7 +24,7 @@ import {TaskManagementComponent} from './views/pages/task-management/task-manage
     AppComponent,
     InboxPoolComponent,
     CategorizationComponent,
-    TaskManagementComponent,
+    TaskManagementComponent
   ],
   imports: [
     BrowserModule,

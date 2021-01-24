@@ -46,7 +46,7 @@ export class GuestComponent implements OnInit {
   }
 
   openNewGuestModal(newGuestModal: any, isEdit: boolean) {
-    if (isEdit) {
+    if (!isEdit) {
       this.newGuest = new GuestModel();
     }
     this.modalService.open(newGuestModal, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {

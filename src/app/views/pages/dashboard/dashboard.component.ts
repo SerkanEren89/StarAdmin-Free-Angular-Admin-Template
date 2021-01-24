@@ -359,7 +359,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  openReplyModal(content: TemplateRef<any>) {
+  openReplyModal(content: TemplateRef<any>, comment: CommentModel) {
+    this.selectedComment = comment;
     if (this.templates == null) {
       this.templateService.getTemplates()
         .subscribe((templateModels: TemplateModel[]) => {
@@ -426,6 +427,10 @@ export class DashboardComponent implements OnInit {
 
   selectTemplate(template: TemplateModel) {
     this.selectedTemplate = template;
+    let content = this.selectedTemplate.content;
+    content = content.replace(/--author-name--/g, this.selectedComment.author);
+    content = content.replace(/--hotel-name--/g, this.currentUser.hotelName);
+    this.selectedTemplate.content = content;
   }
 
   copyAndGo($event: IClipboardResponse) {

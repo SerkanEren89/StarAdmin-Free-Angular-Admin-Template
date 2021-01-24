@@ -25,6 +25,8 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {Router} from '@angular/router';
 import {AppSettings} from '../../../core/consts/AppSettings';
 import {CommonService} from '../../../core/general/_services/common.service';
+import {UserModel} from '../../../core/auth/_models/user.model';
+import {AuthService} from '../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-inbox',
@@ -43,6 +45,7 @@ export class InboxComponent implements OnInit {
   commentFilter: CommentFilterModel;
   templates: TemplateModel[] = [];
   selectedTemplate: TemplateModel;
+  currentUser: UserModel;
   selectedTravellerType: any;
   selectedIndex = 0;
   pageSize = 10;
@@ -70,6 +73,7 @@ export class InboxComponent implements OnInit {
               private commentService: CommentService,
               private employeeService: EmployeeService,
               private templateService: TemplateService,
+              private authService: AuthService,
               private taskService: TaskService,
               private modalService: NgbModal,
               private toastr: ToastrService,
@@ -82,6 +86,7 @@ export class InboxComponent implements OnInit {
     this.commentSources = this.commonService.getChannelFilter();
     this.travelerTypes = this.commonService.getTravelerTypes();
     this.selectedTravellerType = this.travelerTypes[0];
+    this.currentUser = this.authService.currentUserValue;
     this.clearFilter();
     this.getUnfilteredResult();
     this.noReviewText = AppSettings.NO_REVIEW;
@@ -238,6 +243,10 @@ export class InboxComponent implements OnInit {
 
   selectTemplate(template: TemplateModel) {
     this.selectedTemplate = template;
+    let content = this.selectedTemplate.content;
+    content = content.replace(/--author-name--/g, this.selectedItem.author);
+    content = content.replace(/--hotel-name--/g, this.currentUser.hotelName);
+    this.selectedTemplate.content = content;
   }
 
   selectTravellerType(travellerType) {

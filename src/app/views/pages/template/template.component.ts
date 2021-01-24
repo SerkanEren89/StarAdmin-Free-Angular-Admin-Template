@@ -177,6 +177,7 @@ export class TemplateComponent implements OnInit {
   }
 
   responseContentChange($event) {
+    this.selectedResponseTemplate.content = $event.text;
   }
 
   open(content) {

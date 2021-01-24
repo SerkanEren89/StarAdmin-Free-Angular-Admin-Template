@@ -184,7 +184,7 @@
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
                 <span tooltip="Reply customer review">
-                  <a (click)="openReplyModal(reply)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
+                  <a (click)="openReplyModal(reply, comment)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
                 </span>
               </td>
               <td class="text comment"

@@ -214,7 +214,7 @@
             <p class="content-answer">{{selectedItem.answer}}</p>
           </div>
           <div class="template-demo">
-            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
+            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)" *ngIf="selectedItem.translatedText == null"><i class="fa fa-language"></i>Translate</button>
             <button type="button" class="btn btn-primary" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
             <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>
               Assign Task

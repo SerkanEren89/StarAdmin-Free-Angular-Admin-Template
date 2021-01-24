@@ -1,9 +1,13 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs';
 import {TemplateModel} from '../../../core/template/_models/template.model';
 import {TemplateService} from '../../../core/template/_services/template.service';
 import {ToastrService} from 'ngx-toastr';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TagModel} from '../../../core/tag/_models/tag.model';
+import {HotelTemplateModel} from '../../../core/hotel-template/_models/hotel-template.model';
+import {TagService} from '../../../core/tag/_services/tag.service';
+import {HotelTemplateService} from '../../../core/hotel-template/_services/hotel-template.service';
+import {TableService} from '../../../core/general/_services/table.service';
 
 @Component({
   selector: 'app-template',
@@ -12,16 +16,33 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   encapsulation: ViewEncapsulation.None
 })
 export class TemplateComponent implements OnInit {
+  public editor;
+  public templateEditor;
+  public responseEditor;
   @ViewChild('templateModal') public templateModal: TemplateRef<any>;
-  templates$: Observable<TemplateModel[]>;
   templates: TemplateModel[] = [];
   newTemplate: TemplateModel;
   closeResult = '';
   selectedTemplate: TemplateModel;
+  tags: TagModel[];
+  hotelTemplateModel: HotelTemplateModel = new HotelTemplateModel();
+  template: any;
+  templateTypes = [{
+    title: 'Welcome Message',
+    value: 'WELCOME_MESSAGE'
+  }, {
+    title: 'Leaving Message',
+    value: 'LEAVING_MESSAGE'
+  }];
+  selectedType: { title: string; value: string };
+  selectedResponseTemplate: TemplateModel;
 
 
   constructor(private templateService: TemplateService,
+              private hotelTemplateService: HotelTemplateService,
               private toastr: ToastrService,
+              private tableService: TableService,
+              private tagService: TagService,
               private modalService: NgbModal,
               private cdr: ChangeDetectorRef) {
   }
@@ -29,6 +50,13 @@ export class TemplateComponent implements OnInit {
   ngOnInit() {
     this.newTemplate = new TemplateModel();
     this.loadAllTemplate();
+    this.selectedType = this.templateTypes[0];
+    this.selectStatus(this.selectedType);
+    this.tagService.getTags()
+      .subscribe((tags: TagModel[]) => {
+        this.tags = tags;
+        this.cdr.detectChanges();
+      });
   }
 
   save(template: TemplateModel) {
@@ -45,22 +73,13 @@ export class TemplateComponent implements OnInit {
     this.open(this.templateModal);
   }
 
-  open(content) {
-    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-    });
-  }
-
-  edit(template: TemplateModel) {
-    this.newTemplate = template;
-    this.open(this.templateModal);
-  }
-
   private loadAllTemplate() {
     this.templateService.getTemplates().subscribe((templates: TemplateModel[]) => {
       this.templates = templates;
       this.newTemplate = new TemplateModel();
+      if (templates.length > 0) {
+        this.selectedResponseTemplate = templates[0];
+      }
       this.cdr.detectChanges();
     });
   }
@@ -77,6 +96,95 @@ export class TemplateComponent implements OnInit {
       this.toastr.success('Template deleted successfully');
       this.modalService.dismissAll();
       this.loadAllTemplate();
+    });
+  }
+
+  onEditorCreated(event) {
+    this.editor = event;
+  }
+
+  onInsertText(textTOInsert: string) {
+    if (textTOInsert) {
+      const selection = this.editor.getSelection(true);
+      this.editor.insertText(selection.index, textTOInsert);
+      this.cdr.detectChanges();
+    }
+  }
+
+  onInsertTemplateText(textTOInsert: string) {
+    if (textTOInsert) {
+      const selection = this.templateEditor.getSelection(true);
+      this.templateEditor.insertText(selection.index, textTOInsert);
+      this.cdr.detectChanges();
+    }
+  }
+
+  onInsertResponseTemplateText(textTOInsert: string) {
+    if (textTOInsert) {
+      const selection = this.responseEditor.getSelection(true);
+      this.responseEditor.insertText(selection.index, textTOInsert);
+      this.cdr.detectChanges();
+    }
+  }
+
+  saveTemplate() {
+    this.hotelTemplateModel.templateType = this.selectedType.value;
+
+    if (this.hotelTemplateModel.id == null) {
+      this.hotelTemplateService.saveHotelVisit(this.hotelTemplateModel)
+        .subscribe((hotelTemplateModel: HotelTemplateModel) => {
+          this.hotelTemplateModel = hotelTemplateModel;
+          this.cdr.detectChanges();
+        });
+    } else {
+      this.hotelTemplateService.updateHotelVisit(this.hotelTemplateModel.id, this.hotelTemplateModel)
+        .subscribe((hotelTemplateModel: HotelTemplateModel) => {
+          this.hotelTemplateModel = hotelTemplateModel;
+          this.cdr.detectChanges();
+        });
+    }
+  }
+
+  selectStatus(templateType: { title: string; value: string }) {
+    this.hotelTemplateModel = new HotelTemplateModel();
+    this.selectedType = templateType;
+    this.hotelTemplateModel.templateType = this.selectedType.value;
+    this.hotelTemplateService.getHotelTemplate(templateType.value)
+      .subscribe((hotelTemplateModel: HotelTemplateModel) => {
+        this.hotelTemplateModel = hotelTemplateModel;
+        this.cdr.detectChanges();
+      });
+  }
+
+  contentChange($event) {
+    this.hotelTemplateModel.content = $event.html;
+  }
+
+  onTemplateEditorCreated(event) {
+    this.templateEditor = event;
+  }
+
+  templateContentChange($event) {
+    this.template.content = $event.html;
+  }
+
+  selectResponseTemplate(template: TemplateModel) {
+    this.selectedResponseTemplate = template;
+  }
+
+  onResponseEditorCreated(event) {
+    this.responseEditor = event;
+  }
+
+  responseContentChange($event) {
+    console.log(this.selectedResponseTemplate.content)
+    //this.selectedResponseTemplate.content = $event.html;
+  }
+
+  open(content) {
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
     });
   }
 

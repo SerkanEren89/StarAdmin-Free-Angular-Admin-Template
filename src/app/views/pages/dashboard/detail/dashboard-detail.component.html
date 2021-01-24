@@ -69,7 +69,7 @@
               </td>
               <td class="text-primary">
                 <!--<i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>-->
-                <a (click)="translate(comment)"><i class="fa fa-language action-button" ></i></a>
+                <a (click)="translate(comment)" *ngIf="comment.translatedText == null"><i class="fa fa-language action-button" ></i></a>
                 <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
               </td>
             </tr>

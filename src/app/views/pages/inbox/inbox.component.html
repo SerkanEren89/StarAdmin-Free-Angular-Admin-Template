@@ -311,9 +311,8 @@
   </div>
   <div class="modal-body">
     <form class="reply-form" *ngIf="!newTemplateFlow">
-      <div class="form-group">
-        <label>Saved Templates</label>
-        <div ngbDropdown container="body" *ngIf="templates.length > 0" class="title-container">
+      <div class="form-group" *ngIf="templates.length > 0">
+        <div ngbDropdown container="body">
           <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedTemplate.title}}</button>
           <div ngbDropdownMenu>
             <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
@@ -333,7 +332,9 @@
     <div class="form-group answer">
       <label>Reply Response</label>
       <div class="input-group">
-        <textarea type="text" name="content" class="form-control" placeholder="Dear Guest,&#10;&#10;Your response will be here..." #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
+        <textarea type="text" name="content" class="form-control response-editor"
+                  placeholder="Dear Guest,&#10;&#10;Your response will be here..."
+                  #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>

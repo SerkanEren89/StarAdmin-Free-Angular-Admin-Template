@@ -3,3 +3,27 @@
   font-size: 14px;
   cursor: pointer;
 }
+@media screen and (max-width: 880px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+  }
+  table tr {
+    border: 1px solid #a19b9b;
+  }
+
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+  .star-container {
+    text-align: start;
+  }
+  .table-center {
+    text-align: start;
+  }
+}

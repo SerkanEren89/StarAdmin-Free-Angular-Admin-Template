@@ -42,6 +42,7 @@ export class CrmVisitComponent implements OnInit {
   ngOnInit() {
     this.visitTypes = this.commonService.getVisitTypes();
     this.selectedVisitType = this.visitTypes[0];
+    this.newVisit.visitDate = new Date();
     this.getAllHotels();
   }
 

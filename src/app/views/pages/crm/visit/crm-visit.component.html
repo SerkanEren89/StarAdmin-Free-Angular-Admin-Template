@@ -100,8 +100,7 @@
         <div class="form-group">
           <label>Visit Date</label>
           <div class="input-group">
-            <input id="visitDate" type="date" class="form-control" name="visitDate"
-                   [(ngModel)]="newVisit.visitDate"/>
+            <input  type="date" name="checkIn" class="form-control" [ngModel] ="newVisit.visitDate | date:'yyyy-MM-dd'" (ngModelChange)="newVisit.visitDate = $event" />
           </div>
         </div>
         <div class="form-group">

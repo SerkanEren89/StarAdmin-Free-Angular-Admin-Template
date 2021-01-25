@@ -6,8 +6,9 @@ export class GuestModel {
   hotelName: string;
   phoneNumber: string;
   email: string;
-  checkIn: string;
-  checkOut: string;
+  checkIn: any;
+  checkOut: any;
+  roomNumber: string;
   rating: number;
   guestNote: string;
   evaluated: boolean;

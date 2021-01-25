@@ -30,6 +30,9 @@
                 Email
               </th>
               <th>
+                Room Number
+              </th>
+              <th>
                 Check In
               </th>
               <th>
@@ -53,6 +56,9 @@
               </td>
               <td class="table-center">
                 {{guest.email}}
+              </td>
+              <td class="table-center">
+                {{guest.roomNumber}}
               </td>
               <td class="table-center">
                 {{guest.checkIn | date:'dd/MM/yyyy'}}
@@ -157,8 +163,7 @@
           <div class="form-group">
             <label>Check In</label>
             <div class="input-group">
-              <input id="checkIn" type="date" class="form-control" name="checkIn"
-                     [(ngModel)]="newGuest.checkIn"/>
+              <input  type="date" name="checkIn" class="form-control" [ngModel] ="newGuest.checkIn | date:'yyyy-MM-dd'" (ngModelChange)="newGuest.checkIn = $event" />
             </div>
           </div>
         </div>
@@ -166,8 +171,19 @@
           <div class="form-group">
             <label>Check Out</label>
             <div class="input-group">
-              <input id="checkOut" type="date" class="form-control" name="checkOut"
-                     [(ngModel)]="newGuest.checkOut"/>
+              <input  type="date" name="checkOut" class="form-control" [ngModel] ="newGuest.checkOut | date:'yyyy-MM-dd'" (ngModelChange)="newGuest.checkOut = $event" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>Room number</label>
+            <div class="input-group">
+              <input id="roomNumber" type="text" class="form-control" name="roomNumber"
+                     [(ngModel)]="newGuest.roomNumber"/>
             </div>
           </div>
         </div>

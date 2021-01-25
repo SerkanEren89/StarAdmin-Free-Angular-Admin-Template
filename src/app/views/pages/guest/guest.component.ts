@@ -48,6 +48,8 @@ export class GuestComponent implements OnInit {
   openNewGuestModal(newGuestModal: any, isEdit: boolean) {
     if (!isEdit) {
       this.newGuest = new GuestModel();
+      this.newGuest.checkIn = new Date();
+      this.newGuest.checkOut = new Date().setDate(new Date().getDate() + 4);
     }
     this.modalService.open(newGuestModal, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
     }, (reason) => {

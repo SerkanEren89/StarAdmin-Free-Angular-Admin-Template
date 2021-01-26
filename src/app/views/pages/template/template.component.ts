@@ -8,6 +8,7 @@ import {HotelTemplateModel} from '../../../core/hotel-template/_models/hotel-tem
 import {TagService} from '../../../core/tag/_services/tag.service';
 import {HotelTemplateService} from '../../../core/hotel-template/_services/hotel-template.service';
 import {TableService} from '../../../core/general/_services/table.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-template',
@@ -21,10 +22,9 @@ export class TemplateComponent implements OnInit {
   public responseEditor;
   @ViewChild('templateModal') public templateModal: TemplateRef<any>;
   templates: TemplateModel[] = [];
-  newTemplate: TemplateModel;
   closeResult = '';
   selectedTemplate: TemplateModel;
-  tags: TagModel[];
+  tags: TagModel[] = [];
   hotelTemplateModel: HotelTemplateModel = new HotelTemplateModel();
   template: any;
   templateTypes = [{
@@ -38,7 +38,8 @@ export class TemplateComponent implements OnInit {
   selectedResponseTemplate: TemplateModel;
 
 
-  constructor(private templateService: TemplateService,
+  constructor(private router: Router,
+              private templateService: TemplateService,
               private hotelTemplateService: HotelTemplateService,
               private toastr: ToastrService,
               private tableService: TableService,
@@ -48,7 +49,6 @@ export class TemplateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newTemplate = new TemplateModel();
     this.loadAllTemplate();
     this.selectedType = this.templateTypes[0];
     this.selectStatus(this.selectedType);
@@ -69,14 +69,12 @@ export class TemplateComponent implements OnInit {
   }
 
   addNew() {
-    this.newTemplate = new TemplateModel();
-    this.open(this.templateModal);
+    this.router.navigateByUrl('/template/add');
   }
 
   private loadAllTemplate() {
     this.templateService.getTemplates().subscribe((templates: TemplateModel[]) => {
       this.templates = templates;
-      this.newTemplate = new TemplateModel();
       if (templates.length > 0) {
         this.selectedResponseTemplate = templates[0];
       }

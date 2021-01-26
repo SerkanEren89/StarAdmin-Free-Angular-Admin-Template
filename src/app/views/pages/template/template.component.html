@@ -1,6 +1,7 @@
 <div class="row title-container">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
-    <span class="input-group-text text-primary title">Templates</span>
+    <span class="input-group-text text-primary title">
+      <i class="far fa-file title-icon"></i>Templates</span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
 
@@ -17,7 +18,7 @@
             <div ngbDropdownMenu>
               <button ngbDropdownItem *ngFor="let template of templates" (click)="selectResponseTemplate(template)">{{template.title}}</button>
             </div>
-            <button type="button" class="btn btn-primary add-new" (click)="open(templateModal)"><i class="mdi mdi-plus"></i>
+            <button type="button" class="btn btn-primary add-new" (click)="addNew()"><i class="mdi mdi-plus"></i>
               Add new
             </button>
           </div>
@@ -49,7 +50,7 @@
             <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body pagination-container" *ngIf="tags.length > 0">
-                  <p class="card-title">Click to insert these dynamic elements. For example --guest-fist-name-- will mean that the name of the guest will appear.</p>
+                  <p class="insert-text">Click to insert these dynamic elements. For example --guest-fist-name-- will mean that the name of the guest will appear.</p>
                   <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertResponseTemplateText(tag.name)">
                     {{tag.name}}
                   </button>
@@ -105,54 +106,6 @@
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
-
-<ng-template #templateModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Template</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form class="assignee-form">
-      <div class="row title-container">
-        <div class="col-lg-8 grid-margin new-template-container">
-          <div class="form-group">
-            <label>Template Name</label>
-            <div class="input-group">
-              <input id="title" type="text" class="form-control" name="title"
-                     [(ngModel)]="newTemplate.title"/>
-            </div>
-          </div>
-          <div class="input-group">
-            <quill-editor #templateEditor [styles]="{height: '300px', width: '100%'}"
-                          (onEditorCreated)="onTemplateEditorCreated($event)"
-                          format="html"
-                          class="full-width"
-                          [(ngModel)]="newTemplate.content"
-                          (onContentChanged)="templateContentChange($event);"
-                          placeholder=''
-                          [ngModelOptions]="{standalone: true}">
-            </quill-editor>
-          </div>
-        </div>
-        <div class="col-lg-4 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body pagination-container">
-              <h4 class="card-title">Tags</h4>
-              <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertTemplateText(tag.name)">
-                {{tag.name}}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save(newTemplate)">Save</button>
-  </div>
-</ng-template>
 
 <ng-template #delete let-modal>
   <div class="modal-header">

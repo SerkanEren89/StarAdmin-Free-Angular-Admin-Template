@@ -1,0 +1,47 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+      <i class="far fa-file"></i>New Template</span>
+  </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
+
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="row title-container">
+      <div class="col-lg-8 grid-margin">
+        <div class="card">
+          <div class="form-group">
+            <div class="input-group">
+              <input id="templateTitle" type="text" class="form-control" name="title"
+                     placeholder="Template Name"
+                     [(ngModel)]="newTemplate.title"/>
+            </div>
+          </div>
+          <quill-editor #ResponseEditor [styles]="{height: '350px'}"
+                        (onEditorCreated)="onResponseEditorCreated($event)"
+                        format="text"
+                        [(ngModel)]="newTemplate.content"
+                        (onContentChanged)="responseContentChange($event);"
+                        placeholder='Add you template content here'
+                        [ngModelOptions]="{standalone: true}">
+          </quill-editor>
+        </div>
+        <button type="button" class="btn btn-primary template-button" (click)="save(newTemplate)">
+          Save
+        </button>
+      </div>
+      <div class="col-lg-4 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body pagination-container" *ngIf="tags.length > 0">
+            <p class="insert-text">Click to insert these dynamic elements. For example --guest-fist-name-- will mean that the name of the guest will appear.</p>
+            <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertResponseTemplateText(tag.name)">
+              {{tag.name}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

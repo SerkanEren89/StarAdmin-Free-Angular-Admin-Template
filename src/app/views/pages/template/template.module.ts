@@ -6,6 +6,7 @@ import {RouterModule} from '@angular/router';
 import {TemplateComponent} from './template.component';
 import {FormsModule} from '@angular/forms';
 import {QuillModule} from 'ngx-quill';
+import {TemplateAddComponent} from './add/template-add.component';
 
 
 @NgModule({
@@ -17,6 +18,9 @@ import {QuillModule} from 'ngx-quill';
       {
         path: '',
         component: TemplateComponent
+      },{
+        path: 'add',
+        component: TemplateAddComponent
       }
     ]),
     FormsModule,
@@ -34,6 +38,7 @@ import {QuillModule} from 'ngx-quill';
   providers: [],
   declarations: [
     TemplateComponent,
+    TemplateAddComponent
   ]
 })
 export class TemplateModule {

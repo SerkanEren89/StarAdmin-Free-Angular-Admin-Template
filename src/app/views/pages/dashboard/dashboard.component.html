@@ -333,6 +333,7 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
+      <button type="button" class="btn btn-primary" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks"></i>Assign as Task</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
       <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>

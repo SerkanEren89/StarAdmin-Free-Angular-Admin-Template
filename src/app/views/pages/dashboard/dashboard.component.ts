@@ -222,7 +222,7 @@ export class DashboardComponent implements OnInit {
         if (commentModel.starred) {
           this.toastr.success('This comment marked as imported');
         } else {
-          this.toastr.success('This comment marked as imported');
+          this.toastr.success('This comment unmarked');
         }
       });
   }
@@ -323,6 +323,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openTaskModal(comment: CommentModel, content: TemplateRef<any>) {
+    this.modalService.dismissAll();
     this.selectedComment = comment;
     this.task = new TaskModel();
     if (this.employeeList == null) {

@@ -356,24 +356,6 @@
           </label>
         </div>
       </div>
-      <div class="form-group">
-        <label>Creation Date</label>
-        <div class="input-group ">
-          <input type="text" matInput
-                 ngxDaterangepickerMd
-                 autocomplete="off"
-                 opens="center"
-                 autoApply="true"
-                 [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
-                 startKey="start"
-                 endKey="end"
-                 [maxDate]="maxDate"
-                 placeholder="Select date to filter"
-                 class="date-filter"
-                 [(ngModel)]="selected"
-                 name="daterange"/>
-        </div>
-      </div>
     </form>
   </div>
   <div class="modal-footer">

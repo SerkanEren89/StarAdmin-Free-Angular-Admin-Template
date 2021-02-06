@@ -139,6 +139,8 @@ export class TaskComponent implements OnInit {
   }
 
   openTaskModal(content) {
+    this.taskFilter = new TaskFilterModel();
+    this.newTask = new TaskModel();
     if (this.employeeList == null) {
       this.employeeService.getAllEmployees()
         .subscribe((employeeList: EmployeeModel[]) => {

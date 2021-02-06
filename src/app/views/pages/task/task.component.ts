@@ -252,7 +252,7 @@ export class TaskComponent implements OnInit {
     this.taskService.saveTasks(this.newTask)
       .subscribe((createdTask: TaskModel) => {
         this.toastr.success('Task created successfully');
-        this.page = 0;
+        this.page = 1;
         this.getUnFilteredTasks();
         this.cdr.detectChanges();
       });

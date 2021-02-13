@@ -18,6 +18,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 import {CoreModule} from './core/core.module';
 import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {TaskManagementComponent} from './views/pages/task-management/task-manage
     BrowserAnimationsModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
-    CoreModule
+    CoreModule,
+    TranslateModule.forRoot()
   ],
   providers: [
     InterceptService,

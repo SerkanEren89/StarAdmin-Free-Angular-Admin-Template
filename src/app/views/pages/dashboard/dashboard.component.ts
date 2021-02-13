@@ -32,6 +32,7 @@ import {IClipboardResponse} from 'ngx-clipboard';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ResponseRateModel} from '../../../core/dashboard/_models/response-rate.model';
 import {AppSettings} from '../../../core/consts/AppSettings';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -93,7 +94,8 @@ export class DashboardComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private route: ActivatedRoute,
               private router: Router,
-              private deviceService: DeviceDetectorService) {
+              private deviceService: DeviceDetectorService,
+              private translateService: TranslateService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.noReviewText = AppSettings.NO_REVIEW;
   }
@@ -270,8 +272,10 @@ export class DashboardComponent implements OnInit {
 
   openDetailPopup(comment: CommentModel, contentReviewDetail: TemplateRef<any>) {
     this.selectedComment = comment;
-    this.modalService.open(contentReviewDetail, {size: 'xl',
-      ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(contentReviewDetail, {
+      size: 'xl',
+      ariaLabelledBy: 'modal-basic-title', scrollable: true
+    }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -367,20 +371,30 @@ export class DashboardComponent implements OnInit {
         .subscribe((templateModels: TemplateModel[]) => {
           this.templates = templateModels;
           this.selectedTemplate = new TemplateModel();
-          this.selectedTemplate.title = 'Select template';
+          this.translateService.get('GENERAL.SELECT_TEMPLATE')
+            .subscribe(title => {
+              this.selectedTemplate.title = title;
+            });
           this.newTemplate = new TemplateModel();
           this.cdr.detectChanges();
-          this.modalService.open(content, {keyboard: false, backdrop: 'static',
-            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          this.modalService.open(content, {
+            keyboard: false, backdrop: 'static',
+            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+          }).result.then((result) => {
           }, (reason) => {
           });
         });
     } else {
       this.selectedTemplate = new TemplateModel();
-      this.selectedTemplate.title = 'Select template';
+      this.translateService.get('GENERAL.SELECT_TEMPLATE')
+        .subscribe(title => {
+          this.selectedTemplate.title = title;
+        });
       this.newTemplate = new TemplateModel();
-      this.modalService.open(content, {keyboard: false, backdrop: 'static',
-        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      this.modalService.open(content, {
+        keyboard: false, backdrop: 'static',
+        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+      }).result.then((result) => {
       }, (reason) => {
       });
     }
@@ -437,6 +451,7 @@ export class DashboardComponent implements OnInit {
   copyAndGo($event: IClipboardResponse) {
     window.open(this.selectedItem.url, '_blank');
   }
+
   addNewEmployee() {
     this.modalService.dismissAll();
     this.router.navigateByUrl('/employee');

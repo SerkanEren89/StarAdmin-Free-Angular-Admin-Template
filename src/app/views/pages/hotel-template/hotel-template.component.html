@@ -2,7 +2,7 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/review.svg">
-      Hotel Templates
+      {{ 'TEMPLATE.TITLE' | translate }}
     </span>
   </div>
 </div>
@@ -25,7 +25,7 @@
                       [ngModelOptions]="{standalone: true}">
         </quill-editor>
         <button type="button" class="btn btn-primary template-button" (click)="saveTemplate()">
-          Save
+          {{ 'GENERAL.SAVE' | translate }}
         </button>
       </div>
     </div>
@@ -33,7 +33,7 @@
   <div class="col-lg-4 grid-margin stretch-card">
     <div class="card">
       <div class="card-body pagination-container">
-        <h4 class="card-title">Tags</h4>
+        <h4 class="card-title">{{ 'TEMPLATE.TAGS' | translate }}</h4>
         <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertText(tag.name)">
          {{tag.name}}
         </button>

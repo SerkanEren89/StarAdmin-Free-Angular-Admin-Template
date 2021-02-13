@@ -2,7 +2,7 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
       <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg">
-      Categories
+      {{ 'CATEGORY.TITLE' | translate }}
     </span>
   </div>
 </div>
@@ -23,7 +23,7 @@
               <h3 class="font-weight-medium text-right mb-0" [class.text-danger]="categoryGroup.score <= 50"
                   [class.text-warning]="categoryGroup.score > 50 && categoryGroup.score < 70">
                 %{{categoryGroup.score}}</h3>
-              <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
+              <p class="text-right mb-0">{{categoryGroup.totalMention}} {{ 'GENERAL.REVIEWS' | translate }}</p>
               <p class="text-right mb-0">
                 <span class="text-danger">
                 {{categoryGroup.negativeCount}}
@@ -40,7 +40,7 @@
                   <i class="fa fa-smile"></i>
                 </span>
               </p>
-              <p class="text-right mb-0 last-five">Last Five:</p>
+              <p class="text-right mb-0 last-five">{{ 'CATEGORY.LAST_FIVE' | translate }}:</p>
               <div class="progress-container">
                 <div *ngFor="let category of categoryGroup.last5Categorization">
                   <i *ngIf="category == 2" class="fa fa-circle text-danger smile"></i>
@@ -63,19 +63,19 @@
         <div class="row">
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('negative')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-angry icon-md text-danger"></i>
-              <a class="mb-0 ml-1"> {{categoryGroup.negativeCount}} mentions </a></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.negativeCount}} {{ 'GENERAL.MENTIONS' | translate }} </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('neutral')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-meh icon-md text-warning"></i>
-              <a class="mb-0 ml-1"> {{categoryGroup.neutralCount}} mentions </a></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.neutralCount}} {{ 'GENERAL.MENTIONS' | translate }} </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center pointer category-filter" (click)="filterBySentiment('positive')">
             <div class="d-flex flex-row align-items-center"><i class="fa fa-smile icon-md text-success"></i>
-              <a class="mb-0 ml-1"> {{categoryGroup.positiveCount}} mentions </a></div>
+              <a class="mb-0 ml-1"> {{categoryGroup.positiveCount}} {{ 'GENERAL.MENTIONS' | translate }} </a></div>
           </div>
           <div class="col-md-3 d-flex align-items-center category-filter">
             <div class="d-flex flex-row align-items-center"><i class="icon-md text-success"></i>
-              <p class="mb-0 ml-1"> Success Score: {{categoryGroup.score}}%</p></div>
+              <p class="mb-0 ml-1"> {{ 'CATEGORY.SUCCESS_RATE' | translate }}: {{categoryGroup.score}}%</p></div>
           </div>
         </div>
       </div>
@@ -173,13 +173,10 @@
       <div class="card-body">
         <div *ngIf="selectedItem != null">
           <div>
-            <p class="total-info text-primary">{{totalElements}}
-              <span *ngIf="totalElements > 1">reviews are </span>
-              <span *ngIf="totalElements <= 1">review is </span>
-              recognized in
-              {{categoryGroup.category.name}} category
-              <span *ngIf="selectedSentiment != null"> with {{selectedSentiment}} sentiment</span>
-            </p>
+            <p *ngIf="totalElements > 1 && selectedSentiment != null">{{'CATEGORY.SELECTED_SUMMARY_PLURAL_SENTIMENT' | translate:{totalElements: totalElements, category: categoryGroup.category.name, selectedSentiment: selectedSentiment} }}</p>
+            <p *ngIf="totalElements <= 1 && selectedSentiment != null">{{'CATEGORY.SELECTED_SUMMARY_SENTIMENT' | translate:{totalElements: totalElements, category: categoryGroup.category.name, selectedSentiment: selectedSentiment} }}</p>
+            <p *ngIf="totalElements > 1 && selectedSentiment == null">{{'CATEGORY.SELECTED_SUMMARY_PLURAL' | translate:{totalElements: totalElements, category: categoryGroup.category.name} }}</p>
+            <p *ngIf="totalElements <= 1 && selectedSentiment == null">{{'CATEGORY.SELECTED_SUMMARY' | translate:{totalElements: totalElements, category: categoryGroup.category.name} }}</p>
           </div>
           <div class="summary-container">
             <div class="summary">
@@ -189,8 +186,8 @@
                 {{selectedItem.content}}</p>
               <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
-              <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
-              <p class="written" >Written By: {{selectedItem.author}}</p>
+              <span class="brand">{{ 'GENERAL.REVIEW_DATE' | translate }}: {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
+              <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedItem.author}}</p>
               <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
             </div>
             <div class="review">
@@ -206,18 +203,18 @@
           </div>
           <p class="content">{{selectedItem.content}}</p>
           <div class="content-container" *ngIf="selectedItem.translatedText != null">
-            <p class="text-danger content-title">Translated Review: </p>
+            <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
             <p class="content-answer">{{selectedItem.translatedText}}</p>
           </div>
           <div class="content-container" *ngIf="selectedItem.answer != null">
-            <p class="text-danger content-title">Hotel's response:</p>
+            <p class="text-danger content-title">{{ 'GENERAL.HOTELS_RESPONSE' | translate }}:</p>
             <p class="content-answer">{{selectedItem.answer}}</p>
           </div>
           <div class="template-demo">
-            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)" *ngIf="selectedItem.translatedText == null"><i class="fa fa-language"></i>Translate</button>
-            <button type="button" class="btn btn-primary" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>Mark as Important</button>
+            <button type="button" class="btn btn-primary" (click)="translate(selectedItem)" *ngIf="selectedItem.translatedText == null"><i class="fa fa-language"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
+            <button type="button" class="btn btn-primary" (click)="markAsStarred(selectedItem)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
             <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>
-              Assign Task
+              {{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}
             </button>
 
           </div>
@@ -229,7 +226,7 @@
 
 <ng-template #taskModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -239,7 +236,7 @@
       <div class="summary">
         <div class="detail-container">
           <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedItem.author}}</p>
+          <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedItem.author}}</p>
           <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
         <p class="content-comment">{{selectedItem.content}}</p>
@@ -247,7 +244,7 @@
     </div>
     <form class="assignee-form">
       <div class="form-group">
-        <label>Assignee</label>
+        <label>{{ 'GENERAL.ASSIGNEE' | translate }}</label>
         <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -257,7 +254,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label>{{ 'GENERAL.DESCRIPTION' | translate }}</label>
         <div class="input-group">
           <textarea id="description" type="text" class="form-control"
                     name="description" [(ngModel)]="task.description" rows="3"></textarea>
@@ -266,6 +263,6 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="assignTask(task)">Assign</button>
+    <button type="button" class="btn btn-primary" (click)="assignTask(task)">{{ 'GENERAL.ASSIGN' | translate }}</button>
   </div>
 </ng-template>

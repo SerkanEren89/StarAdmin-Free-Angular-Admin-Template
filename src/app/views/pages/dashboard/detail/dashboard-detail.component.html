@@ -9,28 +9,28 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Last {{commentList.length}} {{source}} Reviews</h4>
+        <h4 class="card-title">{{'DASHBOARD.LAST_N_REVIEW' | translate:{length: commentList.length, source: source} }}</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #commentTable>
             <thead>
             <tr>
               <th style="width: 10%">
-                Starred
+                {{ 'DASHBOARD.HIGHLIGHT' | translate }}
               </th>
               <th style="width: 50%">
-                Review
+                {{ 'GENERAL.REVIEW' | translate }}
               </th>
               <th style="width: 10%">
-                Channel
+                {{ 'GENERAL.CHANNEL' | translate }}
               </th>
               <th style="width: 15%">
-                Review Date
+                {{ 'GENERAL.REVIEW_DATE' | translate }}
               </th>
               <th style="width: 15%">
-                Rating
+                {{ 'GENERAL.RATING' | translate }}
               </th>
               <th style="width: 15%">
-                Actions
+                {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
             </thead>
@@ -84,16 +84,16 @@
   <div class="col-lg-6 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Assessment By Language</h5>
+        <h5 class="card-title mb-4">{{ 'GENERAL.LANGUAGE' | translate }}</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #languageTable>
             <thead>
             <tr>
               <th>
-                Language
+                {{ 'GENERAL.LANGUAGE' | translate }}
               </th>
               <th>
-                Count
+                {{ 'GENERAL.COUNT' | translate }}
               </th>
             </tr>
             </thead>
@@ -116,16 +116,16 @@
   <div class="col-lg-6 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4">Assessment By Travel Type</h5>
+        <h5 class="card-title mb-4">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #travelTypeTable>
             <thead>
             <tr>
               <th>
-                Travel Type
+                {{ 'GENERAL.TRAVELER_TYPE' | translate }}
               </th>
               <th>
-                Count
+                {{ 'GENERAL.COUNT' | translate }}
               </th>
             </tr>
             </thead>
@@ -150,7 +150,7 @@
 
 <ng-template #contentTask let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -160,13 +160,13 @@
       <div class="summary">
         <p class="title">{{selectedComment.content}}</p>
         <span class="brand popup-brand">{{selectedComment.source}}</span>
-        <p class="written" >Written By: {{selectedComment.author}}</p>
-        <p class="written">Published on {{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
+        <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedComment.author}}</p>
+        <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
       </div>
     </div>
     <form class="assignee-form">
       <div class="form-group">
-        <label>Assignee</label>
+        <label>{{ 'GENERAL.ASSIGNEE' | translate }}</label>
         <div class="input-group">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -176,7 +176,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label>{{ 'GENERAL.DESCRIPTION' | translate }}</label>
         <div class="input-group">
           <textarea id="description" type="text" class="form-control"
                     name="description" [(ngModel)]="task.description" rows="3"></textarea>
@@ -185,13 +185,13 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Assign</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">{{ 'GENERAL.ASSIGN' | translate }}</button>
   </div>
 </ng-template>
 
 <ng-template #contentReviewDetail let-modalReview>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-comment-detail">Review Detail</h4>
+    <h4 class="modal-title" id="modal-comment-detail">{{ 'DASHBOARD.REVIEW_DETAIL' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalReview.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -201,16 +201,16 @@
       <div class="summary">
         <div class="detail-container">
           <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedComment.author}}</p>
+          <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
         <p class="content-comment">{{selectedComment.content}}</p>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">
-          <p class="text-danger content-title">Translated Review: </p>
+          <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
           <p class="content-answer">{{selectedComment.translatedText}}</p>
         </div>
         <div class="content-container" *ngIf="selectedComment.answer != null">
-          <p class="text-danger content-title">Hotel's response:</p>
+          <p class="text-danger content-title">{{ 'GENERAL.HOTELS_RESPONSE' | translate }}:</p>
           <p class="content-answer">{{selectedComment.answer}}</p>
         </div>
       </div>
@@ -218,9 +218,9 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
-      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>
     </div>
   </div>
 </ng-template>

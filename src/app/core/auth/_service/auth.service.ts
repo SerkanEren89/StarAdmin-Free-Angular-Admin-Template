@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {UserModel} from '../_models/user.model';
 import {Router} from '@angular/router';
 import {ChangePasswordModel} from '../_models/change-password.model';
+import {TranslationService} from '../../general/_services/translation.service';
 
 const API_AUTH_URL = 'auth';
 
@@ -17,7 +18,8 @@ export class AuthService {
   public currentUser: Observable<UserModel>;
 
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private translationService: TranslationService) {
     this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('revxray-user')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -30,7 +32,8 @@ export class AuthService {
     return this.http.post<any>(API_AUTH_URL + `/login`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('revxray-user', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        this.currentUserSubject. next(user);
+        this.translationService.setLanguage(user.preferredLanguage);
         return user;
       }));
   }

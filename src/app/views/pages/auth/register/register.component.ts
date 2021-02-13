@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {first} from 'rxjs/operators';
+import {CommonService} from '../../../../core/general/_services/common.service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +14,13 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  languages;
+  selectedLanguage: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private authService: AuthService,
+              private commonService: CommonService
   ) {
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
@@ -29,8 +33,11 @@ export class RegisterComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      preferredLanguage: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this.languages = this.commonService.getLanguages();
+    this.selectLanguage(this.languages[0]);
   }
 
   // convenience getter for easy access to form fields
@@ -55,5 +62,10 @@ export class RegisterComponent implements OnInit {
         error => {
           this.loading = false;
         });
+  }
+
+  selectLanguage(language: any) {
+    this.selectedLanguage = language;
+    this.registerForm.controls['preferredLanguage'].setValue(this.selectedLanguage.name);
   }
 }

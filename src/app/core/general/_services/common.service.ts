@@ -128,14 +128,15 @@ export class CommonService {
       name: 'COMPETITION_REPORT',
       value: 'Competition Report'
     }
-    /*
-    , {
-      name: 'CATEGORIES',
-      value: 'Categories'
-    }
-     */
+      /*
+      , {
+        name: 'CATEGORIES',
+        value: 'Categories'
+      }
+       */
     ];
   }
+
   getVisitTypes() {
     return [{
       name: 'Select status',
@@ -150,12 +151,23 @@ export class CommonService {
       name: 'PHONE',
       value: 'PHONE'
     }
-    /*
-    , {
-      name: 'CATEGORIES',
-      value: 'Categories'
-    }
-     */
+      /*
+      , {
+        name: 'CATEGORIES',
+        value: 'Categories'
+      }
+       */
     ];
+  }
+
+  getLanguages() {
+    return [
+      {
+        name: 'tr',
+        value: 'Türkçe'
+      }, {
+        name: 'en',
+        value: 'English'
+      }];
   }
 }

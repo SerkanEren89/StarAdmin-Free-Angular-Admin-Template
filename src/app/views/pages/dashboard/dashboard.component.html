@@ -9,7 +9,7 @@
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
     <button type="button" class="btn btn-primary" (click)="openCompetitorModal(contentCompetition)">
-      Select Competitor
+      {{ 'DASHBOARD.COMPETITOR_SELECT' | translate }}
     </button>
   </div>
 </div>
@@ -26,7 +26,7 @@
             <p class="mb-0 text-right">{{commentCountRating.source}}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0">{{commentCountRating.rating}}</h3>
-              <p class="text-right mb-0">{{commentCountRating.commentCount}} Reviews</p>
+              <p class="text-right mb-0">{{commentCountRating.commentCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
     <span class="input-group-text text-primary title">
       <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg">
-      Popular Categories
+      {{ 'DASHBOARD.POPULAR_CATEGORIES' | translate }}
     </span>
   </div>
 </div>
@@ -57,7 +57,7 @@
             <p class="mb-0 text-right">{{categoryGroup.category.name}}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0">%{{categoryGroup.score}}</h3>
-              <p class="text-right mb-0">{{categoryGroup.totalMention}} Reviews</p>
+              <p class="text-right mb-0">{{categoryGroup.totalMention}} {{ 'DASHBOARD.POPULAR_CATEGORIES' | translate }}</p>
               <p class="text-right mb-0">
                 <span class="text-danger">
                 {{categoryGroup.negativeCount}}
@@ -86,7 +86,7 @@
     <!--weather card-->
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Rating</h2>
+        <h2 class="card-title text-primary mb-5">{{ 'GENERAL.RATING' | translate }}</h2>
         <app-line-chart [height]="400" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
       </div>
     </div>
@@ -95,7 +95,7 @@
   <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Review by channel</h2>
+        <h2 class="card-title text-primary mb-5">{{ 'DASHBOARD.REVIEW_BY_CHANNEL' | translate }}</h2>
         <app-pie-chart [pieChartData]="pieChartData" [pieChartLabels]="pieChartLabels"></app-pie-chart>
       </div>
     </div>
@@ -115,7 +115,7 @@
               <h3 class="font-weight-medium text-right mb-0 text-primary" *ngIf="responseRateModel.responseRate >= 90">{{responseRateModel.responseRate}}%</h3>
               <h3 class="font-weight-medium text-right mb-0 text-warning" *ngIf="responseRateModel.responseRate > 40 && responseRateModel.responseRate < 90">{{responseRateModel.responseRate}}%</h3>
               <h3 class="font-weight-medium text-right mb-0 text-danger" *ngIf="responseRateModel.responseRate <= 40">{{responseRateModel.responseRate}}%</h3>
-              <p class="text-right mb-0">Response rate</p>
+              <p class="text-right mb-0">{{ 'GENERAL.RESPONSE_RATE' | translate }}</p>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@
             <p class="mb-0 text-right">{{commentCountPeriod.label}}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0">{{commentCountPeriod.count}}</h3>
-              <p class="text-right mb-0">Reviews</p>
+              <p class="text-right mb-0">{{ 'GENERAL.REVIEWS' | translate }}</p>
             </div>
           </div>
         </div>
@@ -146,31 +146,31 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Last 10 Customer Reviews</h4>
+        <h4 class="card-title">{{ 'DASHBOARD.LAST_10' | translate }}</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #commentTable>
             <thead>
             <tr>
               <th style="width: 10%" *ngIf="competitorHotel == null">
-                Highlight
+                {{ 'DASHBOARD.HIGHLIGHT' | translate }}
               </th>
               <th style="width: 10%">
-                Reply
+                {{ 'GENERAL.REPLY' | translate }}
               </th>
               <th style="width: 40%">
-                Review
+                {{ 'GENERAL.REVIEW' | translate }}
               </th>
               <th style="width: 10%">
-                Channel
+                {{ 'GENERAL.CHANNEL' | translate }}
               </th>
               <th style="width: 15%">
-                Review Date
+                {{ 'GENERAL.REVIEW_DATE' | translate }}
               </th>
               <th style="width: 15%">
-                Rating
+                {{ 'GENERAL.RATING' | translate }}
               </th>
               <th style="width: 15%">
-                Actions
+                {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
             </thead>
@@ -183,7 +183,7 @@
               <td class="text star-container">
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
-                <span tooltip="Reply customer review">
+                <span tooltip="{{ 'GENERAL.REPLY_REVIEW' | translate }}">
                   <a (click)="openReplyModal(reply, comment)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
                 </span>
               </td>
@@ -225,10 +225,10 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <span tooltip="Assign Task">
+                <span tooltip="{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}">
                   <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
                 </span>
-                <span tooltip="Go to Source">
+                <span tooltip="{{ 'DASHBOARD.GO_TO_SOURCE' | translate }}">
                   <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
                 </span>
               </td>
@@ -236,7 +236,7 @@
             </tbody>
           </table>
           <div class="see-all-container">
-            <a class="see-all text-primary" routerLink="/inbox">See all reviews</a>
+            <a class="see-all text-primary" routerLink="/inbox">{{ 'DASHBOARD.SEE_ALL' | translate }}</a>
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@
 
 <ng-template #contentTask let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -256,7 +256,7 @@
       <div class="summary">
         <div class="detail-container">
           <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedComment.author}}</p>
+          <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
         <p class="title content-comment">{{selectedComment.content}}</p>
@@ -264,7 +264,7 @@
     </div>
     <form class="assignee-form">
       <div class="form-group">
-        <label>Assignee</label>
+        <label>{{ 'GENERAL.ASSIGNEE' | translate }}</label>
         <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -275,14 +275,14 @@
       </div>
       <div *ngIf="showAddEmployeeFlow" class="warning-body">
         <div class="warning-container ">
-          <p>The employee does not exist</p>
+          <p>{{ 'GENERAL.EMPLOYEE_NOT_EXIST' | translate }}</p>
           <p>
-            <a href="/employee" (click)="addNewEmployee()">Click to add new employee</a>
+            <a href="/employee" (click)="addNewEmployee()">{{ 'GENERAL.ADD_EMPLOYEE' | translate }}</a>
           </p>
         </div>
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label>{{ 'GENERAL.DESCRIPTION' | translate }}</label>
         <div class="input-group">
           <textarea id="description" type="text" class="form-control"
                     name="description" [(ngModel)]="task.description" rows="3"></textarea>
@@ -291,14 +291,14 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="assignTask(task)">Assign</button>
+    <button type="button" class="btn btn-primary" (click)="assignTask(task)">{{ 'GENERAL.ASSIGN' | translate }}</button>
   </div>
 </ng-template>
 
 
 <ng-template #contentReviewDetail let-modalReview>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-comment-detail">Review Detail</h4>
+    <h4 class="modal-title" id="modal-comment-detail">{{ 'DASHBOARD.REVIEW_DETAIL' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalReview.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -308,11 +308,11 @@
       <div class="summary">
         <div class="detail-container">
           <app-channel-icon [source]="selectedComment.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedComment.author}}</p>
+          <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedComment.author}}</p>
           <p class="written">{{selectedComment.commentDate  | date:'dd/MM/yyyy'}}</p>
           <a target="_blank" class="share-icon" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
             <i class="fa fa-share-alt"></i>
-            Share
+            {{ 'GENERAL.SHARE' | translate }}
           </a>
           <a target="_blank" class="share-icon" *ngIf="isMobile" href="whatsapp://send?text={{selectedComment.content}}" data-text="Take a look at this comment:">
             <i class="fa fa-share-alt action-button"></i>
@@ -321,11 +321,11 @@
         <p *ngIf="!selectedComment.content.includes(noReviewText)" class="content-comment">{{selectedComment.content}}</p>
         <p *ngIf="selectedComment.content.includes(noReviewText)" class="content-comment"><i>{{selectedComment.content}}</i></p>
         <div class="content-container" *ngIf="selectedComment.translatedText != null">
-          <p class="text-danger content-title">Translated Review: </p>
+          <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
           <p class="content-answer">{{selectedComment.translatedText}}</p>
         </div>
         <div class="content-container" *ngIf="selectedComment.answer != null">
-          <p class="text-danger content-title">Hotel's response:</p>
+          <p class="text-danger content-title">{{ 'GENERAL.HOTELS_RESPONSE' | translate }}:</p>
           <p class="content-answer">{{selectedComment.answer}}</p>
         </div>
       </div>
@@ -333,17 +333,17 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks"></i>Assign as Task</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>Translate</button>
-      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Important</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>Mark as Unimportant</button>
+      <button type="button" class="btn btn-primary" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks button-task"></i>{{ 'GENERAL.ASSIGN_AS_TASK' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>
     </div>
   </div>
 </ng-template>
 
 <ng-template #contentCompetition let-modalCompetiton>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-competition">Select Competitor</h4>
+    <h4 class="modal-title" id="modal-competition">{{ 'DASHBOARD.COMPETITOR_SELECT' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalCompetiton.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -365,7 +365,7 @@
       <div class="warning-container">
         <i class="fa fa-exclamation-triangle warning text-warning"></i>
         <p>
-          Please contact us to give your competition list.
+          {{ 'DASHBOARD.GIVE_COMPETITION_LIST' | translate }}
         </p>
       </div>
     </div>
@@ -373,7 +373,7 @@
   <div class="modal-footer">
     <div class="template-demo">
       <button type="button" class="btn btn-primary" (click)="changeHotel()" *ngIf="competitionList.length > 0">
-        Change Hotel
+        {{ 'DASHBOARD.CHANGE_HOTEL' | translate }}
       </button>
     </div>
   </div>
@@ -381,7 +381,7 @@
 
 <ng-template #reply let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Reply Customer Review</h4>
+    <h4 class="modal-title" id="modal-answer-title">{{ 'GENERAL.REPLY_REVIEW' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -399,7 +399,7 @@
     </form>
     <form class="reply-form" *ngIf="newTemplateFlow">
       <div class="form-group answer">
-        <label>Title</label>
+        <label>{{ 'GENERAL.TITLE' | translate }}</label>
         <div class="input-group">
           <input id="title" type="text" class="form-control" name="title"
                  [(ngModel)]="newTemplate.title"/>
@@ -407,22 +407,22 @@
       </div>
     </form>
     <div class="form-group answer">
-      <label>Your Response</label>
+      <label>{{ 'GENERAL.YOUR_RESPONSE' | translate }}</label>
       <div class="input-group">
           <textarea type="text" name="content" class="form-control response-editor" #inputTarget
-                    placeholder="Dear Guest,&#10;&#10;Your response will be here..." rows="12"
+                    placeholder="{{'GENERAL.REPLY_PLACEHOLDER' | translate}}" rows="12"
                     [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
+    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">{{ 'GENERAL.SAVE_AS_TEMPLATE' | translate }}</button>
     <button type="button" class="btn btn-primary"
-            tooltip="You will be redirected to the {{this.selectedItem.source}} where you can paste your response" placement="right"
+            tooltip="{{'GENERAL.REDIRECTION_EXP' | translate:{source: this.selectedItem.source} }}" placement="right"
             (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">
-      Copy & Go
+      {{ 'GENERAL.COPY_AND_GO' | translate }}
     </button>
-    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
-    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
+    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">{{ 'GENERAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">{{ 'GENERAL.SAVE_NEW_TEMPLATE' | translate }}</button>
   </div>
 </ng-template>

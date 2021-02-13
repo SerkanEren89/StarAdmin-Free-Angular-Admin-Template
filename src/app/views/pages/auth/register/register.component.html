@@ -1,42 +1,52 @@
 <div class="logo-container">
   <img src="assets/images/banner.png" class="logo" alt="logo" />
-  <p class="subtitle">Register to HotelUplift</p>
+  <p class="subtitle">{{ 'LOGIN.REGISTER_TITLE' | translate }}</p>
 </div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label>First Name</label>
+    <label>{{ 'LOGIN.FIRST_NAME' | translate }}</label>
     <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-      <div *ngIf="f.firstName.errors.required">First Name is required</div>
+      <div *ngIf="f.firstName.errors.required">{{ 'LOGIN.FIRST_NAME_REQUIRED' | translate }}</div>
     </div>
   </div>
   <div class="form-group">
-    <label>Last Name</label>
+    <label>{{ 'LOGIN.LAST_NAME' | translate }}</label>
     <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
     <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-      <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+      <div *ngIf="f.lastName.errors.required">{{ 'LOGIN.LAST_NAME_REQUIRED' | translate }}</div>
     </div>
   </div>
   <div class="form-group">
-    <label>Email</label>
+    <label>{{ 'LOGIN.EMAIL' | translate }}</label>
     <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-      <div *ngIf="f.email.errors.required">Email is required</div>
+      <div *ngIf="f.email.errors.required">{{ 'LOGIN.PASSWORD_REQUIRED' | translate }}</div>
     </div>
   </div>
   <div class="form-group">
-    <label>Password</label>
+    <label>{{ 'LOGIN.PASSWORD' | translate }}</label>
     <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-      <div *ngIf="f.password.errors.required">Password is required</div>
-      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+      <div *ngIf="f.password.errors.required">{{ 'LOGIN.PASSWORD_REQUIRED' | translate }}</div>
+      <div *ngIf="f.password.errors.minlength">{{ 'LOGIN.PASSWORD_MIN_LENGTH' | translate }}</div>
     </div>
   </div>
   <div class="form-group">
+    <label>{{ 'LOGIN.PREFERRED_LANGUAGE' | translate }}</label>
+    <div ngbDropdown container="body">
+      <button class="btn btn-outline-primary btn-sm language-container" type="button" ngbDropdownToggle>{{selectedLanguage.value}}</button>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem *ngFor="let language of languages"
+                (click)="selectLanguage(language)">{{language.value}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group submit-line">
     <button [disabled]="loading" class="btn btn-primary">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-      Register
+      {{ 'LOGIN.REGISTER' | translate }}
     </button>
-    <a routerLink="/login" class="btn btn-link">Cancel</a>
+    <button routerLink="/login" class="btn btn-danger register">{{ 'GENERAL.CANCEL' | translate }}</button>
   </div>
 </form>

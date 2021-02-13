@@ -2,12 +2,12 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <i class="menu-icon mdi mdi-notification-clear-all title-icon"></i>
-      Employees
+      {{ 'EMPLOYEE.TITLE' | translate }}
     </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
     <button type="button" class="btn btn-primary" (click)="addNew()"><i class="mdi mdi-plus"></i>
-      Add new employee
+      {{ 'EMPLOYEE.ADD_NEW' | translate }}
     </button>
   </div>
 </div>
@@ -21,19 +21,19 @@
             <thead>
             <tr>
               <th>
-                First Name
+                {{ 'EMPLOYEE.FIRST_NAME' | translate }}
               </th>
               <th>
-                Last Name
+                {{ 'EMPLOYEE.LAST_NAME' | translate }}
               </th>
               <th>
-                Phone number
+                {{ 'EMPLOYEE.PHONE_NUMBER' | translate }}
               </th>
               <th>
-                Email
+                {{ 'EMPLOYEE.PHONE_NUMBER' | translate }}
               </th>
               <th>
-                Actions
+                {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
             </thead>
@@ -70,7 +70,7 @@
 
 <ng-template #employeeModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">New Employee</h4>
+    <h4 class="modal-title" id="modal-answer-title">{{ 'EMPLOYEE.NEW_EMPLOYEE' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -78,21 +78,21 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label>First Name</label>
+        <label>{{ 'EMPLOYEE.FIRST_NAME' | translate }}</label>
         <div class="input-group">
           <input id="firstName" type="text" class="form-control" name="firstName"
                  [(ngModel)]="newEmployee.firstName"/>
         </div>
       </div>
       <div class="form-group">
-        <label>Last Name</label>
+        <label>{{ 'EMPLOYEE.LAST_NAME' | translate }}</label>
         <div class="input-group">
           <input id="lastName" type="text" class="form-control" name="lastName"
                  [(ngModel)]="newEmployee.lastName"/>
         </div>
       </div>
       <div class="form-group">
-        <label>Phone Number</label>
+        <label>{{ 'EMPLOYEE.PHONE_NUMBER' | translate }}</label>
         <div class="input-group">
           <input id="phoneNumber" type="phone" class="form-control" name="phoneNumber"
                  placeholder="905321234567"
@@ -100,7 +100,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Email</label>
+        <label>{{ 'EMPLOYEE.EMAIL' | translate }}</label>
         <div class="input-group">
           <input id="email" type="email" class="form-control" name="email"
                  [(ngModel)]="newEmployee.email"/>
@@ -110,13 +110,13 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save(newEmployee)">Save</button>
+    <button type="button" class="btn btn-primary" (click)="save(newEmployee)">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>
 
 <ng-template #delete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-excel-title">Delete Employee</h4>
+    <h4 class="modal-title" id="modal-excel-title">{{ 'EMPLOYEE.DELETE_EMPLOYEE' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -125,13 +125,13 @@
     <div class="warning-container">
       <i class="fa fa-exclamation-triangle warning text-warning"></i>
       <p>
-        Do you really want to delete this employee?
+        {{ 'EMPLOYEE.DELETE_EMPLOYEE_APPROVAL' | translate }}
       </p>
     </div>
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-warning" (click)="cancel()">Cancel</button>
-    <button type="button" class="btn btn-outline-danger" (click)="deleteEmployee()">Delete</button>
+    <button type="button" class="btn btn-outline-warning" (click)="cancel()">{{ 'GENERAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteEmployee()">{{ 'GENERAL.DELETE' | translate }}</button>
   </div>
 </ng-template>

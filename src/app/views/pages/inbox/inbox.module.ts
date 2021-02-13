@@ -16,7 +16,6 @@ export const MyDefaultTooltipOptions: TooltipOptions = {
 
 @NgModule({
   imports: [
-    CoreModule,
     CommonModule,
     NgbModule,
     RouterModule.forChild([

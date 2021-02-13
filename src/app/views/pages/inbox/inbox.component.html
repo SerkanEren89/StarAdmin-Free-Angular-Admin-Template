@@ -2,15 +2,15 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/review.svg">
-      Reviews
+      {{ 'REVIEW.TITLE' | translate }}
     </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
     <button type="button" class="btn btn-primary" (click)="open(excel)"><i class="mdi mdi-file-excel"></i>
-      Export to Excel
+      {{ 'REVIEW.EXPORT_TO_EXCEL' | translate }}
     </button>
     <button type="button" class="btn btn-primary" (click)="openFilterModal(filter)"><i class="mdi mdi-filter"></i>
-      Filter Reviews
+      {{ 'REVIEW.FILTER_REVIEW' | translate }}
     </button>
   </div>
 </div>
@@ -55,8 +55,8 @@
         <div *ngIf="selectedItem != null">
           <div>
             <p class="total-info text-primary">{{totalElements}}
-              <span *ngIf="totalElements > 1">reviews </span>
-              <span *ngIf="totalElements <= 1">review </span>
+              <span *ngIf="totalElements > 1">{{ 'GENERAL.REVIEWS' | translate }} </span>
+              <span *ngIf="totalElements <= 1">{{ 'GENERAL.REVIEW' | translate }} </span>
               showing in {{totalPages}} page
             </p>
           </div>
@@ -76,7 +76,7 @@
               <app-channel-icon class="icon" [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
-              <p class="written">Written By: {{selectedItem.author}}</p>
+              <p class="written">{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedItem.author}}</p>
               <span class="written"
                     *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
             </div>
@@ -94,15 +94,15 @@
               <div>
                 <a class="action-container" target="_blank" *ngIf="!isMobile" href="https://web.whatsapp.com/send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share-alt action-button"></i>
-                  Share
+                  {{ 'GENERAL.SHARE' | translate }}
                 </a>
                 <a class="action-container" target="_blank" *ngIf="isMobile" href="whatsapp://send?text={{selectedItem.content}}" data-text="Take a look at this comment:">
                   <i class="fa fa-share-alt action-button"></i>
-                  Share
+                  {{ 'GENERAL.SHARE' | translate }}
                 </a>
                 <a class="action-container" target="_blank" *ngIf="selectedItem.url != null" href={{selectedItem.url}}>
                   <i class="fa fa-link action-button"></i>
-                  Link
+                  {{ 'GENERAL.LINK' | translate }}
                 </a>
               </div>
             </div>
@@ -110,32 +110,32 @@
           <p *ngIf="!selectedItem.content.includes(noReviewText)" class="content" [innerHTML]=selectedItem.content></p>
           <p *ngIf="selectedItem.content.includes(noReviewText)"><i><span class="content" [innerHTML]=selectedItem.content></span></i></p>
           <div class="content-container" *ngIf="selectedItem.translatedText != null">
-            <p class="text-danger content-title">Translated Review: </p>
+            <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
             <p class="content-answer">{{selectedItem.translatedText}}</p>
           </div>
           <div class="content-container" *ngIf="selectedItem.answer != null">
-            <p class="text-danger content-title">Hotel's response:</p>
+            <p class="text-danger content-title">{{ 'GENERAL.HOTELS_RESPONSE' | translate }}:</p>
             <p class="content-answer">{{selectedItem.answer}}</p>
           </div>
           <div class="template-demo">
             <button type="button" class="btn btn-primary" *ngIf="selectedItem.translatedText == null" (click)="translate(selectedItem)"><i
-              class="mdi mdi-translate"></i>Translate
+              class="mdi mdi-translate"></i>{{ 'GENERAL.TRANSLATE' | translate }}
             </button>
             <button type="button" class="btn btn-primary" *ngIf="!selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
-              class="mdi mdi-star"></i>Mark as Important
+              class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}
             </button>
             <button type="button" class="btn btn-primary" *ngIf="selectedItem.starred" (click)="markAsStarred(selectedItem)"><i
-              class="mdi mdi-star"></i>Mark as Unimportant
+              class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}
             </button>
 
             <button type="button" class="btn btn-primary" (click)="openTaskModal(taskModal)"><i class="mdi mdi-file-document"></i>
-              Assign Task
+              {{ 'GENERAL.ASSIGN_AS_TASK' | translate }}
             </button>
 
             <button type="button" class="btn btn-primary"
                     *ngIf="selectedItem.url != null && selectedItem.content != noReviewText"
                     (click)="openReplyPopup(answer)"><i class="mdi mdi-reply-all"></i>
-              Reply
+              {{ 'GENERAL.REPLY' | translate }}
             </button>
           </div>
         </div>
@@ -147,7 +147,7 @@
 
 <ng-template #filter let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Filter Reviews</h4>
+    <h4 class="modal-title">{{ 'REVIEW.FILTER_REVIEW' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -155,7 +155,7 @@
   <div class="modal-body">
     <form class="assignee-form">
       <div class="form-group">
-        <label class="filter-title">Review Date</label>
+        <label class="filter-title">{{ 'GENERAL.REVIEW_DATE' | translate }}</label>
         <div class="input-group">
           <input type="text" matInput
                  ngxDaterangepickerMd
@@ -173,7 +173,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="filter-title">Rating</label>
+        <label class="filter-title">{{ 'GENERAL.RATING' | translate }}</label>
         <div class="input-group rating-filter">
           <div class="input-group rating-filter">
             <ngx-slider [(value)]="commentFilter.minRating" [(highValue)]="commentFilter.maxRating" [options]="options"></ngx-slider>
@@ -181,7 +181,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="filter-title">Traveler Type</label>
+        <label class="filter-title">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</label>
         <div class="input-group rating-filter">
           <div ngbDropdown container="body" *ngIf="travelerTypes.length > 0" class="title-container">
             <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedTravellerType.name}}</button>
@@ -193,7 +193,7 @@
       </div>
 
       <div class="form-group">
-        <label class="filter-title">Channel</label>
+        <label class="filter-title">{{ 'GENERAL.CHANNEL' | translate }}</label>
         <div class="input-group rating-filter">
           <div class="input-group rating-filter">
 
@@ -228,7 +228,7 @@
       </div>
 
       <div class="form-group">
-        <label class="filter-title">Starred</label>
+        <label class="filter-title">{{ 'GENERAL.HIGHLIGHTED' | translate }}</label>
         <div class="input-group rating-filter">
           <div class="input-group rating-filter">
             <label class="form-check-label">
@@ -242,8 +242,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">Clear</button>
-    <button type="button" class="btn btn-outline-dark" (click)="getFilteredReviews()">Filter</button>
+    <button type="button" class="btn btn-outline-danger" (click)="clearFilter()">{{ 'GENERAL.CLEAR' | translate }}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="getFilteredReviews()">{{ 'GENERAL.FILTER' | translate }}</button>
   </div>
 </ng-template>
 
@@ -251,7 +251,7 @@
 
 <ng-template #taskModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Assign new task</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -261,7 +261,7 @@
       <div class="summary">
         <div class="detail-container">
           <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
-          <p class="written" >Written By: {{selectedItem.author}}</p>
+          <p class="written" >{{ 'GENERAL.WRITTEN_BY' | translate }}: {{selectedItem.author}}</p>
           <p class="written">{{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</p>
         </div>
         <p class="title content-comment">{{selectedItem.content}}</p>
@@ -269,7 +269,7 @@
     </div>
     <form class="assignee-form">
       <div class="form-group">
-        <label>Assignee</label>
+        <label>{{ 'GENERAL.ASSIGNEE' | translate }}</label>
         <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -281,15 +281,15 @@
 
       <div *ngIf="showAddEmployeeFlow" class="warning-body">
         <div class="warning-container ">
-          <p>The employee does not exist</p>
+          <p>{{ 'GENERAL.EMPLOYEE_NOT_EXIST' | translate }}</p>
           <p>
-            <a href="/employee" (click)="addNewEmployee()">Click to add new employee</a>
+            <a href="/employee" (click)="addNewEmployee()">{{ 'GENERAL.ADD_EMPLOYEE' | translate }}</a>
           </p>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Description</label>
+        <label>{{ 'GENERAL.DESCRIPTION' | translate }}</label>
         <div class="input-group">
           <textarea id="description" type="text" class="form-control"
                     name="description" [(ngModel)]="task.description" rows="6"></textarea>
@@ -298,13 +298,13 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="assignTask(task)">Assign</button>
+    <button type="button" class="btn btn-outline-dark" (click)="assignTask(task)">{{ 'GENERAL.ASSIGN' | translate }}</button>
   </div>
 </ng-template>
 
 <ng-template #answer let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">Reply Customer Review</h4>
+    <h4 class="modal-title" id="modal-answer-title">{{ 'GENERAL.REPLY_REVIEW' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -322,7 +322,7 @@
     </form>
     <form class="reply-form" *ngIf="newTemplateFlow">
       <div class="form-group answer">
-        <label>Title</label>
+        <label>{{ 'GENERAL.TITLE' | translate }}</label>
         <div class="input-group">
           <input id="title" type="text" class="form-control" name="title"
                  [(ngModel)]="newTemplate.title"/>
@@ -330,29 +330,29 @@
       </div>
     </form>
     <div class="form-group answer">
-      <label>Reply Response</label>
+      <label>{{ 'GENERAL.YOUR_RESPONSE' | translate }}</label>
       <div class="input-group">
         <textarea type="text" name="content" class="form-control response-editor"
-                  placeholder="Dear Guest,&#10;&#10;Your response will be here..."
+                  placeholder="{{'GENERAL.REPLY_PLACEHOLDER' | translate}}"
                   #inputTarget rows="12" [(ngModel)]="selectedTemplate.content"></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">Save as Template</button>
+    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">{{ 'GENERAL.SAVE_AS_TEMPLATE' | translate }}</button>
     <button type="button" class="btn btn-primary"
-            tooltip="You will be redirected to the {{this.selectedItem.source}} where you can paste your response" placement="right"
+            tooltip="{{'GENERAL.REDIRECTION_EXP' | translate:{source: this.selectedItem.source} }}" placement="right"
             *ngIf="!newTemplateFlow" (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">
-      Copy & Go</button>
-    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">Cancel</button>
-    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">Save new Template</button>
+      {{ 'GENERAL.COPY_AND_GO' | translate }}</button>
+    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">{{ 'GENERAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">{{ 'GENERAL.SAVE_NEW_TEMPLATE' | translate }}</button>
   </div>
 </ng-template>
 
 
 <ng-template #excel let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-excel-title">Export to Excel</h4>
+    <h4 class="modal-title" id="modal-excel-title">{{ 'REVIEW.EXPORT_TO_EXCEL' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -365,8 +365,8 @@
         Click Export button to continue.
       </p>
       <p *ngIf="shouldFilterResult()">
-        Results will be exported according to filter you applied. You have {{totalElements}} in total.<br><br>
-        Click Export button to continue.
+        {{'REVIEW.FILTER_COUNT' | translate:{totalElements: totalElements} }}.<br><br>
+        {{ 'REVIEW.CONTINUE_EXPORT' | translate }}
       </p>
     </div>
 

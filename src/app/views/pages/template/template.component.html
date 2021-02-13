@@ -1,7 +1,9 @@
 <div class="row title-container">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
-      <i class="far fa-file title-icon"></i>Templates</span>
+      <i class="far fa-file title-icon"></i>
+      {{ 'TEMPLATE.TITLE' | translate }}
+    </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
 
@@ -9,7 +11,7 @@
 </div>
 
 <ngb-tabset>
-  <ngb-tab title="Response Template">
+  <ngb-tab title="{{ 'TEMPLATE.RESPONSE_TEMPLATE' | translate }}">
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body">
@@ -19,7 +21,7 @@
               <button ngbDropdownItem *ngFor="let template of templates" (click)="selectResponseTemplate(template)">{{template.title}}</button>
             </div>
             <button type="button" class="btn btn-primary add-new" (click)="addNew()"><i class="mdi mdi-plus"></i>
-              Add new
+              {{ 'TEMPLATE.ADD_NEW' | translate }}
             </button>
           </div>
           <div class="row title-container">
@@ -41,16 +43,16 @@
                 </quill-editor>
               </div>
               <button type="button" class="btn btn-primary template-button" (click)="save(selectedResponseTemplate)">
-                Update
+                {{ 'GENERAL.UPDATE' | translate }}
               </button>
               <button type="button" class="btn btn-danger template-button" (click)="openDeletePopup(delete, selectedResponseTemplate)">
-                Delete
+                {{ 'GENERAL.DELETE' | translate }}
               </button>
             </div>
             <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body pagination-container" *ngIf="tags.length > 0">
-                  <p class="insert-text">Click to insert these dynamic elements. For example --guest-fist-name-- will mean that the name of the guest will appear.</p>
+                  <p class="insert-text">{{ 'TEMPLATE.ADD_TAG_INFO' | translate }}</p>
                   <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertResponseTemplateText(tag.name)">
                     {{tag.name}}
                   </button>
@@ -62,7 +64,7 @@
       </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Mail Template">
+  <ngb-tab title="{{ 'TEMPLATE.MAIL_TEMPLATE' | translate }}">
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body padding-0">
@@ -93,7 +95,7 @@
             <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body pagination-container">
-                  <h4 class="card-title">Tags</h4>
+                  <h4 class="card-title">{{ 'TEMPLATE.TAGS' | translate }}</h4>
                   <button type="button" class="btn btn-danger tag" *ngFor="let tag of tags" (click)="onInsertText(tag.name)">
                     {{tag.name}}
                   </button>
@@ -109,7 +111,7 @@
 
 <ng-template #delete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-excel-title">Delete Template</h4>
+    <h4 class="modal-title" id="modal-excel-title">{{ 'TEMPLATE.DELETE_TEMPLATE' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -118,13 +120,13 @@
     <div class="warning-container">
       <i class="fa fa-exclamation-triangle warning text-warning"></i>
       <p>
-        Do you really want to delete this template?
+        {{ 'TEMPLATE.DELETE_TEMPLATE_APPROVAL' | translate }}?
       </p>
     </div>
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-warning" (click)="cancel()">Cancel</button>
-    <button type="button" class="btn btn-outline-danger" (click)="deleteTemplate()">Delete</button>
+    <button type="button" class="btn btn-outline-warning" (click)="cancel()">{{ 'GENERAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteTemplate()">{{ 'GENERAL.DELETE' | translate }}</button>
   </div>
 </ng-template>

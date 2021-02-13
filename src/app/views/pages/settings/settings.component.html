@@ -1,0 +1,29 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+      <i class="fa fa-tools title-icon"></i>
+      {{ 'SETTINGS.TITLE' | translate }}
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label>{{ 'LOGIN.PREFERRED_LANGUAGE' | translate }}</label>
+            <div ngbDropdown container="body">
+              <button class="btn btn-outline-primary btn-sm language-container" type="button" ngbDropdownToggle>{{selectedLanguage.value}}</button>
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem *ngFor="let language of languages"
+                        (click)="selectLanguage(language)">{{language.value}}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

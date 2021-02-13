@@ -2,7 +2,7 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/popularity.svg">
-      Hotel Stats
+      {{ 'STATS.TITLE' | translate }}
     </span>
   </div>
 </div>
@@ -10,16 +10,16 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="graph-title text-primary">Review Score</p>
+        <p class="graph-title text-primary">{{ 'GENERAL.REVIEW_SCORE' | translate }}</p>
         <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
-        <p class="graph-title text-primary">Review Count</p>
+        <p class="graph-title text-primary">{{ 'GENERAL.REVIEW_COUNT' | translate }}</p>
         <app-bar-chart [height]="height" [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>
         <div class="right">
           <div (click)="changeInterval(1)" class="arrow-container text-primary">
-            <i class="fa fa-arrow-left space" ></i> <span>Previous</span>
+            <i class="fa fa-arrow-left space" ></i> <span>{{ 'GENERAL.PREVIOUS' | translate }}</span>
           </div>
           <div (click)="changeInterval(-1)" *ngIf="interval > 0" class="arrow-container text-primary">
-            <span>Next</span> <i class="fa fa-arrow-right space" ></i>
+            <span>{{ 'GENERAL.NEXT' | translate }}</span> <i class="fa fa-arrow-right space" ></i>
           </div>
         </div>
       </div>
@@ -30,22 +30,22 @@
   <div class="col-lg-7 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4 text-primary">Traveler Type</h5>
+        <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #travelTypeTable>
             <thead>
             <tr>
               <th>
-                Traveler Type
+                {{ 'GENERAL.TRAVELER_TYPE' | translate }}
               </th>
               <th>
                 <span class="fa-pull-right">
-                  Count
+                  {{ 'GENERAL.COUNT' | translate }}
                 </span>
               </th>
               <th>
                 <span class="fa-pull-right">
-                Rating
+                {{ 'GENERAL.RATING' | translate }}
                 </span>
               </th>
               <th>
@@ -87,29 +87,29 @@
   <div class="col-lg-5 grid-margin stretch-card performance">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title text-primary mb-5">Popularity History</h2>
+        <h2 class="card-title text-primary mb-5">{{ 'STATS.POPULARITY_HISTORY' | translate }}</h2>
         <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-3">Current month</p>
-            <p class="display-3 mb-4 font-weight-light topic">{{monthlyComments.currentMonthCount}} comments</p>
+            <p class="mb-3">{{ 'STATS.CURRENT_MONTH' | translate }}</p>
+            <p class="display-3 mb-4 font-weight-light topic">{{monthlyComments.currentMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
           </div>
         </div>
         <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-3">Last month</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.lastMonthCount}} comments</p>
+            <p class="mb-3">{{ 'STATS.LAST_MONTH' | translate }}</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.lastMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
           </div>
           <div class="side-right average-item">
-            <small class="rating">{{monthlyComments.lastMonthAverage}} daily average</small>
+            <small class="rating">{{monthlyComments.lastMonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
           </div>
         </div>
         <div class="wrapper d-flex justify-content-between summary-item">
           <div class="side-left">
-            <p class="mb-3">Last 6 months</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last6MonthCount}} comments</p>
+            <p class="mb-3">{{ 'STATS.LAST_6_MONTH' | translate }}</p>
+            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last6MonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
           </div>
           <div class="side-right average-item">
-            <small class="rating">{{monthlyComments.last6MonthAverage}} daily average</small>
+            <small class="rating">{{monthlyComments.last6MonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
           </div>
         </div>
       </div>
@@ -120,22 +120,22 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title mb-4 text-primary">Language</h5>
+        <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.LANGUAGE' | translate }}</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #languageTable>
             <thead>
             <tr>
               <th>
-                Language
+                {{ 'GENERAL.LANGUAGE' | translate }}
               </th>
               <th>
                 <span class="fa-pull-right">
-                Count
+                {{ 'GENERAL.COUNT' | translate }}
                 </span>
               </th>
               <th>
                 <span class="fa-pull-right">
-                Rating
+                {{ 'GENERAL.RATING' | translate }}
                 </span>
               </th>
               <th>

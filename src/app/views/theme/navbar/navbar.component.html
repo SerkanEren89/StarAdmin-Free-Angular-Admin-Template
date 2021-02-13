@@ -52,16 +52,19 @@
             </div>
           </a>
           <a class="dropdown-item mt-2" routerLink="/change-password">
-            Change Password
+            {{ 'SUBMENU.CHANGE_PASSWORD' | translate }}
           </a>
           <a class="dropdown-item" routerLink="/employee">
-            Employees
+            {{ 'SUBMENU.EMPLOYEES' | translate }}
           </a>
           <a class="dropdown-item" routerLink="/template">
-            Templates
+            {{ 'SUBMENU.TEMPLATES' | translate }}
+          </a>
+          <a class="dropdown-item" routerLink="/settings">
+            {{ 'SUBMENU.SETTINGS' | translate }}
           </a>
           <a class="dropdown-item" (click)="signOut()">
-            Sign Out
+            {{ 'SUBMENU.SIGN_OUT' | translate }}
           </a>
         </div>
       </li>

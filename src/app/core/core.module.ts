@@ -7,6 +7,7 @@ import {FlagIconComponent} from './general/flag-icon/flag-icon.component';
 import {BarChartComponent} from './bar-chart/bar-chart.component';
 import {ChannelIconComponent} from './channel-icon/channel-icon.component';
 import {CategoryIconComponent} from './category-icon/category-icon.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {CategoryIconComponent} from './category-icon/category-icon.component';
     ChannelIconComponent,
     CategoryIconComponent,
     BarChartComponent,
-    FlagIconComponent
+    FlagIconComponent,
+    TranslateModule
   ],
   providers: []
 })

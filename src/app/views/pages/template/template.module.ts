@@ -18,7 +18,8 @@ import {TemplateAddComponent} from './add/template-add.component';
       {
         path: '',
         component: TemplateComponent
-      },{
+      },
+      {
         path: 'add',
         component: TemplateAddComponent
       }

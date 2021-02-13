@@ -27,6 +27,7 @@ import {AppSettings} from '../../../core/consts/AppSettings';
 import {CommonService} from '../../../core/general/_services/common.service';
 import {UserModel} from '../../../core/auth/_models/user.model';
 import {AuthService} from '../../../core/auth/_service/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inbox',
@@ -79,7 +80,8 @@ export class InboxComponent implements OnInit {
               private toastr: ToastrService,
               private deviceService: DeviceDetectorService,
               private commonService: CommonService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -310,7 +312,10 @@ export class InboxComponent implements OnInit {
 
   openReplyPopup(answer: TemplateRef<any>) {
     this.selectedTemplate = new TemplateModel();
-    this.selectedTemplate.title = 'Select template';
+    this.translateService.get('GENERAL.SELECT_TEMPLATE')
+      .subscribe(title => {
+        this.selectedTemplate.title = title;
+      });
     this.newTemplate = new TemplateModel();
     this.modalService.open(answer, {keyboard: false, backdrop: 'static',
       size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {

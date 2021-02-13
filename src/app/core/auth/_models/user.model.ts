@@ -9,4 +9,5 @@ export class UserModel {
   hotelId: number;
   lastLogin: Date;
   previousLogin: Date;
+  preferredLanguage: string;
 }

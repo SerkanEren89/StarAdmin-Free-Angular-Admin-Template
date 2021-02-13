@@ -2,7 +2,7 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
       <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/competition.svg">
-      Competition
+      {{ 'COMPETITION.TITLE' | translate }}
     </span>
   </div>
 </div>
@@ -14,7 +14,7 @@
           <div class="card-body">
             <i class="fa fa-exclamation-triangle warning text-warning"></i>
             <p>
-              Please contact us to give your competition list.
+              {{ 'COMPETITION.NO_LIST' | translate }}
             </p>
           </div>
         </div>
@@ -24,18 +24,18 @@
 </div>
 
 <ngb-tabset>
-  <ngb-tab title="Basic">
+  <ngb-tab title="{{ 'COMPETITION.BASIC' | translate }}">
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i>  Rating & Pricing</h5>
+          <h5 class="card-title mb-4"><i class="fa fa-money-bill"></i>  {{ 'COMPETITION.RATING_PRICING' | translate }}</h5>
           <div class="table-responsive" *ngIf="competitionCountRatingList != null">
             <table class="table table-bordered" #pricingTable>
               <thead>
               <tr>
                 <th class="single">#</th>
                 <th class="double">
-                  Hotel
+                  {{ 'GENERAL.HOTEL' | translate }}
                 </th>
                 <th class="single small-padding">
                  <span class="fa-pull-right">
@@ -59,7 +59,7 @@
                 </th>
                 <th class="single small-padding">
                 <span class="fa-pull-right">
-                  Price
+                  {{ 'COMPETITION.PRICE' | translate }}
                 </span>
                 </th>
               </tr>
@@ -98,11 +98,11 @@
     </ng-template>
   </ngb-tab>
   <ngb-tab>
-    <ng-template ngbTabTitle>Detail</ng-template>
+    <ng-template ngbTabTitle>{{ 'GENERAL.DETAIL' | translate }}</ng-template>
     <ng-template ngbTabContent>
       <div class="card">
         <div class="card-body" *ngIf="lineChartData.length > 0">
-          <h5 class="card-title mb-4"><i class="fa fa-chart-line"></i>  Monthly Ratings</h5>
+          <h5 class="card-title mb-4"><i class="fa fa-chart-line"></i>  {{ 'COMPETITION.MOTHLY_RATING' | translate }}</h5>
           <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
         </div>
       </div>
@@ -189,7 +189,7 @@
           <span *ngIf="selectedCategory.category.name.toLowerCase().includes('carpark')">
             <i class="fa fa-car category-icon"></i>
           </span>
-          Ranking List for {{selectedCategory.category.name}}
+          {{'COMPETITION.RANKING_LIST' | translate:{category: selectedCategory.category.name} }}
         </h5>
         <div class="table-responsive">
           <table class="table table-bordered" #rankingTable>
@@ -198,32 +198,32 @@
               <th class="small">#</th>
               <th class="single small">
                 <span>
-                Hotel name
+                {{ 'GENERAL.HOTEL_NAME' | translate }}
                 </span>
               </th>
               <th class="single small">
                 <span class="fa-pull-right">
-                Positive
+                {{ 'GENERAL.POSITIVE' | translate }}
                 </span>
               </th>
               <th class="single small">
                 <span class="fa-pull-right">
-                Neutral
+                {{ 'GENERAL.NEUTRAL' | translate }}
                 </span>
               </th>
               <th class="single small">
                 <span class="fa-pull-right">
-                Negative
+                {{ 'GENERAL.NEGATIVE' | translate }}
                 </span>
               </th>
               <th class="single small">
                 <span class="fa-pull-right">
-                  Total
+                  {{ 'GENERAL.TOTAL' | translate }}
                 </span>
               </th>
               <th class="single small">
                 <span class="fa-pull-right">
-                Score
+                {{ 'GENERAL.SCORE' | translate }}
                   </span>
               </th>
             </tr>
@@ -269,33 +269,33 @@
       <div class="card-body">
         <h5 class="card-title mb-4">
           <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/review.svg" >
-          Reviews & Response</h5>
+          {{ 'GENERAL.REVIEW_RESPONSE' | translate }}</h5>
         <div class="table-responsive">
           <table class="table table-bordered" #competitionTable>
             <thead>
             <tr>
               <th class="single">#</th>
               <th class="double">
-                Hotel
+                {{ 'GENERAL.HOTEL' | translate }}
               </th>
               <th class="single small-padding">
                 <span class="fa-pull-right">
-                  Response rate
+                  {{ 'GENERAL.RESPONSE_RATE' | translate }}
                 </span>
               </th>
               <th class="single small-padding">
                 <span class="fa-pull-right">
-                  Last Week
+                  {{ 'GENERAL.LAST_WEEK' | translate }}
                 </span>
               </th>
               <th class="single small-padding">
                 <span class="fa-pull-right">
-                  Last Month
+                  {{ 'GENERAL.LAST_MONTH' | translate }}
                 </span>
               </th>
               <th class="single small-padding">
                 <span class="fa-pull-right">
-                  Last 3 Months
+                  {{ 'GENERAL.LAST_3_MONTH' | translate }}
                 </span>
               </th>
 
@@ -318,22 +318,22 @@
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastWeekCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;Rev.</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;Rev.</span>
+                        *ngIf="competitionCountRating.lastWeekCount == 0 || competitionCountRating.lastWeekCount == 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastWeekCount > 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.lastMonthCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;Rev.</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;Rev.</span>
+                        *ngIf="competitionCountRating.lastMonthCount == 0 || competitionCountRating.lastMonthCount == 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.lastMonthCount > 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
                 </span>
               </td>
               <td>
                 <span class="fa-pull-right">{{competitionCountRating.last3MonthsCount}}
                   <span class="fa-pull-right"
-                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;Rev.</span>
-                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;Rev.</span>
+                        *ngIf="competitionCountRating.last3MonthsCount == 0 || competitionCountRating.last3MonthsCount == 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
+                  <span class="fa-pull-right" *ngIf="competitionCountRating.last3MonthsCount > 1">&nbsp;{{ 'GENERAL.REV_SHORT' | translate }}.</span>
                 </span>
               </td>
             </tr>

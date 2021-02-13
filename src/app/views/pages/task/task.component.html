@@ -2,15 +2,15 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/task.svg">
-    Task
+      {{ 'TASK.TITLE' | translate }}
     </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
     <button type="button" class="btn btn-primary" (click)="openTaskModal(newTaskModal)"><i class="mdi mdi-plus"></i>
-      Create Task
+      {{ 'TASK.CREATE_TASK' | translate }}
     </button>
     <button type="button" class="btn btn-primary" (click)="openTaskModal(filterModal)"><i class="mdi mdi-filter"></i>
-      Filter Tasks
+      {{ 'TASK.FILTER_TASK' | translate }}
     </button>
   </div>
 </div>
@@ -24,10 +24,11 @@
             <i class="fa fa-check category-icon text-success"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Closed</p>
+            <p class="mb-0 text-right">{{ 'TASK.CLOSED' | translate }}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0 text-success">{{taskStats.finished}}</h3>
-              <p class="text-right mb-0">Task</p>
+              <p class="text-right mb-0" *ngIf="taskStats.finished > 0">{{ 'TASK.TASKS' | translate }}</p>
+              <p class="text-right mb-0" *ngIf="taskStats.finished == 0">{{ 'TASK.TASK' | translate }}</p>
             </div>
           </div>
         </div>
@@ -42,10 +43,11 @@
             <i class="fa fa-clock category-icon text-warning"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Pending</p>
+            <p class="mb-0 text-right">{{ 'TASK.PENDING' | translate }}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0 text-warning">{{taskStats.pending}}</h3>
-              <p class="text-right mb-0">Task</p>
+              <p class="text-right mb-0" *ngIf="taskStats.pending > 0">{{ 'TASK.TASKS' | translate }}</p>
+              <p class="text-right mb-0" *ngIf="taskStats.pending == 0">{{ 'TASK.TASK' | translate }}</p>
             </div>
           </div>
         </div>
@@ -60,10 +62,11 @@
             <i class="fa fa-hourglass-end category-icon text-danger"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Reminded</p>
+            <p class="mb-0 text-right">{{ 'TASK.REMINDER' | translate }}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0 text-danger">{{taskStats.reminder}}</h3>
-              <p class="text-right mb-0">Task</p>
+              <p class="text-right mb-0" *ngIf="taskStats.reminder > 0">{{ 'TASK.TASKS' | translate }}</p>
+              <p class="text-right mb-0" *ngIf="taskStats.reminder == 0">{{ 'TASK.TASK' | translate }}</p>
             </div>
           </div>
         </div>
@@ -78,7 +81,7 @@
             <i class="fa fa-percentage category-icon"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Progress Rate</p>
+            <p class="mb-0 text-right">{{ 'TASK.PROGRESS_RATE' | translate }}</p>
             <div class="fluid-container">
               <h3 class="font-weight-medium text-right mb-0 text-success" *ngIf="taskStats.successRate > 70">{{taskStats.successRate}}</h3>
               <h3 class="font-weight-medium text-right mb-0 text-warning" *ngIf="taskStats.successRate >= 50 && taskStats.successRate <= 70">{{taskStats.successRate}}</h3>
@@ -102,7 +105,8 @@
           </div>
           <div class="float-count">
             <h3 class="text-right mb-0">{{employee.taskCount}}</h3>
-            <p class="text-right mb-0">Task</p>
+            <p class="text-right mb-0" *ngIf="employee.taskCount == 0">{{ 'TASK.TASK' | translate }}</p>
+            <p class="text-right mb-0" *ngIf="employee.taskCount > 0">{{ 'TASK.TASKS' | translate }}</p>
           </div>
         </div>
       </div>
@@ -116,7 +120,7 @@
             <p class="category-icon">{{taskStats.total}}</p>
           </div>
           <div class="float-right">
-            <p class="text-right mb-0">Total</p>
+            <p class="text-right mb-0">{{ 'GENERAL.TOTAL' | translate }}</p>
           </div>
         </div>
       </div>
@@ -128,28 +132,28 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Tasks</h4>
+        <h4 class="card-title">{{ 'TASK.TASK_PLURAL' | translate }}</h4>
         <div class="table-responsive">
           <table class="table table-bordered" #taskTable>
             <thead>
             <tr>
               <th>
-                Assigned
+                {{ 'GENERAL.ASSIGNED' | translate }}
               </th>
               <th style="width: 15%">
-                Status
+                {{ 'GENERAL.STATUS' | translate }}
               </th>
               <th style="width: 30%">
-                Review
+                {{ 'GENERAL.REVIEW' | translate }}
               </th>
               <th style="width: 15%">
-                Note
+                {{ 'TASK.NOTE' | translate }}
               </th>
               <th style="width: 15%">
-                Result Note
+                {{ 'TASK.RESULT_NOTE' | translate }}
               </th>
               <th style="width: 15%">
-                Result Status
+                {{ 'TASK.RESULT_STATUS' | translate }}
               </th>
             </tr>
             </thead>
@@ -164,7 +168,7 @@
                 <i class="fa fa-clock table-icon text-warning" *ngIf="task.taskStatus == 'PENDING'"></i>
                 <i class="fa fa-check table-icon text-success" *ngIf="task.taskStatus == 'CLOSED'"></i>
                 <i class="fa fa-hourglass-end table-icon text-danger" *ngIf="task.taskStatus == 'REMINDER'"></i>
-                <span *ngIf="task.days > 0" class="interval-text">{{task.days}} days ago</span>
+                <span *ngIf="task.days > 0" class="interval-text">{{task.days}} {{ 'GENERAL.DAYS_AGO' | translate }}</span>
               </td>
               <td class="text comment"
                   (click)="openDetailPopup(task, contentTaskDetail)"
@@ -190,10 +194,10 @@
               </td>
               <td class="comment"
                   (click)="openDetailPopup(task, contentTaskDetail)">
-                <span class="text-success" *ngIf="task.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
-                <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> Cannot be completed</span>
-                <span class="text-success" *ngIf="task.resultStatus == 'PARTIALLYCOMPLETED'"> Partially completed</span>
-                <span class="text-warning" *ngIf="task.resultStatus == 'NOTTECHNICALLYPOSSIBLE'"> Not technically possible</span>
+                <span class="text-success" *ngIf="task.resultStatus == 'SUCCESSFULLYCOMPLETED'"> {{ 'TASK.SUCCESSFULLY_COMPLETED' | translate }}</span>
+                <span class="text-danger" *ngIf="task.resultStatus == 'CANNOTBECOMPLETED'"> {{ 'TASK.CAN_NOT_BE_COMPLETED' | translate }}</span>
+                <span class="text-success" *ngIf="task.resultStatus == 'PARTIALLYCOMPLETED'"> {{ 'TASK.PARTIALLY_COMPLETED' | translate }}</span>
+                <span class="text-warning" *ngIf="task.resultStatus == 'NOTTECHNICALLYPOSSIBLE'"> {{ 'TASK.NOT_TECHNICALLY_POSSIBLE' | translate }}</span>
               </td>
             </tr>
             </tbody>
@@ -214,7 +218,7 @@
     <div class="card">
       <div class="card-body">
         <div class="table-responsive empty-text">
-          <i class="fa fa-exclamation-triangle icon-md text-danger"></i> You didn't create any task yet
+          <i class="fa fa-exclamation-triangle icon-md text-danger"></i> {{ 'TASK.NO_TASK' | translate }}
         </div>
       </div>
     </div>
@@ -223,7 +227,7 @@
 
 <ng-template #contentTaskDetail let-modalReview>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-comment-detail">Assigned Task</h4>
+    <h4 class="modal-title" id="modal-comment-detail">{{ 'TASK.ASSIGNED_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalReview.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -233,22 +237,23 @@
       <div class="summary">
         <div class="assignee-container">
           <div class="detail-container status">
-            <p class="written">Created at: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}</p>
-            <p class="author">Assigned
+            <p class="written">{{ 'GENERAL.CREATED_AT' | translate }}: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}</p>
+            <p class="author">{{ 'GENERAL.ASSIGNED' | translate }}
               to: {{selectedTask.employee.firstName }} {{selectedTask.employee.lastName }}</p>
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
               <p class="written finished" *ngIf="selectedTask.endDate != null">
-                Closed: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}
+                {{ 'GENERAL.CLOSED' | translate }}: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}
                 <i class="fa fa-check-circle"></i>
               </p>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
               <p class="written author task-result">
-                <span class="text-success" *ngIf="selectedTask.resultStatus == 'SUCCESSFULLYCOMPLETED'"> Successfully completed</span>
-                <span class="text-danger" *ngIf="selectedTask.resultStatus == 'CANNOTBECOMPLETED'"> Cannot be completed</span>
-                <span class="text-warning" *ngIf="selectedTask.resultStatus == 'WILLBECONSIDEREDLATER'"> Will be considered later</span>
+                <span class="text-success" *ngIf="selectedTask.resultStatus == 'SUCCESSFULLYCOMPLETED'"> {{ 'TASK.SUCCESSFULLY_COMPLETED' | translate }}</span>
+                <span class="text-danger" *ngIf="selectedTask.resultStatus == 'CANNOTBECOMPLETED'"> {{ 'TASK.CAN_NOT_BE_COMPLETED' | translate }}</span>
+                <span class="text-success" *ngIf="selectedTask.resultStatus == 'PARTIALLYCOMPLETED'"> {{ 'TASK.PARTIALLY_COMPLETED' | translate }}</span>
+                <span class="text-warning" *ngIf="selectedTask.resultStatus == 'NOTTECHNICALLYPOSSIBLE'"> {{ 'TASK.NOT_TECHNICALLY_POSSIBLE' | translate }}</span>
               </p>
             </div>
           </div>
@@ -263,15 +268,15 @@
         </div>
         <p class="content-comment" *ngIf="selectedTask.comment != null">{{selectedTask.comment.content}}</p>
         <div class="content-container" *ngIf="selectedTask.comment != null && selectedTask.comment.translatedText != null">
-          <p class="text-danger content-title">Translated Review: </p>
+          <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
         </div>
         <div class="content-container" *ngIf="selectedTask.description != null">
-          <p class="text-danger content-title">Note from {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
+          <p class="text-danger content-title">{{ 'TASK.NOTE_FROM' | translate }}: {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
           <p class="content-answer">{{selectedTask.description}}</p>
         </div>
         <div class="content-container" *ngIf="selectedTask.resultNote != null">
-          <p class="text-danger content-title">Closing Note: </p>
+          <p class="text-danger content-title">{{ 'TASK.RESULT_NOTE' | translate }}: </p>
           <p class="content-answer">{{selectedTask.resultNote}}</p>
         </div>
       </div>
@@ -280,8 +285,8 @@
       <div class="summary">
         <div class="assignee-container">
           <div class="detail-container status">
-            <p class="written">Created at: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}</p>
-            <p class="author">Assigned
+            <p class="written">{{ 'GENERAL.CREATED_AT' | translate }}: {{selectedTask.creationDate  | date:'dd/MM/yyyy'}}</p>
+            <p class="author">{{ 'GENERAL.ASSIGNED' | translate }}
               to: {{selectedTask.employee.firstName }} {{selectedTask.employee.lastName }}</p>
           </div>
         </div>
@@ -297,14 +302,14 @@
         </div>
         <p class="content-comment" *ngIf="selectedTask.comment != null">{{selectedTask.comment.content}}</p>
         <div class="content-container" *ngIf="selectedTask.comment != null && selectedTask.comment.translatedText != null">
-          <p class="text-danger content-title">Translated Review: </p>
+          <p class="text-danger content-title">{{ 'GENERAL.TRANSLATED_REVIEW' | translate }}: </p>
           <p class="content-answer">{{selectedTask.comment.translatedText}}</p>
         </div>
         <div class="content-container" *ngIf="selectedTask.description != null">
-          <p class="text-danger content-title">Note from {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
+          <p class="text-danger content-title">{{ 'TASK.NOTE_FROM' | translate }}: {{selectedTask.creator.firstName}} {{selectedTask.creator.lastName}}:  </p>
           <p class="content-answer">{{selectedTask.description}}</p>
         </div>
-        <p>Which channel do you prefer to send reminder message? </p>
+        <p>{{ 'TASK.REMINDER_CHANNEL' | translate }}? </p>
         <div *ngIf="selectedTask.employee.phoneNumber != null">
           <input type="checkbox"
                  [checked]="remindWhatsapp"
@@ -328,7 +333,7 @@
 
 <ng-template #filterModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Filter Status</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ 'TASK.FILTER_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -336,7 +341,7 @@
   <div class="modal-body">
     <form class="assignee-form">
       <div class="form-group">
-        <label>Employee</label>
+        <label>{{ 'GENERAL.EMPLOYEE' | translate }}</label>
         <div class="input-group task-input">
           <input id="assignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -347,7 +352,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Status</label>
+        <label>{{ 'GENERAL.STATUS' | translate }}</label>
         <div class="input-group">
           <label class="form-check-label" *ngFor="let status of statuses; let i = index;">
             <input type="checkbox" value="{{status}}" class="status"
@@ -359,14 +364,14 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="clearFilter()">Clear</button>
-    <button type="button" class="btn btn-primary" (click)="getFilteredTasks()">Filter</button>
+    <button type="button" class="btn btn-danger" (click)="clearFilter()">{{ 'GENERAL.CLEAR' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="getFilteredTasks()">{{ 'GENERAL.FILTER' | translate }}</button>
   </div>
 </ng-template>
 
 <ng-template #newTaskModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-create-task">Create New Task</h4>
+    <h4 class="modal-title" id="modal-create-task">{{ 'TASK.CREATE_TASK' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -374,7 +379,7 @@
   <div class="modal-body">
     <form class="assignee-form">
       <div class="form-group">
-        <label>Employee</label>
+        <label>{{ 'GENERAL.EMPLOYEE' | translate }}</label>
         <div class="input-group task-input">
           <input id="newAssignee" type="text" class="form-control" name="assignee"
                  [resultFormatter]="resultFormatter"
@@ -385,15 +390,15 @@
         </div>
       </div>
       <div class="form-group answer">
-        <label>Note</label>
+        <label>{{ 'TASK.NOTE' | translate }}</label>
         <div class="input-group">
           <textarea type="text" name="content" class="form-control" #inputTarget
-                    placeholder="Add your task content here" rows="12" [(ngModel)]="newTask.description"></textarea>
+                    placeholder="{{'TASK.ADD_TASK_PLACEHOLDER' | translate}}" rows="12" [(ngModel)]="newTask.description"></textarea>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="createTask()">Create</button>
+    <button type="button" class="btn btn-primary" (click)="createTask()">{{ 'TASK.CREATE_TASK' | translate }}</button>
   </div>
 </ng-template>

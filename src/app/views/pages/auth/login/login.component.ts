@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
+import {TranslationService} from '../../../../core/general/_services/translation.service';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +21,11 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private authService: AuthService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private translationService: TranslationService) {
     // redirect to home if already logged in
     if (localStorage.getItem('revxray-user')) {
+      this.translationService.setLanguage(this.translationService.getSelectedLanguage());
       this.router.navigate(['/']);
     }
   }

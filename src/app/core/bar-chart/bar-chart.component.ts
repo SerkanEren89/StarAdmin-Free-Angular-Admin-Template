@@ -18,6 +18,12 @@ export class BarChartComponent {
 
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-  public barChartPlugins = [];
+  public barChartPlugins = [{
+    beforeInit: function (chart, options) {
+      chart.legend.afterFit = function () {
+        this.height += 20; // must use `function` and not => because of `this`
+      };
+    }
+  }];
 
 }

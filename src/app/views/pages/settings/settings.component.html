@@ -13,7 +13,7 @@
       <div class="card-body">
         <form>
           <div class="form-group">
-            <label>{{ 'LOGIN.PREFERRED_LANGUAGE' | translate }}</label>
+            <h4 class="card-title language-title">{{ 'LOGIN.PREFERRED_LANGUAGE' | translate }}</h4>
             <div ngbDropdown container="body">
               <button class="btn btn-outline-primary btn-sm language-container" type="button" ngbDropdownToggle>{{selectedLanguage.value}}</button>
               <div ngbDropdownMenu>
@@ -23,6 +23,20 @@
             </div>
           </div>
         </form>
+        <div *ngIf="options.length > 0">
+          <h4 class="card-title  rule-title">{{ 'SETTINGS.YOUR_RULES' | translate }}</h4>
+          <div *ngFor="let option of options" class="rule-container">
+            <p class="label">{{option.label}}</p>
+            <div class="row-flex">
+              <div class="description-container">
+                <span class="description">{{option.description}}</span>
+              </div>
+              <input type="checkbox"
+                     (change)="changeOption(option)"
+                     [checked]="option.defaultValue">
+            </div>
+        </div>
+        </div>
       </div>
     </div>
   </div>

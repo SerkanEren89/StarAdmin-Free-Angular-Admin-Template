@@ -71,7 +71,14 @@ export class LineChartComponent implements OnInit {
   ];
 
   lineChartLegend = true;
-  lineChartPlugins = [];
+  lineChartPlugins = [{
+    beforeInit: function (chart, options) {
+      chart.legend.afterFit = function () {
+        this.height += 20; // must use `function` and not => because of `this`
+      };
+    }
+  }
+  ];
   lineChartType = 'line';
 
   ngOnInit(): void {

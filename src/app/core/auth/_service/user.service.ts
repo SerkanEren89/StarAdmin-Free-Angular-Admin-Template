@@ -9,7 +9,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  patchUser(user: UserModel): Observable<any> {
+  patchUser(user: UserModel): Observable<UserModel> {
     return this.http.patch<UserModel>(API_USER_URL, user);
   }
 }

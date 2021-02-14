@@ -204,7 +204,8 @@ export const locale = {
       MAIL_TEMPLATE: 'Mail Taslağı'
     },
     SETTINGS: {
-      TITLE: 'Ayarlar'
+      TITLE: 'Ayarlar',
+      YOUR_RULES: 'Kurallarınız'
     },
   }
 };

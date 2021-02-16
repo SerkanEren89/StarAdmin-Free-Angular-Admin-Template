@@ -10,7 +10,9 @@ export const locale = {
       CATEGORY: 'Kategoriler',
       STATS: 'İstatistikler',
       TASK: 'Görevler',
-      COMPETITION: 'Rekabet'
+      COMPETITION: 'Rekabet',
+      VISIT: 'Ziyaret',
+      CRM: 'Crm'
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Rakip Seçin',
@@ -94,6 +96,16 @@ export const locale = {
       SAVE: 'Kaydet',
       DELETE: 'Sil',
       UPDATE: 'Güncelle',
+      ACTIVATE: 'Aktif et',
+      DEACTIVATE: 'Deaktif et',
+      FIRST_NAME: 'Ad',
+      LAST_NAME: 'Soyad',
+      PHONE_NUMBER: 'Telefon Numarası',
+      ADDRESS: 'Adres',
+      COUNTRY: 'Ülke',
+      REGION: 'Bölge',
+      EMAIL: 'Email',
+      CLOSE: 'Kapat'
     },
     REVIEW: {
       TITLE: 'Yorumlar',
@@ -171,8 +183,6 @@ export const locale = {
       LOGIN: 'Giriş',
       REGISTER: 'Kayıt Ol',
       REGISTER_TITLE: 'HotelUplift\'e kayıt olun',
-      FIRST_NAME: 'Ad',
-      LAST_NAME: 'Soyad',
       PREFERRED_LANGUAGE: 'Tercihi Dil'
     },
     CHANGE_PASSWORD: {
@@ -185,10 +195,6 @@ export const locale = {
     EMPLOYEE: {
       TITLE: 'Çalışan',
       ADD_NEW: 'Yeni Çalışan Ekle',
-      FIRST_NAME: 'Ad',
-      LAST_NAME: 'Soyad',
-      PHONE_NUMBER: 'Telefon Numarası',
-      EMAIL: 'Email',
       DELETE_EMPLOYEE : 'Çalışanı sil',
       NEW_EMPLOYEE: 'Yeni Çalışan',
       DELETE_EMPLOYEE_APPROVAL: 'Çalışanı silmek istediğinize emin misiniz',
@@ -207,5 +213,35 @@ export const locale = {
       TITLE: 'Ayarlar',
       YOUR_RULES: 'Kurallarınız'
     },
+    CRM: {
+      TITLE: 'CRM',
+      HOTELS: 'Oteller',
+      NAME: 'İsim',
+      LAST_LOGIN: 'Son Giriş',
+      COMPETITION: 'Rekabet',
+      CONTACT_PERSON: 'İletişim',
+      MAIL_LIST: 'Mail Listesi',
+      INFORMATION: 'Bilgi',
+      STATUS: 'Statüsü',
+      CONTACT_NUMBER: 'İletişim Numarası',
+      NO_LOGIN: 'Bu kullanıcı için giriş bulunmamaktadır.',
+      CONTACT_LIST: 'İletişim Listesi',
+      POSITION: 'Pozisyon',
+      NEW_REVIEW_MAIL: 'Yeni Yorum Maili',
+      HOTEL_INFORMATION: 'Otel Bilgileri',
+      NUMBER_OF_ROOMS: 'Oda Sayısı',
+      ROOM_PRICE: 'Oda Fiyatı',
+      NUMBER_OF_EMPLOYEE: 'Çalışan Sayısı',
+      SELECT_STATUS: 'Statü Seçin',
+      SELECT_STATUS_TO_CONTINUE: 'Devam etmek için statü seçin',
+    },
+    VISIT: {
+      TITLE: 'Ziyaret',
+      LAST_VISIT: 'Son Ziyaret',
+      ADD_VISIT: 'Ziyaret Ekle',
+      VISIT_LIST: 'Ziyaret Listesi',
+      VISIT_DATE: 'Ziyaret Tarihi',
+      VISIT_TYPE: 'Ziyaret Tipi',
+    }
   }
 };

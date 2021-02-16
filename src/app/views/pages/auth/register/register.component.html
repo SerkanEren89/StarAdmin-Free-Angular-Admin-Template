@@ -4,7 +4,7 @@
 </div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label>{{ 'LOGIN.FIRST_NAME' | translate }}</label>
+    <label>{{ 'GENERAL.FIRST_NAME' | translate }}</label>
     <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
       <div *ngIf="f.firstName.errors.required">{{ 'LOGIN.FIRST_NAME_REQUIRED' | translate }}</div>
@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label>{{ 'LOGIN.EMAIL' | translate }}</label>
+    <label>{{ 'GENERAL.EMAIL' | translate }}</label>
     <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
       <div *ngIf="f.email.errors.required">{{ 'LOGIN.PASSWORD_REQUIRED' | translate }}</div>

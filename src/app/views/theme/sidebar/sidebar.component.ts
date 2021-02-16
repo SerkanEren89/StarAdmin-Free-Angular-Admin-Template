@@ -9,10 +9,12 @@ import {UserModel} from '../../../core/auth/_models/user.model';
 })
 export class SidebarComponent implements OnInit {
   currentUser: UserModel;
+  isAdmin = false;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
+    this.isAdmin = this.authService.isAdmin();
   }
 
 }

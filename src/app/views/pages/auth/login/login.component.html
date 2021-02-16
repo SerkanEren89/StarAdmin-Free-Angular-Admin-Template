@@ -4,7 +4,7 @@
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label>{{ 'LOGIN.EMAIL' | translate }}</label>
+    <label>{{ 'GENERAL.EMAIL' | translate }}</label>
     <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
       <div *ngIf="f.email.errors.required">{{ 'LOGIN.EMAIL_REQUIRED' | translate }}</div>

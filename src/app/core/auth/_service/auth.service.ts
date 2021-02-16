@@ -28,11 +28,15 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  isAdmin() {
+    return this.currentUserSubject.value.roles.indexOf('ADMIN') > -1;
+  }
+
   login(email, password) {
     return this.http.post<any>(API_AUTH_URL + `/login`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('revxray-user', JSON.stringify(user));
-        this.currentUserSubject. next(user);
+        this.currentUserSubject.next(user);
         this.translationService.setLanguage(user.preferredLanguage);
         return user;
       }));

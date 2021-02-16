@@ -10,4 +10,5 @@ export class UserModel {
   lastLogin: Date;
   previousLogin: Date;
   preferredLanguage: string;
+  roles: string[];
 }

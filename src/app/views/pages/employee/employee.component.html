@@ -21,16 +21,16 @@
             <thead>
             <tr>
               <th>
-                {{ 'EMPLOYEE.FIRST_NAME' | translate }}
+                {{ 'GENERAL.FIRST_NAME' | translate }}
               </th>
               <th>
-                {{ 'EMPLOYEE.LAST_NAME' | translate }}
+                {{ 'GENERAL.LAST_NAME' | translate }}
               </th>
               <th>
-                {{ 'EMPLOYEE.PHONE_NUMBER' | translate }}
+                {{ 'GENERAL.PHONE_NUMBER' | translate }}
               </th>
               <th>
-                {{ 'EMPLOYEE.PHONE_NUMBER' | translate }}
+                {{ 'GENERAL.PHONE_NUMBER' | translate }}
               </th>
               <th>
                 {{ 'GENERAL.ACTION' | translate }}
@@ -78,7 +78,7 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label>{{ 'EMPLOYEE.FIRST_NAME' | translate }}</label>
+        <label>{{ 'GENERAL.FIRST_NAME' | translate }}</label>
         <div class="input-group">
           <input id="firstName" type="text" class="form-control" name="firstName"
                  [(ngModel)]="newEmployee.firstName"/>
@@ -92,7 +92,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>{{ 'EMPLOYEE.PHONE_NUMBER' | translate }}</label>
+        <label>{{ 'GENERAL.PHONE_NUMBER' | translate }}</label>
         <div class="input-group">
           <input id="phoneNumber" type="phone" class="form-control" name="phoneNumber"
                  placeholder="905321234567"
@@ -100,7 +100,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label>{{ 'EMPLOYEE.EMAIL' | translate }}</label>
+        <label>{{ 'GENERAL.EMAIL' | translate }}</label>
         <div class="input-group">
           <input id="email" type="email" class="form-control" name="email"
                  [(ngModel)]="newEmployee.email"/>

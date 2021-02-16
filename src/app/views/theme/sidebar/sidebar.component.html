@@ -59,6 +59,18 @@
         <span class="menu-title">Guest</span>
       </a>
     </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" routerLink="/crm" routerLinkActive="active">
+        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/competition.svg" >
+        <span class="menu-title">{{ 'MENU.CRM' | translate }}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" routerLink="/crm/visit" routerLinkActive="active">
+        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/competition.svg" >
+        <span class="menu-title">{{ 'MENU.VISIT' | translate }}</span>
+      </a>
+    </li>
 
   </ul>
 </nav>

@@ -237,6 +237,7 @@ export const locale = {
       NUMBER_OF_EMPLOYEE: 'Number Of Employees',
       SELECT_STATUS: 'Select Status',
       SELECT_STATUS_TO_CONTINUE: 'Select status to continue',
+      FILTER_HOTEL: 'Filter Hotels'
     },
     VISIT: {
       TITLE: 'Visit',

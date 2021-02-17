@@ -93,7 +93,6 @@ export class TaskComponent implements OnInit {
 
   loadTasks(page: number) {
     this.page = page;
-    this.getAllTasks();
     if (this.shouldFilterResult()) {
       this.getFilteredTasks();
     } else {

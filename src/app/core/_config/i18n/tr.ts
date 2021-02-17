@@ -234,6 +234,7 @@ export const locale = {
       NUMBER_OF_EMPLOYEE: 'Çalışan Sayısı',
       SELECT_STATUS: 'Statü Seçin',
       SELECT_STATUS_TO_CONTINUE: 'Devam etmek için statü seçin',
+      FILTER_HOTEL: 'Otelleri Filtrele'
     },
     VISIT: {
       TITLE: 'Ziyaret',

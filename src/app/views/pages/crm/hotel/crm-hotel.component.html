@@ -5,6 +5,12 @@
       {{ 'CRM.TITLE' | translate }}
     </span>
   </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
+
+    <button type="button" class="btn btn-primary" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
+      {{ 'CRM.FILTER_HOTEL' | translate }}
+    </button>
+  </div>
 </div>
 
 <div class="row" *ngIf="hotels.length > 0">
@@ -313,6 +319,7 @@
     <button type="button" class="btn btn-primary" (click)="saveHotelInformation()">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>
+
 <ng-template #hotelStatusModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">{{ 'CRM.SELECT_STATUS' | translate }}</h4>
@@ -389,5 +396,39 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="handleActions()">Send</button>
+  </div>
+</ng-template>
+
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-filter-hotel-title">{{ 'CRM.FILTER_HOTEL' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>{{ 'GENERAL.HOTEL_NAME' | translate }}</label>
+        <div class="input-group task-input">
+          <input id="name" type="text" class="form-control" name="name"
+                 [(ngModel)]="filterHotel.name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'GENERAL.STATUS' | translate }}</label>
+        <div class="input-group">
+          <label class="form-check-label" *ngFor="let status of statuses; let i = index;">
+            <input type="checkbox" value="{{status}}" class="status"
+                   (change)="changeFilteredStatus(i)"
+                   [checked]="status.checked">{{status.title}}
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="clearFilter()">{{ 'GENERAL.CLEAR' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="loadHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
   </div>
 </ng-template>

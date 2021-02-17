@@ -14,6 +14,8 @@ import {CommonService} from '../../../../core/general/_services/common.service';
 import {ReportService} from '../../../../core/crm/_services/report.service';
 import {WeeklyReportModel} from '../../../../core/crm/_models/weekly-report.model';
 import {WeeklyReportItemModel} from '../../../../core/crm/_models/weekly-report-item.model';
+import {HotelFilterModel} from '../../../../core/hotel/_models/hotel-filter.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-hotel-visit',
@@ -28,7 +30,9 @@ export class CrmHotelComponent implements OnInit {
   @ViewChild('actionModal') public actionModal: TemplateRef<any>;
   @ViewChild('hotelInformationModal') public hotelInformationModal: TemplateRef<any>;
   @ViewChild('hotelStatusModal') public hotelStatusModal: TemplateRef<any>;
+  @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
   hotels: HotelInfoModel[] = [];
+  hotels$: Observable<HotelInfoModel[]>;
   userLogins: UserLoginModel[];
   hotelContacts: HotelContactModel[];
   hotelInformation: HotelInformationModel;
@@ -36,11 +40,14 @@ export class CrmHotelComponent implements OnInit {
   hotelToEdit: HotelInfoModel;
   newHotelContact: HotelContactModel = new HotelContactModel();
   selectedHotelContact: HotelContactModel;
+  filterHotel: HotelFilterModel = new HotelFilterModel();
   reportItemsToSend: WeeklyReportItemModel[] = [];
   totalElements = 0;
   pageSize = 10;
   page = 1;
   emptyStatus = false;
+  statuses;
+  filteredStatus = [];
   selectedStatus: { title: string; value: string };
   selectedReportType: { name: string; value: string };
   hotelStatuses;
@@ -60,20 +67,37 @@ export class CrmHotelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.statuses = this.commonService.getHotelStatuses().slice(1);
     this.hotelStatuses = this.commonService.getHotelStatuses();
     this.reportTypes = this.commonService.getReportTypes();
     this.selectedStatus = this.hotelStatuses[0];
     this.selectedReportType = this.reportTypes[0];
-    this.getAllHotels();
+    this.getUnFilteredHotels();
   }
 
-  loadHotels(page: number) {
-    this.page = page;
-    this.getAllHotels();
+  loadHotels(page?: number) {
+    this.page = page ? page : 1;
+    if (this.shouldFilterResult()) {
+      this.getFilteredHotels();
+    } else {
+      this.getUnFilteredHotels();
+    }
   }
 
-  private getAllHotels() {
-    this.hotelService.getHotels(this.page - 1, this.pageSize).subscribe((hotels: HotelInfoModel[]) => {
+  private getUnFilteredHotels() {
+    this.hotels$ = this.hotelService.getHotels(this.page - 1, this.pageSize);
+    this.processHotel();
+    this.modalService.dismissAll();
+  }
+
+  public getFilteredHotels() {
+    this.hotels$ = this.hotelService.getHotelsByFilter(this.page - 1, this.pageSize, this.filterHotel);
+    this.processHotel();
+    this.modalService.dismissAll();
+  }
+
+  private processHotel() {
+    this.hotels$.subscribe((hotels: HotelInfoModel[]) => {
       this.hotels = hotels['content'];
       for (const hotel of this.hotels) {
         if (hotel.hotelStatus == null) {
@@ -84,6 +108,11 @@ export class CrmHotelComponent implements OnInit {
       this.cdr.detectChanges();
       this.tableService.addLabelTag(this.elRef);
     });
+  }
+
+  private shouldFilterResult() {
+    return this.filterHotel.name != null ||
+      (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0);
   }
 
   edit(hotel: HotelInfoModel) {
@@ -230,6 +259,10 @@ export class CrmHotelComponent implements OnInit {
     this.modalService.open(this.hotelStatusModal);
   }
 
+  openFilterModal() {
+    this.modalService.open(this.hotelFilterModal, {size: 'xl'});
+  }
+
   selectStatus(resultStatus: { title: string; value: string }) {
     this.selectedStatus = resultStatus;
     this.hotelToEdit.hotelStatus = this.selectedStatus.value;
@@ -283,5 +316,24 @@ export class CrmHotelComponent implements OnInit {
 
   selectReport(report: any) {
     this.selectedReportType = report;
+  }
+
+  clearFilter() {
+    this.filterHotel = new HotelFilterModel();
+    this.filterHotel.statusList = [];
+    this.filteredStatus = [];
+    this.statuses.forEach(status => status.checked = false);
+    this.filterHotel = new HotelFilterModel();
+    this.page = 1;
+  }
+
+  changeFilteredStatus(i: number) {
+    if (this.statuses) {
+      this.statuses[i].checked = !this.statuses[i].checked;
+      if (this.statuses[i].checked) {
+        this.filteredStatus.push(this.statuses[i].value);
+      }
+    }
+    this.filterHotel.statusList = this.filteredStatus;
   }
 }

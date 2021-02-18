@@ -1,4 +1,4 @@
 export class HotelFilterModel {
-  name: string;
+  name = '';
   statusList: string[];
 }

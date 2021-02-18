@@ -46,6 +46,8 @@ export class CrmHotelComponent implements OnInit {
   pageSize = 10;
   page = 1;
   emptyStatus = false;
+  columnName = 'name';
+  direction = 'ASC';
   statuses;
   filteredStatus = [];
   selectedStatus: { title: string; value: string };
@@ -84,14 +86,30 @@ export class CrmHotelComponent implements OnInit {
     }
   }
 
+  sortHotels(column: string) {
+    if (column === this.columnName) {
+      if (this.direction === 'ASC') {
+        this.direction = 'DESC';
+      } else {
+        this.direction = 'ASC';
+      }
+    } else {
+      this.direction = 'ASC';
+    }
+    this.columnName = column;
+    this.loadHotels();
+  }
+
   private getUnFilteredHotels() {
-    this.hotels$ = this.hotelService.getHotels(this.page - 1, this.pageSize);
+    this.hotels$ = this.hotelService.getHotels(this.page - 1, this.pageSize,
+      this.columnName, this.direction);
     this.processHotel();
     this.modalService.dismissAll();
   }
 
   public getFilteredHotels() {
-    this.hotels$ = this.hotelService.getHotelsByFilter(this.page - 1, this.pageSize, this.filterHotel);
+    this.hotels$ = this.hotelService.getHotelsByFilter(this.page - 1, this.pageSize,
+      this.columnName, this.direction, this.filterHotel);
     this.processHotel();
     this.modalService.dismissAll();
   }
@@ -111,7 +129,7 @@ export class CrmHotelComponent implements OnInit {
   }
 
   private shouldFilterResult() {
-    return this.filterHotel.name != null ||
+    return (this.filterHotel.name != null && this.filterHotel.name !== '') ||
       (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0);
   }
 
@@ -332,6 +350,8 @@ export class CrmHotelComponent implements OnInit {
       this.statuses[i].checked = !this.statuses[i].checked;
       if (this.statuses[i].checked) {
         this.filteredStatus.push(this.statuses[i].value);
+      } else {
+        this.filteredStatus.splice(this.filteredStatus.indexOf(this.statuses[i].value), 1);
       }
     }
     this.filterHotel.statusList = this.filteredStatus;

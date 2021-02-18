@@ -24,6 +24,8 @@ export class CrmVisitComponent implements OnInit {
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  columnName = 'name';
+  direction = 'ASC';
   emptyStatus = false;
   selectedVisitType: { name: string; value: string };
   visitTypes;
@@ -62,7 +64,8 @@ export class CrmVisitComponent implements OnInit {
   }
 
   private getAllHotels() {
-    this.hotelService.getHotels(this.page - 1, this.pageSize).subscribe((hotels: HotelInfoModel[]) => {
+    this.hotelService.getHotels(this.page - 1, this.pageSize, this.columnName, this.direction)
+      .subscribe((hotels: HotelInfoModel[]) => {
       this.hotels = hotels['content'];
       for (const hotel of this.hotels) {
         if (hotel.hotelStatus == null) {

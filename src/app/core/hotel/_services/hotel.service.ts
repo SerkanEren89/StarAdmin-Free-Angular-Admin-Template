@@ -4,8 +4,6 @@ import {Observable} from 'rxjs';
 import {HotelModel} from '../_models/hotel.model';
 import {HotelInfoModel} from '../_models/hotel-info.model';
 import {map} from 'rxjs/operators';
-import {TaskFilterModel} from '../../task/_models/task-filter.model';
-import {TaskModel} from '../../task/_models/task.model';
 import {HotelFilterModel} from '../_models/hotel-filter.model';
 
 const API_HOTELS_URL = 'hotels';
@@ -19,17 +17,23 @@ export class HotelService {
   constructor(private http: HttpClient) {
   }
 
-  getHotels(page: number, pageSize: number): Observable<HotelInfoModel[]> {
+  getHotels(page: number, pageSize: number,
+            sort: string, direction: string): Observable<HotelInfoModel[]> {
     let params = new HttpParams();
     params = params.append('page', String(page));
     params = params.append('size', String(pageSize));
+    params = params.append('sort', sort);
+    params = params.append('direction', direction);
     return this.http.get<HotelInfoModel[]>(API_HOTELS_URL, {params: params});
   }
 
-  getHotelsByFilter(page: number, pageSize: number, filter: HotelFilterModel): Observable<HotelInfoModel[]> {
+  getHotelsByFilter(page: number, pageSize: number, sort: string, direction: string,
+                    filter: HotelFilterModel): Observable<HotelInfoModel[]> {
     let params = new HttpParams();
     params = params.append('page', String(page));
     params = params.append('size', String(pageSize));
+    params = params.append('sort', sort);
+    params = params.append('direction', direction);
     return this.http.post<HotelInfoModel[]>(API_HOTELS_URL + '/filter', filter, {params: params});
   }
 

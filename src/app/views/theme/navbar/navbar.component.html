@@ -63,6 +63,9 @@
           <a class="dropdown-item" routerLink="/settings">
             {{ 'SUBMENU.SETTINGS' | translate }}
           </a>
+          <a class="dropdown-item" routerLink="/personal" *ngIf="isAdmin">
+            {{ 'SUBMENU.PERSONAL' | translate }}
+          </a>
           <a class="dropdown-item" (click)="signOut()">
             {{ 'SUBMENU.SIGN_OUT' | translate }}
           </a>

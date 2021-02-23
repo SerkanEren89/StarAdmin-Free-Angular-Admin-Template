@@ -1,6 +1,7 @@
 import {UserModel} from '../../auth/_models/user.model';
 import {HotelContactModel} from './hotel-contact.model';
 import {HotelVisitModel} from './hotel-visit.model';
+import {PersonalModel} from '../../personal/_models/personal.model';
 
 export class HotelInfoModel {
   id: number;
@@ -16,4 +17,5 @@ export class HotelInfoModel {
   user: UserModel;
   hotelContactList: HotelContactModel[];
   hotelVisitList: HotelVisitModel[];
+  personal: PersonalModel;
 }

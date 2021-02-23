@@ -16,6 +16,9 @@ import {WeeklyReportModel} from '../../../../core/crm/_models/weekly-report.mode
 import {WeeklyReportItemModel} from '../../../../core/crm/_models/weekly-report-item.model';
 import {HotelFilterModel} from '../../../../core/hotel/_models/hotel-filter.model';
 import {Observable} from 'rxjs';
+import {PersonalService} from '../../../../core/personal/_services/personal.service';
+import {PersonalModel} from '../../../../core/personal/_models/personal.model';
+import {AuthService} from '../../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-hotel-visit',
@@ -30,6 +33,7 @@ export class CrmHotelComponent implements OnInit {
   @ViewChild('actionModal') public actionModal: TemplateRef<any>;
   @ViewChild('hotelInformationModal') public hotelInformationModal: TemplateRef<any>;
   @ViewChild('hotelStatusModal') public hotelStatusModal: TemplateRef<any>;
+  @ViewChild('assignPersonalModal') public assignPersonalModal: TemplateRef<any>;
   @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
   hotels: HotelInfoModel[] = [];
   hotels$: Observable<HotelInfoModel[]>;
@@ -40,12 +44,17 @@ export class CrmHotelComponent implements OnInit {
   hotelToEdit: HotelInfoModel;
   newHotelContact: HotelContactModel = new HotelContactModel();
   selectedHotelContact: HotelContactModel;
+  personals: PersonalModel[] = [];
+  selectedPersonal: PersonalModel;
+  emptyPerson: PersonalModel;
   filterHotel: HotelFilterModel = new HotelFilterModel();
   reportItemsToSend: WeeklyReportItemModel[] = [];
   totalElements = 0;
   pageSize = 10;
   page = 1;
   emptyStatus = false;
+  emptyPersonal = false;
+  isAdmin: boolean;
   columnName = 'name';
   direction = 'ASC';
   statuses;
@@ -59,10 +68,12 @@ export class CrmHotelComponent implements OnInit {
   constructor(private hotelService: HotelService,
               private hotelContactService: HotelContactService,
               private hotelInformationService: HotelInformationService,
+              private personalService: PersonalService,
               private reportService: ReportService,
               private commonService: CommonService,
               private tableService: TableService,
               private userLoginService: UserLoginService,
+              private authService: AuthService,
               private modalService: NgbModal,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef) {
@@ -72,8 +83,16 @@ export class CrmHotelComponent implements OnInit {
     this.statuses = this.commonService.getHotelStatuses().slice(1);
     this.hotelStatuses = this.commonService.getHotelStatuses();
     this.reportTypes = this.commonService.getReportTypes();
+    this.emptyPerson = this.commonService.getEmptyPersonal();
     this.selectedStatus = this.hotelStatuses[0];
     this.selectedReportType = this.reportTypes[0];
+    this.isAdmin = this.authService.isAdmin();
+    this.personalService.getPersonals()
+      .subscribe((personalModels: PersonalModel[]) => {
+        this.personals = personalModels;
+        this.personals = [this.emptyPerson, ...this.personals];
+        this.cdr.detectChanges();
+      });
     this.getUnFilteredHotels();
   }
 
@@ -156,7 +175,7 @@ export class CrmHotelComponent implements OnInit {
 
   showLastLogins(hotel: HotelInfoModel) {
     this.selectedHotel = hotel;
-    this.userLoginService.getUserLoginsByUserId(hotel.user.id)
+    this.userLoginService.getUserLoginsByHotelId(hotel.id)
       .subscribe((userLogins: UserLoginModel[]) => {
         this.userLogins = userLogins;
         this.modalService.open(this.lastLoginModal);
@@ -277,6 +296,24 @@ export class CrmHotelComponent implements OnInit {
     this.modalService.open(this.hotelStatusModal);
   }
 
+  openAssignPersonalModal(hotel: HotelInfoModel) {
+    this.emptyPersonal = false;
+    if (hotel.personal != null) {
+      for (const personal of this.personals) {
+        if (personal.id === hotel.personal.id) {
+          this.selectedPersonal = personal;
+          break;
+        }
+      }
+    }
+    if ((hotel.personal != null && hotel.personal.firstName === 'Select'
+      && hotel.personal.lastName === 'Personal') || hotel.personal == null) {
+      this.selectedPersonal = this.emptyPerson;
+    }
+    this.hotelToEdit = hotel;
+    this.modalService.open(this.assignPersonalModal);
+  }
+
   openFilterModal() {
     this.modalService.open(this.hotelFilterModal, {size: 'xl'});
   }
@@ -286,16 +323,38 @@ export class CrmHotelComponent implements OnInit {
     this.hotelToEdit.hotelStatus = this.selectedStatus.value;
   }
 
+  selectPersonal(personal: PersonalModel) {
+    this.selectedPersonal = personal;
+    this.hotelToEdit.personal = personal;
+  }
+
   changeHotelStatus() {
     if (this.hotelToEdit.hotelStatus !== 'Select status') {
       this.hotelService.patchHotel(this.hotelToEdit)
         .subscribe((hotelInfoModel: HotelInfoModel) => {
           this.selectedHotel = hotelInfoModel;
           this.toastr.success('Hotel updated successfully');
+          this.modalService.dismissAll();
           this.cdr.detectChanges();
         });
     } else {
       this.emptyStatus = true;
+    }
+  }
+
+  assignPersonal() {
+    if (this.hotelToEdit.personal.firstName !== 'Select' &&
+      this.hotelToEdit.personal.lastName !== 'Personal') {
+      this.hotelToEdit.hotelStatus = null;
+      this.hotelService.patchHotel(this.hotelToEdit)
+        .subscribe((hotelInfoModel: HotelInfoModel) => {
+          this.selectedHotel = hotelInfoModel;
+          this.toastr.success('Hotel assigned to personal successfully');
+          this.modalService.dismissAll();
+          this.cdr.detectChanges();
+        });
+    } else {
+      this.emptyPersonal = true;
     }
   }
 

@@ -32,6 +32,10 @@ export class AuthService {
     return this.currentUserSubject.value.roles.indexOf('ADMIN') > -1;
   }
 
+  isSeller() {
+    return this.currentUserSubject.value.roles.indexOf('SELLER') > -1;
+  }
+
   login(email, password) {
     return this.http.post<any>(API_AUTH_URL + `/login`, {email, password})
       .pipe(map(user => {

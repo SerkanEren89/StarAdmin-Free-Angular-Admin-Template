@@ -169,7 +169,8 @@ export const locale = {
       CHANGE_PASSWORD: 'Şifre Değiştir',
       EMPLOYEES: 'Çalışanlar',
       TEMPLATES: 'Taslaklar',
-      SETTINGS: 'Ayarlar'
+      SETTINGS: 'Ayarlar',
+      PERSONAL: 'Personel'
     },
     LOGIN: {
       WELCOME: 'HotelUplift\'e hoşgeldiniz',
@@ -198,6 +199,13 @@ export const locale = {
       DELETE_EMPLOYEE : 'Çalışanı sil',
       NEW_EMPLOYEE: 'Yeni Çalışan',
       DELETE_EMPLOYEE_APPROVAL: 'Çalışanı silmek istediğinize emin misiniz',
+    },
+    PERSONAL: {
+      TITLE: 'Personel',
+      ADD_NEW: 'Yeni Personel Ekle',
+      DELETE_PERSONAL : 'Personel sil',
+      NEW_PERSONAL: 'Yeni Personel',
+      DELETE_PERSONAL_APPROVAL: 'Personeli silmek istediğinize emin misiniz',
     },
     TEMPLATE: {
       TITLE: 'Taslaklar',
@@ -234,8 +242,12 @@ export const locale = {
       NUMBER_OF_EMPLOYEE: 'Çalışan Sayısı',
       SELECT_STATUS: 'Statü Seçin',
       SELECT_STATUS_TO_CONTINUE: 'Devam etmek için statü seçin',
+      SELECT_PERSONAL_TO_CONTINUE: 'Devam etmek için personel seçin',
       FILTER_HOTEL: 'Otelleri Filtrele',
-      NO_HOTEL: 'Filtrenize uygun otel bulunmuyor'
+      NO_HOTEL: 'Filtrenize uygun otel bulunmuyor',
+      ASSIGN_PERSONAL: 'Personel Atama',
+      ASSIGN: 'Atama',
+      ASSIGNED: 'Atandı'
     },
     VISIT: {
       TITLE: 'Ziyaret',
@@ -244,6 +256,7 @@ export const locale = {
       VISIT_LIST: 'Ziyaret Listesi',
       VISIT_DATE: 'Ziyaret Tarihi',
       VISIT_TYPE: 'Ziyaret Tipi',
+      FILTER_HOTEL: 'Otelleri Filtrele',
     }
   }
 };

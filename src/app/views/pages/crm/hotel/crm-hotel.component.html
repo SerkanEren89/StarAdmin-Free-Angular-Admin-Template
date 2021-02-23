@@ -53,11 +53,21 @@
               <th style="width: 10%" (click)="sortHotels('hotelStatus')" class="clickable">
                 {{ 'CRM.STATUS' | translate }}
                 <span *ngIf="columnName == 'hotelStatus'">
-                  <i class="fa fa-chevron-down" *ngIf="direction=='ASC'"></i>
-                  <i class="fa fa-chevron-up" *ngIf="direction=='DESC'"></i>
+                  <span *ngIf="direction=='ASC'">
+                    <i class="fa fa-chevron-down"></i>
+                  </span>
+                  <span *ngIf="direction=='DESC'">
+                    <i class="fa fa-chevron-up"></i>
+                  </span>
                 </span>
               </th>
-              <th style="width: 10%">
+              <th style="width: 10%" *ngIf="isAdmin">
+                {{ 'CRM.ASSIGN' | translate }}
+              </th>
+              <th style="width: 7%" *ngIf="!isAdmin">
+                {{ 'CRM.ASSIGNED' | translate }}
+              </th>
+              <th style="width: 7%">
                 {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
@@ -82,8 +92,7 @@
                 {{hotel.contactPerson}}
               </td>
               <td class="comment" (click)="showContactList(hotel)">
-                <span *ngIf="hotel.hotelContactList.length <= 1">{{hotel.hotelContactList.length}} Contact</span>
-                <span *ngIf="hotel.hotelContactList.length > 1">{{hotel.hotelContactList.length}} Contacts</span>
+                {{ 'CRM.MAIL_LIST' | translate }}
               </td>
               <td class="comment" (click)="showHotelInformation(hotel)">
                 {{ 'CRM.HOTEL_INFORMATION' | translate }}
@@ -91,7 +100,19 @@
               <td (click)="openHotelStatusModal(hotel)" class="comment">
                 {{hotel.hotelStatus}}
               </td>
-              <td>
+              <td (click)="openAssignPersonalModal(hotel)"
+                  *ngIf="hotel.personal != null && isAdmin" class="comment">
+                {{hotel.personal.firstName}} {{hotel.personal.lastName}}
+              </td>
+              <td (click)="openAssignPersonalModal(hotel)"
+                  *ngIf="hotel.personal == null && isAdmin" class="comment">
+                {{ 'CRM.ASSIGN_PERSONAL' | translate }}
+              </td>
+              <th style="width: 7%" *ngIf="!isAdmin">
+                <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
+                <i class="fa fa-times action-button text-danger action-icon" *ngIf="hotel.personal == null"></i>
+              </th>
+              <td style="width: 7%">
                 <span tooltip="Send weekly reviews" (click)="showActionsModal(hotel)">
                   <a><i class="fa fa-reply action-button text-primary action-icon"></i></a>
                 </span>
@@ -161,7 +182,7 @@
 
 <ng-template #lastLoginModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-last-login-title">Last Logins for {{selectedHotel.user.firstName}}</h4>
+    <h4 class="modal-title" id="modal-last-login-title">Last Logins for {{selectedHotel.name}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -169,7 +190,7 @@
   <div class="modal-body">
     <ul *ngIf="userLogins.length > 0">
       <li *ngFor="let userLogin of userLogins">
-        {{userLogin.loginDate  | date:'dd/MM/yyyy, h:mm a'}}
+        {{userLogin.user.firstName}} {{userLogin.user.lastName}} -- {{userLogin.loginDate  | date:'dd/MM/yyyy, h:mm a'}}
       </li>
     </ul>
     <p *ngIf="userLogins.length == 0">
@@ -265,7 +286,7 @@
                  [(ngModel)]="newHotelContact.position"/>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" (click)="saveHotelContact()">{{ 'GENERAL.ADD' | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="saveHotelContact()">{{ 'GENERAL.SAVE' | translate }}</button>
     </form>
   </div>
   <div class="modal-footer">
@@ -369,6 +390,36 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()">{{ 'GENERAL.SAVE' | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #assignPersonalModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-assign-personal-title">{{ 'CRM.ASSIGN_PERSONAL' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <div class="status-container" *ngIf="emptyPersonal">
+          <p>{{ 'CRM.SELECT_STATUS_TO_CONTINUE' | translate }}</p>
+        </div>
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>
+            {{selectedPersonal.firstName}} {{selectedPersonal.lastName}}
+          </button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let personal of personals"
+                    (click)="selectPersonal(personal)">{{personal.firstName}} {{personal.lastName}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="assignPersonal()">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>
 

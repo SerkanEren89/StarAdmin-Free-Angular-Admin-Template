@@ -13,7 +13,7 @@ export class UserLoginService {
   constructor(private http: HttpClient) {
   }
 
-  getUserLoginsByUserId(userId: number): Observable<UserLoginModel[]> {
-    return this.http.get<UserLoginModel[]>(API_USER_LOGIN_URL + '/' + userId + '/' + 'userId');
+  getUserLoginsByHotelId(hotelId: number): Observable<UserLoginModel[]> {
+    return this.http.get<UserLoginModel[]>(API_USER_LOGIN_URL + '/' + hotelId + '/' + 'hotelId');
   }
 }

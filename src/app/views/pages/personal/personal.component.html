@@ -2,12 +2,12 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <i class="menu-icon mdi mdi-notification-clear-all title-icon"></i>
-      {{ 'EMPLOYEE.TITLE' | translate }}
+      {{ 'PERSONAL.TITLE' | translate }}
     </span>
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
     <button type="button" class="btn btn-primary" (click)="addNew()"><i class="mdi mdi-plus"></i>
-      {{ 'EMPLOYEE.ADD_NEW' | translate }}
+      {{ 'PERSONAL.ADD_NEW' | translate }}
     </button>
   </div>
 </div>
@@ -17,7 +17,7 @@
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered" #employeeTable>
+          <table class="table table-bordered" #personalTable>
             <thead>
             <tr>
               <th>
@@ -38,28 +38,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let employee of employees">
+            <tr *ngFor="let personal of personals">
               <td>
-                {{employee.firstName}}
+                {{personal.firstName}}
               </td>
               <td>
-                {{employee.lastName}}
+                {{personal.lastName}}
               </td>
               <td>
-                {{employee.phoneNumber}}
+                {{personal.phoneNumber}}
               </td>
               <td>
-                {{employee.email}}
+                {{personal.email}}
               </td>
               <td class="text-primary">
-                <a (click)="edit(employee)"><i class="fa fa-pencil-alt action-button" ></i></a>
-                <a (click)="openDeletePopup(delete, employee)"><i class="fa fa-trash action-button" ></i></a>
+                <a (click)="edit(personal)"><i class="fa fa-pencil-alt action-button" ></i></a>
+                <a (click)="openDeletePopup(delete, personal)"><i class="fa fa-trash action-button" ></i></a>
               </td>
             </tr>
             </tbody>
           </table>
           <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
-                          (pageChange)="loadEmployee($event)"
+                          (pageChange)="loadPersonal($event)"
                           [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                           aria-label="Default pagination" class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
         </div>
@@ -68,9 +68,9 @@
   </div>
 </div>
 
-<ng-template #employeeModal let-modal>
+<ng-template #personalModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-answer-title">{{ 'EMPLOYEE.NEW_EMPLOYEE' | translate }}</h4>
+    <h4 class="modal-title" id="modal-answer-title">{{ 'PERSONAL.NEW_PERSONAL' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -81,14 +81,14 @@
         <label>{{ 'GENERAL.FIRST_NAME' | translate }}</label>
         <div class="input-group">
           <input id="firstName" type="text" class="form-control" name="firstName"
-                 [(ngModel)]="newEmployee.firstName"/>
+                 [(ngModel)]="newPersonal.firstName"/>
         </div>
       </div>
       <div class="form-group">
-        <label>{{ 'EMPLOYEE.LAST_NAME' | translate }}</label>
+        <label>{{ 'GENERAL.LAST_NAME' | translate }}</label>
         <div class="input-group">
           <input id="lastName" type="text" class="form-control" name="lastName"
-                 [(ngModel)]="newEmployee.lastName"/>
+                 [(ngModel)]="newPersonal.lastName"/>
         </div>
       </div>
       <div class="form-group">
@@ -96,27 +96,27 @@
         <div class="input-group">
           <input id="phoneNumber" type="phone" class="form-control" name="phoneNumber"
                  placeholder="905321234567"
-                 [(ngModel)]="newEmployee.phoneNumber"/>
+                 [(ngModel)]="newPersonal.phoneNumber"/>
         </div>
       </div>
       <div class="form-group">
         <label>{{ 'GENERAL.EMAIL' | translate }}</label>
         <div class="input-group">
           <input id="email" type="email" class="form-control" name="email"
-                 [(ngModel)]="newEmployee.email"/>
+                 [(ngModel)]="newPersonal.email"/>
         </div>
       </div>
 
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save(newEmployee)">{{ 'GENERAL.SAVE' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="save(newPersonal)">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>
 
 <ng-template #delete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-excel-title">{{ 'EMPLOYEE.DELETE_EMPLOYEE' | translate }}</h4>
+    <h4 class="modal-title" id="modal-excel-title">{{ 'PERSONAL.DELETE_PERSONAL' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -125,13 +125,13 @@
     <div class="warning-container">
       <i class="fa fa-exclamation-triangle warning text-warning"></i>
       <p>
-        {{ 'EMPLOYEE.DELETE_EMPLOYEE_APPROVAL' | translate }}
+        {{ 'PERSONAL.DELETE_PERSONAL_APPROVAL' | translate }}
       </p>
     </div>
 
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-warning" (click)="cancel()">{{ 'GENERAL.CANCEL' | translate }}</button>
-    <button type="button" class="btn btn-outline-danger" (click)="deleteEmployee()">{{ 'GENERAL.DELETE' | translate }}</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deletePersonal()">{{ 'GENERAL.DELETE' | translate }}</button>
   </div>
 </ng-template>

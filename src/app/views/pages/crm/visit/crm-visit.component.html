@@ -5,6 +5,12 @@
       {{ 'VISIT.TITLE' | translate }}
     </span>
   </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
+
+    <button type="button" class="btn btn-primary" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
+      {{ 'VISIT.FILTER_HOTEL' | translate }}
+    </button>
+  </div>
 </div>
 
 <div class="row" *ngIf="hotels.length > 0">
@@ -16,14 +22,33 @@
           <table class="table table-bordered" #taskTable>
             <thead>
             <tr>
-              <th style="width: 30%">
+              <th style="width: 30%" (click)="sortHotels('name')" class="clickable">
                 {{ 'GENERAL.HOTEL_NAME' | translate }}
+                <span *ngIf="columnName == 'name'">
+                  <span *ngIf="direction=='ASC'">
+                    <i class="fa fa-chevron-down"></i>
+                  </span>
+                  <span *ngIf="direction=='DESC'">
+                    <i class="fa fa-chevron-up"></i>
+                  </span>
+                </span>
               </th>
-              <th style="width: 30%">
+              <th style="width: 30%" (click)="sortHotels('hotelStatus')" class="clickable">
                 {{ 'GENERAL.STATUS' | translate }}
+                <span *ngIf="columnName == 'hotelStatus'">
+                  <span *ngIf="direction=='ASC'">
+                    <i class="fa fa-chevron-down"></i>
+                  </span>
+                  <span *ngIf="direction=='DESC'">
+                    <i class="fa fa-chevron-up"></i>
+                  </span>
+                </span>
               </th>
               <th style="width: 40%">
                 {{ 'VISIT.LAST_VISIT' | translate }}
+              </th>
+              <th style="width: 10%" *ngIf="!isAdmin">
+                {{ 'CRM.ASSIGNED' | translate }}
               </th>
             </tr>
             </thead>
@@ -32,7 +57,7 @@
               <td>
                 {{hotel.name}}
               </td>
-              <td>
+              <td (click)="openHotelStatusModal(hotel)" class="comment">
                 {{hotel.hotelStatus}}
               </td>
               <td class="comment" (click)="showVisitModal(hotel)">
@@ -42,6 +67,10 @@
                 <span *ngIf="hotel.hotelVisitList.length == 0">
                   {{ 'VISIT.ADD_VISIT' | translate }}
                 </span>
+              </td>
+              <td *ngIf="!isAdmin">
+                <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
+                <i class="fa fa-times action-button text-danger action-icon" *ngIf="hotel.personal == null"></i>
               </td>
             </tr>
             </tbody>
@@ -95,7 +124,7 @@
       </tbody>
     </table>
 
-    <form>
+    <form class="visit-form">
       <div class="form-group">
         <div class="form-group">
           <label>{{ 'VISIT.VISIT_DATE' | translate }}</label>
@@ -124,5 +153,66 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">{{ 'GENERAL.CLOSE' | translate }}</button>
     <button type="button" class="btn btn-primary" (click)="saveHotelVisit()">{{ 'VISIT.ADD_VISIT' | translate }}</button>
+  </div>
+</ng-template>
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-filter-hotel-title">{{ 'CRM.FILTER_HOTEL' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>{{ 'GENERAL.HOTEL_NAME' | translate }}</label>
+        <div class="input-group task-input">
+          <input id="name" type="text" class="form-control" name="name"
+                 (ngModelChange)="filterHotel.name = $event.toLowerCase()"
+                 [(ngModel)]="filterHotel.name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'GENERAL.STATUS' | translate }}</label>
+        <div class="input-group">
+          <label class="form-check-label" *ngFor="let status of statuses; let i = index;">
+            <input type="checkbox" value="{{status}}" class="status"
+                   (change)="changeFilteredStatus(i)"
+                   [checked]="status.checked">{{status.title}}
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="clearFilter()">{{ 'GENERAL.CLEAR' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="loadHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
+  </div>
+</ng-template>
+<ng-template #hotelStatusModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ 'CRM.SELECT_STATUS' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <div class="status-container" *ngIf="emptyStatus">
+          <p>{{ 'CRM.SELECT_STATUS_TO_CONTINUE' | translate }}</p>
+        </div>
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{selectedStatus.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let hotelStatus of hotelStatuses"
+                    (click)="selectStatus(hotelStatus)">{{hotelStatus.title}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>

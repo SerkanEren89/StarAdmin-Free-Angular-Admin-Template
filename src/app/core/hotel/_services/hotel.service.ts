@@ -12,29 +12,49 @@ const API_HOTELS_URL = 'hotels';
   providedIn: 'root'
 })
 export class HotelService {
-  private _competitorList: HotelModel[];
 
   constructor(private http: HttpClient) {
   }
 
-  getHotels(page: number, pageSize: number,
-            sort: string, direction: string): Observable<HotelInfoModel[]> {
+  get savedCompetitors(): HotelModel[] {
+    return this._competitorList;
+  }
+
+  set savedCompetitors(competitiorList: HotelModel[]) {
+    this._competitorList = competitiorList;
+  }
+  private _competitorList: HotelModel[];
+
+  static pageAndSearch(page: number, pageSize: number, sort: string, direction: string) {
     let params = new HttpParams();
     params = params.append('page', String(page));
     params = params.append('size', String(pageSize));
     params = params.append('sort', sort);
-    params = params.append('direction', direction);
+    return params.append('direction', direction);
+  }
+
+  getHotels(page: number, pageSize: number,
+            sort: string, direction: string): Observable<HotelInfoModel[]> {
+    const params = HotelService.pageAndSearch(page, pageSize, sort, direction);
     return this.http.get<HotelInfoModel[]>(API_HOTELS_URL, {params: params});
+  }
+
+  getHotelsForVisit(page: number, pageSize: number,
+                    sort: string, direction: string): Observable<HotelInfoModel[]> {
+    const params = HotelService.pageAndSearch(page, pageSize, sort, direction);
+    return this.http.get<HotelInfoModel[]>(API_HOTELS_URL + '/visits', {params: params});
   }
 
   getHotelsByFilter(page: number, pageSize: number, sort: string, direction: string,
                     filter: HotelFilterModel): Observable<HotelInfoModel[]> {
-    let params = new HttpParams();
-    params = params.append('page', String(page));
-    params = params.append('size', String(pageSize));
-    params = params.append('sort', sort);
-    params = params.append('direction', direction);
+    const params = HotelService.pageAndSearch(page, pageSize, sort, direction);
     return this.http.post<HotelInfoModel[]>(API_HOTELS_URL + '/filter', filter, {params: params});
+  }
+
+  getHotelsByFilterForVisit(page: number, pageSize: number, sort: string, direction: string,
+                            filter: HotelFilterModel): Observable<HotelInfoModel[]> {
+    const params = HotelService.pageAndSearch(page, pageSize, sort, direction);
+    return this.http.post<HotelInfoModel[]>(API_HOTELS_URL + '/filter/visits', filter, {params: params});
   }
 
   getCompetitors(): Observable<HotelModel[]> {
@@ -46,13 +66,5 @@ export class HotelService {
       .pipe(map(result => {
         return result;
       }));
-  }
-
-  get savedCompetitors(): HotelModel[] {
-    return this._competitorList;
-  }
-
-  set savedCompetitors(competitiorList: HotelModel[]) {
-    this._competitorList = competitiorList;
   }
 }

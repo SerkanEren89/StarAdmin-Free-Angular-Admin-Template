@@ -127,7 +127,7 @@ export const locale = {
       PROGRESS_RATE: 'Progress Rate',
       TASK_PLURAL: 'Tasks',
       RESULT_NOTE: 'Result Note',
-      RESULT_STATUS: 'Sonuç Durumu',
+      RESULT_STATUS: 'Result Status',
       SUCCESSFULLY_COMPLETED: 'Successfully completed',
       CAN_NOT_BE_COMPLETED: 'Cannot be completed',
       PARTIALLY_COMPLETED: 'Partially completed',
@@ -169,7 +169,8 @@ export const locale = {
       CHANGE_PASSWORD: 'Change password',
       EMPLOYEES: 'Employees',
       TEMPLATES: 'Templates',
-      SETTINGS: 'Settings'
+      SETTINGS: 'Settings',
+      PERSONAL: 'Personal'
     },
     LOGIN: {
       WELCOME: 'Welcome to HotelUplift',
@@ -201,6 +202,15 @@ export const locale = {
       NEW_EMPLOYEE: 'New Employee',
       DELETE_EMPLOYEE : 'Delete Employee',
       DELETE_EMPLOYEE_APPROVAL: 'Do you really want to delete this employee',
+    },
+    PERSONAL: {
+      TITLE: 'Personal',
+      ADD_NEW: 'Add new personal',
+      FIRST_NAME: 'First Name',
+      LAST_NAME: 'Last Name',
+      NEW_EMPLOYEE: 'New Personal',
+      DELETE_PERSONAL : 'Delete Employee',
+      DELETE_PERSONAL_APPROVAL: 'Do you really want to delete this personal',
     },
     TEMPLATE: {
       TITLE: 'Templates',
@@ -237,8 +247,12 @@ export const locale = {
       NUMBER_OF_EMPLOYEE: 'Number Of Employees',
       SELECT_STATUS: 'Select Status',
       SELECT_STATUS_TO_CONTINUE: 'Select status to continue',
+      SELECT_PERSONAL_TO_CONTINUE: 'Select personal to continue',
       FILTER_HOTEL: 'Filter Hotels',
-      NO_HOTEL: 'There is no hotel according to your filter'
+      NO_HOTEL: 'There is no hotel according to your filter',
+      ASSIGN_PERSONAL: 'Assign Personal',
+      ASSIGN: 'Assign',
+      ASSIGNED: 'Assigned'
     },
     VISIT: {
       TITLE: 'Visit',
@@ -247,6 +261,7 @@ export const locale = {
       VISIT_LIST: 'Visit List',
       VISIT_DATE: 'Visit Date',
       VISIT_TYPE: 'Visit Type',
+      FILTER_HOTEL: 'Filter Hotels',
     }
   }
 };

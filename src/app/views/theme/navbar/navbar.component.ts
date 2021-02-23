@@ -17,6 +17,8 @@ export class NavbarComponent implements OnInit {
   currentUser: UserModel;
   commentsAfterLastLogin: CommentModel[];
   public sidebarOpened = false;
+  isAdmin = false;
+  isSeller = false;
 
   toggleOffcanvas() {
     this.sidebarOpened = !this.sidebarOpened;
@@ -35,6 +37,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
+    this.isAdmin = this.authService.isAdmin();
+    this.isSeller = this.authService.isSeller();
     this.commentsAfterLastLogin = this.commentService.commentsAfterLastLoginValue;
   }
 

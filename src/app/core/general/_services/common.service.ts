@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {PersonalModel} from '../../personal/_models/personal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -137,6 +138,13 @@ export class CommonService {
     ];
   }
 
+  getEmptyPersonal() {
+    const personal = new PersonalModel();
+    personal.firstName = 'Select';
+    personal.lastName = 'Personal';
+    return personal;
+  }
+
   getVisitTypes() {
     return [{
       name: 'Select status',
@@ -150,6 +158,9 @@ export class CommonService {
     }, {
       name: 'PHONE',
       value: 'PHONE'
+    }, {
+      name: 'OFFER',
+      value: 'OFFER'
     }
       /*
       , {

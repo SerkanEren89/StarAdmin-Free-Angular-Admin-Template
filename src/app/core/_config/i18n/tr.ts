@@ -65,7 +65,7 @@ export const locale = {
       COPY_AND_GO: 'Kopyala & Git',
       REVIEW_DATE: 'Yorum Tarihi',
       TOTAL: 'Toplam',
-      STATUS: 'Durum',
+      STATUS: 'Statü',
       SCORE: 'Skor',
       DAYS_AGO: 'gün önce',
       ASSIGNED: 'Atanan',
@@ -127,7 +127,7 @@ export const locale = {
       TASK_PLURAL: 'Görevler',
       NOTE: 'Not',
       RESULT_NOTE: 'Sonuç Notu',
-      RESULT_STATUS: 'Sonuç Durumu',
+      RESULT_STATUS: 'Sonuç Statüsü',
       SUCCESSFULLY_COMPLETED: 'Başarıyla Tamamlandı',
       CAN_NOT_BE_COMPLETED: 'Tamamlanamadı',
       PARTIALLY_COMPLETED: 'Kısmen Tamamlandı',
@@ -247,7 +247,9 @@ export const locale = {
       NO_HOTEL: 'Filtrenize uygun otel bulunmuyor',
       ASSIGN_PERSONAL: 'Personel Atama',
       ASSIGN: 'Atama',
-      ASSIGNED: 'Atandı'
+      ASSIGNED: 'Atandı',
+      PERSONAL: 'Personel',
+      REQUEST_CHANGE: 'Değişiklik İste'
     },
     VISIT: {
       TITLE: 'Ziyaret',

@@ -46,6 +46,7 @@ export class CrmHotelComponent implements OnInit {
   selectedHotelContact: HotelContactModel;
   personals: PersonalModel[] = [];
   selectedPersonal: PersonalModel;
+  selectedFilterPersonal: PersonalModel;
   emptyPerson: PersonalModel;
   filterHotel: HotelFilterModel = new HotelFilterModel();
   reportItemsToSend: WeeklyReportItemModel[] = [];
@@ -91,6 +92,8 @@ export class CrmHotelComponent implements OnInit {
       .subscribe((personalModels: PersonalModel[]) => {
         this.personals = personalModels;
         this.personals = [this.emptyPerson, ...this.personals];
+        this.selectedPersonal = this.emptyPerson;
+        this.selectedFilterPersonal = this.emptyPerson;
         this.cdr.detectChanges();
       });
     this.getUnFilteredHotels();
@@ -149,7 +152,8 @@ export class CrmHotelComponent implements OnInit {
 
   private shouldFilterResult() {
     return (this.filterHotel.name != null && this.filterHotel.name !== '') ||
-      (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0);
+      (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0) ||
+      (this.filterHotel.personal != null && this.filterHotel.personal.id != null);
   }
 
   edit(hotel: HotelInfoModel) {
@@ -328,6 +332,11 @@ export class CrmHotelComponent implements OnInit {
     this.hotelToEdit.personal = personal;
   }
 
+  selectFilterPersonal(personal: PersonalModel) {
+    this.filterHotel.personal = personal;
+    this.selectedFilterPersonal = personal;
+  }
+
   changeHotelStatus() {
     if (this.hotelToEdit.hotelStatus !== 'Select status') {
       this.hotelService.patchHotel(this.hotelToEdit)
@@ -400,6 +409,7 @@ export class CrmHotelComponent implements OnInit {
     this.filterHotel.statusList = [];
     this.filteredStatus = [];
     this.statuses.forEach(status => status.checked = false);
+    this.selectedFilterPersonal = this.emptyPerson;
     this.filterHotel = new HotelFilterModel();
     this.page = 1;
   }

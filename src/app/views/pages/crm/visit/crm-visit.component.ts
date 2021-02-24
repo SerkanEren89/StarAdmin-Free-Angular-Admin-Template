@@ -11,6 +11,8 @@ import {HotelVisitModel} from '../../../../core/hotel/_models/hotel-visit.model'
 import {HotelFilterModel} from '../../../../core/hotel/_models/hotel-filter.model';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
+import {PersonalModel} from '../../../../core/personal/_models/personal.model';
+import {PersonalService} from '../../../../core/personal/_services/personal.service';
 
 @Component({
   selector: 'app-crm-visit',
@@ -29,6 +31,9 @@ export class CrmVisitComponent implements OnInit {
   selectedHotel: HotelInfoModel;
   hotelToEdit: HotelInfoModel;
   filterHotel: HotelFilterModel = new HotelFilterModel();
+  personals: PersonalModel[];
+  selectedFilterPersonal: PersonalModel;
+  emptyPerson: PersonalModel;
   totalElements = 0;
   pageSize = 10;
   page = 1;
@@ -46,6 +51,7 @@ export class CrmVisitComponent implements OnInit {
 
   constructor(private hotelService: HotelService,
               private hotelVisitService: HotelVisitService,
+              private personalService: PersonalService,
               private commonService: CommonService,
               private tableService: TableService,
               private userLoginService: UserLoginService,
@@ -61,8 +67,16 @@ export class CrmVisitComponent implements OnInit {
     this.visitTypes = this.commonService.getVisitTypes();
     this.selectedVisitType = this.visitTypes[0];
     this.selectedStatus = this.hotelStatuses[0];
+    this.emptyPerson = this.commonService.getEmptyPersonal();
     this.isAdmin = this.authService.isAdmin();
     this.newVisit.visitDate = new Date();
+    this.personalService.getPersonals()
+      .subscribe((personalModels: PersonalModel[]) => {
+        this.personals = personalModels;
+        this.personals = [this.emptyPerson, ...this.personals];
+        this.selectedFilterPersonal = this.emptyPerson;
+        this.cdr.detectChanges();
+      });
     this.getAllHotels();
   }
 
@@ -105,7 +119,8 @@ export class CrmVisitComponent implements OnInit {
 
   private shouldFilterResult() {
     return (this.filterHotel.name != null && this.filterHotel.name !== '') ||
-      (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0);
+      (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0) ||
+      (this.filterHotel.personal != null && this.filterHotel.personal.id != null);
   }
 
   showVisitModal(hotel: HotelInfoModel) {
@@ -197,11 +212,17 @@ export class CrmVisitComponent implements OnInit {
     this.modalService.open(this.hotelFilterModal, {size: 'xl'});
   }
 
+  selectFilterPersonal(personal: PersonalModel) {
+    this.filterHotel.personal = personal;
+    this.selectedFilterPersonal = personal;
+  }
+
   clearFilter() {
     this.filterHotel = new HotelFilterModel();
     this.filterHotel.statusList = [];
     this.filteredStatus = [];
     this.statuses.forEach(status => status.checked = false);
+    this.selectedFilterPersonal = this.emptyPerson;
     this.filterHotel = new HotelFilterModel();
     this.page = 1;
   }

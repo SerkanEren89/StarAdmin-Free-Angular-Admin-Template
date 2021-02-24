@@ -18,4 +18,5 @@ export class HotelInfoModel {
   hotelContactList: HotelContactModel[];
   hotelVisitList: HotelVisitModel[];
   personal: PersonalModel;
+  hasLink: boolean;
 }

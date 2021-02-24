@@ -56,6 +56,7 @@
             <tr *ngFor="let hotel of hotels">
               <td>
                 {{hotel.name}}
+                <span *ngIf="hotel.hasLink">*</span>
               </td>
               <td (click)="openHotelStatusModal(hotel)" class="comment">
                 {{hotel.hotelStatus}}
@@ -70,7 +71,7 @@
               </td>
               <td *ngIf="!isAdmin">
                 <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
-                <i class="fa fa-times action-button text-danger action-icon" *ngIf="hotel.personal == null"></i>
+                <span *ngIf="hotel.personal == null">--</span>
               </td>
             </tr>
             </tbody>
@@ -182,6 +183,18 @@
           </label>
         </div>
       </div>
+      <div class="form-group" *ngIf="isAdmin">
+        <label>{{ 'CRM.PERSONAL' | translate }}</label>
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>
+            {{selectedFilterPersonal.firstName}} {{selectedFilterPersonal.lastName}}
+          </button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let personal of personals"
+                    (click)="selectFilterPersonal(personal)">{{personal.firstName}} {{personal.lastName}}</button>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
@@ -213,6 +226,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()">{{ 'GENERAL.SAVE' | translate }}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()" *ngIf="isAdmin">{{ 'GENERAL.SAVE' | translate }}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="requestChangeHotelStatus()" *ngIf="!isAdmin">{{ 'CRM.REQUEST_CHANGE' | translate }}</button>
   </div>
 </ng-template>

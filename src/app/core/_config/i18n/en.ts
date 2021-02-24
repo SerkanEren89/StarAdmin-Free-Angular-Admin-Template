@@ -252,7 +252,9 @@ export const locale = {
       NO_HOTEL: 'There is no hotel according to your filter',
       ASSIGN_PERSONAL: 'Assign Personal',
       ASSIGN: 'Assign',
-      ASSIGNED: 'Assigned'
+      ASSIGNED: 'Assigned',
+      PERSONAL: 'Personal',
+      REQUEST_CHANGE: 'Request Change'
     },
     VISIT: {
       TITLE: 'Visit',

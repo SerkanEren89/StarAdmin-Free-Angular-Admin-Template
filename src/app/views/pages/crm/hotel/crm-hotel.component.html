@@ -50,17 +50,6 @@
               <th style="width: 15%">
                 {{ 'CRM.INFORMATION' | translate }}
               </th>
-              <th style="width: 10%" (click)="sortHotels('hotelStatus')" class="clickable">
-                {{ 'CRM.STATUS' | translate }}
-                <span *ngIf="columnName == 'hotelStatus'">
-                  <span *ngIf="direction=='ASC'">
-                    <i class="fa fa-chevron-down"></i>
-                  </span>
-                  <span *ngIf="direction=='DESC'">
-                    <i class="fa fa-chevron-up"></i>
-                  </span>
-                </span>
-              </th>
               <th style="width: 10%" *ngIf="isAdmin">
                 {{ 'CRM.ASSIGN' | translate }}
               </th>
@@ -76,6 +65,7 @@
             <tr *ngFor="let hotel of hotels">
               <td>
                 {{hotel.name}}
+                <span *ngIf="hotel.hasLink">*</span>
               </td>
               <td class="comment" (click)="showLastLogins(hotel)">
                 <span *ngIf="hotel.user != null && hotel.user.lastLogin">
@@ -97,9 +87,6 @@
               <td class="comment" (click)="showHotelInformation(hotel)">
                 {{ 'CRM.HOTEL_INFORMATION' | translate }}
               </td>
-              <td (click)="openHotelStatusModal(hotel)" class="comment">
-                {{hotel.hotelStatus}}
-              </td>
               <td (click)="openAssignPersonalModal(hotel)"
                   *ngIf="hotel.personal != null && isAdmin" class="comment">
                 {{hotel.personal.firstName}} {{hotel.personal.lastName}}
@@ -110,10 +97,10 @@
               </td>
               <th style="width: 7%" *ngIf="!isAdmin">
                 <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
-                <i class="fa fa-times action-button text-danger action-icon" *ngIf="hotel.personal == null"></i>
+                <span *ngIf="hotel.personal == null">--</span>
               </th>
               <td style="width: 7%">
-                <span tooltip="Send weekly reviews" (click)="showActionsModal(hotel)">
+                <span tooltip="Send weekly reviews" (click)="showActionsModal(hotel)" *ngIf="hotel.hasLink">
                   <a><i class="fa fa-reply action-button text-primary action-icon"></i></a>
                 </span>
               </td>
@@ -499,6 +486,18 @@
                    (change)="changeFilteredStatus(i)"
                    [checked]="status.checked">{{status.title}}
           </label>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="isAdmin">
+        <label>{{ 'CRM.PERSONAL' | translate }}</label>
+        <div ngbDropdown container="body" class="title-container ">
+          <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>
+            {{selectedFilterPersonal.firstName}} {{selectedFilterPersonal.lastName}}
+          </button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let personal of personals"
+                    (click)="selectFilterPersonal(personal)">{{personal.firstName}} {{personal.lastName}}</button>
+          </div>
         </div>
       </div>
     </form>

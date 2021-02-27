@@ -79,6 +79,7 @@ export const locale = {
       LAST_WEEK: 'Geçen Hafta',
       LAST_MONTH: 'Geçen Ay',
       LAST_3_MONTH: 'Son 3 Ay',
+      MONTHLY: 'Aylık',
       REV_SHORT: 'Yor.',
       REVIEW_RESPONSE: 'Yorumlar & Cevaplar',
       POSITIVE: 'Olumlu',
@@ -234,6 +235,7 @@ export const locale = {
       CONTACT_NUMBER: 'İletişim Numarası',
       NO_LOGIN: 'Bu kullanıcı için giriş bulunmamaktadır.',
       CONTACT_LIST: 'İletişim Listesi',
+      CONTACT_NOTE: 'İletişim Notu',
       POSITION: 'Pozisyon',
       NEW_REVIEW_MAIL: 'Yeni Yorum Maili',
       HOTEL_INFORMATION: 'Otel Bilgileri',
@@ -249,7 +251,11 @@ export const locale = {
       ASSIGN: 'Atama',
       ASSIGNED: 'Atandı',
       PERSONAL: 'Personel',
-      REQUEST_CHANGE: 'Değişiklik İste'
+      REQUEST_CHANGE: 'Değişiklik İste',
+      CALCULATOR: 'Hesap Makinesi',
+      INCOME: 'Ciro',
+      HOTELUPLIFT_PRICE: 'Hoteluplift ücreti',
+      INCOME_WARNING: 'Ciro hesaplamalari %80 doluluk orani göre hesaplamistir',
     },
     VISIT: {
       TITLE: 'Ziyaret',

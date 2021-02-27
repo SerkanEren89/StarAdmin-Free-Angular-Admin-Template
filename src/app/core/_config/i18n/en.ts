@@ -79,6 +79,7 @@ export const locale = {
       LAST_WEEK: 'Last Week',
       LAST_MONTH: 'Last Month',
       LAST_3_MONTH: 'Last 3 Months',
+      MONTHLY: 'Montly',
       REV_SHORT: 'Rev.',
       REVIEW_RESPONSE: 'Reviews & Response',
       POSITIVE: 'Positive',
@@ -233,6 +234,7 @@ export const locale = {
       LAST_LOGIN: 'Last Login',
       COMPETITION: 'Competition',
       CONTACT_PERSON: 'Contact Person',
+      CONTACT_NOTE: 'Contact Note',
       MAIL_LIST: 'Mail List',
       INFORMATION: 'Information',
       STATUS: 'Status',
@@ -254,7 +256,11 @@ export const locale = {
       ASSIGN: 'Assign',
       ASSIGNED: 'Assigned',
       PERSONAL: 'Personal',
-      REQUEST_CHANGE: 'Request Change'
+      REQUEST_CHANGE: 'Request Change',
+      CALCULATOR: 'Calculator',
+      INCOME: 'Income',
+      HOTELUPLIFT_PRICE: 'Hoteluplift price',
+      INCOME_WARNING: 'Income calculations done assuming 80% occupancy'
     },
     VISIT: {
       TITLE: 'Visit',

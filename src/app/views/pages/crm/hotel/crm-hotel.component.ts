@@ -27,7 +27,6 @@ import {AuthService} from '../../../../core/auth/_service/auth.service';
 })
 export class CrmHotelComponent implements OnInit {
   @ViewChild('hotelsTable') elRef;
-  @ViewChild('contactPersonModal') public contactPersonModal: TemplateRef<any>;
   @ViewChild('lastLoginModal') public lastLoginModal: TemplateRef<any>;
   @ViewChild('contactListModal') public contactListModal: TemplateRef<any>;
   @ViewChild('actionModal') public actionModal: TemplateRef<any>;
@@ -53,6 +52,10 @@ export class CrmHotelComponent implements OnInit {
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  roomPrice = 0;
+  roomNumber = 0;
+  hotelUpliftPrice = 0;
+  hotelIncome = 0;
   emptyStatus = false;
   emptyPersonal = false;
   isAdmin: boolean;
@@ -154,11 +157,6 @@ export class CrmHotelComponent implements OnInit {
     return (this.filterHotel.name != null && this.filterHotel.name !== '') ||
       (this.filterHotel.statusList != null && this.filterHotel.statusList.length > 0) ||
       (this.filterHotel.personal != null && this.filterHotel.personal.id != null);
-  }
-
-  edit(hotel: HotelInfoModel) {
-    this.hotelToEdit = hotel;
-    this.open(this.contactPersonModal);
   }
 
   open(content) {
@@ -279,6 +277,9 @@ export class CrmHotelComponent implements OnInit {
           hotelInformation = new HotelInformationModel();
         }
         this.hotelInformation = hotelInformation;
+        this.roomNumber = this.hotelInformation.numberOfRoom;
+        this.roomPrice = this.hotelInformation.price;
+        this.calculatePrice();
         this.modalService.open(this.hotelInformationModal, {size: 'xl'});
         this.cdr.detectChanges();
       });
@@ -424,5 +425,54 @@ export class CrmHotelComponent implements OnInit {
       }
     }
     this.filterHotel.statusList = this.filteredStatus;
+  }
+
+
+
+  roomPriceChange(newValue) {
+    this.roomPrice = newValue;
+    this.calculatePrice();
+  }
+
+  roomValueChange(newValue) {
+    this.roomNumber = newValue;
+    this.calculatePrice();
+  }
+
+  calculatePrice() {
+    const basicPrice = 20;
+    let multiplier = 0;
+    if (this.roomNumber <= 20) {
+      multiplier += 1;
+    } else if (this.roomNumber > 20 && this.roomNumber <= 30) {
+      multiplier += 1.2;
+    } else if (this.roomNumber > 30 && this.roomNumber <= 40) {
+      multiplier += 1.5;
+    } else if (this.roomNumber > 40 && this.roomNumber <= 60) {
+      multiplier += 2;
+    } else if (this.roomNumber > 60 && this.roomNumber <= 80) {
+      multiplier += 2.5;
+    } else if (this.roomNumber > 80 && this.roomNumber <= 100) {
+      multiplier += 3;
+    } else if (this.roomNumber > 100) {
+      multiplier += 3.5;
+    }
+
+    if (this.roomPrice <= 20) {
+      multiplier += 1;
+    } else if (this.roomPrice > 20 && this.roomPrice <= 40) {
+      multiplier += 1.2;
+    } else if (this.roomPrice > 40 && this.roomPrice <= 60) {
+      multiplier += 1.5;
+    } else if (this.roomPrice > 60 && this.roomPrice <= 80) {
+      multiplier += 2;
+    } else if (this.roomPrice > 80 && this.roomPrice <= 100) {
+      multiplier += 2.5;
+    } else if (this.roomPrice > 100) {
+      multiplier += 3;
+    }
+
+    this.hotelUpliftPrice = basicPrice * multiplier;
+    this.hotelIncome = this.roomPrice * this.roomNumber * 0.8 * 30;
   }
 }

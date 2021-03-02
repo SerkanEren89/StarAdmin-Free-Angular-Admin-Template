@@ -11,6 +11,7 @@ export class HotelInfoModel {
   selected: boolean;
   hotelStatus: string;
   categorizied: boolean;
+  waitingApproval: boolean;
   user: UserModel;
   hotelContactList: HotelContactModel[];
   hotelVisitList: HotelVisitModel[];

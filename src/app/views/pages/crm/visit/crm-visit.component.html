@@ -44,11 +44,14 @@
                   </span>
                 </span>
               </th>
-              <th style="width: 40%">
+              <th style="width: 30%">
                 {{ 'VISIT.LAST_VISIT' | translate }}
               </th>
               <th style="width: 10%" *ngIf="!isAdmin">
                 {{ 'CRM.ASSIGNED' | translate }}
+              </th>
+              <th style="width: 10%" *ngIf="isAdmin">
+                {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
             </thead>
@@ -59,7 +62,7 @@
                 <span *ngIf="hotel.hasLink">*</span>
               </td>
               <td (click)="openHotelStatusModal(hotel)" class="comment">
-                {{hotel.hotelStatus}}
+                {{hotel.hotelStatus}}<span *ngIf="hotel.waitingApproval">**</span>
               </td>
               <td class="comment" (click)="showVisitModal(hotel)">
                 <span *ngIf="hotel.hotelVisitList.length > 0">
@@ -73,6 +76,12 @@
                 <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
                 <span *ngIf="hotel.personal == null">--</span>
               </td>
+              <td *ngIf="isAdmin">
+                <span tooltip="Approve status change" (click)="approveStatusChange(hotel)" *ngIf="hotel.waitingApproval">
+                  <a><i class="fa fa-check-circle action-button text-primary action-icon"></i></a>
+                </span>
+              </td>
+
             </tr>
             </tbody>
           </table>
@@ -81,6 +90,7 @@
                           [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                           aria-label="Default pagination"
                           class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
+          <span>** {{ 'VISIT.WAITING_CHANGE' | translate }}</span>
         </div>
       </div>
     </div>
@@ -227,6 +237,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()" *ngIf="isAdmin">{{ 'GENERAL.SAVE' | translate }}</button>
-    <button type="button" class="btn btn-outline-dark" (click)="requestChangeHotelStatus()" *ngIf="!isAdmin">{{ 'CRM.REQUEST_CHANGE' | translate }}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="changeHotelStatus()" *ngIf="!isAdmin">{{ 'CRM.REQUEST_CHANGE' | translate }}</button>
   </div>
 </ng-template>

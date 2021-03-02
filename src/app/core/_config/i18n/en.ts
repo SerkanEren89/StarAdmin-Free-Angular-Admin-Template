@@ -260,6 +260,7 @@ export const locale = {
       CALCULATOR: 'Calculator',
       INCOME: 'Income',
       HOTELUPLIFT_PRICE: 'Hoteluplift price',
+      HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift price(Yearly)',
       INCOME_WARNING: 'Income calculations done assuming 80% occupancy'
     },
     VISIT: {
@@ -270,6 +271,7 @@ export const locale = {
       VISIT_DATE: 'Visit Date',
       VISIT_TYPE: 'Visit Type',
       FILTER_HOTEL: 'Filter Hotels',
+      WAITING_CHANGE: 'waiting status change approval'
     }
   }
 };

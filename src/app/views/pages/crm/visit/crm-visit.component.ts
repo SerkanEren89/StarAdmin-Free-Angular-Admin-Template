@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {PersonalModel} from '../../../../core/personal/_models/personal.model';
 import {PersonalService} from '../../../../core/personal/_services/personal.service';
+import {HotelModel} from '../../../../core/hotel/_models/hotel.model';
 
 @Component({
   selector: 'app-crm-visit',
@@ -251,5 +252,14 @@ export class CrmVisitComponent implements OnInit {
     }
     this.columnName = column;
     this.loadHotels();
+  }
+
+  approveStatusChange(hotel: HotelInfoModel) {
+    this.hotelService.approveStatusChange(hotel.id)
+      .subscribe((hotelInfoModel: HotelInfoModel) => {
+        this.selectedHotel = hotelInfoModel;
+        this.toastr.success('Status updated successfully');
+        this.cdr.detectChanges();
+      });
   }
 }

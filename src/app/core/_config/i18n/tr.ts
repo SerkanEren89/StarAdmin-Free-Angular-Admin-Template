@@ -255,6 +255,7 @@ export const locale = {
       CALCULATOR: 'Hesap Makinesi',
       INCOME: 'Ciro',
       HOTELUPLIFT_PRICE: 'Hoteluplift ücreti',
+      HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift ücreti(Yıllık)',
       INCOME_WARNING: 'Ciro hesaplamalari %80 doluluk orani göre hesaplamistir',
     },
     VISIT: {
@@ -265,6 +266,7 @@ export const locale = {
       VISIT_DATE: 'Ziyaret Tarihi',
       VISIT_TYPE: 'Ziyaret Tipi',
       FILTER_HOTEL: 'Otelleri Filtrele',
+      WAITING_CHANGE: 'statü değişikliği onayı bekleniyor'
     }
   }
 };

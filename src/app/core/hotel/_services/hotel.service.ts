@@ -67,4 +67,11 @@ export class HotelService {
         return result;
       }));
   }
+
+  approveStatusChange(id: number): Observable<HotelInfoModel> {
+    return this.http.get<HotelInfoModel>(API_HOTELS_URL + '/' + id + '/approve')
+      .pipe(map(result => {
+        return result;
+      }));
+  }
 }

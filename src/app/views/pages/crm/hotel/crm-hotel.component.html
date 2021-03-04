@@ -10,6 +10,9 @@
     <button type="button" class="btn btn-primary" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
       {{ 'CRM.FILTER_HOTEL' | translate }}
     </button>
+    <button type="button" class="btn btn-primary" (click)="openCalculatorModal()"><i class="mdi mdi-calculator"></i>
+      {{ 'CRM.CALCULATOR' | translate }}
+    </button>
   </div>
 </div>
 
@@ -337,6 +340,62 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="saveHotelInformation()">{{ 'GENERAL.SAVE' | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #calculatorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-calculator-title">{{ 'CRM.CALCULATOR' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group calculator">
+        <p class="title">
+          <i class="fa fa-calculator"></i>
+          {{ 'CRM.CALCULATOR' | translate }}
+        </p>
+        <div *ngIf="hotelInformation.price == null || hotelInformation.numberOfRoom == null">
+          <p class="text-danger warning">Please enter room number and room price</p>
+        </div>
+        <div *ngIf="hotelInformation.price != null && hotelInformation.numberOfRoom != null">
+          <div class="input-group">
+            <p>{{ 'CRM.INCOME' | translate }}: </p>
+            <p>{{hotelIncome| number}} € {{ 'GENERAL.MONTHLY' | translate }}</p>
+          </div>
+          <div class="input-group">
+            <p>{{ 'CRM.HOTELUPLIFT_PRICE' | translate }}: </p>
+            <p>{{hotelUpliftPrice | number}} €</p>
+          </div>
+          <div class="input-group">
+            <p>{{ 'CRM.HOTELUPLIFT_PRICE_YEARLY' | translate }}: </p>
+            <p>{{hotelUpliftPrice * 0.9 | number}} €</p>
+          </div>
+          <span>** {{ 'CRM.INCOME_WARNING' | translate }}</span>
+        </div>
+      </div>
+    </form>
+    <form>
+      <div class="form-group">
+        <label>{{ 'CRM.NUMBER_OF_ROOMS' | translate }}</label>
+        <div class="input-group">
+          <input id="numberOfRoomsCalculator" type="text" class="form-control" name="numberOfRooms"
+                 (ngModelChange)="roomValueChange($event)"
+                 [(ngModel)]="hotelInformation.numberOfRoom"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'CRM.ROOM_PRICE' | translate }} / €</label>
+        <div class="input-group">
+          <input id="roomPriceCalculator" type="text" class="form-control" name="roomPrice"
+                 (ngModelChange)="roomPriceChange($event)"
+                 placeholder="€"
+                 [(ngModel)]="hotelInformation.price"/>
+        </div>
+      </div>
+    </form>
   </div>
 </ng-template>
 

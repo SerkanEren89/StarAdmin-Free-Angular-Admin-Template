@@ -26,6 +26,7 @@ export const locale = {
       CHANGE_HOTEL: 'Change Hotel',
       GO_TO_SOURCE: 'Go to source',
       LAST_N_REVIEW: 'Last {{length}} {{source}} Reviews',
+      NO_TRAVELER_TYPE: 'Traveler Type information does not exist {{source}}'
     },
     GENERAL: {
       CANCEL: 'Cancel',

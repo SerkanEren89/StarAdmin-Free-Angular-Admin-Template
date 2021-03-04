@@ -34,6 +34,7 @@ export class CrmHotelComponent implements OnInit {
   @ViewChild('hotelStatusModal') public hotelStatusModal: TemplateRef<any>;
   @ViewChild('assignPersonalModal') public assignPersonalModal: TemplateRef<any>;
   @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
+  @ViewChild('calculatorModal') public calculatorModal: TemplateRef<any>;
   hotels: HotelInfoModel[] = [];
   hotels$: Observable<HotelInfoModel[]>;
   userLogins: UserLoginModel[];
@@ -323,6 +324,11 @@ export class CrmHotelComponent implements OnInit {
     this.modalService.open(this.hotelFilterModal, {size: 'xl'});
   }
 
+  openCalculatorModal() {
+    this.hotelInformation = new HotelInformationModel();
+    this.modalService.open(this.calculatorModal, {size: 'xl'});
+  }
+
   selectStatus(resultStatus: { title: string; value: string }) {
     this.selectedStatus = resultStatus;
     this.hotelToEdit.hotelStatus = this.selectedStatus.value;
@@ -426,7 +432,6 @@ export class CrmHotelComponent implements OnInit {
     }
     this.filterHotel.statusList = this.filteredStatus;
   }
-
 
 
   roomPriceChange(newValue) {

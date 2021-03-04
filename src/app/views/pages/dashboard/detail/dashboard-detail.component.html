@@ -98,15 +98,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let commentCountLanguageModel of commentsByLanguage">
-              <td>
-                <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
-                {{commentCountLanguageModel.language}}
-              </td>
-              <td>
-                {{commentCountLanguageModel.commentCount}}
-              </td>
-            </tr>
+            <ng-container *ngFor="let commentCountLanguageModel of commentsByLanguage">
+              <tr *ngIf="commentCountLanguageModel.language != null">
+                <td>
+                  <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
+                  {{commentCountLanguageModel.language}}
+                </td>
+                <td>
+                  {{commentCountLanguageModel.commentCount}}
+                </td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>
@@ -117,7 +119,10 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</h5>
-        <div class="table-responsive">
+        <div *ngIf="unknownTraveledWithData">
+          <span>{{'DASHBOARD.NO_TRAVELER_TYPE' | translate:{source: source} }}</span>
+        </div>
+        <div class="table-responsive" *ngIf="!unknownTraveledWithData">
           <table class="table table-bordered" #travelTypeTable>
             <thead>
             <tr>

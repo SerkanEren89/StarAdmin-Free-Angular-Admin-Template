@@ -31,11 +31,10 @@ export class DashboardDetailComponent implements OnInit {
   commentsByLanguage: CommentCountLanguageModel[] = [];
   commentsByTraveledWith$: Observable<CommentCountTraveledWithModel[]>;
   commentsByTraveledWith: CommentCountTraveledWithModel[] = [];
-  employeeList$: Observable<EmployeeModel[]>;
   employeeList: EmployeeModel[];
   selectedComment: CommentModel;
   task: TaskModel = new TaskModel();
-
+  unknownTraveledWithData: boolean;
   closeResult = '';
   source: string;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
@@ -68,6 +67,7 @@ export class DashboardDetailComponent implements OnInit {
     this.commentsByTraveledWith$ = this.commentService.getCommentsByCountByTraveledWithAndSource(this.source);
     this.commentsByTraveledWith$.subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
       this.commentsByTraveledWith = assessmentByTravelType;
+      this.unknownTraveledWithData = this.commentsByTraveledWith.length === 1 && this.commentsByTraveledWith[0].traveledWith == null;
       this.cdr.detectChanges();
       this.tableService.addLabelTag(this.elRefTravelType);
     });

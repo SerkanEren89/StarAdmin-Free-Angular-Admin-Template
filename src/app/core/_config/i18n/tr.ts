@@ -26,6 +26,7 @@ export const locale = {
       CHANGE_HOTEL: 'Oteli Değiştirin',
       GO_TO_SOURCE: 'Kaynağa git',
       LAST_N_REVIEW: 'Son {{length}} {{source}} Yorumu',
+      NO_TRAVELER_TYPE: '{{source}} icin tatilci tipi bilgisi mevcut değildir'
     },
     GENERAL: {
       CANCEL: 'İptal',

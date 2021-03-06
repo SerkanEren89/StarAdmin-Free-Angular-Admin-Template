@@ -19,6 +19,7 @@ import {Observable} from 'rxjs';
 import {PersonalService} from '../../../../core/personal/_services/personal.service';
 import {PersonalModel} from '../../../../core/personal/_models/personal.model';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
+import {HotelModel} from '../../../../core/hotel/_models/hotel.model';
 
 @Component({
   selector: 'app-hotel-visit',
@@ -35,6 +36,7 @@ export class CrmHotelComponent implements OnInit {
   @ViewChild('assignPersonalModal') public assignPersonalModal: TemplateRef<any>;
   @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
   @ViewChild('calculatorModal') public calculatorModal: TemplateRef<any>;
+  @ViewChild('newHotelModal') public newHotelModal: TemplateRef<any>;
   hotels: HotelInfoModel[] = [];
   hotels$: Observable<HotelInfoModel[]>;
   userLogins: UserLoginModel[];
@@ -50,6 +52,7 @@ export class CrmHotelComponent implements OnInit {
   emptyPerson: PersonalModel;
   filterHotel: HotelFilterModel = new HotelFilterModel();
   reportItemsToSend: WeeklyReportItemModel[] = [];
+  newHotel: HotelModel = new HotelModel();
   totalElements = 0;
   pageSize = 10;
   page = 1;
@@ -327,6 +330,21 @@ export class CrmHotelComponent implements OnInit {
   openCalculatorModal() {
     this.hotelInformation = new HotelInformationModel();
     this.modalService.open(this.calculatorModal, {size: 'xl'});
+  }
+
+  saveHotelModal() {
+    this.modalService.open(this.newHotelModal);
+  }
+
+  saveHotel() {
+    this.hotelService.saveHotel(this.newHotel)
+      .subscribe((hotelModel: HotelModel) => {
+        this.toastr.success('Hotel saved with success');
+        this.newHotel = new HotelModel();
+        this.cdr.detectChanges();
+        this.modalService.dismissAll();
+        this.loadHotels();
+      });
   }
 
   selectStatus(resultStatus: { title: string; value: string }) {

@@ -5,13 +5,21 @@
       {{ 'CRM.TITLE' | translate }}
     </span>
   </div>
-  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
+  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button" *ngIf="isAdmin">
 
-    <button type="button" class="btn btn-primary" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
-      {{ 'CRM.FILTER_HOTEL' | translate }}
+    <button type="button" class="btn btn-primary full-width" (click)="saveHotelModal()"><i class="mdi mdi-plus"></i>
+      {{ 'CRM.ADD_HOTEL' | translate }}
     </button>
-    <button type="button" class="btn btn-primary" (click)="openCalculatorModal()"><i class="mdi mdi-calculator"></i>
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button">
+    <button type="button" class="btn btn-primary full-width" (click)="openCalculatorModal()"><i class="mdi mdi-calculator"></i>
       {{ 'CRM.CALCULATOR' | translate }}
+    </button>
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button">
+
+    <button type="button" class="btn btn-primary full-width" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
+      {{ 'CRM.FILTER_HOTEL' | translate }}
     </button>
   </div>
 </div>
@@ -552,5 +560,29 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="clearFilter()">{{ 'GENERAL.CLEAR' | translate }}</button>
     <button type="button" class="btn btn-primary" (click)="loadHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #newHotelModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-new-hotel-title">{{ 'CRM.ADD_HOTEL' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form" #newHotelForm="ngForm">
+      <div class="form-group">
+        <label>{{ 'GENERAL.HOTEL_NAME' | translate }}</label>
+        <div class="input-group">
+          <input type="text" class="form-control" name="name" required
+                 [(ngModel)]="newHotel.name"/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary"
+            [disabled]="newHotelForm.form.invalid" (click)="saveHotel()">{{ 'GENERAL.SAVE' | translate }}</button>
   </div>
 </ng-template>

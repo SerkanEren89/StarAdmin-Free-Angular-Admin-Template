@@ -259,6 +259,7 @@ export const locale = {
       PERSONAL: 'Personal',
       REQUEST_CHANGE: 'Request Change',
       CALCULATOR: 'Calculator',
+      ADD_HOTEL: 'Add Hotel',
       INCOME: 'Income',
       HOTELUPLIFT_PRICE: 'Hoteluplift price',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift price(Yearly)',

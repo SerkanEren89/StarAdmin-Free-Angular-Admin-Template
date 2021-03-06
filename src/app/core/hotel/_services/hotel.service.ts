@@ -33,6 +33,13 @@ export class HotelService {
     return params.append('direction', direction);
   }
 
+  saveHotel(hotelModel: HotelModel): Observable<HotelModel> {
+    return this.http.post<HotelModel>(API_HOTELS_URL, hotelModel)
+      .pipe(map(result => {
+        return result;
+      }));
+  }
+
   getHotels(page: number, pageSize: number,
             sort: string, direction: string): Observable<HotelInfoModel[]> {
     const params = HotelService.pageAndSearch(page, pageSize, sort, direction);

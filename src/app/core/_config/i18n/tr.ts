@@ -254,6 +254,7 @@ export const locale = {
       PERSONAL: 'Personel',
       REQUEST_CHANGE: 'Değişiklik İste',
       CALCULATOR: 'Hesap Makinesi',
+      ADD_HOTEL: 'Hotel Ekle',
       INCOME: 'Ciro',
       HOTELUPLIFT_PRICE: 'Hoteluplift ücreti',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift ücreti(Yıllık)',

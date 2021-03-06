@@ -266,6 +266,9 @@
             <p>{{ 'CRM.HOTELUPLIFT_PRICE_YEARLY' | translate }}: </p>
             <p>{{hotelUpliftPrice * 0.9 | number}} €</p>
           </div>
+          <span class="text-success">{{ 'CRM.AVERAGE_PROFIT' | translate:{profit: hotelIncome * 9.5 / 100 | number} }} €</span><br>
+          <span>** {{ 'CRM.AVERAGE_IMPROVEMENT' | translate }}</span><br>
+          <span>** Otel cirosunda %9.5 olumlu etki</span><br>
           <span>** {{ 'CRM.INCOME_WARNING' | translate }}</span>
         </div>
       </div>
@@ -381,6 +384,9 @@
             <p>{{ 'CRM.HOTELUPLIFT_PRICE_YEARLY' | translate }}: </p>
             <p>{{hotelUpliftPrice * 0.9 | number}} €</p>
           </div>
+          <span class="text-success">{{ 'CRM.AVERAGE_PROFIT' | translate:{profit: hotelIncome * 9.5 / 100 | number} }} €</span><br>
+          <span>** {{ 'CRM.AVERAGE_IMPROVEMENT' | translate }}</span><br>
+          <span>** {{ 'CRM.INCOME_IMPROVEMENT' | translate }}</span><br>
           <span>** {{ 'CRM.INCOME_WARNING' | translate }}</span>
         </div>
       </div>

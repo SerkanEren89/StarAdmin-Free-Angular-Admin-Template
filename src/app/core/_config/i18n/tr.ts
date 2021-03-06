@@ -198,14 +198,14 @@ export const locale = {
     EMPLOYEE: {
       TITLE: 'Çalışan',
       ADD_NEW: 'Yeni Çalışan Ekle',
-      DELETE_EMPLOYEE : 'Çalışanı sil',
+      DELETE_EMPLOYEE: 'Çalışanı sil',
       NEW_EMPLOYEE: 'Yeni Çalışan',
       DELETE_EMPLOYEE_APPROVAL: 'Çalışanı silmek istediğinize emin misiniz',
     },
     PERSONAL: {
       TITLE: 'Personel',
       ADD_NEW: 'Yeni Personel Ekle',
-      DELETE_PERSONAL : 'Personel sil',
+      DELETE_PERSONAL: 'Personel sil',
       NEW_PERSONAL: 'Yeni Personel',
       DELETE_PERSONAL_APPROVAL: 'Personeli silmek istediğinize emin misiniz',
     },
@@ -258,7 +258,10 @@ export const locale = {
       INCOME: 'Ciro',
       HOTELUPLIFT_PRICE: 'Hoteluplift ücreti',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift ücreti(Yıllık)',
-      INCOME_WARNING: 'Ciro hesaplamalari %80 doluluk orani göre hesaplamistir',
+      INCOME_WARNING: 'Ciro hesaplamalari %80 doluluk orani göre hesaplamıstır',
+      AVERAGE_IMPROVEMENT: 'HU Ortalaması: Ortalama puanınızda +0.3 iyileşme',
+      INCOME_IMPROVEMENT: 'Otel cirosunda %9.5 olumlu etki',
+      AVERAGE_PROFIT: 'Hoteluplift ortalama aylık ciro katkısı {{profit}}',
     },
     VISIT: {
       TITLE: 'Ziyaret',

@@ -263,7 +263,10 @@ export const locale = {
       INCOME: 'Income',
       HOTELUPLIFT_PRICE: 'Hoteluplift price',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift price(Yearly)',
-      INCOME_WARNING: 'Income calculations done assuming 80% occupancy'
+      INCOME_WARNING: 'Income calculations done assuming 80% occupancy',
+      AVERAGE_IMPROVEMENT: 'HU Average: +0.3 improvement on average rating',
+      INCOME_IMPROVEMENT: '%9.5 improvement on hotel income',
+      AVERAGE_PROFIT: 'Hoteluplift contribution to income is monthly {{profit}}',
     },
     VISIT: {
       TITLE: 'Visit',

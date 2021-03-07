@@ -146,29 +146,31 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let commentCountLanguageModel of commentsByLanguage">
-              <td>
-                <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
-                {{commentCountLanguageModel.language}}
-              </td>
-              <td>
+            <ng-container *ngFor="let commentCountLanguageModel of commentsByLanguage">
+              <tr *ngIf="commentCountLanguageModel.language != null">
+                <td>
+                  <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
+                  {{commentCountLanguageModel.language}}
+                </td>
+                <td>
                 <span class="fa-pull-right">
                   {{commentCountLanguageModel.commentCount}}
                 </span>
-              </td>
-              <td>
+                </td>
+                <td>
                 <span class="fa-pull-right">
                   <span class="text-success fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage >= 9"> {{commentCountLanguageModel.ratingAverage}}</span>
                   <span class="text-warning fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage < 9 && commentCountLanguageModel.ratingAverage >= 8"> {{commentCountLanguageModel.ratingAverage}}</span>
                   <span class="text-danger fa-pull-right" *ngIf="commentCountLanguageModel.ratingAverage < 8"> {{commentCountLanguageModel.ratingAverage}}</span>
                 </span>
-              </td>
-              <td>
+                </td>
+                <td>
                 <span class="fa-pull-right">
                   {{commentCountLanguageModel.percentage}}
                 </span>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>

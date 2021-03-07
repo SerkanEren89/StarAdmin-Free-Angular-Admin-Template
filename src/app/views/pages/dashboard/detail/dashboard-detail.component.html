@@ -1,6 +1,6 @@
 <div class="row title-container">
   <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 left">
-    <span class="input-group-text text-primary title">
+    <span class="input-group-text text-primary title title-icon">
       <app-channel-icon class="header-icon" [source]="source.toLowerCase()"></app-channel-icon>
       {{source}}</span>
   </div>
@@ -17,11 +17,11 @@
               <th style="width: 10%">
                 {{ 'DASHBOARD.HIGHLIGHT' | translate }}
               </th>
+              <th style="width: 10%">
+                {{ 'GENERAL.REPLY' | translate }}
+              </th>
               <th style="width: 50%">
                 {{ 'GENERAL.REVIEW' | translate }}
-              </th>
-              <th style="width: 10%">
-                {{ 'GENERAL.CHANNEL' | translate }}
               </th>
               <th style="width: 15%">
                 {{ 'GENERAL.REVIEW_DATE' | translate }}
@@ -40,6 +40,13 @@
                 <i class="fa fa-star star pointer" *ngIf="comment.starred" (click)="markAsStarred(comment)"></i>
                 <i class="far fa-star star pointer" *ngIf="!comment.starred" (click)="markAsStarred(comment)"></i>
               </td>
+              <td class="text star-container">
+                <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
+                     *ngIf="comment.answer != null">
+                <span tooltip="{{ 'GENERAL.REPLY_REVIEW' | translate }}">
+                  <a (click)="openReplyModal(reply, comment)" *ngIf="comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
+                </span>
+              </td>
               <td class="text comment"
                   (click)="openDetailPopup(comment, contentReviewDetail)"
                   *ngIf="comment.content != null && comment.content.length <= 100">
@@ -55,11 +62,6 @@
                   *ngIf="comment.content == null">
               </td>
               <td>
-                <div>
-                  <app-channel-icon [source]="comment.source.toLowerCase()"></app-channel-icon>
-                </div>
-              </td>
-              <td>
                 {{comment.commentDate  | date:'dd/MM/yyyy'}}
               </td>
               <td class="text-danger"
@@ -68,9 +70,12 @@
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
               <td class="text-primary">
-                <!--<i class="fa fa-tasks action-button" (click)="open(comment, contentTask)"></i>-->
-                <a (click)="translate(comment)" *ngIf="comment.translatedText == null"><i class="fa fa-language action-button" ></i></a>
-                <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                <span tooltip="{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}">
+                  <a (click)="open(comment, contentTask)"><i class="fa fa-tasks action-button"></i></a>
+                </span>
+                <span tooltip="{{ 'DASHBOARD.GO_TO_SOURCE' | translate }}">
+                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                </span>
               </td>
             </tr>
             </tbody>
@@ -85,33 +90,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">{{ 'GENERAL.LANGUAGE' | translate }}</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" #languageTable>
-            <thead>
-            <tr>
-              <th>
-                {{ 'GENERAL.LANGUAGE' | translate }}
-              </th>
-              <th>
-                {{ 'GENERAL.COUNT' | translate }}
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let commentCountLanguageModel of commentsByLanguage">
-              <tr *ngIf="commentCountLanguageModel.language != null">
-                <td>
-                  <app-flag-icon [language]="commentCountLanguageModel.language"></app-flag-icon>
-                  {{commentCountLanguageModel.language}}
-                </td>
-                <td>
-                  {{commentCountLanguageModel.commentCount}}
-                </td>
-              </tr>
-            </ng-container>
-            </tbody>
-          </table>
-        </div>
+        <app-pie-chart [pieChartData]="pieChartDataLanguage" [pieChartLabels]="pieChartLabelsLanguage"></app-pie-chart>
       </div>
     </div>
   </div>
@@ -123,30 +102,7 @@
           <span>{{'DASHBOARD.NO_TRAVELER_TYPE' | translate:{source: source} }}</span>
         </div>
         <div class="table-responsive" *ngIf="!unknownTraveledWithData">
-          <table class="table table-bordered" #travelTypeTable>
-            <thead>
-            <tr>
-              <th>
-                {{ 'GENERAL.TRAVELER_TYPE' | translate }}
-              </th>
-              <th>
-                {{ 'GENERAL.COUNT' | translate }}
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let commentCountTraveledWithModel of commentsByTraveledWith">
-              <tr *ngIf="commentCountTraveledWithModel.traveledWith != null">
-                <td>
-                  {{commentCountTraveledWithModel.traveledWith}}
-                </td>
-                <td>
-                  {{commentCountTraveledWithModel.commentCount}}
-                </td>
-              </tr>
-            </ng-container>
-            </tbody>
-          </table>
+          <app-pie-chart [pieChartData]="pieChartDataTravelerType" [pieChartLabels]="pieChartLabelsTravelerType"></app-pie-chart>
         </div>
       </div>
     </div>
@@ -223,9 +179,56 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
+      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>
     </div>
+  </div>
+</ng-template>
+<ng-template #reply let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-answer-title">{{ 'GENERAL.REPLY_REVIEW' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form" *ngIf="!newTemplateFlow">
+      <div class="form-group" *ngIf="templates.length > 0">
+        <div ngbDropdown container="body" class="template-container">
+          <button class="btn btn-outline-primary btn-sm " ngbDropdownToggle>{{selectedTemplate.title}}</button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let template of templates" (click)="selectTemplate(template)">{{template.title}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form class="reply-form" *ngIf="newTemplateFlow">
+      <div class="form-group answer">
+        <label>{{ 'GENERAL.TITLE' | translate }}</label>
+        <div class="input-group">
+          <input id="title" type="text" class="form-control" name="title"
+                 [(ngModel)]="newTemplate.title"/>
+        </div>
+      </div>
+    </form>
+    <div class="form-group answer">
+      <label>{{ 'GENERAL.YOUR_RESPONSE' | translate }}</label>
+      <div class="input-group">
+          <textarea type="text" name="content" class="form-control response-editor" #inputTarget
+                    placeholder="{{'GENERAL.REPLY_PLACEHOLDER' | translate}}" rows="12"
+                    [(ngModel)]="selectedTemplate.content"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" *ngIf="!newTemplateFlow" (click)="toNewTemplate()">{{ 'GENERAL.SAVE_AS_TEMPLATE' | translate }}</button>
+    <button type="button" class="btn btn-primary"
+            tooltip="{{'GENERAL.REDIRECTION_EXP' | translate:{source: this.selectedComment.source} }}" placement="right"
+            (cbOnSuccess)="copyAndGo($event)" [ngxClipboard]="inputTarget">
+      {{ 'GENERAL.COPY_AND_GO' | translate }}
+    </button>
+    <button type="button" class="btn btn-danger" *ngIf="newTemplateFlow" (click)="cancelTemplateFlow()">{{ 'GENERAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">{{ 'GENERAL.SAVE_NEW_TEMPLATE' | translate }}</button>
   </div>
 </ng-template>

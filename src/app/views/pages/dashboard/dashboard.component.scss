@@ -298,6 +298,8 @@
   img {
     width: 25px;
     margin-right: 5px;
+    filter: unset !important;
+    -webkit-filter: unset !important;
   }
 }
 

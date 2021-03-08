@@ -12,6 +12,14 @@
       <div class="card-body">
         <p class="graph-title text-primary">{{ 'GENERAL.REVIEW_SCORE' | translate }}</p>
         <app-line-chart [lineChartOptions]="lineChartOptionsData" [height]="height" [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-line-chart>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="barChartLabels.length > 0">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
         <p class="graph-title text-primary">{{ 'GENERAL.REVIEW_COUNT' | translate }}</p>
         <app-bar-chart [height]="height" [barChartData]="barChartData" [barChartLabels]="barChartLabels"></app-bar-chart>
         <div class="right">
@@ -26,8 +34,18 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="barChartLabels.length > 0">
-  <div class="col-lg-7 grid-margin stretch-card">
+<div class="row" *ngIf="pieChartDataTravelerType.length > 0">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</h5>
+        <div>
+          <app-doughnut-chart [pieChartData]="pieChartDataTravelerType" [pieChartLabels]="pieChartLabelsTravelerType"></app-doughnut-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card" *ngIf="commentsByTraveledWith.length > 0">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.TRAVELER_TYPE' | translate }}</h5>
@@ -84,32 +102,55 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-5 grid-margin stretch-card performance">
+</div>
+<div class="row" *ngIf="monthlyComments != null">
+  <div class="col-lg-12 grid-margin stretch-card performance">
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-primary mb-5">{{ 'STATS.POPULARITY_HISTORY' | translate }}</h2>
-        <div class="wrapper d-flex justify-content-between summary-item">
-          <div class="side-left">
-            <p class="mb-3">{{ 'STATS.CURRENT_MONTH' | translate }}</p>
-            <p class="display-3 mb-4 font-weight-light topic">{{monthlyComments.currentMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+        <div class="comment-average">
+          <div class="col-lg-6">
+            <div class="wrapper d-flex justify-content-between summary-item">
+              <div class="side-left">
+                <p class="mb-3">{{ 'STATS.CURRENT_MONTH' | translate }}</p>
+                <p class="display-3 mb-4 font-weight-light topic">{{monthlyComments.currentMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="wrapper d-flex justify-content-between summary-item">
+              <div class="side-left">
+                <p class="mb-3">{{ 'STATS.LAST_MONTH' | translate }}</p>
+                <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.lastMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+              </div>
+              <div class="side-right average-item">
+                <small class="rating">{{monthlyComments.lastMonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between summary-item">
-          <div class="side-left">
-            <p class="mb-3">{{ 'STATS.LAST_MONTH' | translate }}</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.lastMonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+        <div class="comment-average">
+          <div class="col-lg-6">
+            <div class="wrapper d-flex justify-content-between summary-item">
+              <div class="side-left">
+                <p class="mb-3">{{ 'STATS.LAST_6_MONTH' | translate }}</p>
+                <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last6MonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+              </div>
+              <div class="side-right average-item">
+                <small class="rating">{{monthlyComments.last6MonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
+              </div>
+            </div>
           </div>
-          <div class="side-right average-item">
-            <small class="rating">{{monthlyComments.lastMonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
-          </div>
-        </div>
-        <div class="wrapper d-flex justify-content-between summary-item">
-          <div class="side-left">
-            <p class="mb-3">{{ 'STATS.LAST_6_MONTH' | translate }}</p>
-            <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last6MonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
-          </div>
-          <div class="side-right average-item">
-            <small class="rating">{{monthlyComments.last6MonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
+          <div class="col-lg-6">
+            <div class="wrapper d-flex justify-content-between summary-item">
+              <div class="side-left">
+                <p class="mb-3">{{ 'STATS.LAST_12_MONTH' | translate }}</p>
+                <p class="display-3 mb-5 font-weight-light topic">{{monthlyComments.last12MonthCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+              </div>
+              <div class="side-right average-item">
+                <small class="rating">{{monthlyComments.last12MonthAverage}} {{ 'STATS.DAILY_AVERAGE' | translate }}</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +158,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-12 grid-margin">
+  <div class="col-lg-6 grid-margin stretch-card" *ngIf="pieChartDataLanguage.length > 0">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.LANGUAGE' | translate }}</h5>
+        <app-doughnut-chart [pieChartData]="pieChartDataLanguage" [pieChartLabels]="pieChartLabelsLanguage"></app-doughnut-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card" *ngIf="commentsByLanguage.length > 0">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4 text-primary">{{ 'GENERAL.LANGUAGE' | translate }}</h5>

@@ -155,6 +155,7 @@ export const locale = {
       CURRENT_MONTH: 'Bu ay',
       LAST_MONTH: 'Geçen ay',
       LAST_6_MONTH: 'Geçen 6 ay',
+      LAST_12_MONTH: 'Geçen 12 ay',
       DAILY_AVERAGE: 'günlük ortalama',
     },
     CATEGORY: {

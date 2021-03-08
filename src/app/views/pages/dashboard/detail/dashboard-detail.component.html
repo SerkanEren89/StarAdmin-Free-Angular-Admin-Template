@@ -90,7 +90,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">{{ 'GENERAL.LANGUAGE' | translate }}</h5>
-        <app-pie-chart [pieChartData]="pieChartDataLanguage" [pieChartLabels]="pieChartLabelsLanguage"></app-pie-chart>
+        <app-doughnut-chart [pieChartData]="pieChartDataLanguage" [pieChartLabels]="pieChartLabelsLanguage"></app-doughnut-chart>
       </div>
     </div>
   </div>
@@ -102,7 +102,7 @@
           <span>{{'DASHBOARD.NO_TRAVELER_TYPE' | translate:{source: source} }}</span>
         </div>
         <div class="table-responsive" *ngIf="!unknownTraveledWithData">
-          <app-pie-chart [pieChartData]="pieChartDataTravelerType" [pieChartLabels]="pieChartLabelsTravelerType"></app-pie-chart>
+          <app-doughnut-chart [pieChartData]="pieChartDataTravelerType" [pieChartLabels]="pieChartLabelsTravelerType"></app-doughnut-chart>
         </div>
       </div>
     </div>

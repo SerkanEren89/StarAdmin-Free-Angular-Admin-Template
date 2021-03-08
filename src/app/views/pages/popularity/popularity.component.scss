@@ -67,6 +67,8 @@
 .average-item {
   align-self: flex-end;
   padding-bottom: 10px;
+  width: 40%;
+  text-align: end;
 }
 .arrow-container {
   display: flex;
@@ -83,4 +85,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   font-weight: 500;
+}
+.comment-average {
+  display: flex;
 }

@@ -8,4 +8,6 @@ export class MonthlyCommentModel {
   lastMonthAverage: number;
   last6MonthCount: number;
   last6MonthAverage: number;
+  last12MonthCount: number;
+  last12MonthAverage: number;
 }

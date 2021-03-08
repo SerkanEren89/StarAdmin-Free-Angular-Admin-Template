@@ -26,6 +26,10 @@ export class PopularityComponent implements OnInit {
   barChartData: ChartDataSets[] = [];
   barChartLabels: Label[] = [];
   barChartDataCommentCount: ChartDataSets[] = [];
+  pieChartLabelsTravelerType: Label[] = [];
+  pieChartDataTravelerType: number[] = [];
+  pieChartLabelsLanguage: Label[] = [];
+  pieChartDataLanguage: number[] = [];
   interval = 0;
   height: number;
   screenWidth: number;
@@ -74,12 +78,24 @@ export class PopularityComponent implements OnInit {
     this.commentService.getCommentsByCountByLanguage()
       .subscribe((commentCountLanguageModels: CommentCountLanguageModel[]) => {
         this.commentsByLanguage = commentCountLanguageModels;
+        for (const commentCountLanguageModel of commentCountLanguageModels) {
+          if (commentCountLanguageModel.language != null) {
+            this.pieChartLabelsLanguage.push(commentCountLanguageModel.language);
+            this.pieChartDataLanguage.push(commentCountLanguageModel.commentCount);
+          }
+        }
         this.cdr.detectChanges();
         this.tableService.addLabelTag(this.elRefLanguage);
       });
     this.commentService.getCommentsByCountByTraveledWith()
       .subscribe((assessmentByTravelType: CommentCountTraveledWithModel[]) => {
         this.commentsByTraveledWith = assessmentByTravelType;
+        for (const commentCountTravelerType of assessmentByTravelType) {
+          if (commentCountTravelerType.traveledWith != null) {
+            this.pieChartLabelsTravelerType.push(commentCountTravelerType.traveledWith);
+            this.pieChartDataTravelerType.push(commentCountTravelerType.commentCount);
+          }
+        }
         this.cdr.detectChanges();
         this.tableService.addLabelTag(this.elRefTravelType);
       });

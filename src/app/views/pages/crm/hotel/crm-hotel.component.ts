@@ -340,10 +340,15 @@ export class CrmHotelComponent implements OnInit {
     this.hotelService.saveHotel(this.newHotel)
       .subscribe((hotelModel: HotelModel) => {
         this.toastr.success('Hotel saved with success');
+        const hotelInfoModel = new HotelInfoModel();
+        hotelInfoModel.id = hotelModel.id;
+        hotelInfoModel.uuid = hotelModel.uuid;
+        hotelInfoModel.name = hotelModel.name;
+        hotelInfoModel.hotelStatus = this.hotelStatuses[0].title;
         this.newHotel = new HotelModel();
+        this.hotels = [hotelInfoModel, ...this.hotels];
         this.cdr.detectChanges();
         this.modalService.dismissAll();
-        this.loadHotels();
       });
   }
 

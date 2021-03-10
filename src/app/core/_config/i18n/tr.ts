@@ -12,7 +12,8 @@ export const locale = {
       TASK: 'Görevler',
       COMPETITION: 'Rekabet',
       VISIT: 'Ziyaret',
-      CRM: 'Crm'
+      CRM: 'Crm',
+      INBOX_POOL: 'Havuz'
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Rakip Seçin',
@@ -27,6 +28,10 @@ export const locale = {
       GO_TO_SOURCE: 'Kaynağa git',
       LAST_N_REVIEW: 'Son {{length}} {{source}} Yorumu',
       NO_TRAVELER_TYPE: '{{source}} icin tatilci tipi bilgisi mevcut değildir'
+    },
+    INBOX_POOL: {
+      FILTER_COMMENT: 'Yorumlari Filtrele',
+      SELECTED_HOTEL: 'Seçilen otel'
     },
     GENERAL: {
       CANCEL: 'İptal',

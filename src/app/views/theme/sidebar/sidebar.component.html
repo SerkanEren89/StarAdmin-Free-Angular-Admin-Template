@@ -71,6 +71,12 @@
         <span class="menu-title">{{ 'MENU.VISIT' | translate }}</span>
       </a>
     </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a class="nav-link" routerLink="/inbox-pool" routerLinkActive="active">
+        <i class="fa fa-envelope icon-lg category-icon side-icon side-i-icon"></i>
+        <span class="menu-title">{{ 'MENU.INBOX_POOL' | translate }}</span>
+      </a>
+    </li>
 
   </ul>
 </nav>

@@ -41,8 +41,11 @@ export class CommentService {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/' + hotelId, {params: params});
   }
 
-  getCommentsForPool(page: number, pageSize: number): Observable<CommentModel[]> {
+  getCommentsForPool(page: number, pageSize: number, hotelId?: number): Observable<CommentModel[]> {
     let params = new HttpParams();
+    if (hotelId !=  null) {
+      params = params.append('hotelId', String(hotelId));
+    }
     params = params.append('page', String(page));
     params = params.append('size', String(pageSize));
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/pool', {params: params});

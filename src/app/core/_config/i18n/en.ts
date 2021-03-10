@@ -12,7 +12,8 @@ export const locale = {
       TASK: 'Tasks',
       COMPETITION: 'Competition',
       VISIT: 'VISIT',
-      CRM: 'Crm'
+      CRM: 'Crm',
+      INBOX_POOL: 'Pool'
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Select Competitior',
@@ -27,6 +28,10 @@ export const locale = {
       GO_TO_SOURCE: 'Go to source',
       LAST_N_REVIEW: 'Last {{length}} {{source}} Reviews',
       NO_TRAVELER_TYPE: 'Traveler Type information does not exist {{source}}'
+    },
+    INBOX_POOL: {
+      FILTER_COMMENT: 'Filter Comments',
+      SELECTED_HOTEL: 'Selected Hotel'
     },
     GENERAL: {
       CANCEL: 'Cancel',

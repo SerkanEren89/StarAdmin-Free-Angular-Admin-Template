@@ -5,7 +5,8 @@
         <ngb-pagination [collectionSize]="totalElements" [pageSize]="pageSize" [page]="page"
                         (pageChange)="loadComments($event)"
                         [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-                        aria-label="Default pagination" class="d-flex justify-content-center pagination-success"></ngb-pagination>
+                        aria-label="Default pagination"
+                        class="d-flex justify-content-center pagination-success"></ngb-pagination>
       </div>
       <div class="card-body inbox">
         <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
@@ -24,14 +25,22 @@
             <ngb-rating [(rate)]="comment.ratingOverFive" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="brand-container">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')" src="assets/images/bookingCom.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')" src="assets/images/hotelsCom.jpg" >
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')" src="assets/images/tripadvisor.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')" src="assets/images/tatilSepeti.png">
-            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')" src="assets/images/google.png">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')" src="assets/images/otelPuan.png" >
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')" src="assets/images/odamax.jpg">
-            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')" src="assets/images/agoda.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('booking')"
+                 src="assets/images/bookingCom.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('hotelscom')"
+                 src="assets/images/hotelsCom.jpg">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tripadvisor')"
+                 src="assets/images/tripadvisor.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('tatilsepeti')"
+                 src="assets/images/tatilSepeti.png">
+            <img class="mdi mdi-cube icon-lg icon" *ngIf="comment.source.toLowerCase().includes('google')"
+                 src="assets/images/google.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelpuan')"
+                 src="assets/images/otelPuan.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('odamax')"
+                 src="assets/images/odamax.jpg">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')"
+                 src="assets/images/agoda.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
             <i class="fa fa-check-circle" *ngIf="comment.categorized"></i>
@@ -42,25 +51,43 @@
   </div>
   <div class="col-lg-9 grid-margin stretch-card comment-detail">
     <div class="card">
-      {{totalElements}} total
+      <div class="title-part">
+        {{totalElements}} total
+        <button type="button" class="btn btn-primary full-width" (click)="openFilterModal()"><i
+          class="mdi mdi-filter"></i>
+          {{ 'CRM.FILTER_HOTEL' | translate }}
+        </button>
+      </div>
       <div class="card-body">
         <div *ngIf="selectedItem != null">
           <div class="summary-container">
             <div class="summary">
+              <span *ngIf="selectedHotel != null">{{selectedHotel.name}}
+                <span (click)="clearFilter()">
+                  <i class="fa fa-times text-danger"></i>
+                </span>
+              </span>
+              <p class="text-danger" *ngIf="selectedHotel == null">
+                {{selectedItem.hotelName}}
+              </p>
               <p class="title">
-                {{selectedItem.content}}</p>
+                {{selectedItem.content}}
+              </p>
               <app-channel-icon [source]="selectedItem.source.toLowerCase()"></app-channel-icon>
               <span class="brand">{{selectedItem.source}}</span>
               <span class="brand">Published on {{selectedItem.commentDate  | date:'dd/MM/yyyy'}}</span>
-              <p class="written" >Written By: {{selectedItem.author}}</p>
-              <span class="written" *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
+              <p class="written">Written By: {{selectedItem.author}}</p>
+              <span class="written"
+                    *ngIf="selectedItem.travelDate != null">Travel date: {{selectedItem.travelDate  | date:'dd/MM/yyyy'}}</span>
             </div>
           </div>
           <p class="content">{{selectedItem.content}}</p>
           <p class="content-answer" *ngIf="selectedItem.translatedText != null">{{selectedItem.translatedText}}</p>
           <div class="template-demo">
             <button type="button" class="btn btn-outline-dark" (click)="saveCategorization()">Save</button>
-            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i class="fa fa-language"></i>Translate</button>
+            <button type="button" class="btn btn-success" (click)="translate(selectedItem)"><i
+              class="fa fa-language"></i>Translate
+            </button>
           </div>
 
           <table class="table table-striped">
@@ -79,7 +106,8 @@
                 <div ngbDropdown container="body">
                   <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>{{category.sentiment}}</button>
                   <div ngbDropdownMenu>
-                    <button ngbDropdownItem *ngFor="let sentiment of sentimentTypes" (click)="selectSentiment(category, sentiment)">{{sentiment}}</button>
+                    <button ngbDropdownItem *ngFor="let sentiment of sentimentTypes"
+                            (click)="selectSentiment(category, sentiment)">{{sentiment}}</button>
                   </div>
                 </div>
               </td>
@@ -94,3 +122,65 @@
     </div>
   </div>
 </div>
+
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-filter-hotel-title">{{ 'CRM.FILTER_HOTEL' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="assignee-form">
+      <div class="form-group">
+        <label>{{ 'GENERAL.HOTEL_NAME' | translate }}</label>
+        <div class="input-group task-input">
+          <input id="name" type="text" class="form-control" name="name"
+                 (ngModelChange)="filterHotel.name = $event.toLowerCase()"
+                 [(ngModel)]="filterHotel.name"/>
+          <button type="button" class="btn btn-primary"
+                  (click)="filterHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row" *ngIf="hotels.length > 0">
+      <div class="col-lg-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{{ 'CRM.HOTELS' | translate }}</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered" #taskTable>
+                <thead>
+                <tr>
+                  <th style="width: 80%" class="clickable">
+                    {{ 'CRM.NAME' | translate }}
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let hotel of hotels">
+                  <td class="clickable" (click)="selectHotel(hotel)">
+                    {{hotel.name}}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <ngb-pagination [collectionSize]="totalHotels" [pageSize]="pageSize" [page]="page"
+                              (pageChange)="filterHotels($event)"
+                              [maxSize]="3" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                              aria-label="Default pagination"
+                              class="d-flex pagination justify-content-end pagination-success"></ngb-pagination>
+
+              <p *ngIf="selectedHotel != null">{{ 'INBOX_POOL.SELECTED_HOTEL' | translate }}: <span>{{selectedHotel.name}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary"
+            (click)="filterComments()">{{ 'INBOX_POOL.FILTER_COMMENT' | translate }}</button>
+  </div>
+</ng-template>

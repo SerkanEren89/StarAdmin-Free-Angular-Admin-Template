@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
 import {Observable} from 'rxjs';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
@@ -13,6 +13,10 @@ import {CommentCategoryService} from '../../../core/category/_services/comment-c
 import {CategorizationModel} from '../../../core/category/_models/categorization.model';
 import {CategorySentimentModel} from '../../../core/category/_models/category-sentiment.model';
 import {ToastrService} from 'ngx-toastr';
+import {HotelFilterModel} from '../../../core/hotel/_models/hotel-filter.model';
+import {HotelService} from '../../../core/hotel/_services/hotel.service';
+import {HotelInfoModel} from '../../../core/hotel/_models/hotel-info.model';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-inbox-pool',
@@ -21,6 +25,7 @@ import {ToastrService} from 'ngx-toastr';
   encapsulation: ViewEncapsulation.None
 })
 export class InboxPoolComponent implements OnInit {
+  @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
   commentList$: Observable<CommentModel[]>;
   commentList: CommentModel[];
   categoryList$: Observable<CategoryModel[]>;
@@ -30,14 +35,20 @@ export class InboxPoolComponent implements OnInit {
   categorySentimentList: CategorySentimentModel[] = [];
   commentCategorySentiment$: Observable<CategorySentimentModel[]>;
   commentCategorySentiment: CategorySentimentModel[];
+  hotels: HotelInfoModel[] = [];
+  filterHotel: HotelFilterModel = new HotelFilterModel();
+  selectedHotel: HotelInfoModel;
   sentimentTypes: string[] = ['Action', 'positive', 'negative', 'neutral'];
   selectedIndex = 0;
   pageSize = 10;
   page = 1;
   totalElements;
+  totalHotels;
 
   constructor(private commentService: CommentService,
               private categoryService: CategoryService,
+              private hotelService: HotelService,
+              private modalService: NgbModal,
               private commentCategoryService: CommentCategoryService,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef) {
@@ -56,7 +67,8 @@ export class InboxPoolComponent implements OnInit {
 
   loadComments(page: number) {
     this.page = page;
-    this.commentList$ = this.commentService.getCommentsForPool(page - 1, this.pageSize);
+    this.commentList$ = this.commentService.getCommentsForPool(page - 1, this.pageSize,
+      this.selectedHotel != null ? this.selectedHotel.id : null);
     this.processComments();
   }
 
@@ -122,6 +134,41 @@ export class InboxPoolComponent implements OnInit {
       .subscribe((translatedComment: CommentModel) => {
         this.selectedItem = translatedComment;
       });
+  }
+
+  filterHotels(page?: number) {
+    this.page = page ? page : 1;
+    const columnName = 'name';
+    const direction = 'ASC';
+    this.hotelService.getHotelsByFilter(this.page - 1, this.pageSize,
+      columnName, direction, this.filterHotel)
+      .subscribe((hotels: HotelInfoModel[]) => {
+        this.hotels = hotels['content'];
+        this.totalHotels = hotels['totalElements'];
+        this.cdr.detectChanges();
+      });
+  }
+
+  openFilterModal() {
+    this.modalService.open(this.hotelFilterModal, {size: 'xl'});
+  }
+
+  selectHotel(hotel: HotelInfoModel) {
+    this.selectedHotel = hotel;
+  }
+
+  filterComments() {
+    this.commentList$ = this.commentService.getCommentsForPool(this.page - 1, this.pageSize,
+      this.selectedHotel != null ? this.selectedHotel.id : null);
+    this.processComments();
+    this.modalService.dismissAll();
+  }
+
+  clearFilter() {
+    this.selectedHotel = null;
+    this.page = 1;
+    this.commentList$ = this.commentService.getCommentsForPool(this.page - 1, this.pageSize, null);
+    this.processComments();
   }
 }
 

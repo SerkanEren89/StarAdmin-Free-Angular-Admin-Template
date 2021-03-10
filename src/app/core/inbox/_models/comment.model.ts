@@ -18,4 +18,5 @@ export class CommentModel {
   url: string;
   categorized: boolean;
   sentiment: SentimentEnum;
+  hotelName: string;
 }

@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
 import {PersonalModel} from '../../personal/_models/personal.model';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+
+  constructor(private translateService: TranslateService) {
+  }
+
   getChannelFilter() {
     return [{
       name: 'BOOKING',
@@ -37,47 +42,137 @@ export class CommonService {
   }
 
   getTravelerTypes() {
+    let all = '';
+    let couple = '';
+    let group = '';
+    let single = '';
+    let business = '';
+    let family = '';
+    let other = '';
+    this.translateService.get('GENERAL.ALL')
+      .subscribe(text => {
+        all = text;
+      });
+    this.translateService.get('GENERAL.COUPLE')
+      .subscribe(text => {
+        couple = text;
+      });
+    this.translateService.get('GENERAL.GROUP')
+      .subscribe(text => {
+        group = text;
+      });
+    this.translateService.get('GENERAL.SINGLE')
+      .subscribe(text => {
+        single = text;
+      });
+    this.translateService.get('GENERAL.BUSINESS')
+      .subscribe(text => {
+        business = text;
+      });
+    this.translateService.get('GENERAL.FAMILY')
+      .subscribe(text => {
+        family = text;
+      });
+    this.translateService.get('GENERAL.OTHER')
+      .subscribe(text => {
+        other = text;
+      });
     return [
       {
-        name: 'All',
+        name: all,
         value: 'ALL'
       },
       {
-        name: 'Couple',
+        name: couple,
         value: 'COUPLE'
       },
       {
-        name: 'Group',
+        name: group,
         value: 'GROUP'
       },
       {
-        name: 'Single',
+        name: single,
         value: 'SINGLE'
       },
       {
-        name: 'Business',
+        name: business,
         value: 'BUSINESS'
       },
       {
-        name: 'Family',
+        name: family,
         value: 'FAMILY'
       },
       {
-        name: 'Other',
+        name: other,
         value: 'OTHER'
       }];
   }
 
   getTaskFilterStatus() {
+    let closed = '';
+    let pending = '';
+    let reminder = '';
+    this.translateService.get('TASK.CLOSED')
+      .subscribe(top => {
+        closed = top;
+      });
+    this.translateService.get('TASK.PENDING')
+      .subscribe(bottom => {
+        pending = bottom;
+      });
+    this.translateService.get('TASK.REMINDER')
+      .subscribe(bottom => {
+        reminder = bottom;
+      });
     return [{
-      name: 'PENDING',
+      name: pending,
       checked: false
     }, {
-      name: 'CLOSED',
+      name: closed,
       checked: false
     }, {
-      name: 'REMINDER',
+      name: reminder,
       checked: false
+    }];
+  }
+
+  getHorizontalPositions() {
+    let leftText = '';
+    let rightText = '';
+    this.translateService.get('GENERAL.LEFT')
+      .subscribe(left => {
+        leftText = left;
+      });
+    this.translateService.get('GENERAL.RIGHT')
+      .subscribe(right => {
+        rightText = right;
+      });
+    return [{
+      name: leftText,
+      value: 'left'
+    }, {
+      name: rightText,
+      value: 'right'
+    }];
+  }
+
+  getVerticalPositions() {
+    let topText = '';
+    let bottomText = '';
+    this.translateService.get('GENERAL.TOP')
+      .subscribe(top => {
+        topText = top;
+      });
+    this.translateService.get('GENERAL.BOTTOM')
+      .subscribe(bottom => {
+        bottomText = bottom;
+      });
+    return [{
+      name: topText,
+      value: 'top'
+    }, {
+      name: bottomText,
+      value: 'bottom'
     }];
   }
 

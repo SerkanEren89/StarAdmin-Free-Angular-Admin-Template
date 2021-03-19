@@ -106,6 +106,7 @@ export class InboxPoolComponent implements OnInit {
     });
     this.categorization.comment = this.selectedItem;
     this.categorization.commentCategoryList = this.categorySentimentList;
+    this.categorization.hotelId =  this.selectedHotel.id;
     this.commentCategoryService.saveCategorization(this.categorization)
       .subscribe((categorizationModel: CategorizationModel) => {
         this.categorization.comment.categorized = true;

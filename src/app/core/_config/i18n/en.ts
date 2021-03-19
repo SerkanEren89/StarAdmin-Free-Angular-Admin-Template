@@ -113,7 +113,18 @@ export const locale = {
       COUNTRY: 'Country',
       REGION: 'Region',
       EMAIL: 'Email',
-      CLOSE: 'Close'
+      CLOSE: 'Close',
+      LEFT: 'Left',
+      RIGHT: 'Right',
+      TOP: 'Top',
+      BOTTOM: 'Bottom',
+      ALL: 'All',
+      COUPLE: 'Couple',
+      GROUP: 'Group',
+      SINGLE: 'Single',
+      BUSINESS: 'Business',
+      FAMILY: 'Family',
+      OTHER: 'OTHER'
     },
     REVIEW: {
       TITLE: 'Reviews',
@@ -128,7 +139,7 @@ export const locale = {
       FILTER_TASK: 'Filter Task',
       CLOSED: 'Closed',
       PENDING: 'Pending',
-      REMINDER: 'Pending',
+      REMINDER: 'Reminder',
       TASK: 'Task',
       TASKS: 'Tasks',
       PROGRESS_RATE: 'Progress Rate',
@@ -283,6 +294,16 @@ export const locale = {
       VISIT_TYPE: 'Visit Type',
       FILTER_HOTEL: 'Filter Hotels',
       WAITING_CHANGE: 'waiting status change approval'
+    },
+    WIDGET: {
+      TITLE: 'Widget Settings',
+      EXPLANATION: 'All you need to do is to copy the text below to between head tag of the index html',
+      DARK_THEME: 'Dark Theme',
+      LIGHT_THEME: 'Light Theme',
+      HORIZONTAL_POSITION: 'Widget horizontal position',
+      VERTICAL_POSITION: 'Widget horizontal position',
+      SHOW_CHANNEL: 'Show reviews from selected channels',
+      RATING: 'Show reviews between ratings'
     }
   }
 };

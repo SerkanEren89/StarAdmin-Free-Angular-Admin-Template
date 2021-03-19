@@ -75,6 +75,10 @@ const routes: Routes = [
           path: 'personal',
           loadChildren: () => import('src/app/views/pages/personal/personal.module').then(m => m.PersonalModule)
         },
+        {
+          path: 'widget-settings',
+          loadChildren: () => import('src/app/views/pages/widget-settings/widget-settings.module').then(m => m.WidgetSettingsModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

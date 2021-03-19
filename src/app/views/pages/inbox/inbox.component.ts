@@ -225,9 +225,14 @@ export class InboxComponent implements OnInit {
     this.commentFilter.minRating = 0;
     this.commentFilter.maxRating = 10;
     this.commentFilter.starred = false;
+    let allText = '';
+    this.translateService.get('GENERAL.ALL')
+      .subscribe(text => {
+        allText = text;
+      });
     this.selectedTravellerType = {
-      name: 'All',
-      value: 'All'
+      name: allText,
+      value: 'ALL'
     };
     this.page = 1;
     if (this.selected != null) {

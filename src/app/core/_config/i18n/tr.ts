@@ -112,7 +112,18 @@ export const locale = {
       COUNTRY: 'Ülke',
       REGION: 'Bölge',
       EMAIL: 'Email',
-      CLOSE: 'Kapat'
+      CLOSE: 'Kapat',
+      LEFT: 'Sol',
+      RIGHT: 'Sağ',
+      TOP: 'Yukarı',
+      BOTTOM: 'Asağı',
+      ALL: 'Hepsi',
+      COUPLE: 'Çift',
+      GROUP: 'Grup',
+      SINGLE: 'Tek',
+      BUSINESS: 'İş',
+      FAMILY: 'Aile',
+      OTHER: 'Diğer'
     },
     REVIEW: {
       TITLE: 'Yorumlar',
@@ -278,6 +289,16 @@ export const locale = {
       VISIT_TYPE: 'Ziyaret Tipi',
       FILTER_HOTEL: 'Otelleri Filtrele',
       WAITING_CHANGE: 'statü değişikliği onayı bekleniyor'
+    },
+    WIDGET: {
+      TITLE: 'Widget Ayarları',
+      EXPLANATION: 'Tek yapmanız gereken index.html içindeki "head" tagi arasına aşağidaki kod bloğunu kopyalamak',
+      DARK_THEME: 'Koyu Tema',
+      LIGHT_THEME: 'Açık Tema',
+      HORIZONTAL_POSITION: 'Widget yatay konumu',
+      VERTICAL_POSITION: 'Widget dikey konumu',
+      SHOW_CHANNEL: 'Şu kanallardan gelen yorumları göstermek istiyorum',
+      RATING: 'Şu puanlar arasındaki yorumları göstermek istiyorum'
     }
   }
 };

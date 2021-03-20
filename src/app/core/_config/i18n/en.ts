@@ -303,7 +303,9 @@ export const locale = {
       HORIZONTAL_POSITION: 'Widget horizontal position',
       VERTICAL_POSITION: 'Widget horizontal position',
       SHOW_CHANNEL: 'Show reviews from selected channels',
-      RATING: 'Show reviews between ratings'
+      RATING: 'Show reviews between ratings',
+      SHOW_REVIEW_COUNT: 'Number of reviews to show in widget',
+      WARNING_COUNT: 'You can select up to 20'
     }
   }
 };

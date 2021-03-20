@@ -298,7 +298,9 @@ export const locale = {
       HORIZONTAL_POSITION: 'Widget yatay konumu',
       VERTICAL_POSITION: 'Widget dikey konumu',
       SHOW_CHANNEL: 'Şu kanallardan gelen yorumları göstermek istiyorum',
-      RATING: 'Şu puanlar arasındaki yorumları göstermek istiyorum'
+      RATING: 'Şu puanlar arasındaki yorumları göstermek istiyorum',
+      SHOW_REVIEW_COUNT: 'Widget içerisinde göstermek istediğiniz yorum sayısı',
+      WARNING_COUNT: 'En fazla 20\'ye kadar seçebilirsiniz.'
     }
   }
 };

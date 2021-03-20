@@ -5,6 +5,7 @@ import {Options} from '@angular-slider/ngx-slider';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {WidgetSettingsModel} from '../../../core/widget-settings/_models/widget-settings.model';
 import {WidgetSettingsService} from '../../../core/widget-settings/_services/widget-settings.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-widget-settings',
@@ -22,17 +23,17 @@ export class WidgetSettingsComponent implements OnInit {
     ceil: 10
   };
   code;
-  horizontalPosition;
   horizontalPositions;
-  verticalPosition;
   verticalPositions;
   selectedVertical;
   selectedHorizontal;
+  warningText: string;
 
   constructor(private toastr: ToastrService,
               private widgetSettingsService: WidgetSettingsService,
               private authService: AuthService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -95,10 +96,17 @@ export class WidgetSettingsComponent implements OnInit {
   }
 
   save() {
-    this.widgetSettingsService.saveWidgetSettings(this.widgetSettings)
-      .subscribe((widgetSettings: WidgetSettingsModel) => {
-        this.toastr.success('Your widget settings saved successfully');
-      });
+    if (this.widgetSettings.itemCount > 20) {
+      this.translateService.get('WIDGET.WARNING_COUNT')
+        .subscribe(text => {
+          this.warningText = text;
+        });
+    } else  {
+      this.widgetSettingsService.saveWidgetSettings(this.widgetSettings)
+        .subscribe((widgetSettings: WidgetSettingsModel) => {
+          this.toastr.success('Your widget settings saved successfully');
+        });
+    }
   }
 
   private initSettings(widgetSettingsModel: WidgetSettingsModel) {

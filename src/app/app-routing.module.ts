@@ -76,8 +76,8 @@ const routes: Routes = [
           loadChildren: () => import('src/app/views/pages/personal/personal.module').then(m => m.PersonalModule)
         },
         {
-          path: 'widget-settings',
-          loadChildren: () => import('src/app/views/pages/widget-settings/widget-settings.module').then(m => m.WidgetSettingsModule)
+          path: 'uplifts',
+          loadChildren: () => import('src/app/views/pages/uplift/uplift.module').then(m => m.UpliftModule)
         },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},

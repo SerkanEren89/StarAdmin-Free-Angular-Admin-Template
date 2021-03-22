@@ -31,34 +31,34 @@
                          [checked]="commentSource.checked">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('booking')"
-                       src="assets/images/bookingCom.png">
+                       src="../../../../../assets/images/bookingCom.png">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('hotelscom')"
-                       src="assets/images/hotelsCom.jpg">
+                       src="../../../../../assets/images/hotelsCom.jpg">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('tripadvisor')"
-                       src="assets/images/tripadvisor.png">
+                       src="../../../../../assets/images/tripadvisor.png">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('tatilsepeti')"
-                       src="assets/images/tatilSepeti.png">
+                       src="../../../../../assets/images/tatilSepeti.png">
                   <img class="mdi mdi-cube icon-lg channel-big-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('google')"
-                       src="assets/images/google.png">
+                       src="../../../../../assets/images/google.png">
                   <img class="mdi mdi-cube icon-lg channel-big-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('otelpuan')"
-                       src="assets/images/otelPuan.png">
+                       src="../../../../../assets/images/otelPuan.png">
                   <img class="mdi mdi-cube icon-lg channel-big-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('odamax')"
-                       src="assets/images/odamax.jpg">
+                       src="../../../../../assets/images/odamax.jpg">
                   <img class="mdi mdi-cube icon-lg channel-big-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('agoda')"
-                       src="assets/images/agoda.png">
+                       src="../../../../../assets/images/agoda.png">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('hoteluplift')"
-                       src="assets/images/logo.png">
+                       src="../../../../../assets/images/logo.png">
                   <img class="mdi mdi-cube icon-lg channel-icon"
                        *ngIf="commentSource.name.toLowerCase().includes('holidaycheck')"
-                       src="assets/images/holidayCheck.png">
+                       src="../../../../../assets/images/holidayCheck.png">
                 </div>
               </div>
             </div>
@@ -107,19 +107,21 @@
                 <label class="filter-title">{{ 'WIDGET.SHOW_REVIEW_COUNT' | translate }}</label>
                 <div class="input-group">
                   <input id="itemCount" type="number" class="form-control" name="itemCount"
+                         (ngModelChange)="itemCountChange($event)"
                          [(ngModel)]="widgetSettings.itemCount"/>
                 </div>
+                <span class="text-danger" *ngIf="warningText != null">{{warningText}}</span>
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 widget-container" *ngIf="!widgetSettings.darkMode">
               <span class="widget-type">{{ 'WIDGET.LIGHT_THEME' | translate }}</span>
               <img class="widget-image"
-                   src="assets/images/widget_light.jpg">
+                   src="../../../../../assets/images/widget_light.jpg">
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 widget-container" *ngIf="widgetSettings.darkMode">
               <span class="widget-type">{{ 'WIDGET.DARK_THEME' | translate }}</span>
               <img class="widget-image"
-                   src="assets/images/widget_dark.jpeg">
+                   src="../../../../../assets/images/widget_dark.jpeg">
             </div>
           </div>
           <div class="code-block">
@@ -130,7 +132,6 @@
                 </code>
               </pre>
           </div>
-          <span class="text-danger">{{warningText}}</span>
           <button type="button" class="btn btn-primary fa-pull-right" (click)="save()">{{ 'GENERAL.SAVE' | translate }}</button>
         </form>
       </div>

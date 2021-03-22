@@ -13,7 +13,8 @@ export const locale = {
       COMPETITION: 'Competition',
       VISIT: 'VISIT',
       CRM: 'Crm',
-      INBOX_POOL: 'Pool'
+      INBOX_POOL: 'Pool',
+      UPLIFT_STORE: 'Uplift Store'
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Select Competitior',
@@ -305,7 +306,21 @@ export const locale = {
       SHOW_CHANNEL: 'Show reviews from selected channels',
       RATING: 'Show reviews between ratings',
       SHOW_REVIEW_COUNT: 'Number of reviews to show in widget',
-      WARNING_COUNT: 'You can select up to 20'
+      WARNING_COUNT: 'You can select up to 20 reviews'
+    },
+    ALARM: {
+      TITLE: 'Review Alarm Settings',
+      SMS: 'SMS',
+      EMAIL: 'Email',
+      ALARM_CHANNEL_TEXT: 'Please select review channel that you want to be informed'
+    },
+    UPLIFT:  {
+      WIDGET_TITLE: 'Review widget',
+      WIDGET_TEXT: 'Widget that show guests reviews from different channels. ' +
+        'Having guest reviews on your page reduces customer anxiety and increases your reservation possibility.',
+      NOTIFICATION_TITLE: 'Review Alarm',
+      NOTIFICATION_TEXT: 'It allows you to be notified of guest comments written about your hotel instantly via email or sms. If you notice the comments' +
+        ' written early and reply immediately, if that comment is negative, it will reduce its effect and reduce your chance of missing a reservation.'
     }
   }
 };

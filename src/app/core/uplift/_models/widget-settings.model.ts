@@ -5,5 +5,5 @@ export class WidgetSettingsModel {
   alignTop: boolean;
   darkMode: boolean;
   itemCount: number;
-  channels: string[];
+  channelList: string[];
 }

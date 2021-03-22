@@ -13,7 +13,8 @@ export const locale = {
       COMPETITION: 'Rekabet',
       VISIT: 'Ziyaret',
       CRM: 'Crm',
-      INBOX_POOL: 'Havuz'
+      INBOX_POOL: 'Havuz',
+      UPLIFT_STORE: 'Uplift Store'
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Rakip Seçin',
@@ -300,7 +301,22 @@ export const locale = {
       SHOW_CHANNEL: 'Şu kanallardan gelen yorumları göstermek istiyorum',
       RATING: 'Şu puanlar arasındaki yorumları göstermek istiyorum',
       SHOW_REVIEW_COUNT: 'Widget içerisinde göstermek istediğiniz yorum sayısı',
-      WARNING_COUNT: 'En fazla 20\'ye kadar seçebilirsiniz.'
+      WARNING_COUNT: 'En fazla 20\'ye kadar yorum seçebilirsiniz.'
+    },
+    ALARM: {
+      TITLE: 'Yorum Alarm Ayari',
+      SMS: 'SMS',
+      EMAIL: 'Email',
+      ALARM_CHANNEL_TEXT: 'Lütfen yorum alarmı almak istediğiniz iletişim kanallarını seçin.'
+    },
+    UPLIFT:  {
+      WIDGET_TITLE: 'Otel Sayfası Yorum Eklentisi',
+      WIDGET_TEXT: 'Otelinizle ilgili yazılmış misafir yorumlarını otel ana sayfanızda gösterebileceğiniz pop-up eklentisidir. ' +
+        'Sayfanızda misafir yorumlarının yer alması müşteri kaygılarını azaltır, rezervasyon ihtimalinizi arttırır.',
+      NOTIFICATION_TITLE: 'Yorum Alarmı',
+      NOTIFICATION_TEXT: 'Otelinizle ilgili yazılmış misafir yorumlarından anında email veya sms ile haberdar olmanızı sağlar.' +
+        ' Yazılan yorumları erken fark edip, hemen cevaplamanız eğer o yorum negatif ise etkisini azaltarak ' +
+        'rezervasyon kaçırma ihtimalinizi düşürür.'
     }
   }
 };

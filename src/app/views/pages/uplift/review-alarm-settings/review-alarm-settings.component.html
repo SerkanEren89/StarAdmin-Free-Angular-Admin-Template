@@ -1,0 +1,81 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+      <i class="fa fa-tools title-icon"></i>
+      {{ 'ALARM.TITLE' | translate }}
+    </span>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="reviewAlarmSettings != null">
+  <div class="col-lg-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <form class="review-alarm-settings">
+          <div class="form-group">
+            <label class="filter-title">{{ 'ALARM.ALARM_CHANNEL_TEXT' | translate }}</label>
+            <div class="rating-filter">
+              <input type="checkbox"
+                     [checked]="reviewAlarmSettings.sendMail"
+                     (change)="reviewAlarmSettings.sendMail = !reviewAlarmSettings.sendMail"> {{ 'ALARM.EMAIL' | translate }}
+              <input type="checkbox"
+                     [checked]="reviewAlarmSettings.sendSms"
+                     (change)="reviewAlarmSettings.sendSms = !reviewAlarmSettings.sendSms"> {{ 'ALARM.SMS' | translate }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="filter-title">{{ 'WIDGET.RATING' | translate }}</label>
+            <div class="input-group rating-filter">
+              <ngx-slider [(value)]="reviewAlarmSettings.minRating" [(highValue)]="reviewAlarmSettings.maxRating"
+                          [options]="options"></ngx-slider>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="filter-title">{{ 'WIDGET.SHOW_CHANNEL' | translate }}</label>
+            <div class="input-group channel-filter">
+              <div class="input-group channel-line">
+                <div *ngFor="let commentSource of commentSources; let i = index;">
+                  <input type="checkbox"
+                         (change)="changeFilteredChannel(i)"
+                         [checked]="commentSource.checked">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('booking')"
+                       src="../../../../../assets/images/bookingCom.png">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('hotelscom')"
+                       src="../../../../../assets/images/hotelsCom.jpg">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('tripadvisor')"
+                       src="../../../../../assets/images/tripadvisor.png">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('tatilsepeti')"
+                       src="../../../../../assets/images/tatilSepeti.png">
+                  <img class="mdi mdi-cube icon-lg channel-big-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('google')"
+                       src="../../../../../assets/images/google.png">
+                  <img class="mdi mdi-cube icon-lg channel-big-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('otelpuan')"
+                       src="../../../../../assets/images/otelPuan.png">
+                  <img class="mdi mdi-cube icon-lg channel-big-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('odamax')"
+                       src="../../../../../assets/images/odamax.jpg">
+                  <img class="mdi mdi-cube icon-lg channel-big-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('agoda')"
+                       src="../../../../../assets/images/agoda.png">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('hoteluplift')"
+                       src="../../../../../assets/images/logo.png">
+                  <img class="mdi mdi-cube icon-lg channel-icon"
+                       *ngIf="commentSource.name.toLowerCase().includes('holidaycheck')"
+                       src="../../../../../assets/images/holidayCheck.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary fa-pull-right" (click)="save()">{{ 'GENERAL.SAVE' | translate }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

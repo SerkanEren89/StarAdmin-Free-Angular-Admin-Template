@@ -1,0 +1,26 @@
+.uplift-store-icon {
+  margin-right: 10px;
+}
+.uplift-item {
+  display: flex;
+  .image-container {
+    width: 30%;
+    .icon {
+      font-size: 35px;
+    }
+  }
+  .explanation-container {
+    width: 70%;
+    float: right;
+    text-align: end;
+    .title {
+      font-size: 17px;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+    span {
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+}

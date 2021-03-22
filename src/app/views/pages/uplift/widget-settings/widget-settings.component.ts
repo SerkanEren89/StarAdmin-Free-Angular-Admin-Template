@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-import {CommonService} from '../../../core/general/_services/common.service';
+import {CommonService} from '../../../../core/general/_services/common.service';
 import {Options} from '@angular-slider/ngx-slider';
-import {AuthService} from '../../../core/auth/_service/auth.service';
-import {WidgetSettingsModel} from '../../../core/widget-settings/_models/widget-settings.model';
-import {WidgetSettingsService} from '../../../core/widget-settings/_services/widget-settings.service';
+import {AuthService} from '../../../../core/auth/_service/auth.service';
+import {WidgetSettingsModel} from '../../../../core/uplift/_models/widget-settings.model';
+import {WidgetSettingsService} from '../../../../core/uplift/_services/widget-settings.service';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-widget-settings',
   templateUrl: './widget-settings.component.html',
-  styleUrls: ['../../../app.component.scss', './widget-settings.component.scss'],
+  styleUrls: ['../../../../app.component.scss', './widget-settings.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class WidgetSettingsComponent implements OnInit {
@@ -62,7 +62,7 @@ export class WidgetSettingsComponent implements OnInit {
         }
       });
     }
-    this.widgetSettings.channels = this.filteredChannel;
+    this.widgetSettings.channelList = this.filteredChannel;
   }
 
   selectHorizontalPosition(position: string) {
@@ -110,6 +110,9 @@ export class WidgetSettingsComponent implements OnInit {
   }
 
   private initSettings(widgetSettingsModel: WidgetSettingsModel) {
+    this.commentSources.forEach(item => {
+      item.checked = false;
+    });
     this.widgetSettings = widgetSettingsModel;
     if (this.widgetSettings.alignTop) {
       this.selectVerticalPosition('top');
@@ -121,6 +124,13 @@ export class WidgetSettingsComponent implements OnInit {
     } else {
       this.selectHorizontalPosition('right');
     }
+    this.widgetSettings.channelList.forEach(channel => {
+      this.commentSources.forEach(item => {
+        if (item.name === channel) {
+          item.checked = true;
+        }
+      });
+    });
   }
 
   private clearSettings() {
@@ -132,5 +142,16 @@ export class WidgetSettingsComponent implements OnInit {
     this.widgetSettings.darkMode = false;
     this.selectVerticalPosition('bottom');
     this.selectHorizontalPosition('right');
+  }
+
+  itemCountChange($event: any) {
+    if (this.widgetSettings.itemCount > 20) {
+      this.translateService.get('WIDGET.WARNING_COUNT')
+        .subscribe(text => {
+          this.warningText = text;
+        });
+    } else {
+      this.warningText = null;
+    }
   }
 }

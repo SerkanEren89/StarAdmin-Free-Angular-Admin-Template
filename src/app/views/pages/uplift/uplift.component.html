@@ -1,0 +1,51 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+      <i class="fas fa-store uplift-store-icon"></i>
+         {{ 'MENU.UPLIFT_STORE' | translate }}
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="uplift-item">
+          <div class="image-container">
+            <i class="fas fa-certificate icon"></i>
+          </div>
+          <div class="explanation-container">
+            <button type="button" class="btn btn-success" (click)="goToWidgetSettings()">
+              {{ 'GENERAL.ACTIVATE' | translate }}
+            </button>
+            <p class="mb-0 text-right title">{{ 'UPLIFT.WIDGET_TITLE' | translate }}</p>
+            <div class="fluid-container">
+              <span>{{ 'UPLIFT.WIDGET_TEXT' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
+    <div class="card card-statistics">
+      <div class="card-body pointer">
+        <div class="uplift-item">
+          <div class="image-container">
+            <i class="far fa-bell icon"></i>
+          </div>
+          <div class="explanation-container">
+            <button type="button" class="btn btn-success" (click)="goToReviewAlarmSettings()">
+              {{ 'GENERAL.ACTIVATE' | translate }}
+            </button>
+            <p class="mb-0 text-right title">{{ 'UPLIFT.NOTIFICATION_TITLE' | translate }}</p>
+            <div class="fluid-container">
+              <span>{{ 'UPLIFT.NOTIFICATION_TEXT' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

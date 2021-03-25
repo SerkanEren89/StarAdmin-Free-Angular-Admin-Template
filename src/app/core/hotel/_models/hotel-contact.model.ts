@@ -4,6 +4,7 @@ export class HotelContactModel {
   active: boolean;
   deleted: boolean;
   mail: string;
+  phoneNumber: string;
   name: string;
   firstName: string;
   lastName: string;

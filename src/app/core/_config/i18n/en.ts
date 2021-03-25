@@ -220,7 +220,7 @@ export const locale = {
       FIRST_NAME: 'First Name',
       LAST_NAME: 'Last Name',
       NEW_EMPLOYEE: 'New Employee',
-      DELETE_EMPLOYEE : 'Delete Employee',
+      DELETE_EMPLOYEE: 'Delete Employee',
       DELETE_EMPLOYEE_APPROVAL: 'Do you really want to delete this employee',
     },
     PERSONAL: {
@@ -229,7 +229,7 @@ export const locale = {
       FIRST_NAME: 'First Name',
       LAST_NAME: 'Last Name',
       NEW_EMPLOYEE: 'New Personal',
-      DELETE_PERSONAL : 'Delete Employee',
+      DELETE_PERSONAL: 'Delete Employee',
       DELETE_PERSONAL_APPROVAL: 'Do you really want to delete this personal',
     },
     TEMPLATE: {
@@ -312,9 +312,18 @@ export const locale = {
       TITLE: 'Review Alarm Settings',
       SMS: 'SMS',
       EMAIL: 'Email',
-      ALARM_CHANNEL_TEXT: 'Please select review channel that you want to be informed'
+      ALARM_CHANNEL_TEXT: 'Please select review channel that you want to be informed',
+      ADD_CONTACT: 'Add Contact',
+      SMS_WARNING: 'SMS sending may be charged by your operator.',
+      NEW_CONTACT_WARNING: 'Email or phone number information must be filled',
+      FIRST_NAME_MISSING: 'First name must be filled',
+      LAST_NAME_MISSING: 'Last name must be filled',
+      INFO: 'The review alert ensures that new guest comments are sent to you via the channel you choose. Keep in mind that responding late' +
+        ' to negative reviews will cause you to miss a reservation.',
+      EMPTY_CHANNEL: 'Please select at least one channel',
+      AT_LEAST_CHANNEL: 'Select SMS, Email or both.'
     },
-    UPLIFT:  {
+    UPLIFT: {
       WIDGET_TITLE: 'Review widget',
       WIDGET_TEXT: 'Widget that show guests reviews from different channels. ' +
         'Having guest reviews on your page reduces customer anxiety and increases your reservation possibility.',

@@ -307,7 +307,16 @@ export const locale = {
       TITLE: 'Yorum Alarm Ayari',
       SMS: 'SMS',
       EMAIL: 'Email',
-      ALARM_CHANNEL_TEXT: 'Lütfen yorum alarmı almak istediğiniz iletişim kanallarını seçin.'
+      ALARM_CHANNEL_TEXT: 'Lütfen yorum alarmı almak istediğiniz iletişim kanallarını seçin.',
+      ADD_CONTACT: 'Iletişim Ekle',
+      SMS_WARNING: 'SMS gönderimi operatörünüz tarafindan ücretlendirilebilir.',
+      NEW_CONTACT_WARNING: 'Email veya telefon numarasi bilgisi doldurulmalıdir.',
+      FIRST_NAME_MISSING: 'Ad bilgisi doldurulmalıdır',
+      LAST_NAME_MISSING: 'Soyad bilgisi doldurulmalıdır',
+      INFO: 'Review alarmı gelen yeni misafir yorumlarının size seçtiğiniz kanaldan ulaştırılmasını sağlar. ' +
+        'Negatif yorumlara geç cevap vermenin rezervasyon kaçırmanıza sebep olacağını unutmayın.',
+      EMPTY_CHANNEL: 'Lütfen en azından 1 kanal seçin',
+      AT_LEAST_CHANNEL: 'SMS, Mail veya ikisini beraber seçin'
     },
     UPLIFT:  {
       WIDGET_TITLE: 'Otel Sayfası Yorum Eklentisi',

@@ -201,7 +201,7 @@ export class CrmHotelComponent implements OnInit {
 
   showActionsModal(hotel: HotelInfoModel) {
     this.selectedHotel = hotel;
-    this.hotelContactService.getHotelContacts(hotel.id)
+    this.hotelContactService.getHotelContactsByHotelId(hotel.id)
       .subscribe((hotelContacts: HotelContactModel[]) => {
         this.hotelContacts = hotelContacts;
         this.hotelContacts.forEach(contact => contact.selected = true);
@@ -216,7 +216,7 @@ export class CrmHotelComponent implements OnInit {
     this.hotelContactService.saveHotelContact(this.newHotelContact)
       .subscribe((hotelContactModel: HotelContactModel) => {
         this.toastr.success('New Contact added with success');
-        this.hotelContactService.getHotelContacts(this.selectedHotel.id)
+        this.hotelContactService.getHotelContactsByHotelId(this.selectedHotel.id)
           .subscribe((hotelContacts: HotelContactModel[]) => {
             this.hotelContacts = hotelContacts;
             this.newHotelContact = new HotelContactModel();
@@ -266,7 +266,7 @@ export class CrmHotelComponent implements OnInit {
   }
 
   getContactList(id: number) {
-    this.hotelContactService.getHotelContacts(id)
+    this.hotelContactService.getHotelContactsByHotelId(id)
       .subscribe((hotelContacts: HotelContactModel[]) => {
         this.hotelContacts = hotelContacts;
         this.modalService.open(this.contactListModal, {size: 'xl'});

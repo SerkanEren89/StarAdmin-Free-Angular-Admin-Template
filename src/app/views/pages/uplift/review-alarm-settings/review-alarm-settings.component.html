@@ -13,6 +13,9 @@
     <div class="card">
       <div class="card-body">
         <form class="review-alarm-settings">
+          <div class="alarm-title">
+            {{ 'ALARM.INFO' | translate }}
+          </div>
           <div class="form-group">
             <label class="filter-title">{{ 'ALARM.ALARM_CHANNEL_TEXT' | translate }}</label>
             <div class="rating-filter">
@@ -22,6 +25,9 @@
               <input type="checkbox"
                      [checked]="reviewAlarmSettings.sendSms"
                      (change)="reviewAlarmSettings.sendSms = !reviewAlarmSettings.sendSms"> {{ 'ALARM.SMS' | translate }}
+            </div>
+            <div class="sms-warning" *ngIf="reviewAlarmSettings.sendSms">
+              {{ 'ALARM.SMS_WARNING' | translate }}
             </div>
           </div>
           <div class="form-group">
@@ -73,9 +79,121 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary fa-pull-right" (click)="save()">{{ 'GENERAL.SAVE' | translate }}</button>
+          <div class="form-group">
+            <div>
+              <label class="filter-title">Yorumların iletileceği otel personellerini seçin</label>
+              <button type="button" class="btn btn-primary float-right" (click)="openAddContactModal()"><i
+                class="mdi mdi-plus"></i>
+                {{ 'ALARM.ADD_CONTACT' | translate }}
+              </button>
+            </div>
+            <table class="table table-bordered contact-table" *ngIf="hotelContacts != null && hotelContacts.length > 0">
+              <thead>
+              <tr>
+                <th style="width: 25%">
+                  {{ 'GENERAL.FIRST_NAME' | translate }}
+                </th>
+                <th style="width: 25%">
+                  {{ 'GENERAL.EMAIL' | translate }}
+                </th>
+                <th style="width: 25%">
+                  {{ 'GENERAL.PHONE_NUMBER' | translate }}
+                </th>
+                <th style="width: 25%">
+                  {{ 'GENERAL.ACTION' | translate }}
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let hotelContact of hotelContacts">
+                <td class="text star-container">
+                  {{hotelContact.firstName}} {{hotelContact.lastName}}
+                </td>
+                <td class="text star-container">
+                  {{hotelContact.mail}}
+                </td>
+                <td class="text star-container">
+                  {{hotelContact.phoneNumber}}
+                </td>
+                <td class="text star-container">
+                  <a (click)="deleteHotelContact(hotelContact)"><i class="fa fa-trash contact-action pointer"></i></a>
+                  <a (click)="editHotelContact(hotelContact)"><i
+                    class="fa fa-pencil-alt contact-action pointer"></i></a>
+                  <a (click)="activateHotelContact(hotelContact)" class="text-primary pointer"
+                     *ngIf="hotelContact.active == false">{{ 'GENERAL.ACTIVATE' | translate }}</a>
+                  <a (click)="deactivateHotelContact(hotelContact)" class="text-primary pointer"
+                     *ngIf="hotelContact.active == true">{{ 'GENERAL.DEACTIVATE' | translate }}</a>
+                </td>
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-danger" *ngIf="reviewAlarmSettings.channelList < 1">
+            {{ 'ALARM.EMPTY_CHANNEL' | translate }}
+          </p>
+          <p class="text-danger" *ngIf="!reviewAlarmSettings.sendSms && !reviewAlarmSettings.sendMail">
+            {{ 'ALARM.AT_LEAST_CHANNEL' | translate }}
+          </p>
+          <button type="button" class="btn btn-primary fa-pull-right save"
+                  (click)="save()">{{ 'GENERAL.SAVE' | translate }}</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #contactListModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-contact-list-title">{{ 'ALARM.ADD_CONTACT' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="form-group">
+          <label>{{ 'GENERAL.FIRST_NAME' | translate }}</label>
+          <div class="input-group">
+            <input id="firstName" type="text" class="form-control" name="firstName"
+                   [(ngModel)]="newHotelContact.firstName"/>
+          </div>
+          <p class="text-danger" *ngIf="newHotelContact.firstName == null && submitted">
+            {{ 'ALARM.FIRST_NAME_MISSING' | translate }}
+          </p>
+        </div>
+        <div class="form-group">
+          <label>{{ 'GENERAL.LAST_NAME' | translate }}</label>
+          <div class="input-group">
+            <input id="lastName" type="text" class="form-control" name="lastName"
+                   [(ngModel)]="newHotelContact.lastName"/>
+          </div>
+          <p class="text-danger" *ngIf="newHotelContact.lastName == null && submitted">
+            {{ 'ALARM.LAST_NAME_MISSING' | translate }}
+          </p>
+        </div>
+        <label>{{ 'GENERAL.EMAIL' | translate }}</label>
+        <div class="input-group">
+          <input id="mail" type="text" class="form-control" name="mail"
+                 [(ngModel)]="newHotelContact.mail"/>
+        </div>
+
+        <label>{{ 'GENERAL.PHONE_NUMBER' | translate }}</label>
+        <div class="input-group">
+          <input id="phoneNumber" type="text" class="form-control" name="phoneNumber"
+                 placeholder="5xxxxxxxxx"
+                 [(ngModel)]="newHotelContact.phoneNumber"/>
+        </div>
+      </div>
+      <p class="text-danger" *ngIf="newHotelContact.phoneNumber == null &&
+      newHotelContact.mail == null && submitted">
+        {{ 'ALARM.NEW_CONTACT_WARNING' | translate }}
+      </p>
+      <button type="button" class="btn btn-primary"
+              (click)="saveHotelContact()">{{ 'GENERAL.SAVE' | translate }}</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>

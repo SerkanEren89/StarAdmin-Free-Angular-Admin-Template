@@ -12,7 +12,11 @@ export class HotelContactService {
   constructor(private http: HttpClient) {
   }
 
-  getHotelContacts(hotelId: number): Observable<HotelContactModel[]> {
+  getHotelContacts(): Observable<HotelContactModel[]> {
+    return this.http.get<HotelContactModel[]>(API_HOTEL_CONTACTS_URL);
+  }
+
+  getHotelContactsByHotelId(hotelId: number): Observable<HotelContactModel[]> {
     return this.http.get<HotelContactModel[]>(API_HOTEL_CONTACTS_URL + '/' + hotelId + '/hotel');
   }
 

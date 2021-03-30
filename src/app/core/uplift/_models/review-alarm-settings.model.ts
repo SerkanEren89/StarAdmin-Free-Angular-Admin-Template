@@ -4,4 +4,5 @@ export class ReviewAlarmSettingsModel {
   minRating: number;
   maxRating: number;
   channelList: string[];
+  active: boolean;
 }

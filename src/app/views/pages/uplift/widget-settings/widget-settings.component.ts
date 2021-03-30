@@ -101,7 +101,7 @@ export class WidgetSettingsComponent implements OnInit {
         .subscribe(text => {
           this.warningText = text;
         });
-    } else  {
+    } else {
       this.widgetSettingsService.saveWidgetSettings(this.widgetSettings)
         .subscribe((widgetSettings: WidgetSettingsModel) => {
           this.toastr.success('Your widget settings saved successfully');
@@ -153,5 +153,13 @@ export class WidgetSettingsComponent implements OnInit {
     } else {
       this.warningText = null;
     }
+  }
+
+  toggleActiveStatus(widgetSettings: WidgetSettingsModel) {
+    widgetSettings.active = !widgetSettings.active;
+    this.widgetSettingsService.saveWidgetSettings(widgetSettings)
+      .subscribe((widgetSettingsModel: WidgetSettingsModel) => {
+        this.toastr.success('Your widget settings saved successfully');
+      });
   }
 }

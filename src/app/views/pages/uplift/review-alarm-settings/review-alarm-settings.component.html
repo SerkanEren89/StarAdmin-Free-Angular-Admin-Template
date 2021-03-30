@@ -5,6 +5,12 @@
       {{ 'ALARM.TITLE' | translate }}
     </span>
   </div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button" *ngIf="reviewAlarmSettings != null">
+    <button type="button" class="btn btn-primary" (click)="toggleActiveStatus(reviewAlarmSettings)">
+      <span *ngIf="!reviewAlarmSettings.active"><i class="fa fa-toggle-on toggle"></i>{{ 'GENERAL.ACTIVATE' | translate }}</span>
+      <span *ngIf="reviewAlarmSettings.active"><i class="fa fa-toggle-off toggle"></i>{{ 'GENERAL.DEACTIVATE' | translate }}</span>
+    </button>
+  </div>
 </div>
 
 

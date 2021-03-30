@@ -153,4 +153,12 @@ export class ReviewAlarmSettingsComponent implements OnInit {
     this.newHotelContact = hotelContact;
     this.openAddContactModal();
   }
+
+  toggleActiveStatus(reviewAlarmSettings: ReviewAlarmSettingsModel) {
+    reviewAlarmSettings.active = !reviewAlarmSettings.active;
+    this.reviewAlarmSettingsService.saveReviewAlarmSettings(reviewAlarmSettings)
+      .subscribe((reviewAlarmSettingsModel: ReviewAlarmSettingsModel) => {
+        this.toastr.success('Your review alarm settings saved successfully');
+      });
+  }
 }

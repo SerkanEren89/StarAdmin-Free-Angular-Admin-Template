@@ -16,8 +16,14 @@
             <i class="fas fa-certificate icon"></i>
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-success" (click)="goToWidgetSettings()">
-              {{ 'GENERAL.ACTIVATE' | translate }}
+            <button type="button" class="btn btn-primary edit" (click)="goToWidgetSettings()">
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+            <button type="button" class="btn btn-success" *ngIf="isActiveWidget">
+              {{ 'GENERAL.ACTIVE' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" *ngIf="!isActiveWidget">
+              {{ 'GENERAL.DEACTIVE' | translate }}
             </button>
             <p class="mb-0 text-right title">{{ 'UPLIFT.WIDGET_TITLE' | translate }}</p>
             <div class="fluid-container">
@@ -36,8 +42,14 @@
             <i class="far fa-bell icon"></i>
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-success" (click)="goToReviewAlarmSettings()">
-              {{ 'GENERAL.ACTIVATE' | translate }}
+            <button type="button" class="btn btn-primary edit" (click)="goToReviewAlarmSettings()">
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+            <button type="button" class="btn btn-success" *ngIf="isActiveReviewAlarm">
+              {{ 'GENERAL.ACTIVE' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" *ngIf="!isActiveReviewAlarm">
+              {{ 'GENERAL.DEACTIVE' | translate }}
             </button>
             <p class="mb-0 text-right title">{{ 'UPLIFT.NOTIFICATION_TITLE' | translate }}</p>
             <div class="fluid-container">

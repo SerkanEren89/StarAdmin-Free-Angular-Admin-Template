@@ -20,6 +20,8 @@ import {UserModel} from '../../../../core/auth/_models/user.model';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../../../core/consts/AppSettings';
+import {HotelResponseModel} from '../../../../core/hotel-response/_models/hotel-response.model';
+import {HotelResponseService} from '../../../../core/hotel-response/_services/hotel-response.service';
 
 
 @Component({
@@ -47,6 +49,7 @@ export class DashboardDetailComponent implements OnInit {
   employeeList: EmployeeModel[];
   selectedComment: CommentModel;
   task: TaskModel = new TaskModel();
+  hotelResponseList: HotelResponseModel;
   unknownTraveledWithData: boolean;
   closeResult = '';
   source: string;
@@ -62,6 +65,7 @@ export class DashboardDetailComponent implements OnInit {
               private authService: AuthService,
               private commentService: CommentService,
               private taskService: TaskService,
+              private hotelResponseService: HotelResponseService,
               private templateService: TemplateService,
               private tableService: TableService,
               private translateService: TranslateService,
@@ -72,6 +76,7 @@ export class DashboardDetailComponent implements OnInit {
 
   ngOnInit() {
     this.source = this.route.snapshot.paramMap.get('source');
+    this.hotelResponseList = this.hotelResponseService.hotelResponseList;
     this.commentList$ = this.commentService.getLatestCommentsBySource(this.source);
     this.commentList$.subscribe((commentList: CommentModel[]) => {
       this.commentList = commentList;
@@ -229,6 +234,6 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   copyAndGo($event: IClipboardResponse) {
-    window.open(this.selectedComment.url, '_blank');
+    this.hotelResponseService.goToReply(this.selectedComment);
   }
 }

@@ -5,6 +5,7 @@ import {first} from 'rxjs/operators';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TranslationService} from '../../../../core/general/_services/translation.service';
+import {HotelResponseService} from '../../../../core/hotel-response/_services/hotel-response.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private commentService: CommentService,
+              private hotelResponseService: HotelResponseService,
               private translationService: TranslationService) {
     // redirect to home if already logged in
     if (localStorage.getItem('revxray-user')) {
@@ -57,12 +59,21 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.commentService.getCommentsAfterLastLogin(data.previousLogin)
+          this.hotelResponseService.getHotelResponse()
             .pipe(first())
             .subscribe(
-              lastLoginData => {
-                localStorage.setItem('lastComments', JSON.stringify(lastLoginData));
-                this.router.navigate([this.returnUrl]);
+              hotelResponses => {
+                localStorage.setItem('hotelResponses', JSON.stringify(hotelResponses));
+                this.commentService.getCommentsAfterLastLogin(data.previousLogin)
+                  .pipe(first())
+                  .subscribe(
+                    lastLogin => {
+                      localStorage.setItem('lastComments', JSON.stringify(lastLogin));
+                      this.router.navigate([this.returnUrl]);
+                    },
+                    error => {
+                      this.router.navigate([this.returnUrl]);
+                    });
               },
               error => {
                 this.router.navigate([this.returnUrl]);

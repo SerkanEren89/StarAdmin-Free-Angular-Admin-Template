@@ -33,6 +33,8 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {ResponseRateModel} from '../../../core/dashboard/_models/response-rate.model';
 import {AppSettings} from '../../../core/consts/AppSettings';
 import {TranslateService} from '@ngx-translate/core';
+import {HotelResponseService} from '../../../core/hotel-response/_services/hotel-response.service';
+import {HotelResponseModel} from '../../../core/hotel-response/_models/hotel-response.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -50,6 +52,7 @@ export class DashboardComponent implements OnInit {
   commentCountRatings: CommentCountRatingModel[];
   commentCountPeriods: CommentCountModel[];
   categoryGroupList: CategoryGroupModel[];
+  hotelResponseList: HotelResponseModel;
   competitionList: HotelModel[];
   currentUser: UserModel;
   lineChartData: ChartDataSets[] = [];
@@ -88,6 +91,7 @@ export class DashboardComponent implements OnInit {
               private commentCategoryService: CommentCategoryService,
               private employeeService: EmployeeService,
               private templateService: TemplateService,
+              private hotelResponseService: HotelResponseService,
               private modalService: NgbModal,
               private tableService: TableService,
               private toastr: ToastrService,
@@ -103,6 +107,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
     const uuid = this.route.snapshot.paramMap.get('uuid');
+    this.hotelResponseList = this.hotelResponseService.hotelResponseList;
     if (uuid == null) {
       this.getInitialDataForMainHotel();
     } else {
@@ -449,7 +454,7 @@ export class DashboardComponent implements OnInit {
   }
 
   copyAndGo($event: IClipboardResponse) {
-    window.open(this.selectedItem.url, '_blank');
+    this.hotelResponseService.goToReply(this.selectedComment);
   }
 
   addNewEmployee() {

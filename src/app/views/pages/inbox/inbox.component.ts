@@ -28,6 +28,8 @@ import {CommonService} from '../../../core/general/_services/common.service';
 import {UserModel} from '../../../core/auth/_models/user.model';
 import {AuthService} from '../../../core/auth/_service/auth.service';
 import {TranslateService} from '@ngx-translate/core';
+import {HotelResponseModel} from '../../../core/hotel-response/_models/hotel-response.model';
+import {HotelResponseService} from '../../../core/hotel-response/_services/hotel-response.service';
 
 @Component({
   selector: 'app-inbox',
@@ -47,6 +49,7 @@ export class InboxComponent implements OnInit {
   templates: TemplateModel[] = [];
   selectedTemplate: TemplateModel;
   currentUser: UserModel;
+  hotelResponseList: HotelResponseModel;
   selectedTravellerType: any;
   selectedIndex = 0;
   pageSize = 10;
@@ -76,6 +79,7 @@ export class InboxComponent implements OnInit {
               private templateService: TemplateService,
               private authService: AuthService,
               private taskService: TaskService,
+              private hotelResponseService: HotelResponseService,
               private modalService: NgbModal,
               private toastr: ToastrService,
               private deviceService: DeviceDetectorService,
@@ -87,6 +91,7 @@ export class InboxComponent implements OnInit {
   ngOnInit() {
     this.commentSources = this.commonService.getChannelFilter();
     this.travelerTypes = this.commonService.getTravelerTypes();
+    this.hotelResponseList = this.hotelResponseService.hotelResponseList;
     this.selectedTravellerType = this.travelerTypes[0];
     this.currentUser = this.authService.currentUserValue;
     this.clearFilter();
@@ -262,7 +267,7 @@ export class InboxComponent implements OnInit {
   }
 
   copyAndGo($event: IClipboardResponse) {
-    window.open(this.selectedItem.url, '_blank');
+    this.hotelResponseService.goToReply(this.selectedItem);
   }
 
   assignTask(task: TaskModel) {

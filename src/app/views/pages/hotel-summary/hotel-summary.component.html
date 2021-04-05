@@ -43,24 +43,33 @@
         <div class="row" *ngIf="commentList.length > 0">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title text-primary">{{ 'GENERAL.LAST_REVIEWS' | translate }}</h4>
+              <h4 class="card-title text-primary">
+                <img class="mdi mdi-cube icon-lg category-icon title-icon" src="assets/svg/review.svg" >
+                {{ 'GENERAL.LAST_REVIEWS' | translate }}
+              </h4>
               <div class="search-results"
                    infinite-scroll
                    infiniteScroll
                    [infiniteScrollDistance]="2"
                    [infiniteScrollThrottle]="50"
                    (scrolled)="onScrollDown()"
-                   (scrolledUp)="onScrollUp()"
                    [scrollWindow]="false">
                 <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
                      [ngClass]="odd ? 'odd' : 'even'">
                   <div class="rating-container">
+                    <i class="fa fa-star space" ></i>
                     <p class="rating"
                        [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}}
                       / 10
                     </p>
-                    <p class="author">{{comment.commentDate  | date:'dd/MM/yyyy'}}</p>
-                    <p class="author text-primary">{{comment.author}}</p>
+                    <p class="author">
+                      <i class="fa fa-clock space" ></i>
+                      {{comment.commentDate  | date:'dd/MM/yyyy'}}
+                    </p>
+                    <p class="author text-primary">
+                      <i class="fa fa-user space" ></i>
+                      {{comment.author}}
+                    </p>
                   </div>
                   <div class="comment-container">
                     <div class="source-container">

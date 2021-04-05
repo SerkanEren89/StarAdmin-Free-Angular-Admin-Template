@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {CommentCountLanguageModel} from '../_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../_models/comment-count-traveled-with.model';
 import {CommentFilterModel} from '../_models/comment-filter.model';
+import {WidgetModel} from '../_models/widget.model';
 
 const API_COMMENTS_URL = 'comments';
 
@@ -41,9 +42,19 @@ export class CommentService {
     return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/' + hotelId, {params: params});
   }
 
+  getCommentsForPublic(hotelId: number, page: number): Observable<CommentModel[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    return this.http.get<CommentModel[]>(API_COMMENTS_URL + '/public/' + hotelId, {params: params});
+  }
+
+  getWidgetData(hotelId: number): Observable<WidgetModel> {
+    return this.http.get<WidgetModel>(API_COMMENTS_URL + '/widget/' + hotelId);
+  }
+
   getCommentsForPool(page: number, pageSize: number, hotelId?: number): Observable<CommentModel[]> {
     let params = new HttpParams();
-    if (hotelId !=  null) {
+    if (hotelId != null) {
       params = params.append('hotelId', String(hotelId));
     }
     params = params.append('page', String(page));

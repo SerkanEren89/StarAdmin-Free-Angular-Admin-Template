@@ -4,6 +4,7 @@ import {CommentCountRatingModel} from '../../../core/dashboard/_models/comment-c
 import {DashboardService} from '../../../core/dashboard/_service/dashboard.service';
 import {CommentModel} from '../../../core/inbox/_models/comment.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
+import {WidgetModel} from '../../../core/inbox/_models/widget.model';
 
 @Component({
   selector: 'app-hotel-summary',
@@ -34,36 +35,23 @@ export class HotelSummaryComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.name = this.route.snapshot.paramMap.get('name');
-    this.dashboardService.getCommentCountAndRatingsForHotelId(Number(this.id))
-      .subscribe((commentCountRatings: CommentCountRatingModel[]) => {
-        this.commentCountRatings = commentCountRatings;
-        this.cdr.detectChanges();
-      });
-
-    this.commentService.getCommentsForHotelId(Number(this.id), this.page - 1, this.pageSize)
-      .subscribe((commentList: CommentModel[]) => {
-        this.commentList = commentList['content'];
-        this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
-        this.totalElements = commentList['totalElements'];
+    this.commentService.getWidgetData(Number(this.id))
+      .subscribe((widgetData: WidgetModel) => {
+        this.commentCountRatings = widgetData.commentCountRatingItemList;
+        this.commentList = widgetData.lastComments;
         this.cdr.detectChanges();
       });
   }
 
   onScrollDown() {
-    console.log('scrolled down!!');
     this.page++;
     console.log(this.page);
-    this.commentService.getCommentsForHotelId(Number(this.id), this.page - 1, this.pageSize)
+    this.commentService.getCommentsForPublic(Number(this.id), this.page - 1)
       .subscribe((commentList: CommentModel[]) => {
-        const comments = commentList['content'];
-        comments.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
-        this.commentList.push(...comments);
+        commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
+        this.commentList.push(...commentList);
         this.totalElements = commentList['totalElements'];
         this.cdr.detectChanges();
       });
-  }
-
-  onScrollUp() {
-    console.log('scrolled up!!');
   }
 }

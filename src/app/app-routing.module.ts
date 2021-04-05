@@ -14,6 +14,10 @@ const routes: Routes = [
       path: 'guest-experience',
       loadChildren: () => import('src/app/views/pages/guest-experience/guest-experience.module').then(m => m.GuestExperienceModule)
     },
+    {
+      path: 'hotel-summary',
+      loadChildren: () => import('src/app/views/pages/hotel-summary/hotel-summary.module').then(m => m.HotelSummaryModule)
+    },
     {path: 'task-management/:id', component: TaskManagementComponent},
     {
       path: '',

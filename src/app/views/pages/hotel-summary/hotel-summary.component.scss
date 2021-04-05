@@ -1,0 +1,38 @@
+.full-width {
+  width: 100% !important;
+}
+.search-results{
+  height: 50rem;
+  overflow: scroll;
+  border: 1px solid #d2d2d2;
+}
+.odd {
+  padding: 1.5rem 1.2rem;
+  background: #f5f4f4;
+}
+.even {
+  padding: 1.5rem 1.2rem;
+}
+
+.comment-container {
+  display: flex;
+  .source {
+    font-size: 14px;
+  }
+  .source-container {
+    text-align-last: center;
+    padding-right: 20px;
+  }
+  .comment-text {
+    font-size: 13px;
+  }
+}
+.rating-container {
+  display: flex;
+  .author {
+    padding-left: 20px;
+  }
+}
+.hotel-name {
+  padding-left: 0 !important;
+}

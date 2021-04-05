@@ -1,0 +1,82 @@
+<div class="container-scroller">
+  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <img src="assets/images/logoicon.png" alt="logo" />
+      </a>
+      <a class="navbar-brand brand-logo-mini" href="index.html">
+        <img src="assets/images/logo.png" alt="logo" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="container-fluid page-body-wrapper">
+    <div class="main-panel full-width">
+      <div class="content-wrapper">
+        <div class="row title-container">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 hotel-name">
+            <span class="text-primary title full-width">
+              {{name}}
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let commentCountRating of commentCountRatings">
+            <div class="card card-statistics">
+              <div class="card-body pointer">
+                <div class="clearfix">
+                  <div class="float-left">
+                    <app-channel-icon [source]="commentCountRating.source.toLowerCase()"></app-channel-icon>
+                  </div>
+                  <div class="float-right">
+                    <p class="mb-0 text-right">{{commentCountRating.source}}</p>
+                    <div class="fluid-container">
+                      <h3 class="font-weight-medium text-right mb-0">{{commentCountRating.rating}}</h3>
+                      <p class="text-right mb-0">{{commentCountRating.commentCount}} {{ 'GENERAL.REVIEWS' | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="commentList.length > 0">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-primary">{{ 'GENERAL.LAST_REVIEWS' | translate }}</h4>
+              <div class="search-results"
+                   infinite-scroll
+                   infiniteScroll
+                   [infiniteScrollDistance]="2"
+                   [infiniteScrollThrottle]="50"
+                   (scrolled)="onScrollDown()"
+                   (scrolledUp)="onScrollUp()"
+                   [scrollWindow]="false">
+                <div *ngFor="let comment of commentList; let odd = odd ; let i = index"
+                     [ngClass]="odd ? 'odd' : 'even'">
+                  <div class="rating-container">
+                    <p class="rating"
+                       [ngClass]="{'text-danger': comment.rating < 6, 'text-warning':(comment.rating >= 6 && comment.rating < 8), 'text-success':comment.rating >= 8 }"> {{comment.rating}}
+                      / 10
+                    </p>
+                    <p class="author">{{comment.commentDate  | date:'dd/MM/yyyy'}}</p>
+                    <p class="author text-primary">{{comment.author}}</p>
+                  </div>
+                  <div class="comment-container">
+                    <div class="source-container">
+                      <app-channel-icon class="icon" [source]="comment.source.toLowerCase()"></app-channel-icon>
+                      <p class="source">{{comment.source}}</p>
+                    </div>
+                    <p class="comment-text">{{ comment.content }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
+

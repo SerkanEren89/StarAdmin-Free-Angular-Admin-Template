@@ -127,7 +127,8 @@ export const locale = {
       SINGLE: 'Single',
       BUSINESS: 'Business',
       FAMILY: 'Family',
-      OTHER: 'OTHER'
+      OTHER: 'OTHER',
+      LAST_REVIEWS: 'Last Customer Reviews',
     },
     REVIEW: {
       TITLE: 'Reviews',

@@ -127,7 +127,7 @@ export const locale = {
       BUSINESS: 'İş',
       FAMILY: 'Aile',
       OTHER: 'Diğer',
-      LAST_REVIEWS: 'Son Misafir Reviews',
+      LAST_REVIEWS: 'Son Misafir Yorumları',
     },
     REVIEW: {
       TITLE: 'Yorumlar',

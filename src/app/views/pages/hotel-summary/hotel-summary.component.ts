@@ -34,7 +34,8 @@ export class HotelSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.name = this.route.snapshot.paramMap.get('name');
+    const name = this.route.snapshot.paramMap.get('name');
+    this.name = name.split('-').join(' ');
     this.commentService.getWidgetData(Number(this.id))
       .subscribe((widgetData: WidgetModel) => {
         this.commentCountRatings = widgetData.commentCountRatingItemList;

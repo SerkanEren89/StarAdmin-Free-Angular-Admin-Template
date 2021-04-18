@@ -4,6 +4,7 @@ import {BaseComponent} from './views/theme/base/base.component';
 import {CategorizationComponent} from './views/pages/categorization/categorization.component';
 import {InboxPoolComponent} from './views/pages/inbox-pool/inbox-pool.component';
 import {TaskManagementComponent} from './views/pages/task-management/task-management.component';
+import {FremiumGuard} from './core/auth/_guards/fremium.guard';
 
 const routes: Routes = [
     {
@@ -29,11 +30,13 @@ const routes: Routes = [
         },
         {
           path: 'category',
-          loadChildren: () => import('src/app/views/pages/category/category.module').then(m => m.CategoryModule)
+          loadChildren: () => import('src/app/views/pages/category/category.module').then(m => m.CategoryModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'competition',
-          loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule)
+          loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'popularity',
@@ -41,15 +44,18 @@ const routes: Routes = [
         },
         {
           path: 'task',
-          loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule)
+          loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'template',
-          loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule)
+          loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'employee',
-          loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule)
+          loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'inbox',
@@ -57,15 +63,18 @@ const routes: Routes = [
         },
         {
           path: 'crm',
-          loadChildren: () => import('src/app/views/pages/crm/crm.module').then(m => m.CrmModule)
+          loadChildren: () => import('src/app/views/pages/crm/crm.module').then(m => m.CrmModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'hotel-template',
-          loadChildren: () => import('src/app/views/pages/hotel-template/hotel-template.module').then(m => m.HotelTemplateModule)
+          loadChildren: () => import('src/app/views/pages/hotel-template/hotel-template.module').then(m => m.HotelTemplateModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'guest',
-          loadChildren: () => import('src/app/views/pages/guest/guest.module').then(m => m.GuestModule)
+          loadChildren: () => import('src/app/views/pages/guest/guest.module').then(m => m.GuestModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'change-password',
@@ -73,15 +82,22 @@ const routes: Routes = [
         },
         {
           path: 'settings',
-          loadChildren: () => import('src/app/views/pages/settings/settings.module').then(m => m.SettingsModule)
+          loadChildren: () => import('src/app/views/pages/settings/settings.module').then(m => m.SettingsModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'personal',
-          loadChildren: () => import('src/app/views/pages/personal/personal.module').then(m => m.PersonalModule)
+          loadChildren: () => import('src/app/views/pages/personal/personal.module').then(m => m.PersonalModule),
+          canActivate: [FremiumGuard]
         },
         {
           path: 'uplifts',
-          loadChildren: () => import('src/app/views/pages/uplift/uplift.module').then(m => m.UpliftModule)
+          loadChildren: () => import('src/app/views/pages/uplift/uplift.module').then(m => m.UpliftModule),
+          canActivate: [FremiumGuard]
+        },
+        {
+          path: 'pricing',
+          loadChildren: () => import('src/app/views/pages/pricing/pricing.module').then(m => m.PricingModule)
         },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},

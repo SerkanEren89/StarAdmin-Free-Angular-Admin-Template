@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit {
   isMobile: boolean;
   noReviewText: string;
   showAddEmployeeFlow = false;
+  isFremium: boolean;
 
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -166,6 +167,7 @@ export class DashboardComponent implements OnInit {
       this.responseRateModel = responseRateModel;
       this.cdr.detectChanges();
     });
+    this.isFremium = this.authService.isFremium();
   }
 
   getInitialDataForCompetitorHotel() {
@@ -235,11 +237,16 @@ export class DashboardComponent implements OnInit {
   }
 
   translate(comment: CommentModel) {
-    this.commentService.getTranslatedComment(comment.id)
-      .subscribe((translatedComment: CommentModel) => {
-        this.selectedComment = translatedComment;
-        this.open(this.selectedComment, this.contentReviewDetail);
-      });
+    this.modalService.dismissAll();
+    if (!this.isFremium) {
+      this.commentService.getTranslatedComment(comment.id)
+        .subscribe((translatedComment: CommentModel) => {
+          this.selectedComment = translatedComment;
+          this.open(this.selectedComment, this.contentReviewDetail);
+        });
+    } else {
+      this.router.navigate(['pricing/premium']);
+    }
   }
 
   private getDismissReason(reason: any): string {
@@ -333,75 +340,87 @@ export class DashboardComponent implements OnInit {
 
   openTaskModal(comment: CommentModel, content: TemplateRef<any>) {
     this.modalService.dismissAll();
-    this.selectedComment = comment;
-    this.task = new TaskModel();
-    if (this.employeeList == null) {
-      this.employeeService.getAllEmployees()
-        .subscribe((employeeList: EmployeeModel[]) => {
-          this.employeeList = employeeList;
-          this.cdr.detectChanges();
-          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-          }, (reason) => {
+    if (!this.isFremium) {
+      this.selectedComment = comment;
+      this.task = new TaskModel();
+      if (this.employeeList == null) {
+        this.employeeService.getAllEmployees()
+          .subscribe((employeeList: EmployeeModel[]) => {
+            this.employeeList = employeeList;
+            this.cdr.detectChanges();
+            this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+            }, (reason) => {
+            });
           });
+      } else {
+        this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+        }, (reason) => {
         });
+      }
     } else {
-      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      }, (reason) => {
-      });
+      this.router.navigate(['pricing/premium']);
     }
   }
 
   openCompetitorModal(content: TemplateRef<any>) {
-    if (this.competitionList == null) {
-      this.hotelService.getCompetitors()
-        .subscribe((competitionList: HotelModel[]) => {
-          this.competitionList = competitionList;
-          this.hotelService.savedCompetitors = competitionList;
-          this.cdr.detectChanges();
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-          }, (reason) => {
+    if (!this.isFremium) {
+      if (this.competitionList == null) {
+        this.hotelService.getCompetitors()
+          .subscribe((competitionList: HotelModel[]) => {
+            this.competitionList = competitionList;
+            this.hotelService.savedCompetitors = competitionList;
+            this.cdr.detectChanges();
+            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+            }, (reason) => {
+            });
           });
+      } else {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+        }, (reason) => {
         });
+      }
     } else {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-      }, (reason) => {
-      });
+      this.router.navigate(['pricing/premium']);
     }
   }
 
   openReplyModal(content: TemplateRef<any>, comment: CommentModel) {
-    this.selectedComment = comment;
-    if (this.templates == null) {
-      this.templateService.getTemplates()
-        .subscribe((templateModels: TemplateModel[]) => {
-          this.templates = templateModels;
-          this.selectedTemplate = new TemplateModel();
-          this.translateService.get('GENERAL.SELECT_TEMPLATE')
-            .subscribe(title => {
-              this.selectedTemplate.title = title;
+    if (this.isFremium) {
+      this.selectedComment = comment;
+      if (this.templates == null) {
+        this.templateService.getTemplates()
+          .subscribe((templateModels: TemplateModel[]) => {
+            this.templates = templateModels;
+            this.selectedTemplate = new TemplateModel();
+            this.translateService.get('GENERAL.SELECT_TEMPLATE')
+              .subscribe(title => {
+                this.selectedTemplate.title = title;
+              });
+            this.newTemplate = new TemplateModel();
+            this.cdr.detectChanges();
+            this.modalService.open(content, {
+              keyboard: false, backdrop: 'static',
+              size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+            }).result.then((result) => {
+            }, (reason) => {
             });
-          this.newTemplate = new TemplateModel();
-          this.cdr.detectChanges();
-          this.modalService.open(content, {
-            keyboard: false, backdrop: 'static',
-            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-          }).result.then((result) => {
-          }, (reason) => {
           });
+      } else {
+        this.selectedTemplate = new TemplateModel();
+        this.translateService.get('GENERAL.SELECT_TEMPLATE')
+          .subscribe(title => {
+            this.selectedTemplate.title = title;
+          });
+        this.newTemplate = new TemplateModel();
+        this.modalService.open(content, {
+          keyboard: false, backdrop: 'static',
+          size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+        }).result.then((result) => {
+        }, (reason) => {
         });
+      }
     } else {
-      this.selectedTemplate = new TemplateModel();
-      this.translateService.get('GENERAL.SELECT_TEMPLATE')
-        .subscribe(title => {
-          this.selectedTemplate.title = title;
-        });
-      this.newTemplate = new TemplateModel();
-      this.modalService.open(content, {
-        keyboard: false, backdrop: 'static',
-        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-      }).result.then((result) => {
-      }, (reason) => {
-      });
+      this.router.navigate(['pricing/premium']);
     }
   }
 

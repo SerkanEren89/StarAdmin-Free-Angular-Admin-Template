@@ -44,7 +44,9 @@
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
                 <span tooltip="{{ 'GENERAL.REPLY_REVIEW' | translate }}">
-                  <a (click)="openReplyModal(reply, comment)" *ngIf="comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
+                  <a (click)="openReplyModal(reply, comment)" *ngIf="comment.answer == null && comment.content != noReviewText">
+                    <i class="fa fa-reply action-button text-primary" [class.text-success] = "isFremium"></i>
+                  </a>
                 </span>
               </td>
               <td class="text comment"
@@ -69,12 +71,16 @@
                 <i class="mdi mdi-arrow-down" *ngIf="comment.rating < 6"></i>
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
-              <td class="text-primary">
+              <td>
                 <span tooltip="{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}">
-                  <a (click)="open(comment, contentTask)"><i class="fa fa-tasks action-button"></i></a>
+                  <a (click)="open(comment, contentTask)" class="text-primary" [class.text-success] = "isFremium">
+                    <i class="fa fa-tasks action-button"></i>
+                  </a>
                 </span>
                 <span tooltip="{{ 'DASHBOARD.GO_TO_SOURCE' | translate }}">
-                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}} class="text-primary">
+                    <i class="fa fa-link action-button"></i>
+                  </a>
                 </span>
               </td>
             </tr>
@@ -179,9 +185,18 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
-      <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>
+      <button type="button" class="btn btn-primary border-radius"  [class.btn-success] = "isFremium"
+              *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)">
+        <i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}
+      </button>
+      <button type="button" class="btn btn-primary border-radius"
+              *ngIf="!selectedComment.starred" (click)="markAsStarred(selectedComment)">
+        <i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}
+      </button>
+      <button type="button" class="btn btn-primary border-radius"
+              *ngIf="selectedComment.starred" (click)="markAsStarred(selectedComment)">
+        <i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}
+      </button>
     </div>
   </div>
 </ng-template>

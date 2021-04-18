@@ -133,3 +133,11 @@
 .clickable {
   cursor: pointer;
 }
+.fremium {
+  filter: invert(55%) sepia(64%) saturate(4239%) hue-rotate(
+      64deg
+  ) brightness(96%) contrast(82%);
+}
+.border-radius {
+  border-radius: 5px;
+}

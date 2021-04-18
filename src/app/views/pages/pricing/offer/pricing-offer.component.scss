@@ -1,0 +1,116 @@
+.pricing {
+  .special-offer {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-right: 25px;
+  }
+  .to-feature {
+    color: #007bff;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .item-container {
+    display: flex;
+    flex-direction: row;
+    .item {
+      width: 33%;
+      background: aliceblue;
+      margin: 20px;
+
+      padding-top: 0;
+      .popular {
+        width: 100%;
+        margin-bottom: 20px;
+        padding:15px;
+      }
+      .body {
+        padding: 25px;
+      }
+
+    }
+    .item-wider {
+      width: 33%;
+      background: aliceblue;
+      margin: 20px;
+      padding: 25px;
+      margin-top: 46px;
+      margin-bottom: 40px;
+    }
+    .item-wider:hover {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+    .item:hover {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+    .offer {
+      font-size: 20px;
+      font-weight: 500;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+  .contact-us {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  .title {
+    text-align: center;
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 31px;
+  }
+  @media screen and (max-width: 600px) {
+    .item-container {
+      display: flex;
+      flex-direction: column;
+      .item {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 20px;
+      }
+
+      .item-wider {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+.feature {
+  .check-item {
+    text-align: center;
+    font-size: 18px;
+    color: #007bff
+  }
+
+  .fail-item {
+    text-align: center;
+    font-size: 18px;
+    color: #dc3545
+  }
+  .header {
+    background: #739dc1;
+  }
+  .light {
+    background: aliceblue;
+  }
+  .dark {
+    background: #c0dcf5;
+  }
+  .feature-table {
+    overflow: auto;
+  }
+}

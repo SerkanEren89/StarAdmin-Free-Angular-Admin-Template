@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {merge, Observable, Subject} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CommentModel} from '../../../../core/inbox/_models/comment.model';
 import {CommentCountLanguageModel} from '../../../../core/inbox/_models/comment-count-language.model';
 import {CommentCountTraveledWithModel} from '../../../../core/inbox/_models/comment-count-traveled-with.model';
@@ -57,10 +57,12 @@ export class DashboardDetailComponent implements OnInit {
   pieChartDataLanguage: number[] = [];
   pieChartLabelsTravelerType: Label[] = [];
   pieChartDataTravelerType: number[] = [];
+  isFremium: boolean;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private modalService: NgbModal,
               private authService: AuthService,
               private commentService: CommentService,
@@ -105,6 +107,7 @@ export class DashboardDetailComponent implements OnInit {
       this.tableService.addLabelTag(this.elRefTravelType);
     });
     this.currentUser = this.authService.currentUserValue;
+    this.isFremium = this.authService.isFremium();
   }
 
   markAsStarred(selectedItem: CommentModel) {
@@ -120,11 +123,15 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   translate(comment: CommentModel) {
-    this.commentService.getTranslatedComment(comment.id)
-      .subscribe((translatedComment: CommentModel) => {
-        this.selectedComment = translatedComment;
-        this.open(this.selectedComment, this.contentReviewDetail);
-      });
+    if (!this.isFremium) {
+      this.commentService.getTranslatedComment(comment.id)
+        .subscribe((translatedComment: CommentModel) => {
+          this.selectedComment = translatedComment;
+          this.open(this.selectedComment, this.contentReviewDetail);
+        });
+    } else {
+      this.router.navigate(['pricing/premium']);
+    }
   }
 
   open(comment, content) {
@@ -167,38 +174,42 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   openReplyModal(content: TemplateRef<any>, comment: CommentModel) {
-    this.selectedComment = comment;
-    if (this.templates == null) {
-      this.templateService.getTemplates()
-        .subscribe((templateModels: TemplateModel[]) => {
-          this.templates = templateModels;
-          this.selectedTemplate = new TemplateModel();
-          this.translateService.get('GENERAL.SELECT_TEMPLATE')
-            .subscribe(title => {
-              this.selectedTemplate.title = title;
+    if (!this.isFremium) {
+      this.selectedComment = comment;
+      if (this.templates == null) {
+        this.templateService.getTemplates()
+          .subscribe((templateModels: TemplateModel[]) => {
+            this.templates = templateModels;
+            this.selectedTemplate = new TemplateModel();
+            this.translateService.get('GENERAL.SELECT_TEMPLATE')
+              .subscribe(title => {
+                this.selectedTemplate.title = title;
+              });
+            this.newTemplate = new TemplateModel();
+            this.cdr.detectChanges();
+            this.modalService.open(content, {
+              keyboard: false, backdrop: 'static',
+              size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+            }).result.then((result) => {
+            }, (reason) => {
             });
-          this.newTemplate = new TemplateModel();
-          this.cdr.detectChanges();
-          this.modalService.open(content, {
-            keyboard: false, backdrop: 'static',
-            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-          }).result.then((result) => {
-          }, (reason) => {
           });
+      } else {
+        this.selectedTemplate = new TemplateModel();
+        this.translateService.get('GENERAL.SELECT_TEMPLATE')
+          .subscribe(title => {
+            this.selectedTemplate.title = title;
+          });
+        this.newTemplate = new TemplateModel();
+        this.modalService.open(content, {
+          keyboard: false, backdrop: 'static',
+          size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+        }).result.then((result) => {
+        }, (reason) => {
         });
+      }
     } else {
-      this.selectedTemplate = new TemplateModel();
-      this.translateService.get('GENERAL.SELECT_TEMPLATE')
-        .subscribe(title => {
-          this.selectedTemplate.title = title;
-        });
-      this.newTemplate = new TemplateModel();
-      this.modalService.open(content, {
-        keyboard: false, backdrop: 'static',
-        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-      }).result.then((result) => {
-      }, (reason) => {
-      });
+      this.router.navigate(['pricing/premium']);
     }
   }
 

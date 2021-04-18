@@ -1,0 +1,125 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+    <i class="menu-icon fa fa-money-bill title-icon"></i>
+      {{ 'PRICING.TITLE' | translate }}
+    </span>
+  </div>
+</div>
+
+<div class="row pricing">
+  <div class="col-lg-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <p class="title">{{ 'PRICING.SELECT_PLAN' | translate }}</p>
+        <div class="item-container">
+          <div class="item-wider">
+            <p class="title">{{ 'PRICING.STARTER' | translate }}</p>
+            <p class="text-primary offer">{{ 'PRICING.FREE' | translate }}</p>
+            <p>{{ 'PRICING.FREE_DETAIL' | translate }}
+            </p>
+            <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.FREE_FEATURE' | translate }}</p>
+          </div>
+          <div class="item">
+            <button class="btn btn-primary popular" type="button">{{ 'PRICING.POPULAR' | translate }}</button>
+            <div class="body">
+              <p class="title">{{ 'PRICING.BUSINESS' | translate }}</p>
+              <p class="text-primary offer">{{ 'PRICING.BUSINESS_PRICE' | translate }}</p>
+              <p>{{ 'PRICING.BUSINESS_DETAIL' | translate }}</p>
+              <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.BUSINESS_FEATURE' | translate }}</p>
+            </div>
+          </div>
+          <div class="item-wider">
+            <p class="title">{{ 'PRICING.CUSTOM_QUESTION' | translate }}</p>
+            <p class="text-primary offer">{{ 'PRICING.CUSTOM_OFFER' | translate }}</p>
+            <p>{{ 'PRICING.CUSTOM_SOLUTION' | translate }}</p>
+            <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.CUSTOM_FEATURE' | translate }}</p>
+            <p>{{ 'PRICING.CUSTOM_SUPPORT' | translate }}</p>
+          </div>
+        </div>
+        <div class="contact-us">
+          <p class="special-offer" (click)="contactUs()">
+            {{ 'PRICING.SPECIAL_OFFER' | translate }}
+          </p>
+        </div>
+        <!--
+        <form *ngIf="showSpecialOffer">
+          <div class="form-group">
+            <label>Hotel Name:</label>
+            <div class="input-group">
+              <input id="hotelName" type="text" class="form-control" name="numberOfRooms"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Room Numbers:</label>
+            <div class="input-group">
+              <input id="roomNumber" type="number" class="form-control" name="roomPrice"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>How Many Stars?:</label>
+            <div class="input-group">
+              <input id="star" type="text" class="form-control" name="roomPrice"/>
+            </div>
+          </div>
+          <button (click)="contactUs()" class="btn btn-primary register">Contact us</button>
+        </form>
+        -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row feature" id="featureTable">
+  <div class="col-lg-12 feature-table">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr class="header">
+            <th style="width: 25%">
+              {{ 'PRICING.FEATURE_SET' | translate }}
+            </th>
+            <th style="width: 25%">
+              {{ 'PRICING.STARTER' | translate }}
+            </th>
+            <th style="width: 25%">
+              {{ 'PRICING.BUSINESS' | translate }}
+            </th>
+            <th style="width: 25%">
+              {{ 'PRICING.CUSTOM_OFFER' | translate }}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let feature of features; let odd = odd">
+            <tr [class.dark]="odd" [class.light]="!odd">
+              <td>
+                {{feature.title}}
+              </td>
+              <td *ngIf="feature.free" class="check-item">
+                <i class="fa fa-check-circle"></i>
+              </td>
+              <td *ngIf="!feature.free" class="fail-item">
+                <i class="fa fa-times-circle"></i>
+              </td>
+              <td *ngIf="feature.business" class="check-item">
+                <i class="fa fa-check-circle"></i>
+              </td>
+              <td *ngIf="!feature.business" class="fail-item">
+                <i class="fa fa-times-circle"></i>
+              </td>
+              <td *ngIf="feature.custom" class="check-item">
+                <i class="fa fa-check-circle"></i>
+              </td>
+              <td *ngIf="!feature.custom" class="fail-item">
+                <i class="fa fa-times-circle"></i>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

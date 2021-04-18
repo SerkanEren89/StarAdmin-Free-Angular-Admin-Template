@@ -276,4 +276,123 @@ export class CommonService {
         value: 'English'
       }];
   }
+
+  getFeatureSet() {
+    let feature1 = '';
+    let feature2 = '';
+    let feature3 = '';
+    let feature4 = '';
+    let feature5 = '';
+    let feature6 = '';
+    let feature7 = '';
+    let feature8 = '';
+    let feature9 = '';
+    let feature10 = '';
+    let feature11 = '';
+    this.translateService.get('PRICING.FEATURE_1')
+      .subscribe(feature => {
+        feature1 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_2')
+      .subscribe(feature => {
+        feature2 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_3')
+      .subscribe(feature => {
+        feature3 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_4')
+      .subscribe(feature => {
+        feature4 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_5')
+      .subscribe(feature => {
+        feature5 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_6')
+      .subscribe(feature => {
+        feature6 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_7')
+      .subscribe(feature => {
+        feature7 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_8')
+      .subscribe(feature => {
+        feature8 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_9')
+      .subscribe(feature => {
+        feature9 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_10')
+      .subscribe(feature => {
+        feature10 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_11')
+      .subscribe(feature => {
+        feature11 = feature;
+      });
+    this.translateService.get('PRICING.FEATURE_8')
+      .subscribe(feature => {
+        feature8 = feature;
+      });
+    return [
+      {
+        title: feature1,
+        free: true,
+        business: true,
+        custom: true,
+      }, {
+        title: feature2,
+        free: true,
+        business: true,
+        custom: true,
+      }, {
+        title: feature3,
+        free: true,
+        business: true,
+        custom: true,
+      }, {
+        title: feature4,
+        free: false,
+        business: true,
+        custom: true,
+      }, {
+        title: feature5,
+        free: false,
+        business: true,
+        custom: true,
+      }, {
+        title: feature6,
+        free: false,
+        business: true,
+        custom: true,
+      }, {
+        title: feature7,
+        free: false,
+        business: false,
+        custom: false,
+      }, {
+        title: feature8,
+        free: false,
+        business: true,
+        custom: true,
+      }, {
+        title: feature9,
+        free: false,
+        business: true,
+        custom: true,
+      }, {
+        title: feature10,
+        free: false,
+        business: false,
+        custom: true,
+      }, {
+        title: feature11,
+        free: false,
+        business: false,
+        custom: true,
+      }];
+  }
 }

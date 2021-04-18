@@ -28,35 +28,45 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/category" routerLinkActive="active">
-        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg" >
-        <span class="menu-title">{{ 'MENU.CATEGORY' | translate }}</span>
+        <div [class.fremium] = "isFree">
+          <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg" >
+          <span class="menu-title">{{ 'MENU.CATEGORY' | translate }}</span>
+        </div>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/popularity" routerLinkActive="active">
-        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/popularity.svg" >
-        <span class="menu-title">{{ 'MENU.STATS' | translate }}</span>
+      <a class="nav-link"  routerLink="/popularity" routerLinkActive="active">
+        <div [class.fremium] = "isFree">
+          <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/popularity.svg" >
+          <span class="menu-title">{{ 'MENU.STATS' | translate }}</span>
+        </div>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" routerLink="/task" routerLinkActive="active">
-        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/task.svg" >
-        <span class="menu-title">{{ 'MENU.TASK' | translate }}</span>
+        <div [class.fremium] = "isFree">
+          <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/task.svg" >
+          <span class="menu-title">{{ 'MENU.TASK' | translate }}</span>
+        </div>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" routerLink="/competition" routerLinkActive="active">
-        <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/competition.svg" >
-        <span class="menu-title">{{ 'MENU.COMPETITION' | translate }}</span>
+        <div [class.fremium] = "isFree">
+          <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/competition.svg" >
+          <span class="menu-title">{{ 'MENU.COMPETITION' | translate }}</span>
+        </div>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" routerLink="/uplifts" routerLinkActive="active">
-        <i class="fas fa-store  side-icon"></i>
-        <span class="menu-title">{{ 'MENU.UPLIFT_STORE' | translate }}</span>
+        <div [class.fremium] = "isFree">
+          <i class="fas fa-store  side-icon"></i>
+          <span class="menu-title">{{ 'MENU.UPLIFT_STORE' | translate }}</span>
+        </div>
       </a>
     </li>
 

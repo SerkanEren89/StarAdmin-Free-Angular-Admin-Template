@@ -8,7 +8,8 @@
   </div>
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
-    <button type="button" class="btn btn-primary" (click)="openCompetitorModal(contentCompetition)">
+    <button type="button" class="btn btn-primary border-radius" [class.btn-success] = "isFremium"
+            (click)="openCompetitorModal(contentCompetition)">
       {{ 'DASHBOARD.COMPETITOR_SELECT' | translate }}
     </button>
   </div>
@@ -35,7 +36,7 @@
   </div>
 </div>
 
-<div class="row title-container" *ngIf="categoryGroupList != null && categoryGroupList.length > 0">
+<div class="row title-container" *ngIf="categoryGroupList != null && categoryGroupList.length > 0 && !isFremium">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 left">
     <span class="input-group-text text-primary title">
       <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/category.svg">
@@ -43,7 +44,7 @@
     </span>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="!isFremium">
   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
        (click)="goToCategoryDetail(categoryGroup.category.name)"
        *ngFor='let categoryGroup of categoryGroupList | slice:0:4'>
@@ -184,7 +185,10 @@
                 <img class="mdi mdi-cube icon-lg answered-icon" src="assets/svg/answered.svg"
                      *ngIf="comment.answer != null">
                 <span tooltip="{{ 'GENERAL.REPLY_REVIEW' | translate }}">
-                  <a (click)="openReplyModal(reply, comment)" *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText"><i class="fa fa-reply action-button text-primary"></i></a>
+                  <a (click)="openReplyModal(reply, comment)"
+                     *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText">
+                    <i class="fa fa-reply action-button text-primary" [class.text-success] = "isFremium"></i>
+                  </a>
                 </span>
               </td>
               <td class="text comment"
@@ -224,12 +228,14 @@
                 <i class="mdi mdi-arrow-down" *ngIf="comment.rating < 6"></i>
                 <i class="mdi mdi-arrow-up" *ngIf="comment.rating >= 6"></i>
               </td>
-              <td class="text-primary">
-                <span tooltip="{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}">
-                  <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null"><i class="fa fa-tasks action-button"></i></a>
+              <td>
+                <span tooltip="{{ 'GENERAL.ASSIGN_NEW_TASK' | translate }}" class="text-primary" [class.text-success] = "isFremium">
+                  <a (click)="openTaskModal(comment, contentTask)" *ngIf="competitorHotel == null">
+                    <i class="fa fa-tasks action-button"></i></a>
                 </span>
-                <span tooltip="{{ 'DASHBOARD.GO_TO_SOURCE' | translate }}">
-                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}><i class="fa fa-link action-button"></i></a>
+                <span tooltip="{{ 'DASHBOARD.GO_TO_SOURCE' | translate }}" class="text-primary">
+                  <a target="_blank" *ngIf="comment.url != null" href={{comment.url}}>
+                    <i class="fa fa-link action-button"></i></a>
                 </span>
               </td>
             </tr>
@@ -333,8 +339,8 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks button-task"></i>{{ 'GENERAL.ASSIGN_AS_TASK' | translate }}</button>
-      <button type="button" class="btn btn-primary" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
+      <button type="button" class="btn btn-primary" [class.btn-success] = "isFremium" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks button-task"></i>{{ 'GENERAL.ASSIGN_AS_TASK' | translate }}</button>
+      <button type="button" class="btn btn-primary" [class.btn-success] = "isFremium" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>
     </div>

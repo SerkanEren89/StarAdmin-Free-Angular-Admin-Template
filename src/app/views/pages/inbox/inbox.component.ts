@@ -70,6 +70,7 @@ export class InboxComponent implements OnInit {
   travelerTypes;
   task: TaskModel = new TaskModel();
   showAddEmployeeFlow: boolean;
+  isFremium: boolean;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
@@ -108,6 +109,7 @@ export class InboxComponent implements OnInit {
       start: moment().add(-3, 'months'),
       end: moment()
     };
+    this.isFremium = this.authService.isFremium();
   }
 
   loadComments(page: number) {
@@ -204,10 +206,14 @@ export class InboxComponent implements OnInit {
   }
 
   translate(selectedItem: CommentModel) {
-    this.commentService.getTranslatedComment(selectedItem.id)
-      .subscribe((translatedComment: CommentModel) => {
-        this.selectedItem = translatedComment;
-      });
+    if (!this.isFremium) {
+      this.commentService.getTranslatedComment(selectedItem.id)
+        .subscribe((translatedComment: CommentModel) => {
+          this.selectedItem = translatedComment;
+        });
+    } else {
+      this.router.navigate(['pricing/premium']);
+    }
   }
 
   changeFilteredChannel(i: number) {
@@ -327,8 +333,10 @@ export class InboxComponent implements OnInit {
         this.selectedTemplate.title = title;
       });
     this.newTemplate = new TemplateModel();
-    this.modalService.open(answer, {keyboard: false, backdrop: 'static',
-      size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+    this.modalService.open(answer, {
+      keyboard: false, backdrop: 'static',
+      size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+    }).result.then((result) => {
     }, (reason) => {
     });
   }

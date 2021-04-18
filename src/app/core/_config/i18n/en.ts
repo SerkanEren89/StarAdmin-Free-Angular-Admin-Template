@@ -321,7 +321,8 @@ export const locale = {
       NEW_CONTACT_WARNING: 'Email or phone number information must be filled',
       FIRST_NAME_MISSING: 'First name must be filled',
       LAST_NAME_MISSING: 'Last name must be filled',
-      INFO: 'The review alert ensures that new guest comments are sent to you via the channel you choose. Keep in mind that responding late' +
+      INFO: 'The review alert ensures that new guest comments are sent to you via the ' +
+        'channel you choose. Keep in mind that responding late' +
         ' to negative reviews will cause you to miss a reservation.',
       EMPTY_CHANNEL: 'Please select at least one channel',
       AT_LEAST_CHANNEL: 'Select SMS, Email or both.'
@@ -333,6 +334,51 @@ export const locale = {
       NOTIFICATION_TITLE: 'Review Alarm',
       NOTIFICATION_TEXT: 'It allows you to be notified of guest comments written about your hotel instantly via email or sms. If you notice the comments' +
         ' written early and reply immediately, if that comment is negative, it will reduce its effect and reduce your chance of missing a reservation.'
+    },
+    PRICING: {
+      TITLE: 'Pricing',
+      FEATURES: 'Features',
+      PREMIUM: 'Upgrade to Premium',
+      PARTNER: 'Become a Business Account Owner',
+      MAIN: 'Hotel Uplift Business account features help you to improve your hotel rating ' +
+        ' in average 0.3+ and your hotel revenue up to 12 %.',
+      ITEM_1: 'Guest Reviews',
+      POSITIVE_1: '+ 0.3 points',
+      ITEM_2: 'Revenue',
+      POSITIVE_2: '+ 12 %',
+      ITEM_3: 'Operation Time',
+      POSITIVE_3: '- 40 %',
+      DETAIL: 'According to the study, Hotel Uplift Business Account owners improve their hotel\'s ' +
+        'ranking by 0.3 to 0.5 points out of 10 points in one year. This change triggers for an increase ' +
+        'of approximately 12% in hotel sales. And the value of the hotel increases accordingly.',
+      ACCOUNT_OWNER: 'Become a Business Account Owner',
+      SELECT_PLAN: 'Select your plan',
+      STARTER: 'Starter',
+      FREE: 'Free',
+      FREE_DETAIL: 'Follow up your customer reviews and hotel rating among 20+ platforms just for free.',
+      FREE_FEATURE: 'All of starter features',
+      POPULAR: 'Most Popular',
+      BUSINESS: 'Business',
+      BUSINESS_PRICE: '69€/mo',
+      BUSINESS_DETAIL: 'You start getting benefit from customer reviews and capture the opportunities to improve your hotel guest experience and revenue.',
+      BUSINESS_FEATURE: 'All of business features',
+      CUSTOM_QUESTION: 'Have Many Hotel?',
+      CUSTOM_OFFER: 'Custom Offer',
+      CUSTOM_SOLUTION: 'Customized solutions for your constitution structure.',
+      CUSTOM_FEATURE: 'Everything from business plan and more.',
+      CUSTOM_SUPPORT: 'Priority support',
+      SPECIAL_OFFER: 'Do you have less than 50 rooms? We have special offer for you. Click to contact us',
+      FEATURE_1: 'Track Guest Reviews in 20+ Platforms',
+      FEATURE_2: 'See Your Hotel Rankings',
+      FEATURE_3: 'Export all guest reviews filter by (date, channel, rating, etc.)',
+      FEATURE_4: 'Set Review Alerts',
+      FEATURE_5: 'Analyze Reviews ® (HotelUplift Algorithm detects strong and weak areas of your hotel)',
+      FEATURE_6: 'Competition Analyze® (including reviews and pricing)',
+      FEATURE_7: 'Easy Responding to Guest Reviews',
+      FEATURE_8: 'Uplift Add-ons®',
+      FEATURE_9: 'Tasks',
+      FEATURE_10: 'Headquarter Hotel Goals',
+      FEATURE_11: 'Managing Many Hotels',
     }
   }
 };

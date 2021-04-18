@@ -329,6 +329,51 @@ export const locale = {
       NOTIFICATION_TEXT: 'Otelinizle ilgili yazılmış misafir yorumlarından anında email veya sms ile haberdar olmanızı sağlar.' +
         ' Yazılan yorumları erken fark edip, hemen cevaplamanız eğer o yorum negatif ise etkisini azaltarak ' +
         'rezervasyon kaçırma ihtimalinizi düşürür.'
+    },
+    PRICING: {
+      TITLE: 'Fiyatlandırma',
+      FEATURES: 'Özellikler',
+      PREMIUM: 'Premium\'a yükselt',
+      PARTNER: 'Ticari Hesap Sahibi Olun',
+      MAIN: 'Hotel Uplift ticari hesap özellikleri, otel puanınızı ortalama 0,3 puan arttırırken otel gelirinizi % 12\'ye kadar yükseltmenize yardımcı olur.',
+      ITEM_1: 'Misafir Yorumları',
+      POSITIVE_1: '+ 0.3 puan',
+      ITEM_2: 'Gelirler',
+      POSITIVE_2: '+ 12 %',
+      ITEM_3: 'Operasyon Süresi',
+      POSITIVE_3: '- 40 %',
+      DETAIL: 'Araştırmaya göre, Hotel Uplift işletme hesabı sahipleri otellerinin sıralamasını ' +
+        'bir yılda 10 üzerinden 0,3-0,5 puan artırıyor. Bu değişiklik otel satışlarında yaklaşık' +
+        ' % 12\'lik bir artışı tetikliyor ve buna bağlı olarak otelin değeri artıyor.',
+      ACCOUNT_OWNER: 'İşletme Hesabı Sahibi Olun',
+      SELECT_PLAN: 'Planınızı seçin',
+      STARTER: 'Başlangıç',
+      FREE: 'Ücretsiz',
+      FREE_DETAIL: '20\'den fazla platform arasında müşteri değerlendirmelerinizi ve otel puanlarınızı ücretsiz olarak takip edin.',
+      FREE_FEATURE: 'Bütün ücretsiz özellikler',
+      POPULAR: 'En Popüler',
+      BUSINESS: 'Ticari',
+      BUSINESS_PRICE: '69€/aylik',
+      BUSINESS_DETAIL: 'Müşteri incelemelerinden yararlanmaya başlarsınız ve otel misafir deneyiminizi ve gelirinizi iyileştirme fırsatlarını yakalarsınız.',
+      BUSINESS_FEATURE: 'Bütün ticari özellikler',
+      CUSTOM_QUESTION: 'Birden fazla oteliniz mi var',
+      CUSTOM_OFFER: 'Özel Teklif',
+      CUSTOM_SOLUTION: 'Kurumsal yapınız için size özel çözümler.',
+      CUSTOM_FEATURE: 'Ticari plandaki özellikler ve çok daha fazlası',
+      CUSTOM_SUPPORT: 'Öncelikli destek',
+      SPECIAL_OFFER: '50\'den az odanız mı var? Sizin için özel bir teklifimiz var. İletişime geçmek için tıklayın',
+      FEATURE_1: '20\'den Fazla Platformda Misafir Yorumlarını Takip Edin',
+      FEATURE_2: 'Otel Sıralamanızı Görün',
+      FEATURE_3: 'Tüm konuk yorumlarını dışa aktarın (tarih, kanal, derecelendirme vb.)',
+      FEATURE_4: 'Yorum Alarmı Ayarlama',
+      FEATURE_5: 'Yorumları Analiz Etme ® (Hotel Uplift Algoritması, otelinizin güçlü ve zayıf alanlarını algılar)',
+      FEATURE_6: 'Rakip analizi® (yorumlar ve fiyatlandırma dahil)',
+      FEATURE_7: 'Konuk Yorumlarına Kolay Yanıt Verme',
+      FEATURE_8: 'Uplift Eklentileri®',
+      FEATURE_9: 'Görev Atama',
+      FEATURE_10: 'Merkezi Otel Hedefleri',
+      FEATURE_11: 'Birçok Oteli Yönetme',
+      FEATURE_SET: 'Özellikler'
     }
   }
 };

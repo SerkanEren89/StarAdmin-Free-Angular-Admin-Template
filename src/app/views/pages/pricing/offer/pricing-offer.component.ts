@@ -9,7 +9,7 @@ import {CommonService} from '../../../../core/general/_services/common.service';
   templateUrl: './pricing-offer.component.html'
 })
 export class PricingOfferComponent implements OnInit {
-  private features;
+  features;
 
   constructor(private pricingService: PricingService,
               private commonService: CommonService,

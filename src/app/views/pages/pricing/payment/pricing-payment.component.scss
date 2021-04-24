@@ -7,4 +7,81 @@
     font-size: 12px;
     font-weight: 300;
   }
+  .pay {
+    margin-bottom: 20px;
+    margin-left: 10px;
+  }
+  .cvv-container {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+  }
+  .name-field {
+    width: 30%;
+    padding: 15px;
+    border: 1px solid #d8cfcf;
+    font-size: 18px;
+  }
+  .small-item {
+    width: 15%;
+    border: 1px solid #d8cfcf;
+    padding: 15px;
+  }
+  .left {
+    border-right: none;
+  }
+  .long-item {
+    padding: 15px;
+    border: 1px solid #d8cfcf;
+    width: 30%;
+  }
+  .billing-type {
+    width: 25%;
+  }
+  @media screen and (max-width: 600px) {
+    .name-field {
+      width: 100%;
+    }
+    .small-item {
+      width: 50%;
+    }
+    .long-item {
+      width: 100%;
+    }
+    .billing-type {
+      width: 100%;
+    }
+  }
+  .name-field::placeholder {
+    color: #CFD7E0;
+  }
+  .payment-container {
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  .billing-container {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left: 10px;
+    .billing-type {
+      padding: 15px;
+      margin-right: 10px;
+      border-radius: 5px;
+      .text {
+        margin-left: 10px
+      }
+    }
+  }
+  .total {
+    font-size: 16px;
+    font-weight: 500;
+    float: none;
+    .amount {
+      color: #28a745;
+      float: right;
+    }
+  }
+  .total-container {
+    margin-left: 10px;
+  }
 }

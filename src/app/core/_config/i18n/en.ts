@@ -65,6 +65,7 @@ export const locale = {
       EMPLOYEE_NOT_EXIST: 'The employee does not exist',
       ASSIGN: 'Assign',
       REPLY_REVIEW: 'Reply Customer Review',
+      AT_BUSINESS_ACCOUNT: 'This feature is only available at business account',
       SAVE_AS_TEMPLATE: 'Save as Template',
       SAVE_NEW_TEMPLATE: 'Save new Template',
       SELECT_TEMPLATE: 'Select Template',

@@ -49,13 +49,11 @@ const routes: Routes = [
         },
         {
           path: 'template',
-          loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule),
-          canActivate: [FremiumGuard]
+          loadChildren: () => import('src/app/views/pages/template/template.module').then(m => m.TemplateModule)
         },
         {
           path: 'employee',
-          loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule),
-          canActivate: [FremiumGuard]
+          loadChildren: () => import('src/app/views/pages/employee/employee.module').then(m => m.EmployeeModule)
         },
         {
           path: 'inbox',

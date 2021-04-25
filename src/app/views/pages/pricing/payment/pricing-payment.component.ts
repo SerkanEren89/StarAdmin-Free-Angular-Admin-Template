@@ -59,6 +59,7 @@ export class PricingPaymentComponent implements OnInit {
       .subscribe((plans: PlanModel[]) => {
         this.plans = plans;
         this.selectedPlan = this.plans[0];
+        this.plans[0].selected = true;
       });
   }
 

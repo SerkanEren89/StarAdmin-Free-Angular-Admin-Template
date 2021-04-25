@@ -65,6 +65,7 @@ export const locale = {
       ADD_EMPLOYEE: 'Yeni çalışan eklemek için tıklayın.',
       ASSIGN: 'Görev ata',
       REPLY_REVIEW: 'Misafir Yorumunu Cevapla',
+      AT_BUSINESS_ACCOUNT: 'Bu özelliği ticari hesap sahipleri kullanabilir.',
       SAVE_AS_TEMPLATE: 'Taslak Olarak Kaydet',
       SAVE_NEW_TEMPLATE: 'Yeni Taslak Kaydet',
       SELECT_TEMPLATE: 'Taslak Seçin',

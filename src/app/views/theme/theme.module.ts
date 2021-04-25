@@ -7,14 +7,16 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {FooterComponent} from './footer/footer.component';
 import {BaseComponent} from './base/base.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TooltipModule} from 'ng2-tooltip-directive';
 
 @NgModule({
-  imports: [
-    CoreModule,
-    CommonModule,
-    RouterModule,
-    NgbModule,
-  ],
+    imports: [
+        CoreModule,
+        CommonModule,
+        RouterModule,
+        NgbModule,
+        TooltipModule,
+    ],
   providers: [],
   declarations: [
     BaseComponent,

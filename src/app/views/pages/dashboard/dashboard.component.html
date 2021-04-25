@@ -9,6 +9,7 @@
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 filter-button">
     <button type="button" class="btn btn-primary border-radius" [class.btn-success] = "isFremium"
+            tooltip="{{ 'GENERAL.AT_BUSINESS_ACCOUNT' | translate }}" [display]="isFremium"
             (click)="openCompetitorModal(contentCompetition)">
       {{ 'DASHBOARD.COMPETITOR_SELECT' | translate }}
     </button>

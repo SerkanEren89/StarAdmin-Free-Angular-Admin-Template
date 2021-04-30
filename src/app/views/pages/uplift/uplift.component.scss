@@ -6,24 +6,52 @@
   .image-container {
     width: 30%;
     .icon {
-      font-size: 35px;
+      width: 100%;
     }
   }
   .explanation-container {
     width: 70%;
     float: right;
     text-align: end;
+    padding: 5px;
     .title {
       font-size: 17px;
       font-weight: 500;
       margin-top: 10px;
+      color: #ffffff;
     }
     span {
-      font-size: 12px;
-      font-weight: 300;
+      font-size: 14px;
+      font-weight: 400;
+      color: #ffffff;
     }
   }
 }
 .edit {
   margin-right: 10px;
+}
+.edit-button {
+  margin-bottom: 7px;
+}
+.active {
+  margin-left: 10px;
+}
+.uplift-card {
+  background: #4ba9df;
+  border-radius: 2px;
+}
+@media screen and (max-width: 600px) {
+  .uplift-item {
+    flex-direction: column;
+    .image-container {
+      width: 70%;
+      align-self: center;
+    }
+    .explanation-container {
+      width: 100%;
+    }
+    .edit-button {
+      margin-bottom: 0;
+    }
+  }
 }

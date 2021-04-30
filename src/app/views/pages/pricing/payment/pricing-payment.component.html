@@ -2,49 +2,86 @@
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
     <span class="input-group-text text-primary title">
     <i class="menu-icon fa fa-shopping-cart title-icon"></i>
-      Payment
+      {{ 'PRICING.PAYMENT_TITLE' | translate }}
     </span>
   </div>
 </div>
 <div class="row payment">
-  <div class="col-lg-12 grid-margin">
-    <div class="card">
-      <div class="card-body" *ngIf="plans != null">
-        <p class="title">Choose Your Subscription</p>
-        <div class="billing-container">
-          <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans" (click)="selectPlan(plan)">
+  <div class="card">
+    <div class="card-body" *ngIf="plans != null">
+      <div class="row">
+        <div class="col-lg-6 grid-margin">
+          <p class="title">{{ 'PRICING.CHOOSE_SUBSCRIPTION' | translate }}</p>
+          <div class="billing-container">
+            <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans" (click)="selectPlan(plan)">
             <span *ngIf="plan.selected">
               <i class="fa fa-check category-icon text-success"></i>
             </span>
-            <span class="text">
+              <span class="text">
               {{plan.name}}
             </span>
-          </button>
-        </div>
-        <p class="title">Payment Information</p>
+            </button>
+          </div>
+          <p class="title">{{ 'PRICING.PAYMENT_INFO' | translate }}</p>
 
-        <div class="payment-container">
-          <ngx-stripe-card-group [formGroup]="stripeTest">
-            <div class="cvv-container">
-              <input formControlName="name" placeholder="Name on card" class="name-field"/>
-            </div>
-            <div class="cvv-container">
-              <ngx-stripe-card-number [options]="cardOptions" class="long-item"></ngx-stripe-card-number>
-            </div>
-            <div class="cvv-container">
-              <ngx-stripe-card-expiry [options]="cardOptions" class="small-item left"></ngx-stripe-card-expiry>
-              <ngx-stripe-card-cvc [options]="cardOptions" class="small-item"></ngx-stripe-card-cvc>
-            </div>
-          </ngx-stripe-card-group>
+          <div class="payment-container">
+            <ngx-stripe-card-group [formGroup]="stripeTest">
+              <div class="cvv-container">
+                <input formControlName="name" placeholder="Name on card" class="name-field"/>
+              </div>
+              <div class="cvv-container">
+                <ngx-stripe-card-number [options]="cardOptions" class="long-item"></ngx-stripe-card-number>
+              </div>
+              <div class="cvv-container">
+                <ngx-stripe-card-expiry [options]="cardOptions" class="small-item left"></ngx-stripe-card-expiry>
+                <ngx-stripe-card-cvc [options]="cardOptions" class="small-item"></ngx-stripe-card-cvc>
+              </div>
+            </ngx-stripe-card-group>
+          </div>
+          <div class="total-container">
+            <p class="total long-item">Total Fee:
+              <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
+            </p>
+          </div>
+          <button class="btn btn-primary border-radius pay" type="submit" (click)="createCharge()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
+          <p class="info">***{{ 'PRICING.AUTO_RENEWAL' | translate }}</p>
         </div>
-        <div class="total-container">
-          <p class="total long-item">Total Fee:
-            <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
+        <div class="col-lg-6 additional">
+          <p class="title">
+            {{ 'PRICING.HOTEL_UPLIFT_BUSINESS' | translate }}
+          <p>
+
+          <p class="total-fee">
+          {{selectedPlan.totalValue}}{{selectedPlan.currency}}
           </p>
+
+          <p>
+            {{ 'PRICING.PAYMENT_SUB_TITLE' | translate }}
+          </p>
+          <p>
+            {{ 'PRICING.FEATURE_TITLE' | translate }}
+          </p>
+          <ul>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_1' | translate }}
+            </li>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_2' | translate }}
+            </li>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_3' | translate }}
+            </li>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_4' | translate }}
+            </li>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_5' | translate }}
+            </li>
+            <li class="item">
+              {{ 'PRICING.FEATURE_ITEM_6' | translate }}
+            </li>
+          </ul>
         </div>
-        <button class="btn btn-primary border-radius pay" type="submit" (click)="createCharge()">Upgrade to Pro</button>
-        <p class="info">***You will be charged now and monthly at this time when your
-          account automatically renews. Cancel automatic renewal at any time.</p>
       </div>
     </div>
   </div>

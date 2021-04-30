@@ -17,13 +17,13 @@
     margin: 10px;
   }
   .name-field {
-    width: 52%;
+    width: 100%;
     padding: 15px;
     border: 1px solid #d8cfcf;
     font-size: 18px;
   }
   .small-item {
-    width: 26%;
+    width: 50%;
     border: 1px solid #d8cfcf;
     padding: 15px;
   }
@@ -33,10 +33,10 @@
   .long-item {
     padding: 15px;
     border: 1px solid #d8cfcf;
-    width: 52%;
+    width: 100%;
   }
   .billing-type {
-    width: 25%;
+    width: 48%;
   }
   @media screen and (max-width: 600px) {
     .name-field {
@@ -83,5 +83,16 @@
   }
   .total-container {
     margin-left: 10px;
+  }
+}
+.additional {
+  .title {
+    font-size: 20px;
+  }
+  .total-fee {
+    font-size: 16px;
+  }
+  .item {
+    font-size: 14px;
   }
 }

@@ -130,6 +130,7 @@ export const locale = {
       FAMILY: 'Family',
       OTHER: 'OTHER',
       LAST_REVIEWS: 'Last Customer Reviews',
+        EDIT: 'Edit'
     },
     REVIEW: {
       TITLE: 'Reviews',
@@ -380,6 +381,21 @@ export const locale = {
       FEATURE_9: 'Tasks',
       FEATURE_10: 'Headquarter Hotel Goals',
       FEATURE_11: 'Managing Many Hotels',
+      CHOOSE_SUBSCRIPTION: 'Choose Your Subscription',
+      PAYMENT_TITLE: 'Payment',
+      PAYMENT_INFO: 'Payment Information',
+      AUTO_RENEWAL: 'you will be charged now and monthly at this time when your ' +
+      'account automatically renews. Cancel automatic renewal at any time.',
+      TOTAL_FEE: 'Total Fee',
+      HOTEL_UPLIFT_BUSINESS: 'Hotel Uplift Business',
+      PAYMENT_SUB_TITLE: 'You start getting benefit from customer reviews and capture the opportunities to improve your hotel guest experience and revenue.',
+      FEATURE_TITLE: 'Features to get:',
+      FEATURE_ITEM_1: 'Analyze Reviews ®️',
+      FEATURE_ITEM_2: 'Shows Hotel Improvement Areas',
+      FEATURE_ITEM_3: 'Competition Analyze®️',
+      FEATURE_ITEM_4: 'Responding to Guest Reviews️',
+      FEATURE_ITEM_5: 'Hotel Task Management️',
+      FEATURE_ITEM_6: 'Access to Uplift Store️',
     }
   }
 };

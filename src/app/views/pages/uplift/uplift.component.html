@@ -9,20 +9,22 @@
 
 <div class="row">
   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
+    <div class="card uplift-card">
       <div class="card-body pointer">
         <div class="uplift-item">
           <div class="image-container">
-            <i class="fas fa-certificate icon"></i>
+            <img class="mdi mdi-cube icon-lg icon"
+                 src="assets/images/uplift_widget.png">
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-primary edit" (click)="goToWidgetSettings()">
-              <i class="fa fa-pencil-alt"></i>
+            <button type="button" class="btn btn-primary edit-button" (click)="goToWidgetSettings()">
+              <i class="fa fa-pencil-alt edit"></i>
+              <span>{{ 'GENERAL.EDIT' | translate }}</span>
             </button>
-            <button type="button" class="btn btn-success" *ngIf="isActiveWidget">
+            <button type="button" class="btn btn-success active edit-button" *ngIf="isActiveWidget">
               {{ 'GENERAL.ACTIVE' | translate }}
             </button>
-            <button type="button" class="btn btn-danger" *ngIf="!isActiveWidget">
+            <button type="button" class="btn btn-danger active edit-button" *ngIf="!isActiveWidget">
               {{ 'GENERAL.DEACTIVE' | translate }}
             </button>
             <p class="mb-0 text-right title">{{ 'UPLIFT.WIDGET_TITLE' | translate }}</p>
@@ -35,20 +37,22 @@
     </div>
   </div>
   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card">
-    <div class="card card-statistics">
+    <div class="card uplift-card">
       <div class="card-body pointer">
         <div class="uplift-item">
           <div class="image-container">
-            <i class="far fa-bell icon"></i>
+            <img class="mdi mdi-cube icon-lg icon"
+                 src="assets/images/uplift_alert.png">
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-primary edit" (click)="goToReviewAlarmSettings()">
-              <i class="fa fa-pencil-alt"></i>
+            <button type="button" class="btn btn-primary edit-button" (click)="goToReviewAlarmSettings()">
+              <i class="fa fa-pencil-alt edit"></i>
+              <span>{{ 'GENERAL.EDIT' | translate }}</span>
             </button>
-            <button type="button" class="btn btn-success" *ngIf="isActiveReviewAlarm">
+            <button type="button" class="btn btn-success active edit-button" *ngIf="isActiveReviewAlarm">
               {{ 'GENERAL.ACTIVE' | translate }}
             </button>
-            <button type="button" class="btn btn-danger" *ngIf="!isActiveReviewAlarm">
+            <button type="button" class="btn btn-danger active edit-button" *ngIf="!isActiveReviewAlarm">
               {{ 'GENERAL.DEACTIVE' | translate }}
             </button>
             <p class="mb-0 text-right title">{{ 'UPLIFT.NOTIFICATION_TITLE' | translate }}</p>

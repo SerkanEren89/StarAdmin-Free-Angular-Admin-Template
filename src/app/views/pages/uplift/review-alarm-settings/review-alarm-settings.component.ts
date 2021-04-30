@@ -46,6 +46,7 @@ export class ReviewAlarmSettingsComponent implements OnInit {
     this.commentSources.forEach(item => {
       item.checked = false;
     });
+    this.initSettings();
     this.reviewAlarmSettingsService.getReviewAlarmSettings()
       .subscribe((reviewAlarmSettingsModel: ReviewAlarmSettingsModel) => {
         if (reviewAlarmSettingsModel == null) {

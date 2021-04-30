@@ -129,6 +129,7 @@ export const locale = {
       FAMILY: 'Aile',
       OTHER: 'Diğer',
       LAST_REVIEWS: 'Son Misafir Yorumları',
+      EDIT: 'Düzenle'
     },
     REVIEW: {
       TITLE: 'Yorumlar',
@@ -374,7 +375,23 @@ export const locale = {
       FEATURE_9: 'Görev Atama',
       FEATURE_10: 'Merkezi Otel Hedefleri',
       FEATURE_11: 'Birçok Oteli Yönetme',
-      FEATURE_SET: 'Özellikler'
+      FEATURE_SET: 'Özellikler',
+      CHOOSE_SUBSCRIPTION: 'Aboneliğinizi Seçin',
+      PAYMENT_TITLE: 'Ödeme',
+      PAYMENT_INFO: 'Ödeme Bilgileri',
+      UPGRADE_TO_PRO: 'Pro\'ya yükselt',
+      AUTO_RENEWAL: 'üyeliğiniz kapsamında aylık olarak çekim yapılacaktır. ' +
+        'Otomatik yenilenmeyi istediğiniz zaman iptal edebilirsiniz.',
+      TOTAL_FEE: 'Toplam Ücret',
+      HOTEL_UPLIFT_BUSINESS: 'Hotel Uplift Ticari',
+      PAYMENT_SUB_TITLE: 'Bu paketle misafir yorumlarını otelinizin faydasına dönüştürmeye başlarsınız. Otel misafir deneyiminizi ve gelirinizi iyileştirme fırsatlarını yakalarsınız.',
+      FEATURE_TITLE: 'Ticari Hesap İle:',
+      FEATURE_ITEM_1: ' Misafir yorumlarını analiz ederiz, böylece otelinizin gelişme alanlarını görürsünüz ®️',
+      FEATURE_ITEM_2: 'Otel gelişim alanlarınızı görün',
+      FEATURE_ITEM_3: 'Rakip analizinizi yapar sürekli rakip otellerin fiyat ve puanlarını takip ederiz®️',
+      FEATURE_ITEM_4: 'Misafir yorumlarına cevap yazabilirsiniz️',
+      FEATURE_ITEM_5: 'Görev takibi özelliğini kullanabilirsiniz',
+      FEATURE_ITEM_6: 'Uplift Store\'a ulaşarak çeşitli ek özellikleri aktifleştirebilirsiniz️',
     }
   }
 };

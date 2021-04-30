@@ -385,7 +385,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openReplyModal(content: TemplateRef<any>, comment: CommentModel) {
-    if (this.isFremium) {
+    if (!this.isFremium) {
       this.selectedComment = comment;
       if (this.templates == null) {
         this.templateService.getTemplates()

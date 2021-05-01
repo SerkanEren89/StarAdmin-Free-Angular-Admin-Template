@@ -1,4 +1,7 @@
 .payment {
+  .selected {
+    font-size: 16px;
+  }
   .title {
     font-size: 18px;
     font-weight: 500;
@@ -86,6 +89,8 @@
   }
 }
 .additional {
+  border: 1px solid #cec7c7;
+  padding: 40px;
   .title {
     font-size: 20px;
   }

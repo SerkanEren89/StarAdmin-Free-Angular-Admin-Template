@@ -1,4 +1,7 @@
 .pricing {
+  ul li {
+    font-size: 14px;
+  }
   .special-offer {
     font-size: 18px;
     font-weight: 500;
@@ -15,17 +18,16 @@
   .item-container {
     display: flex;
     flex-direction: row;
+    .popular {
+      width: 100%;
+      padding:15px;
+      margin-top: 30px;
+    }
     .item {
       width: 33%;
       background: aliceblue;
       margin: 20px;
-
       padding-top: 0;
-      .popular {
-        width: 100%;
-        margin-bottom: 20px;
-        padding:15px;
-      }
       .body {
         padding: 25px;
       }
@@ -39,18 +41,6 @@
       margin-top: 46px;
       margin-bottom: 40px;
     }
-    .item-wider:hover {
-      -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-    .item:hover {
-      -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-      transform: scale(1.1);
-      cursor: pointer;
-    }
     .offer {
       font-size: 20px;
       font-weight: 500;
@@ -58,6 +48,10 @@
     .title {
       font-size: 24px;
       font-weight: 600;
+    }
+    .sub-title {
+      font-size: 16px;
+      margin-bottom: 20px;
     }
   }
   .contact-us {
@@ -69,7 +63,6 @@
     text-align: center;
     font-size: 23px;
     font-weight: 500;
-    margin-bottom: 31px;
   }
   @media screen and (max-width: 600px) {
     .item-container {

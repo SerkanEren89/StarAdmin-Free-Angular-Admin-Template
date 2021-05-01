@@ -370,6 +370,7 @@ export const locale = {
       CUSTOM_FEATURE: 'Everything from business plan and more.',
       CUSTOM_SUPPORT: 'Priority support',
       SPECIAL_OFFER: 'Do you have less than 50 rooms? We have special offer for you. Click to contact us',
+      CONTACT_US: 'Contact us',
       FEATURE_1: 'Track Guest Reviews in 20+ Platforms',
       FEATURE_2: 'See Your Hotel Rankings',
       FEATURE_3: 'Export all guest reviews filter by (date, channel, rating, etc.)',
@@ -384,6 +385,7 @@ export const locale = {
       CHOOSE_SUBSCRIPTION: 'Choose Your Subscription',
       PAYMENT_TITLE: 'Payment',
       PAYMENT_INFO: 'Payment Information',
+      UPGRADE_TO_PRO: 'Upgrade to Pro',
       AUTO_RENEWAL: 'you will be charged now and monthly at this time when your ' +
       'account automatically renews. Cancel automatic renewal at any time.',
       TOTAL_FEE: 'Total Fee',

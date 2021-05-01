@@ -309,11 +309,11 @@ export const locale = {
       WARNING_COUNT: 'En fazla 20\'ye kadar yorum seçebilirsiniz.'
     },
     ALARM: {
-      TITLE: 'Yorum Alarm Ayari',
+      TITLE: 'Yorum Alarm Ayarı',
       SMS: 'SMS',
       EMAIL: 'Email',
       ALARM_CHANNEL_TEXT: 'Lütfen yorum alarmı almak istediğiniz iletişim kanallarını seçin.',
-      ADD_CONTACT: 'Iletişim Ekle',
+      ADD_CONTACT: 'İletişim Ekle',
       SMS_WARNING: 'SMS gönderimi operatörünüz tarafindan ücretlendirilebilir.',
       NEW_CONTACT_WARNING: 'Email veya telefon numarasi bilgisi doldurulmalıdir.',
       FIRST_NAME_MISSING: 'Ad bilgisi doldurulmalıdır',
@@ -364,6 +364,7 @@ export const locale = {
       CUSTOM_FEATURE: 'Ticari plandaki özellikler ve çok daha fazlası',
       CUSTOM_SUPPORT: 'Öncelikli destek',
       SPECIAL_OFFER: '50\'den az odanız mı var? Sizin için özel bir teklifimiz var. İletişime geçmek için tıklayın',
+      CONTACT_US: 'İletişime geçin',
       FEATURE_1: '20\'den Fazla Platformda Misafir Yorumlarını Takip Edin',
       FEATURE_2: 'Otel Sıralamanızı Görün',
       FEATURE_3: 'Tüm konuk yorumlarını dışa aktarın (tarih, kanal, derecelendirme vb.)',
@@ -379,7 +380,7 @@ export const locale = {
       CHOOSE_SUBSCRIPTION: 'Aboneliğinizi Seçin',
       PAYMENT_TITLE: 'Ödeme',
       PAYMENT_INFO: 'Ödeme Bilgileri',
-      UPGRADE_TO_PRO: 'Pro\'ya yükselt',
+      UPGRADE_TO_PRO: 'Ticariye yükselt',
       AUTO_RENEWAL: 'üyeliğiniz kapsamında aylık olarak çekim yapılacaktır. ' +
         'Otomatik yenilenmeyi istediğiniz zaman iptal edebilirsiniz.',
       TOTAL_FEE: 'Toplam Ücret',

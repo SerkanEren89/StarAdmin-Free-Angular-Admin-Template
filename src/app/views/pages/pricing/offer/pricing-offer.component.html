@@ -16,25 +16,51 @@
           <div class="item-wider">
             <p class="title">{{ 'PRICING.STARTER' | translate }}</p>
             <p class="text-primary offer">{{ 'PRICING.FREE' | translate }}</p>
-            <p>{{ 'PRICING.FREE_DETAIL' | translate }}
+            <p class="sub-title">{{ 'PRICING.FREE_DETAIL' | translate }}
             </p>
-            <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.FREE_FEATURE' | translate }}</p>
+            <ul>
+              <li>{{ 'PRICING.FEATURE_1' | translate }}</li>
+              <li>{{ 'PRICING.FEATURE_2' | translate }}</li>
+              <li>{{ 'PRICING.FEATURE_3' | translate }}</li>
+            </ul>
           </div>
-          <div class="item">
-            <button class="btn btn-primary popular" type="button">{{ 'PRICING.POPULAR' | translate }}</button>
+          <div class="item-wider">
             <div class="body">
               <p class="title">{{ 'PRICING.BUSINESS' | translate }}</p>
               <p class="text-primary offer">{{ 'PRICING.BUSINESS_PRICE' | translate }}</p>
-              <p>{{ 'PRICING.BUSINESS_DETAIL' | translate }}</p>
-              <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.BUSINESS_FEATURE' | translate }}</p>
+              <p class="sub-title">{{ 'PRICING.BUSINESS_DETAIL' | translate }}</p>
+              <ul>
+                <li>{{ 'PRICING.FEATURE_1' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_2' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_3' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_4' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_5' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_6' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_8' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_9' | translate }}</li>
+              </ul>
             </div>
+            <button class="btn btn-primary popular" type="button" routerLink="/pricing/payment">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
           </div>
           <div class="item-wider">
-            <p class="title">{{ 'PRICING.CUSTOM_QUESTION' | translate }}</p>
-            <p class="text-primary offer">{{ 'PRICING.CUSTOM_OFFER' | translate }}</p>
-            <p>{{ 'PRICING.CUSTOM_SOLUTION' | translate }}</p>
-            <p class="to-feature" (click)="scrollToElement()">{{ 'PRICING.CUSTOM_FEATURE' | translate }}</p>
-            <p>{{ 'PRICING.CUSTOM_SUPPORT' | translate }}</p>
+            <div class="body">
+              <p class="title">{{ 'PRICING.CUSTOM_QUESTION' | translate }}</p>
+              <p class="text-primary offer">{{ 'PRICING.CUSTOM_OFFER' | translate }}</p>
+              <p class="sub-title">{{ 'PRICING.CUSTOM_SOLUTION' | translate }}</p>
+              <ul>
+                <li>{{ 'PRICING.FEATURE_1' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_2' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_3' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_4' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_5' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_6' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_8' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_9' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_10' | translate }}</li>
+                <li>{{ 'PRICING.FEATURE_11' | translate }}</li>
+              </ul>
+            </div>
+            <button class="btn btn-primary popular" type="button" (click)="contactUs()">{{ 'PRICING.CONTACT_US' | translate }}</button>
           </div>
         </div>
         <div class="contact-us">
@@ -65,60 +91,6 @@
           <button (click)="contactUs()" class="btn btn-primary register">Contact us</button>
         </form>
         -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row feature" id="featureTable">
-  <div class="col-lg-12 feature-table">
-    <div class="card">
-      <div class="card-body">
-        <table class="table table-bordered">
-          <thead>
-          <tr class="header">
-            <th style="width: 25%">
-              {{ 'PRICING.FEATURE_SET' | translate }}
-            </th>
-            <th style="width: 25%">
-              {{ 'PRICING.STARTER' | translate }}
-            </th>
-            <th style="width: 25%">
-              {{ 'PRICING.BUSINESS' | translate }}
-            </th>
-            <th style="width: 25%">
-              {{ 'PRICING.CUSTOM_OFFER' | translate }}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <ng-container *ngFor="let feature of features; let odd = odd">
-            <tr [class.dark]="odd" [class.light]="!odd">
-              <td>
-                {{feature.title}}
-              </td>
-              <td *ngIf="feature.free" class="check-item">
-                <i class="fa fa-check-circle"></i>
-              </td>
-              <td *ngIf="!feature.free" class="fail-item">
-                <i class="fa fa-times-circle"></i>
-              </td>
-              <td *ngIf="feature.business" class="check-item">
-                <i class="fa fa-check-circle"></i>
-              </td>
-              <td *ngIf="!feature.business" class="fail-item">
-                <i class="fa fa-times-circle"></i>
-              </td>
-              <td *ngIf="feature.custom" class="check-item">
-                <i class="fa fa-check-circle"></i>
-              </td>
-              <td *ngIf="!feature.custom" class="fail-item">
-                <i class="fa fa-times-circle"></i>
-              </td>
-            </tr>
-          </ng-container>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

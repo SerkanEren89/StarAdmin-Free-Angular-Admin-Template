@@ -15,7 +15,7 @@
           <div class="billing-container">
             <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans" (click)="selectPlan(plan)">
             <span *ngIf="plan.selected">
-              <i class="fa fa-check category-icon text-success"></i>
+              <i class="fa fa-check selected text-success"></i>
             </span>
               <span class="text">
               {{plan.name}}

@@ -1,0 +1,123 @@
+<div class="container-scroller">
+  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <img src="assets/images/logoicon.png" alt="logo" />
+      </a>
+      <a class="navbar-brand brand-logo-mini" href="index.html">
+        <img src="assets/images/logo.png" alt="logo" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="container-fluid page-body-wrapper">
+    <div class="main-panel full-width">
+      <div class="content-wrapper">
+        <div class="row payment" *ngIf="offer != null">
+          <div class="col-6 grid-margin" *ngIf="this.uuid != null">
+            <div class="card">
+              <div class="card-body">
+                <form>
+                  <div class="form-group calculator">
+                    <p class="title">
+                      {{ 'OFFER.HOTEL_INFORMATION' | translate }}
+                    </p>
+                    <div class="form-group">
+                      <label>{{ 'OFFER.HOTEL_NAME' | translate }}</label>
+                      <div class="input-group">
+                        <input id="hotelName" type="text" class="form-control" name="hotelName"
+                               placeholder="Hotel Name"
+                               [disabled]="this.uuid != null"
+                               [(ngModel)]="offer.hotelName"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>{{ 'OFFER.EMAIL' | translate }}</label>
+                      <div class="input-group">
+                        <input id="email" type="email" class="form-control" name="email"
+                               placeholder="email"
+                               [disabled]="this.uuid != null"
+                               [(ngModel)]="offer.email"/>
+                      </div>
+                      <div class="form-group">
+                        <label>{{ 'OFFER.PHONE_NUMBER' | translate }}</label>
+                        <div class="input-group">
+                          <input id="phoneNumber" type="email" class="form-control" name="phoneNumber"
+                                 placeholder="Phone Number"
+                                 [disabled]="this.uuid != null"
+                                 [(ngModel)]="offer.phoneNumber"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
+                        <div class="input-group">
+                          <input id="monthly" type="email" class="form-control" name="monthly"
+                                 placeholder="Monthly Fee"
+                                 [disabled]="this.uuid != null"
+                                 [(ngModel)]="offer.monthlyPrice"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
+                        <div class="input-group">
+                          <input id="yearly" type="email" class="form-control" name="yearly"
+                                 placeholder="Yearly Fee"
+                                 [disabled]="this.uuid != null"
+                                 [(ngModel)]="offer.yearlyPrice"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 grid-margin" *ngIf="uuid != null && plans.length > 0">
+            <div class="card">
+              <div class="card-body">
+                <p class="title">{{ 'PRICING.CHOOSE_SUBSCRIPTION' | translate }}</p>
+                <div class="billing-container">
+                  <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans" (click)="selectPlan(plan)">
+            <span *ngIf="plan.selected">
+              <i class="fa fa-check selected text-success"></i>
+            </span>
+                    <span class="text">
+              {{plan.name}}
+            </span>
+                  </button>
+                </div>
+                <p class="title">{{ 'PRICING.PAYMENT_INFO' | translate }}</p>
+
+                <div class="payment-container">
+                  <form [formGroup]="stripeTest">
+                    <ngx-stripe-card-group>
+                      <div class="cvv-container">
+                        <input formControlName="name" placeholder="Name on card" class="name-field"/>
+                      </div>
+                      <div class="cvv-container">
+                        <ngx-stripe-card-number [options]="cardOptions" class="long-item"></ngx-stripe-card-number>
+                      </div>
+                      <div class="cvv-container">
+                        <ngx-stripe-card-expiry [options]="cardOptions" class="small-item left"></ngx-stripe-card-expiry>
+                        <ngx-stripe-card-cvc [options]="cardOptions" class="small-item"></ngx-stripe-card-cvc>
+                      </div>
+                    </ngx-stripe-card-group>
+                  </form>
+                </div>
+                <div class="total-container" *ngIf="selectedPlan != null">
+                  <p class="total long-item">Total Fee:
+                    <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
+                  </p>
+                </div>
+                <button class="btn btn-primary border-radius pay" type="submit" (click)="createSubscription()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
+                <p class="info">***{{ 'PRICING.AUTO_RENEWAL' | translate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

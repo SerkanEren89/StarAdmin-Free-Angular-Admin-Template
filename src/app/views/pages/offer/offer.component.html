@@ -1,0 +1,102 @@
+<div class="row title-container">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 parent">
+    <span class="input-group-text text-primary title">
+    <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/review.svg">
+      {{ 'MENU.OFFER' | translate }}
+    </span>
+  </div>
+</div>
+<div class="row offer" *ngIf="offer != null">
+  <div class="col-6 grid-margin" *ngIf="this.uuid == null">
+    <div class="card">
+      <div class="card-body calculator-container">
+        <form>
+          <div class="form-group calculator">
+            <p class="title">
+              <i class="fa fa-calculator"></i>
+              {{ 'OFFER.CALCULATOR' | translate }}
+            </p>
+            <div *ngIf="price == null || numberOfRoom == null">
+              <p class="text-danger warning">{{ 'OFFER.ENTER_ROOM_NUMBER' | translate }}</p>
+            </div>
+          </div>
+        </form>
+        <form>
+          <div class="form-group">
+            <label>{{ 'OFFER.ROOM_NUMBER' | translate }}</label>
+            <div class="input-group">
+              <input id="numberOfRoomsCalculator" type="text" class="form-control" name="numberOfRooms"
+                     (ngModelChange)="roomValueChange($event)"
+                     [(ngModel)]="numberOfRoom"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ 'OFFER.ROOM_PRICE' | translate }} / €</label>
+            <div class="input-group">
+              <input id="roomPriceCalculator" type="text" class="form-control" name="roomPrice"
+                     (ngModelChange)="roomPriceChange($event)"
+                     placeholder="€"
+                     [(ngModel)]="price"/>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 grid-margin">
+    <div class="card">
+      <div class="card-body calculator-container">
+        <form>
+          <div class="form-group calculator">
+            <p class="title">
+              {{ 'OFFER.HOTEL_INFORMATION' | translate }}
+            </p>
+            <div class="form-group">
+              <label>{{ 'OFFER.HOTEL_NAME' | translate }}</label>
+              <div class="input-group">
+                <input id="hotelName" type="text" class="form-control" name="hotelName"
+                       placeholder="Hotel Name"
+                       [(ngModel)]="offer.hotelName"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>{{ 'OFFER.EMAIL' | translate }}</label>
+              <div class="input-group">
+                <input id="email" type="email" class="form-control" name="email"
+                       placeholder="email"
+                       [(ngModel)]="offer.email"/>
+              </div>
+              <div class="form-group">
+                <label>{{ 'OFFER.PHONE_NUMBER' | translate }}</label>
+                <div class="input-group">
+                  <input id="phoneNumber" type="email" class="form-control" name="phoneNumber"
+                         placeholder="Phone Number"
+                         [(ngModel)]="offer.phoneNumber"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
+                <div class="input-group">
+                  <input id="monthly" type="email" class="form-control" name="monthly"
+                         placeholder="Monthly Fee"
+                         [(ngModel)]="offer.monthlyPrice"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{ 'OFFER.YEARLY_FEE' | translate }}</label>
+                <div class="input-group">
+                  <input id="yearly" type="email" class="form-control" name="yearly"
+                         placeholder="Yearly Fee"
+                         [(ngModel)]="offer.yearlyPrice"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button type="button" class="btn btn-primary send-button" (click)="saveOffer()">{{ 'OFFER.SAVE_OFFER' | translate }}</button>
+        <p *ngIf="generatedUrl != null">{{ 'OFFER.OFFER_URL' | translate }}: {{generatedUrl}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,8 @@ export const locale = {
       VISIT: 'Ziyaret',
       CRM: 'Crm',
       INBOX_POOL: 'Havuz',
-      UPLIFT_STORE: 'Uplift Store'
+      UPLIFT_STORE: 'Uplift Store',
+      OFFER: 'Teklif',
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Rakip Seçin',
@@ -393,6 +394,20 @@ export const locale = {
       FEATURE_ITEM_4: 'Misafir yorumlarına cevap yazabilirsiniz️',
       FEATURE_ITEM_5: 'Görev takibi özelliğini kullanabilirsiniz',
       FEATURE_ITEM_6: 'Uplift Store\'a ulaşarak çeşitli ek özellikleri aktifleştirebilirsiniz️',
+    },
+    OFFER: {
+      ENTER_ROOM_NUMBER: 'Lütfen oda sayısı ve fiyatı bilgisini giriniz',
+      CALCULATOR: 'Hesap Bilgisi',
+      ROOM_NUMBER: 'Oda Sayısı',
+      ROOM_PRICE: 'Oda Fiyatı/€',
+      HOTEL_INFORMATION: 'Otel Bilgileri',
+      HOTEL_NAME: 'Otel Adı',
+      EMAIL: 'Email',
+      PHONE_NUMBER: 'Telefon Numarası',
+      MONTHLY_FEE: 'Aylık Ücret €',
+      YEARLY_FEE: 'Yıllık Ücret €',
+      SAVE_OFFER: 'Teklif Oluştur',
+      OFFER_URL: 'Kullanıcı için oluşturulan url'
     }
   }
 };

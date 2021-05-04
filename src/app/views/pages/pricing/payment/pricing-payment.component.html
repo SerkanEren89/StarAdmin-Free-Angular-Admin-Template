@@ -43,7 +43,7 @@
               <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
             </p>
           </div>
-          <button class="btn btn-primary border-radius pay" type="submit" (click)="createCharge()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
+          <button class="btn btn-primary border-radius pay" type="submit" (click)="createSubscription()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
           <p class="info">***{{ 'PRICING.AUTO_RENEWAL' | translate }}</p>
         </div>
         <div class="col-lg-6 additional">

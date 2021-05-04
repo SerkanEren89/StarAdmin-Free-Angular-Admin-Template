@@ -19,6 +19,10 @@ const routes: Routes = [
       path: 'hotel-summary',
       loadChildren: () => import('src/app/views/pages/hotel-summary/hotel-summary.module').then(m => m.HotelSummaryModule)
     },
+  {
+      path: 'payment',
+      loadChildren: () => import('src/app/views/pages/payment/payment.module').then(m => m.PaymentModule)
+    },
     {path: 'task-management/:id', component: TaskManagementComponent},
     {
       path: '',
@@ -96,6 +100,10 @@ const routes: Routes = [
         {
           path: 'pricing',
           loadChildren: () => import('src/app/views/pages/pricing/pricing.module').then(m => m.PricingModule)
+        },
+        {
+          path: 'offer',
+          loadChildren: () => import('src/app/views/pages/offer/offer.module').then(m => m.OfferModule)
         },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},

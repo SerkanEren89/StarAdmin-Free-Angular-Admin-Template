@@ -14,7 +14,8 @@ export const locale = {
       VISIT: 'VISIT',
       CRM: 'Crm',
       INBOX_POOL: 'Pool',
-      UPLIFT_STORE: 'Uplift Store'
+      UPLIFT_STORE: 'Uplift Store',
+      OFFER: 'Offer',
     },
     DASHBOARD: {
       COMPETITOR_SELECT: 'Select Competitior',
@@ -398,6 +399,20 @@ export const locale = {
       FEATURE_ITEM_4: 'Responding to Guest Reviews️',
       FEATURE_ITEM_5: 'Hotel Task Management️',
       FEATURE_ITEM_6: 'Access to Uplift Store️',
+    },
+    OFFER: {
+      ENTER_ROOM_NUMBER: 'Please enter room number and room price',
+      CALCULATOR: 'Calculator',
+      ROOM_NUMBER: 'Room Number',
+      ROOM_PRICE: 'Room Price/€',
+      HOTEL_INFORMATION: 'Hotel Information',
+      HOTEL_NAME: 'Hotel Name',
+      EMAIL: 'Email',
+      PHONE_NUMBER: 'Phone Number',
+      MONTHLY_FEE: 'Monthly Fee €',
+      YEARLY_FEE: 'Yearly Fee €',
+      SAVE_OFFER: 'Save Offer',
+      OFFER_URL: 'Offer url for user'
     }
   }
 };

@@ -4,7 +4,7 @@ import {PricingService} from '../../../../core/pricing/_services/pricing.service
 import {CommonService} from '../../../../core/general/_services/common.service';
 
 @Component({
-  selector: 'app-offer',
+  selector: 'app-pricing-offer',
   styleUrls: ['../../../../app.component.scss', './pricing-offer.component.scss'],
   templateUrl: './pricing-offer.component.html'
 })

@@ -12,7 +12,7 @@ import {StripeSubscriptionModel} from '../../../../core/pricing/_models/stripe-s
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-payment',
+  selector: 'app-pricing-payment',
   styleUrls: ['../../../../app.component.scss', './pricing-payment.component.scss'],
   templateUrl: './pricing-payment.component.html'
 })
@@ -63,7 +63,7 @@ export class PricingPaymentComponent implements OnInit {
       });
   }
 
-  createCharge(): void {
+  createSubscription(): void {
     const name = this.stripeTest.get('name').value;
     this.stripeService
       .createToken(this.card.element, {name})

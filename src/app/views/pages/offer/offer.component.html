@@ -95,7 +95,10 @@
           </div>
         </form>
         <button type="button" class="btn btn-primary send-button" (click)="saveOffer()">{{ 'OFFER.SAVE_OFFER' | translate }}</button>
-        <p *ngIf="generatedUrl != null">{{ 'OFFER.OFFER_URL' | translate }}: {{generatedUrl}}</p>
+        <div class="copy-container">
+          <p *ngIf="generatedUrl != null">{{ 'OFFER.OFFER_URL' | translate }}: {{generatedUrl}}</p>
+          <button (click)="copyMessage()" *ngIf="generatedUrl != null" value="click to copy" class="btn btn-primary">{{ 'OFFER.COPY_URL' | translate }}</button>
+        </div>
       </div>
     </div>
   </div>

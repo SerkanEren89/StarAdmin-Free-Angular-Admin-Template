@@ -3,7 +3,7 @@ import {OfferModel} from '../../../core/offer/_models/offer.model';
 import {OfferService} from '../../../core/offer/_services/offer.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {StripeCardElementOptions} from '@stripe/stripe-js';
 import {PlanModel} from '../../../core/pricing/_models/plan.model';
 import {StripeSubscriptionModel} from '../../../core/pricing/_models/stripe-subscription.model';
@@ -168,5 +168,19 @@ export class OfferComponent implements OnInit {
           console.log(result.error.message);
         }
       });
+  }
+
+  copyMessage() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.generatedUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 }

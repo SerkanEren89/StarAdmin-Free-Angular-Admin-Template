@@ -412,7 +412,13 @@ export const locale = {
       MONTHLY_FEE: 'Monthly Fee €',
       YEARLY_FEE: 'Yearly Fee €',
       SAVE_OFFER: 'Save Offer',
-      OFFER_URL: 'Offer url for user'
+      OFFER_URL: 'Offer url for user',
+      SUCCESS: 'Your Hoteluplift membership has been successfully created.' +
+        ' It may take 2-3 business days for your account to be activated.' +
+        ' When the account opening process is completed, you will receive an ' +
+        'information mail.\n',
+      GO_TO_DASHBOARD: 'Go to dashboard',
+      COPY_URL: 'Copy url'
     }
   }
 };

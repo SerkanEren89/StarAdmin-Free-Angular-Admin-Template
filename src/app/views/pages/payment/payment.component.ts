@@ -108,10 +108,7 @@ export class PaymentComponent implements OnInit {
           this.paymentService.createSubscription(this.subscription)
             .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
               if (result) {
-                this.toastr.success('We received your subscription. ' +
-                  'We will get in touch with you as soon as possible');
-                this.router.navigateByUrl('dashboard');
-                this.cdr.detectChanges();
+                this.router.navigateByUrl(this.router.url + '/success');
               }
             });
         } else if (result.error) {

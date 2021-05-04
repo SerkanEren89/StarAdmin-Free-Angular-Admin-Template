@@ -9,13 +9,15 @@ import {NgxStripeModule} from 'ngx-stripe';
 import {environment} from '../../../../environments/environment';
 import {PaymentComponent} from './payment.component';
 import {ThemeModule} from '../../theme/theme.module';
+import {PaymentSuccessComponent} from './success/payment-success.component';
 
 @NgModule({
   imports: [
     CoreModule,
     CommonModule,
     RouterModule.forChild([
-      {path: ':uuid', component: PaymentComponent}
+      {path: ':uuid', component: PaymentComponent},
+      {path: ':uuid/success', component: PaymentSuccessComponent}
     ]),
     NgbPaginationModule,
     FormsModule,
@@ -27,7 +29,8 @@ import {ThemeModule} from '../../theme/theme.module';
   ],
   providers: [],
   declarations: [
-    PaymentComponent
+    PaymentComponent,
+    PaymentSuccessComponent
   ]
 })
 export class PaymentModule {

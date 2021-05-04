@@ -59,7 +59,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
+                        <label>{{ 'OFFER.YEARLY_FEE' | translate }}</label>
                         <div class="input-group">
                           <input id="yearly" type="email" class="form-control" name="yearly"
                                  placeholder="Yearly Fee"
@@ -111,6 +111,7 @@
                   </p>
                 </div>
                 <button class="btn btn-primary border-radius pay" type="submit" (click)="createSubscription()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
+
                 <p class="info">***{{ 'PRICING.AUTO_RENEWAL' | translate }}</p>
               </div>
             </div>

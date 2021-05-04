@@ -1,6 +1,9 @@
+.content-wrapper {
+  padding: 1.0rem 1.3rem;
+}
 .payment {
   background: #edf4f7;
-  padding: 1.3rem 0.7rem;
+  padding: 0.7rem 0.7rem;
   .calculator-container {
     width: 30%;
   }
@@ -73,11 +76,11 @@
   }
   .payment-container {
     margin-bottom: 30px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .billing-container {
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: 10px;
     .billing-type {
       padding: 15px;

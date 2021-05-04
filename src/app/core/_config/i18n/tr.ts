@@ -324,7 +324,7 @@ export const locale = {
       EMPTY_CHANNEL: 'Lütfen en azından 1 kanal seçin',
       AT_LEAST_CHANNEL: 'SMS, Mail veya ikisini beraber seçin'
     },
-    UPLIFT:  {
+    UPLIFT: {
       WIDGET_TITLE: 'Otel Sayfası Yorum Eklentisi',
       WIDGET_TEXT: 'Otelinizle ilgili yazılmış misafir yorumlarını otel ana sayfanızda gösterebileceğiniz pop-up eklentisidir. ' +
         'Sayfanızda misafir yorumlarının yer alması müşteri kaygılarını azaltır, rezervasyon ihtimalinizi arttırır.',
@@ -407,7 +407,12 @@ export const locale = {
       MONTHLY_FEE: 'Aylık Ücret €',
       YEARLY_FEE: 'Yıllık Ücret €',
       SAVE_OFFER: 'Teklif Oluştur',
-      OFFER_URL: 'Kullanıcı için oluşturulan url'
+      OFFER_URL: 'Kullanıcı için oluşturulan url',
+      SUCCESS: 'Hoteluplift üyeliğiniz başarıyla oluşturulmuştur.' +
+        ' Hesabınızın aktifleştirilmesi 2-3 iş günü sürebilir. Hesap açılış süreci' +
+        ' tamalandığında bilgilendirme maili alacaksınız',
+      GO_TO_DASHBOARD: 'Anasayfaya dön',
+      COPY_URL: 'Url\'i kopyala'
     }
   }
 };

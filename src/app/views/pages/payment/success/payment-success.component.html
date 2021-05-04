@@ -1,0 +1,29 @@
+<div class="container-scroller">
+  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <img src="assets/images/logoicon.png" alt="logo" />
+      </a>
+      <a class="navbar-brand brand-logo-mini" href="index.html">
+        <img src="assets/images/logo.png" alt="logo" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="container-fluid page-body-wrapper">
+    <div class="main-panel full-width">
+      <div class="content-wrapper">
+        <div class="row payment-success">
+          <div class="success-container">
+            <i class="fa fa-check-circle ok-icon"></i>
+            <p class="info-text"> {{ 'OFFER.SUCCESS' | translate }}</p>
+            <button routerLink="dashboard" class="btn btn-primary border-radius" >
+              {{ 'OFFER.GO_TO_DASHBOARD' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

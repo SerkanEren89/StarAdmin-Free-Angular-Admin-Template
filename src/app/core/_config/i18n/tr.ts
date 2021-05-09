@@ -412,7 +412,12 @@ export const locale = {
         ' Hesabınızın aktifleştirilmesi 2-3 iş günü sürebilir. Hesap açılış süreci' +
         ' tamalandığında bilgilendirme maili alacaksınız',
       GO_TO_DASHBOARD: 'Anasayfaya dön',
-      COPY_URL: 'Url\'i kopyala'
+      COPY_URL: 'Url\'i kopyala',
+      HOTEL_NAME_REQUIRED: 'Otel adı alanı zorunludur',
+      EMAIL_REQUIRED: 'Email alanı zorunludur',
+      PHONE_NUMBER_REQUIRED: 'Telefon numrası alanı zorunludur',
+      MONTHLY_FEE_REQUIRED: 'Aylık ücret alanı zorunludur',
+      YEARLY_FEE_REQUIRED: 'Yıllık ücret alanı zorunludur',
     }
   }
 };

@@ -9,6 +9,7 @@ import {OfferService} from '../../../core/offer/_services/offer.service';
 import {ToastrService} from 'ngx-toastr';
 import {PaymentService} from '../../../core/pricing/_services/payment.service';
 import {StripeCardElementOptions} from '@stripe/stripe-js';
+import {AuthService} from '../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -37,14 +38,16 @@ export class PaymentComponent implements OnInit {
       }
     }
   };
-  stripeTest: FormGroup;
+  stripeForm: FormGroup;
   plans: PlanModel[] = [];
   tempPlan: PlanModel;
   selectedPlan: PlanModel;
   subscription: StripeSubscriptionModel = new StripeSubscriptionModel();
+  canEdit: boolean;
 
   constructor(private router: Router,
               private offerService: OfferService,
+              private authService: AuthService,
               private fb: FormBuilder,
               private toastr: ToastrService,
               private stripeService: StripeService,
@@ -54,9 +57,10 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.canEdit = this.authService.isAdmin() || this.authService.isSeller();
     this.uuid = this.route.snapshot.paramMap.get('uuid');
     if (this.uuid != null) {
-      this.stripeTest = this.fb.group({
+      this.stripeForm = this.fb.group({
         name: ['', [Validators.required]]
       });
       this.offerService.getOffer(this.uuid)
@@ -98,23 +102,26 @@ export class PaymentComponent implements OnInit {
   }
 
   createSubscription(): void {
-    const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card.element, {name})
-      .subscribe((result) => {
-        if (result.token) {
-          this.subscription.token = result.token.id;
-          this.subscription.plan = this.selectedPlan.priceId;
-          this.paymentService.createSubscription(this.subscription)
-            .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
-              if (result) {
-                this.router.navigateByUrl(this.router.url + '/success');
-              }
-            });
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });
+    if (this.stripeForm.valid) {
+      const name = this.stripeForm.get('name').value;
+      this.stripeService
+        .createToken(this.card.element, {name})
+        .subscribe((result) => {
+          if (result.token) {
+            this.subscription.token = result.token.id;
+            this.subscription.plan = this.selectedPlan.priceId;
+            this.paymentService.createSubscription(this.subscription)
+              .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
+                if (result) {
+                  this.router.navigateByUrl(this.router.url + '/success');
+                }
+              });
+          } else if (result.error) {
+            // Error creating the token
+            console.log(result.error.message);
+            this.toastr.error('Please check your card information');
+          }
+        });
+    }
   }
 }

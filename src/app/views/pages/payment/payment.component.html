@@ -2,10 +2,10 @@
   <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
       <a class="navbar-brand brand-logo" href="index.html">
-        <img src="assets/images/logoicon.png" alt="logo" />
+        <img src="assets/images/logoicon.png" alt="logo"/>
       </a>
       <a class="navbar-brand brand-logo-mini" href="index.html">
-        <img src="assets/images/logo.png" alt="logo" />
+        <img src="assets/images/logo.png" alt="logo"/>
       </a>
     </div>
   </nav>
@@ -24,49 +24,31 @@
                     </p>
                     <div class="form-group">
                       <label>{{ 'OFFER.HOTEL_NAME' | translate }}</label>
-                      <div class="input-group">
-                        <input id="hotelName" type="text" class="form-control" name="hotelName"
-                               placeholder="Hotel Name"
-                               [disabled]="this.uuid != null"
-                               [(ngModel)]="offer.hotelName"/>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
+                      <input id="hotelName" type="text" class="form-control" name="hotelName"
+                             placeholder="Hotel Name"
+                             [disabled]="this.uuid != null"
+                             [(ngModel)]="offer.hotelName"/>
                       <label>{{ 'OFFER.EMAIL' | translate }}</label>
-                      <div class="input-group">
-                        <input id="email" type="email" class="form-control" name="email"
-                               placeholder="email"
-                               [disabled]="this.uuid != null"
-                               [(ngModel)]="offer.email"/>
-                      </div>
-                      <div class="form-group">
-                        <label>{{ 'OFFER.PHONE_NUMBER' | translate }}</label>
-                        <div class="input-group">
-                          <input id="phoneNumber" type="email" class="form-control" name="phoneNumber"
-                                 placeholder="Phone Number"
-                                 [disabled]="this.uuid != null"
-                                 [(ngModel)]="offer.phoneNumber"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
-                        <div class="input-group">
-                          <input id="monthly" type="email" class="form-control" name="monthly"
-                                 placeholder="Monthly Fee"
-                                 [disabled]="this.uuid != null"
-                                 [(ngModel)]="offer.monthlyPrice"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label>{{ 'OFFER.YEARLY_FEE' | translate }}</label>
-                        <div class="input-group">
-                          <input id="yearly" type="email" class="form-control" name="yearly"
-                                 placeholder="Yearly Fee"
-                                 [disabled]="this.uuid != null"
-                                 [(ngModel)]="offer.yearlyPrice"/>
-                        </div>
-                      </div>
+                      <input id="email" type="email" class="form-control" name="email"
+                             placeholder="email"
+                             [disabled]="this.uuid != null && !canEdit"
+                             [(ngModel)]="offer.email"/>
+                      <label>{{ 'OFFER.PHONE_NUMBER' | translate }}</label>
+                      <input id="phoneNumber" type="email" class="form-control" name="phoneNumber"
+                             placeholder="Phone Number"
+                             [disabled]="this.uuid != null && !canEdit"
+                             [(ngModel)]="offer.phoneNumber"/>
+
+                      <label>{{ 'OFFER.MONTHLY_FEE' | translate }}</label>
+                      <input id="monthly" type="email" class="form-control" name="monthly"
+                             placeholder="Monthly Fee"
+                             [disabled]="this.uuid != null"
+                             [(ngModel)]="offer.monthlyPrice"/>
+                      <label>{{ 'OFFER.YEARLY_FEE' | translate }}</label>
+                      <input id="yearly" type="email" class="form-control" name="yearly"
+                             placeholder="Yearly Fee"
+                             [disabled]="this.uuid != null"
+                             [(ngModel)]="offer.yearlyPrice"/>
                     </div>
                   </div>
                 </form>
@@ -78,7 +60,8 @@
               <div class="card-body">
                 <p class="title">{{ 'PRICING.CHOOSE_SUBSCRIPTION' | translate }}</p>
                 <div class="billing-container">
-                  <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans" (click)="selectPlan(plan)">
+                  <button type="button" class="btn btn-outline-primary billing-type" *ngFor="let plan of plans"
+                          (click)="selectPlan(plan)">
             <span *ngIf="plan.selected">
               <i class="fa fa-check selected text-success"></i>
             </span>
@@ -90,7 +73,7 @@
                 <p class="title">{{ 'PRICING.PAYMENT_INFO' | translate }}</p>
 
                 <div class="payment-container">
-                  <form [formGroup]="stripeTest">
+                  <form novalidate (ngSubmit)="createSubscription()" [formGroup]="stripeForm">
                     <ngx-stripe-card-group>
                       <div class="cvv-container">
                         <input formControlName="name" placeholder="Name on card" class="name-field"/>
@@ -99,18 +82,20 @@
                         <ngx-stripe-card-number [options]="cardOptions" class="long-item"></ngx-stripe-card-number>
                       </div>
                       <div class="cvv-container">
-                        <ngx-stripe-card-expiry [options]="cardOptions" class="small-item left"></ngx-stripe-card-expiry>
+                        <ngx-stripe-card-expiry [options]="cardOptions"
+                                                class="small-item left"></ngx-stripe-card-expiry>
                         <ngx-stripe-card-cvc [options]="cardOptions" class="small-item"></ngx-stripe-card-cvc>
                       </div>
                     </ngx-stripe-card-group>
+                    <div class="total-container" *ngIf="selectedPlan != null">
+                      <p class="total long-item">Total Fee:
+                        <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
+                      </p>
+                    </div>
+                    <button class="btn btn-primary border-radius pay"
+                            type="submit">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
                   </form>
                 </div>
-                <div class="total-container" *ngIf="selectedPlan != null">
-                  <p class="total long-item">Total Fee:
-                    <span class="amount">{{selectedPlan.totalValue}}{{selectedPlan.currency}}</span>
-                  </p>
-                </div>
-                <button class="btn btn-primary border-radius pay" type="submit" (click)="createSubscription()">{{ 'PRICING.UPGRADE_TO_PRO' | translate }}</button>
 
                 <p class="info">***{{ 'PRICING.AUTO_RENEWAL' | translate }}</p>
               </div>

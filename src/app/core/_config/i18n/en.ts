@@ -418,7 +418,12 @@ export const locale = {
         ' When the account opening process is completed, you will receive an ' +
         'information mail.\n',
       GO_TO_DASHBOARD: 'Go to dashboard',
-      COPY_URL: 'Copy url'
+      COPY_URL: 'Copy url',
+      HOTEL_NAME_REQUIRED: 'Hotel name field is required',
+      EMAIL_REQUIRED: 'Email field is required',
+      PHONE_NUMBER_REQUIRED: 'Phone number field is required',
+      MONTHLY_FEE_REQUIRED: 'Monthly fee field is required',
+      YEARLY_FEE_REQUIRED: 'Yearly fee field is required',
     }
   }
 };

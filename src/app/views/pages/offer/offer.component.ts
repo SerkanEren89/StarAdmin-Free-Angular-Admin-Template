@@ -3,8 +3,7 @@ import {OfferModel} from '../../../core/offer/_models/offer.model';
 import {OfferService} from '../../../core/offer/_services/offer.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {StripeCardElementOptions} from '@stripe/stripe-js';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PlanModel} from '../../../core/pricing/_models/plan.model';
 import {StripeSubscriptionModel} from '../../../core/pricing/_models/stripe-subscription.model';
 import {StripeCardNumberComponent, StripeService} from 'ngx-stripe';
@@ -26,25 +25,11 @@ export class OfferComponent implements OnInit {
   price: any;
   generatedUrl: string;
   uuid: string;
-  cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#000000',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
-  };
-  stripeTest: FormGroup;
+  offerForm: FormGroup;
   plans: PlanModel[] = [];
   tempPlan: PlanModel;
   selectedPlan: PlanModel;
-  subscription: StripeSubscriptionModel = new StripeSubscriptionModel();
+  submitted = false;
 
   constructor(private router: Router,
               private offerService: OfferService,
@@ -58,14 +43,28 @@ export class OfferComponent implements OnInit {
 
   ngOnInit(): void {
     this.offer = new OfferModel();
+    this.offerForm = this.fb.group({
+      hotelName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
+      monthlyPrice: ['', Validators.required],
+      yearlyPrice: ['', Validators.required],
+    });
   }
 
+  get f() { return this.offerForm.controls; }
+
   saveOffer() {
+    this.submitted = true;
+    if (this.offerForm.invalid) {
+      return;
+    }
     this.offerService.saveOffer(this.offer)
       .subscribe((offerModel: OfferModel) => {
         console.log(offerModel.uuid);
         this.generatedUrl = 'https://app.hoteluplift.com/payment/' + offerModel.uuid;
         this.toastr.success('Offer created with success');
+        this.submitted = false;
       });
   }
 
@@ -144,30 +143,6 @@ export class OfferComponent implements OnInit {
     selectedPlan.selected = true;
     this.selectedPlan = selectedPlan;
     this.cdr.detectChanges();
-  }
-
-  createSubscription(): void {
-    const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card.element, {name})
-      .subscribe((result) => {
-        if (result.token) {
-          this.subscription.token = result.token.id;
-          this.subscription.plan = this.selectedPlan.priceId;
-          this.paymentService.createSubscription(this.subscription)
-            .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
-              if (result) {
-                this.toastr.success('We received your subscription. ' +
-                  'We will get in touch with you as soon as possible');
-                this.router.navigateByUrl('dashboard');
-                this.cdr.detectChanges();
-              }
-            });
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });
   }
 
   copyMessage() {

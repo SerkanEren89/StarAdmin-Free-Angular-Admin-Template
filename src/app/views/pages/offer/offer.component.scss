@@ -2,56 +2,69 @@
   .calculator-container {
     width: 100%;
   }
+
   @media screen and (max-width: 600px) {
     .calculator-container {
       width: 100%;
     }
   }
+
   .send-button {
     margin-top: 20px;
   }
+
   .selected {
     font-size: 16px;
   }
+
   .title {
     font-size: 18px;
     font-weight: 500;
   }
+
   .info {
     font-size: 12px;
     font-weight: 300;
   }
+
   .pay {
     margin-bottom: 20px;
     margin-left: 10px;
   }
+
   .cvv-container {
     display: flex;
     flex-direction: row;
     margin: 10px;
   }
+
   .name-field {
     width: 100%;
     padding: 15px;
     border: 1px solid #d8cfcf;
     font-size: 18px;
   }
+
   .small-item {
     width: 50%;
     border: 1px solid #d8cfcf;
     padding: 15px;
   }
+
   .left {
     border-right: none;
   }
+
   .long-item {
     padding: 15px;
     border: 1px solid #d8cfcf;
     width: 100%;
   }
+
   .billing-type {
     width: 48%;
   }
+
   @media screen and (max-width: 600px) {
     .name-field {
       width: 100%;
@@ -66,38 +79,47 @@
       width: 100%;
     }
   }
+
   .name-field::placeholder {
     color: #CFD7E0;
   }
+
   .payment-container {
     margin-bottom: 30px;
     margin-top: 20px;
   }
+
   .billing-container {
     margin-bottom: 30px;
     margin-top: 30px;
     margin-left: 10px;
+
     .billing-type {
       padding: 15px;
       margin-right: 10px;
       border-radius: 5px;
+
       .text {
         margin-left: 10px
       }
     }
   }
+
   .total {
     font-size: 16px;
     font-weight: 500;
     float: none;
+
     .amount {
       color: #28a745;
       float: right;
     }
   }
+
   .total-container {
     margin-left: 10px;
   }
+
   .copy-container {
     margin-top: 20px;
   }
@@ -106,13 +128,20 @@
 .additional {
   border: 1px solid #cec7c7;
   padding: 40px;
+
   .title {
     font-size: 20px;
   }
+
   .total-fee {
     font-size: 16px;
   }
+
   .item {
     font-size: 14px;
   }
+}
+
+.invalid-feedback {
+  display: block;
 }

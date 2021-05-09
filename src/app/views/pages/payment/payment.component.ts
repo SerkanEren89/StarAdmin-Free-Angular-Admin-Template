@@ -108,8 +108,9 @@ export class PaymentComponent implements OnInit {
         .createToken(this.card.element, {name})
         .subscribe((result) => {
           if (result.token) {
+            this.subscription.offerId = this.uuid;
             this.subscription.token = result.token.id;
-            this.subscription.plan = this.selectedPlan.priceId;
+            this.subscription.plan = this.selectedPlan;
             this.paymentService.createSubscription(this.subscription)
               .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
                 if (result) {

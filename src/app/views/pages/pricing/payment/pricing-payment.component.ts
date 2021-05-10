@@ -70,7 +70,7 @@ export class PricingPaymentComponent implements OnInit {
       .subscribe((result) => {
         if (result.token) {
           this.subscription.token = result.token.id;
-          this.subscription.plan = this.selectedPlan.priceId;
+          this.subscription.plan = this.selectedPlan;
           this.paymentService.createSubscription(this.subscription)
             .subscribe((stripeSubscriptionModel: StripeSubscriptionModel) => {
               if (result) {

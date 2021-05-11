@@ -63,6 +63,7 @@ export class CrmHotelComponent implements OnInit {
   emptyStatus = false;
   emptyPersonal = false;
   isAdmin: boolean;
+  isSeller: boolean;
   columnName = 'name';
   direction = 'ASC';
   statuses;
@@ -95,6 +96,7 @@ export class CrmHotelComponent implements OnInit {
     this.selectedStatus = this.hotelStatuses[0];
     this.selectedReportType = this.reportTypes[0];
     this.isAdmin = this.authService.isAdmin();
+    this.isSeller = this.authService.isSeller();
     this.personalService.getPersonals()
       .subscribe((personalModels: PersonalModel[]) => {
         this.personals = personalModels;

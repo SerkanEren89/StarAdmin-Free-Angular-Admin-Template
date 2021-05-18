@@ -114,6 +114,7 @@ export class InboxComponent implements OnInit {
 
   loadComments(page: number) {
     this.page = page;
+    debugger
     if (this.shouldFilterResult()) {
       this.getFilteredReviews();
     } else {
@@ -255,7 +256,7 @@ export class InboxComponent implements OnInit {
     return (this.commentFilter.channels != null && this.commentFilter.channels.length > 0) ||
       (this.commentFilter.startDate != null && this.commentFilter.endDate != null) ||
       (this.commentFilter.minRating !== 0 || this.commentFilter.maxRating !== 10) ||
-      this.commentFilter.travellerType !== 'ALL' ||
+      (this.commentFilter.travellerType != null && this.commentFilter.travellerType !== 'ALL') ||
       this.commentFilter.starred;
   }
 

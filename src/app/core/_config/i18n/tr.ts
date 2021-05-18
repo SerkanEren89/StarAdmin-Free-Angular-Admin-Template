@@ -29,7 +29,8 @@ export const locale = {
       CHANGE_HOTEL: 'Oteli Değiştirin',
       GO_TO_SOURCE: 'Kaynağa git',
       LAST_N_REVIEW: 'Son {{length}} {{source}} Yorumu',
-      NO_TRAVELER_TYPE: '{{source}} icin tatilci tipi bilgisi mevcut değildir'
+      NO_TRAVELER_TYPE: '{{source}} icin tatilci tipi bilgisi mevcut değildir',
+      PRO_TEXT: 'Demo hesabini kullaniyorsunuz. Profesyonel hesaba geçip bütün premium özellikleri kullanmaya başlayabilirsiniz.',
     },
     INBOX_POOL: {
       FILTER_COMMENT: 'Yorumlari Filtrele',

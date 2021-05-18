@@ -433,3 +433,22 @@
     <button type="button" class="btn btn-primary" *ngIf="newTemplateFlow" (click)="saveNewTemplate()">{{ 'GENERAL.SAVE_NEW_TEMPLATE' | translate }}</button>
   </div>
 </ng-template>
+
+<ng-template #demo let-modal>
+  <div class="modal-body">
+    <div class="demo-container">
+      <i class="fas fa-rocket demo-icon"></i>
+      <p class="pro-text">{{ 'DASHBOARD.PRO_TEXT' | translate }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="template-demo">
+      <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+        {{ 'GENERAL.CANCEL' | translate }}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="upgradeToPro()">
+        <i class="fas fa-rocket"></i> {{ 'PRICING.UPGRADE_TO_PRO' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

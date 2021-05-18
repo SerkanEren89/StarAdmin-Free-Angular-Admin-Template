@@ -362,3 +362,16 @@
 .button-task {
   margin-right: 5px;
 }
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .demo-icon {
+    font-size: 60px;
+    margin: 20px;
+  }
+  .pro-text {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+}

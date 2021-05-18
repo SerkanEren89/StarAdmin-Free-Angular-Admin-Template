@@ -29,7 +29,8 @@ export const locale = {
       CHANGE_HOTEL: 'Change Hotel',
       GO_TO_SOURCE: 'Go to source',
       LAST_N_REVIEW: 'Last {{length}} {{source}} Reviews',
-      NO_TRAVELER_TYPE: 'Traveler Type information does not exist {{source}}'
+      NO_TRAVELER_TYPE: 'Traveler Type information does not exist {{source}}',
+      PRO_TEXT: 'You are using demo account. You can switch to pro version and use all of our features.',
     },
     INBOX_POOL: {
       FILTER_COMMENT: 'Filter Comments',

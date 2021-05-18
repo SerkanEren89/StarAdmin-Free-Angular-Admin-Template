@@ -35,6 +35,7 @@ import {AppSettings} from '../../../core/consts/AppSettings';
 import {TranslateService} from '@ngx-translate/core';
 import {HotelResponseService} from '../../../core/hotel-response/_services/hotel-response.service';
 import {HotelResponseModel} from '../../../core/hotel-response/_models/hotel-response.model';
+import {DemoService} from '../../../core/general/_services/demo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,6 +46,7 @@ import {HotelResponseModel} from '../../../core/hotel-response/_models/hotel-res
 export class DashboardComponent implements OnInit {
   focus$ = new Subject<string>();
   @ViewChild('contentReviewDetail') public contentReviewDetail: TemplateRef<any>;
+  @ViewChild('demo') public demo: TemplateRef<any>;
   @ViewChild('commentTable') elRef;
   commentList: CommentModel[] = [];
   commentCountList: CommentCountModel[];
@@ -95,6 +97,7 @@ export class DashboardComponent implements OnInit {
               private hotelResponseService: HotelResponseService,
               private modalService: NgbModal,
               private tableService: TableService,
+              private demoService: DemoService,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef,
               private route: ActivatedRoute,
@@ -294,6 +297,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  openDemoPopup() {
+    if (this.authService.isDemo()) {
+      if (!this.demoService.alreadyShowedDemoModal()) {
+        this.demoService.setShowedDemoModal(true);
+        this.modalService.open(this.demo, {ariaLabelledBy: 'modal-basic-title', scrollable: true})
+          .result.then((result) => {
+        }, (reason) => {
+        });
+      }
+    }
+  }
+
   changeHotel() {
     if (!this.selectedCompetitor.selected) {
       this.competitorHotel = this.selectedCompetitor;
@@ -313,6 +328,7 @@ export class DashboardComponent implements OnInit {
           this.commentList.forEach(commnet => commnet.ratingOverFive = commnet.rating / 2);
           this.totalElements = commentList['totalElements'];
           this.selectedItem = this.commentList[0];
+          this.openDemoPopup();
           this.cdr.detectChanges();
           this.tableService.addLabelTag(this.elRef);
         });
@@ -479,5 +495,10 @@ export class DashboardComponent implements OnInit {
   addNewEmployee() {
     this.modalService.dismissAll();
     this.router.navigateByUrl('/employee');
+  }
+
+  upgradeToPro() {
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('pricing/payment');
   }
 }

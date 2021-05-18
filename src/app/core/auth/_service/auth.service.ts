@@ -40,6 +40,10 @@ export class AuthService {
     return this.currentUserSubject.value.roles.indexOf('FREMIUM') > -1;
   }
 
+  isDemo() {
+    return this.currentUserSubject.value.roles.indexOf('DEMO') > -1;
+  }
+
   login(email, password) {
     return this.http.post<any>(API_AUTH_URL + `/login`, {email, password})
       .pipe(map(user => {

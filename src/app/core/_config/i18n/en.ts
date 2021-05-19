@@ -11,7 +11,7 @@ export const locale = {
       STATS: 'Hotel Stats',
       TASK: 'Tasks',
       COMPETITION: 'Competition',
-      VISIT: 'VISIT',
+      VISIT: 'Visit',
       CRM: 'Crm',
       INBOX_POOL: 'Pool',
       UPLIFT_STORE: 'Uplift Store',

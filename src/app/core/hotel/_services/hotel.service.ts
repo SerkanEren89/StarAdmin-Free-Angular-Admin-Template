@@ -5,6 +5,7 @@ import {HotelModel} from '../_models/hotel.model';
 import {HotelInfoModel} from '../_models/hotel-info.model';
 import {map} from 'rxjs/operators';
 import {HotelFilterModel} from '../_models/hotel-filter.model';
+import {HotelAssignmentCountModel} from '../_models/hotel-assignment-count.model';
 
 const API_HOTELS_URL = 'hotels';
 
@@ -77,6 +78,13 @@ export class HotelService {
 
   approveStatusChange(id: number): Observable<HotelInfoModel> {
     return this.http.get<HotelInfoModel>(API_HOTELS_URL + '/' + id + '/approve')
+      .pipe(map(result => {
+        return result;
+      }));
+  }
+
+  getAssignmentCounts(): Observable<HotelAssignmentCountModel[]> {
+    return this.http.get<HotelAssignmentCountModel[]>(API_HOTELS_URL + '/assignment-count')
       .pipe(map(result => {
         return result;
       }));

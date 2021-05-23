@@ -288,10 +288,13 @@ export const locale = {
       INCOME: 'Income',
       HOTELUPLIFT_PRICE: 'Hoteluplift price',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift price(Yearly)',
+      HOTELUPLIFT_PRICE_2_YEAR: 'Hoteluplift price(2 Year)',
       INCOME_WARNING: 'Income calculations done assuming 80% occupancy',
       AVERAGE_IMPROVEMENT: 'HU Average: +0.3 improvement on average rating',
       INCOME_IMPROVEMENT: '%9.5 improvement on hotel income',
       AVERAGE_PROFIT: 'Hoteluplift contribution to income is monthly {{profit}}',
+      ASSIGNMENT_COUNT: 'Assignment Count',
+      MORE_FILTER: 'More Filters'
     },
     VISIT: {
       TITLE: 'Visit',
@@ -301,7 +304,8 @@ export const locale = {
       VISIT_DATE: 'Visit Date',
       VISIT_TYPE: 'Visit Type',
       FILTER_HOTEL: 'Filter Hotels',
-      WAITING_CHANGE: 'waiting status change approval'
+      WAITING_CHANGE: 'waiting status change approval',
+      VISIT_COUNT: 'Visit Count'
     },
     WIDGET: {
       TITLE: 'Widget Settings',

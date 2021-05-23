@@ -68,50 +68,29 @@ export class OfferComponent implements OnInit {
       });
   }
 
-  roomPriceChange(newValue) {
-    this.roomPrice = newValue;
-    this.calculatePrice();
-  }
-
   roomValueChange(newValue) {
     this.roomNumber = newValue;
     this.calculatePrice();
   }
 
   calculatePrice() {
-    const basicPrice = 20;
-    let multiplier = 0;
     if (this.roomNumber <= 20) {
-      multiplier += 1;
+      this.hotelUpliftPrice = 39;
     } else if (this.roomNumber > 20 && this.roomNumber <= 30) {
-      multiplier += 1.2;
+      this.hotelUpliftPrice = 44;
     } else if (this.roomNumber > 30 && this.roomNumber <= 40) {
-      multiplier += 1.5;
+      this.hotelUpliftPrice = 49;
     } else if (this.roomNumber > 40 && this.roomNumber <= 60) {
-      multiplier += 2;
+      this.hotelUpliftPrice = 59;
     } else if (this.roomNumber > 60 && this.roomNumber <= 80) {
-      multiplier += 2.5;
+      this.hotelUpliftPrice = 69;
     } else if (this.roomNumber > 80 && this.roomNumber <= 100) {
-      multiplier += 3;
-    } else if (this.roomNumber > 100) {
-      multiplier += 3.5;
+      this.hotelUpliftPrice = 79;
+    } else if (this.roomNumber > 100 && this.roomNumber <= 200) {
+      this.hotelUpliftPrice = 99;
+    } else if (this.roomNumber > 200) {
+      this.hotelUpliftPrice = 129;
     }
-
-    if (this.roomPrice <= 20) {
-      multiplier += 1;
-    } else if (this.roomPrice > 20 && this.roomPrice <= 40) {
-      multiplier += 1.2;
-    } else if (this.roomPrice > 40 && this.roomPrice <= 60) {
-      multiplier += 1.5;
-    } else if (this.roomPrice > 60 && this.roomPrice <= 80) {
-      multiplier += 2;
-    } else if (this.roomPrice > 80 && this.roomPrice <= 100) {
-      multiplier += 2.5;
-    } else if (this.roomPrice > 100) {
-      multiplier += 3;
-    }
-
-    this.hotelUpliftPrice = basicPrice * multiplier;
     this.offer.monthlyPrice = this.hotelUpliftPrice;
     this.offer.yearlyPrice = this.hotelUpliftPrice * 0.9 * 12;
   }

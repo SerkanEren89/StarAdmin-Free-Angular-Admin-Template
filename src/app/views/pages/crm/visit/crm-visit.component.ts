@@ -14,6 +14,7 @@ import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {PersonalModel} from '../../../../core/personal/_models/personal.model';
 import {PersonalService} from '../../../../core/personal/_services/personal.service';
 import {HotelModel} from '../../../../core/hotel/_models/hotel.model';
+import {HotelVisitCountModel} from '../../../../core/hotel/_models/hotel-visit-count.model';
 
 @Component({
   selector: 'app-crm-visit',
@@ -21,7 +22,7 @@ import {HotelModel} from '../../../../core/hotel/_models/hotel.model';
   styleUrls: ['../../../../app.component.scss', './crm-visit.component.scss'],
 })
 export class CrmVisitComponent implements OnInit {
-  @ViewChild('hotelsTable') elRef;
+  @ViewChild('taskTable') elRef;
   @ViewChild('visitModal') public visitModal: TemplateRef<any>;
   @ViewChild('hotelStatusModal') public hotelStatusModal: TemplateRef<any>;
   @ViewChild('filterModal') public hotelFilterModal: TemplateRef<any>;
@@ -49,6 +50,7 @@ export class CrmVisitComponent implements OnInit {
   selectedVisitType: { name: string; value: string };
   visitTypes;
   actionError: string;
+  visitCounts: HotelVisitCountModel[];
 
   constructor(private hotelService: HotelService,
               private hotelVisitService: HotelVisitService,
@@ -78,6 +80,11 @@ export class CrmVisitComponent implements OnInit {
         this.selectedFilterPersonal = this.emptyPerson;
         this.cdr.detectChanges();
       });
+    this.hotelVisitService.getVisitCountByPersonal()
+      .subscribe((visitCounts: HotelVisitCountModel[]) => {
+        this.visitCounts = visitCounts;
+        this.cdr.detectChanges();
+      });
     this.getAllHotels();
   }
 
@@ -98,6 +105,7 @@ export class CrmVisitComponent implements OnInit {
   }
 
   public getFilteredHotels() {
+    this.filterHotel.name = this.filterHotel.name.toLowerCase();
     this.hotels$ = this.hotelService.getHotelsByFilterForVisit(this.page - 1, this.pageSize,
       this.columnName, this.direction, this.filterHotel);
     this.processHotel();

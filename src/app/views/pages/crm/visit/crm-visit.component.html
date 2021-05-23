@@ -13,9 +13,55 @@
   </div>
 </div>
 
-<div class="row" *ngIf="hotels.length > 0">
+<div class="row">
   <div class="col-lg-12 grid-margin">
-    <div class="card">
+    <div class="card" *ngIf="hotels.length > 0">
+      <div class="card-body">
+        <h4 class="card-title">{{ 'VISIT.VISIT_COUNT' | translate }}</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered" #taskTable>
+            <thead>
+            <tr>
+              <th>
+                {{ 'GENERAL.FIRST_NAME' | translate }}
+              </th>
+              <th>
+                {{ 'GENERAL.LAST_NAME' | translate }}
+              </th>
+              <th>
+                {{ 'VISIT.VISIT_COUNT' | translate }}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let visitCountModel of visitCounts">
+              <td>
+                {{visitCountModel.firstName}}
+              </td>
+              <td>
+                {{visitCountModel.lastName}}
+              </td>
+              <td>
+                {{visitCountModel.count}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 grid-margin">
+    <div class="input-group task-input">
+      <input id="search" #name type="text" class="form-control" name="name"
+             placeholder="Search Hotel"
+             [(ngModel)]="filterHotel.name"/>
+      <button type="button" class="btn btn-primary" (click)="loadHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
+    </div>
+    <div class="card" *ngIf="hotels.length > 0">
       <div class="card-body">
         <h4 class="card-title">{{ 'VISIT.TITLE' | translate }}</h4>
         <div class="table-responsive">
@@ -44,11 +90,14 @@
                   </span>
                 </span>
               </th>
-              <th style="width: 30%">
+              <th style="width: 20%">
                 {{ 'VISIT.LAST_VISIT' | translate }}
               </th>
               <th style="width: 10%" *ngIf="!isAdmin">
                 {{ 'CRM.ASSIGNED' | translate }}
+              </th>
+              <th style="width: 10%" *ngIf="isAdmin">
+                {{ 'CRM.ASSIGN' | translate }}
               </th>
               <th style="width: 10%" *ngIf="isAdmin">
                 {{ 'GENERAL.ACTION' | translate }}
@@ -75,6 +124,9 @@
               <td *ngIf="!isAdmin">
                 <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
                 <span *ngIf="hotel.personal == null">--</span>
+              </td>
+              <td *ngIf="isAdmin">
+                <span *ngIf="hotel.personal != null">{{hotel.personal.firstName}} {{hotel.personal.lastName}}</span>
               </td>
               <td *ngIf="isAdmin">
                 <span tooltip="Approve status change" (click)="approveStatusChange(hotel)" *ngIf="hotel.waitingApproval">

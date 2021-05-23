@@ -5,32 +5,73 @@
       {{ 'CRM.TITLE' | translate }}
     </span>
   </div>
-  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button">
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 title-button">
 
     <button type="button" *ngIf="isAdmin || isSeller" class="btn btn-primary full-width" (click)="saveHotelModal()"><i class="mdi mdi-plus"></i>
       {{ 'CRM.ADD_HOTEL' | translate }}
     </button>
-  </div>
-  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button">
     <button type="button" class="btn btn-primary full-width" (click)="openCalculatorModal()"><i class="mdi mdi-calculator"></i>
       {{ 'CRM.CALCULATOR' | translate }}
     </button>
   </div>
-  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 title-button">
+</div>
 
-    <button type="button" class="btn btn-primary full-width" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
-      {{ 'CRM.FILTER_HOTEL' | translate }}
-    </button>
+<div class="row">
+  <div class="col-lg-12 grid-margin">
+    <div class="card" *ngIf="hotels.length > 0">
+      <div class="card-body">
+        <h4 class="card-title">{{ 'CRM.ASSIGNMENT_COUNT' | translate }}</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered" #taskTable>
+            <thead>
+            <tr>
+              <th>
+                {{ 'GENERAL.FIRST_NAME' | translate }}
+              </th>
+              <th>
+                {{ 'GENERAL.LAST_NAME' | translate }}
+              </th>
+              <th>
+                {{ 'CRM.MORE_FILTER' | translate }}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let assignmentCount of hotelAssignmentCounts">
+              <td>
+                {{assignmentCount.firstName}}
+              </td>
+              <td>
+                {{assignmentCount.lastName}}
+              </td>
+              <td>
+                {{assignmentCount.count}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="row" *ngIf="hotels.length > 0">
+<div class="row">
   <div class="col-lg-12 grid-margin">
-    <div class="card">
+    <div class="input-group task-input">
+      <input id="search" #name type="text" class="form-control" name="name"
+             placeholder="search hotel"
+             [(ngModel)]="filterHotel.name"/>
+      <button type="button" class="btn btn-primary" (click)="loadHotels()">{{ 'GENERAL.FILTER' | translate }}</button>
+      <button type="button" class="btn btn-primary full-width" (click)="openFilterModal()"><i class="mdi mdi-filter"></i>
+        {{ 'CRM.MORE_FILTER' | translate }}
+      </button>
+    </div>
+    <div class="card" *ngIf="hotels.length > 0">
       <div class="card-body">
         <h4 class="card-title">{{ 'CRM.HOTELS' | translate }}</h4>
         <div class="table-responsive">
-          <table class="table table-bordered" #taskTable>
+          <table class="table table-bordered" #hotelsTable>
             <thead>
             <tr>
               <th style="width: 15%" (click)="sortHotels('name')" class="clickable">
@@ -44,27 +85,22 @@
                   </span>
                 </span>
               </th>
-              <th style="width: 15%">
+              <th style="width: 20%">
                 {{ 'CRM.LAST_LOGIN' | translate }}
               </th>
-              <!--
               <th style="width: 15%">
-                {{ 'CRM.COMPETITION' | translate }}
-              </th>
-              -->
-              <th style="width: 10%">
                 {{ 'CRM.MAIL_LIST' | translate }}
               </th>
               <th style="width: 15%">
                 {{ 'CRM.INFORMATION' | translate }}
               </th>
-              <th style="width: 10%" *ngIf="isAdmin">
+              <th style="width: 20%" *ngIf="isAdmin">
                 {{ 'CRM.ASSIGN' | translate }}
               </th>
-              <th style="width: 7%" *ngIf="!isAdmin">
+              <th style="width: 20%" *ngIf="!isAdmin">
                 {{ 'CRM.ASSIGNED' | translate }}
               </th>
-              <th style="width: 7%">
+              <th >
                 {{ 'GENERAL.ACTION' | translate }}
               </th>
             </tr>
@@ -100,11 +136,11 @@
                   *ngIf="hotel.personal == null && isAdmin" class="comment">
                 {{ 'CRM.ASSIGN_PERSONAL' | translate }}
               </td>
-              <th style="width: 7%" *ngIf="!isAdmin">
+              <td style="width: 7%" *ngIf="!isAdmin">
                 <i class="fa fa-check action-button text-primary action-icon" *ngIf="hotel.personal != null"></i>
                 <span *ngIf="hotel.personal == null">--</span>
-              </th>
-              <td style="width: 7%">
+              </td>
+              <td >
                 <span tooltip="Send weekly reviews" (click)="showActionsModal(hotel)" *ngIf="hotel.hasLink">
                   <a><i class="fa fa-reply action-button text-primary action-icon"></i></a>
                 </span>
@@ -250,10 +286,10 @@
           <i class="fa fa-calculator"></i>
           {{ 'CRM.CALCULATOR' | translate }}
         </p>
-        <div *ngIf="hotelInformation.price == null || hotelInformation.numberOfRoom == null">
+        <div *ngIf="hotelInformation.numberOfRoom == null">
           <p class="text-danger warning">Please enter room number and room price</p>
         </div>
-        <div *ngIf="hotelInformation.price != null && hotelInformation.numberOfRoom != null">
+        <div *ngIf="hotelInformation.numberOfRoom != null">
           <div class="input-group">
             <p>{{ 'CRM.INCOME' | translate }}: </p>
             <p>{{hotelIncome| number}} € {{ 'GENERAL.MONTHLY' | translate }}</p>
@@ -266,10 +302,11 @@
             <p>{{ 'CRM.HOTELUPLIFT_PRICE_YEARLY' | translate }}: </p>
             <p>{{hotelUpliftPrice * 0.9 | number}} €</p>
           </div>
-          <span class="text-success">{{ 'CRM.AVERAGE_PROFIT' | translate:{profit: hotelIncome * 9.5 / 100 | number} }} €</span><br>
+          <div class="input-group">
+            <p>{{ 'CRM.HOTELUPLIFT_PRICE_2_YEAR' | translate }}: </p>
+            <p>{{hotelUpliftPrice * 0.8 | number}} €</p>
+          </div>
           <span>** {{ 'CRM.AVERAGE_IMPROVEMENT' | translate }}</span><br>
-          <span>** Otel cirosunda %9.5 olumlu etki</span><br>
-          <span>** {{ 'CRM.INCOME_WARNING' | translate }}</span>
         </div>
       </div>
     </form>
@@ -280,15 +317,6 @@
           <input id="numberOfRooms" type="text" class="form-control" name="numberOfRooms"
                  (ngModelChange)="roomValueChange($event)"
                  [(ngModel)]="hotelInformation.numberOfRoom"/>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>{{ 'CRM.ROOM_PRICE' | translate }} / €</label>
-        <div class="input-group">
-          <input id="roomPrice" type="text" class="form-control" name="roomPrice"
-                 (ngModelChange)="roomPriceChange($event)"
-                 placeholder="€"
-                 [(ngModel)]="hotelInformation.price"/>
         </div>
       </div>
       <div class="form-group">
@@ -368,10 +396,10 @@
           <i class="fa fa-calculator"></i>
           {{ 'CRM.CALCULATOR' | translate }}
         </p>
-        <div *ngIf="hotelInformation.price == null || hotelInformation.numberOfRoom == null">
-          <p class="text-danger warning">Please enter room number and room price</p>
+        <div *ngIf=" hotelInformation.numberOfRoom == null">
+          <p class="text-danger warning">Please enter room number</p>
         </div>
-        <div *ngIf="hotelInformation.price != null && hotelInformation.numberOfRoom != null">
+        <div *ngIf="hotelInformation.numberOfRoom != null">
           <div class="input-group">
             <p>{{ 'CRM.INCOME' | translate }}: </p>
             <p>{{hotelIncome| number}} € {{ 'GENERAL.MONTHLY' | translate }}</p>
@@ -384,10 +412,11 @@
             <p>{{ 'CRM.HOTELUPLIFT_PRICE_YEARLY' | translate }}: </p>
             <p>{{hotelUpliftPrice * 0.9 | number}} €</p>
           </div>
-          <span class="text-success">{{ 'CRM.AVERAGE_PROFIT' | translate:{profit: hotelIncome * 9.5 / 100 | number} }} €</span><br>
+          <div class="input-group">
+            <p>{{ 'CRM.HOTELUPLIFT_PRICE_2_YEAR' | translate }}: </p>
+            <p>{{hotelUpliftPrice * 0.8 | number}} €</p>
+          </div>
           <span>** {{ 'CRM.AVERAGE_IMPROVEMENT' | translate }}</span><br>
-          <span>** {{ 'CRM.INCOME_IMPROVEMENT' | translate }}</span><br>
-          <span>** {{ 'CRM.INCOME_WARNING' | translate }}</span>
         </div>
       </div>
     </form>
@@ -398,15 +427,6 @@
           <input id="numberOfRoomsCalculator" type="text" class="form-control" name="numberOfRooms"
                  (ngModelChange)="roomValueChange($event)"
                  [(ngModel)]="hotelInformation.numberOfRoom"/>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>{{ 'CRM.ROOM_PRICE' | translate }} / €</label>
-        <div class="input-group">
-          <input id="roomPriceCalculator" type="text" class="form-control" name="roomPrice"
-                 (ngModelChange)="roomPriceChange($event)"
-                 placeholder="€"
-                 [(ngModel)]="hotelInformation.price"/>
         </div>
       </div>
     </form>
@@ -534,8 +554,7 @@
       <div class="form-group">
         <label>{{ 'GENERAL.HOTEL_NAME' | translate }}</label>
         <div class="input-group task-input">
-          <input id="name" type="text" class="form-control" name="name"
-                 (ngModelChange)="filterHotel.name = $event.toLowerCase()"
+          <input id="name" #name type="text" class="form-control" name="name"
                  [(ngModel)]="filterHotel.name"/>
         </div>
       </div>

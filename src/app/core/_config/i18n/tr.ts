@@ -283,10 +283,13 @@ export const locale = {
       INCOME: 'Ciro',
       HOTELUPLIFT_PRICE: 'Hoteluplift ücreti',
       HOTELUPLIFT_PRICE_YEARLY: 'Hoteluplift ücreti(Yıllık)',
+      HOTELUPLIFT_PRICE_2_YEAR: 'Hoteluplift ücreti(2 Yıllık)',
       INCOME_WARNING: 'Ciro hesaplamalari %80 doluluk orani göre hesaplamıstır',
       AVERAGE_IMPROVEMENT: 'HU Ortalaması: Ortalama puanınızda +0.3 iyileşme',
       INCOME_IMPROVEMENT: 'Otel cirosunda %9.5 olumlu etki',
       AVERAGE_PROFIT: 'Hoteluplift ortalama aylık ciro katkısı {{profit}}',
+      ASSIGNMENT_COUNT: 'Atama Sayısı',
+      MORE_FILTER: 'Daha Fazla Filtre'
     },
     VISIT: {
       TITLE: 'Ziyaret',
@@ -296,7 +299,8 @@ export const locale = {
       VISIT_DATE: 'Ziyaret Tarihi',
       VISIT_TYPE: 'Ziyaret Tipi',
       FILTER_HOTEL: 'Otelleri Filtrele',
-      WAITING_CHANGE: 'statü değişikliği onayı bekleniyor'
+      WAITING_CHANGE: 'statü değişikliği onayı bekleniyor',
+      VISIT_COUNT: 'Ziyaret Sayısı'
     },
     WIDGET: {
       TITLE: 'Widget Ayarları',

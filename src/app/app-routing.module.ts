@@ -105,6 +105,10 @@ const routes: Routes = [
           path: 'offer',
           loadChildren: () => import('src/app/views/pages/offer/offer.module').then(m => m.OfferModule)
         },
+        {
+          path: 'links',
+          loadChildren: () => import('src/app/views/pages/hotel-link/hotel-link.module').then(m => m.HotelLinkModule)
+        },
         {path: 'categorization', component: CategorizationComponent},
         {path: 'inbox-pool', component: InboxPoolComponent},
         {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

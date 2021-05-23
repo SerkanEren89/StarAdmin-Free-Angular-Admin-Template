@@ -5,3 +5,30 @@
   padding: 10px;
   padding-top: 20px;
 }
+@media screen and (max-width: 600px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+  }
+  table tr {
+    border: 1px solid #a19b9b;
+  }
+  .full {
+    display: flex;
+    flex-direction: column;
+  }
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+  .star-container {
+    text-align: start;
+  }
+}
+.task-input {
+  margin-bottom: 10px;
+}

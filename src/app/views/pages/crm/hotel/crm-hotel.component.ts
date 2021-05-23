@@ -20,6 +20,7 @@ import {PersonalService} from '../../../../core/personal/_services/personal.serv
 import {PersonalModel} from '../../../../core/personal/_models/personal.model';
 import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {HotelModel} from '../../../../core/hotel/_models/hotel.model';
+import {HotelAssignmentCountModel} from '../../../../core/hotel/_models/hotel-assignment-count.model';
 
 @Component({
   selector: 'app-hotel-visit',
@@ -52,6 +53,7 @@ export class CrmHotelComponent implements OnInit {
   emptyPerson: PersonalModel;
   filterHotel: HotelFilterModel = new HotelFilterModel();
   reportItemsToSend: WeeklyReportItemModel[] = [];
+  hotelAssignmentCounts: HotelAssignmentCountModel[];
   newHotel: HotelModel = new HotelModel();
   totalElements = 0;
   pageSize = 10;
@@ -105,6 +107,12 @@ export class CrmHotelComponent implements OnInit {
         this.selectedFilterPersonal = this.emptyPerson;
         this.cdr.detectChanges();
       });
+
+    this.hotelService.getAssignmentCounts()
+      .subscribe((hotelAssignmentCountModels: HotelAssignmentCountModel[]) => {
+        this.hotelAssignmentCounts = hotelAssignmentCountModels;
+        this.cdr.detectChanges();
+      });
     this.getUnFilteredHotels();
   }
 
@@ -139,6 +147,7 @@ export class CrmHotelComponent implements OnInit {
   }
 
   public getFilteredHotels() {
+    this.filterHotel.name = this.filterHotel.name.toLowerCase();
     this.hotels$ = this.hotelService.getHotelsByFilter(this.page - 1, this.pageSize,
       this.columnName, this.direction, this.filterHotel);
     this.processHotel();
@@ -458,51 +467,28 @@ export class CrmHotelComponent implements OnInit {
     this.filterHotel.statusList = this.filteredStatus;
   }
 
-
-  roomPriceChange(newValue) {
-    this.roomPrice = newValue;
-    this.calculatePrice();
-  }
-
   roomValueChange(newValue) {
     this.roomNumber = newValue;
     this.calculatePrice();
   }
 
   calculatePrice() {
-    const basicPrice = 20;
-    let multiplier = 0;
     if (this.roomNumber <= 20) {
-      multiplier += 1;
+      this.hotelUpliftPrice = 39;
     } else if (this.roomNumber > 20 && this.roomNumber <= 30) {
-      multiplier += 1.2;
+      this.hotelUpliftPrice = 44;
     } else if (this.roomNumber > 30 && this.roomNumber <= 40) {
-      multiplier += 1.5;
+      this.hotelUpliftPrice = 49;
     } else if (this.roomNumber > 40 && this.roomNumber <= 60) {
-      multiplier += 2;
+      this.hotelUpliftPrice = 59;
     } else if (this.roomNumber > 60 && this.roomNumber <= 80) {
-      multiplier += 2.5;
+      this.hotelUpliftPrice = 69;
     } else if (this.roomNumber > 80 && this.roomNumber <= 100) {
-      multiplier += 3;
-    } else if (this.roomNumber > 100) {
-      multiplier += 3.5;
+      this.hotelUpliftPrice = 79;
+    } else if (this.roomNumber > 100 && this.roomNumber <= 200) {
+      this.hotelUpliftPrice = 99;
+    } else if (this.roomNumber > 200) {
+      this.hotelUpliftPrice = 129;
     }
-
-    if (this.roomPrice <= 20) {
-      multiplier += 1;
-    } else if (this.roomPrice > 20 && this.roomPrice <= 40) {
-      multiplier += 1.2;
-    } else if (this.roomPrice > 40 && this.roomPrice <= 60) {
-      multiplier += 1.5;
-    } else if (this.roomPrice > 60 && this.roomPrice <= 80) {
-      multiplier += 2;
-    } else if (this.roomPrice > 80 && this.roomPrice <= 100) {
-      multiplier += 2.5;
-    } else if (this.roomPrice > 100) {
-      multiplier += 3;
-    }
-
-    this.hotelUpliftPrice = basicPrice * multiplier;
-    this.hotelIncome = this.roomPrice * this.roomNumber * 0.8 * 30;
   }
 }

@@ -33,7 +33,7 @@ export class WidgetSettingsComponent implements OnInit {
               private widgetSettingsService: WidgetSettingsService,
               private authService: AuthService,
               private commonService: CommonService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,) {
   }
 
   ngOnInit() {
@@ -47,8 +47,8 @@ export class WidgetSettingsComponent implements OnInit {
           this.generateCode();
         } else {
           this.initSettings(widgetSettings);
+          this.widgetSettings = widgetSettings;
         }
-        this.widgetSettings = widgetSettings;
       });
   }
 

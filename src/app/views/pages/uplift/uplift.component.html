@@ -17,7 +17,8 @@
                  src="assets/images/uplift_widget.png">
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-primary edit-button" (click)="goToWidgetSettings()">
+            <button type="button" class="btn btn-primary edit-button"
+                    (click)="goToWidgetSettings()" tooltip="{{ 'GENERAL.AT_BUSINESS_ACCOUNT' | translate }}" [display]="isFree">
               <i class="fa fa-pencil-alt edit"></i>
               <span>{{ 'GENERAL.EDIT' | translate }}</span>
             </button>
@@ -45,7 +46,8 @@
                  src="assets/images/uplift_alert.png">
           </div>
           <div class="explanation-container">
-            <button type="button" class="btn btn-primary edit-button" (click)="goToReviewAlarmSettings()">
+            <button type="button" class="btn btn-primary edit-button"
+                    (click)="goToReviewAlarmSettings()" tooltip="{{ 'GENERAL.AT_BUSINESS_ACCOUNT' | translate }}" [display]="isFree">
               <i class="fa fa-pencil-alt edit"></i>
               <span>{{ 'GENERAL.EDIT' | translate }}</span>
             </button>

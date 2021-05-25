@@ -48,8 +48,7 @@ const routes: Routes = [
         },
         {
           path: 'task',
-          loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule),
-          canActivate: [FremiumGuard]
+          loadChildren: () => import('src/app/views/pages/task/task.module').then(m => m.TaskModule)
         },
         {
           path: 'template',
@@ -94,8 +93,7 @@ const routes: Routes = [
         },
         {
           path: 'uplifts',
-          loadChildren: () => import('src/app/views/pages/uplift/uplift.module').then(m => m.UpliftModule),
-          canActivate: [FremiumGuard]
+          loadChildren: () => import('src/app/views/pages/uplift/uplift.module').then(m => m.UpliftModule)
         },
         {
           path: 'pricing',

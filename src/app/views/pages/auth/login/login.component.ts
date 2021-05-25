@@ -59,25 +59,38 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.hotelResponseService.getHotelResponse()
-            .pipe(first())
-            .subscribe(
-              hotelResponses => {
-                localStorage.setItem('hotelResponses', JSON.stringify(hotelResponses));
-                this.commentService.getCommentsAfterLastLogin(data.previousLogin)
-                  .pipe(first())
-                  .subscribe(
-                    lastLogin => {
-                      localStorage.setItem('lastComments', JSON.stringify(lastLogin));
-                      this.router.navigate([this.returnUrl]);
-                    },
-                    error => {
-                      this.router.navigate([this.returnUrl]);
-                    });
-              },
-              error => {
-                this.router.navigate([this.returnUrl]);
-              });
+          if (!this.authService.isFremium()) {
+            this.hotelResponseService.getHotelResponse()
+              .pipe(first())
+              .subscribe(
+                hotelResponses => {
+                  localStorage.setItem('hotelResponses', JSON.stringify(hotelResponses));
+                  this.commentService.getCommentsAfterLastLogin(data.previousLogin)
+                    .pipe(first())
+                    .subscribe(
+                      lastLogin => {
+                        localStorage.setItem('lastComments', JSON.stringify(lastLogin));
+                        this.router.navigate([this.returnUrl]);
+                      },
+                      error => {
+                        this.router.navigate([this.returnUrl]);
+                      });
+                },
+                error => {
+                  this.router.navigate([this.returnUrl]);
+                });
+          } else {
+            this.commentService.getCommentsAfterLastLogin(data.previousLogin)
+              .pipe(first())
+              .subscribe(
+                lastLogin => {
+                  localStorage.setItem('lastComments', JSON.stringify(lastLogin));
+                  this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                  this.router.navigate([this.returnUrl]);
+                });
+          }
         },
         error => {
           this.loading = false;

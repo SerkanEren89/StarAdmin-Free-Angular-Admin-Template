@@ -45,9 +45,8 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" routerLink="/task" routerLinkActive="active"
-         tooltip="{{ 'GENERAL.AT_BUSINESS_ACCOUNT' | translate }}" [display]="isFree">
-        <div [class.fremium] = "isFree">
+      <a class="nav-link" routerLink="/task" routerLinkActive="active">
+        <div>
           <img class="mdi mdi-cube icon-lg category-icon side-icon" src="assets/svg/task.svg" >
           <span class="menu-title">{{ 'MENU.TASK' | translate }}</span>
         </div>
@@ -65,8 +64,8 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" routerLink="/uplifts" routerLinkActive="active" tooltip="{{ 'GENERAL.AT_BUSINESS_ACCOUNT' | translate }}" [display]="isFree">
-        <div [class.fremium] = "isFree">
+      <a class="nav-link" routerLink="/uplifts" routerLinkActive="active">
+        <div>
           <i class="fas fa-store  side-icon"></i>
           <span class="menu-title">{{ 'MENU.UPLIFT_STORE' | translate }}</span>
         </div>

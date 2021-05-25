@@ -4,6 +4,7 @@ import {WidgetSettingsModel} from '../../../core/uplift/_models/widget-settings.
 import {WidgetSettingsService} from '../../../core/uplift/_services/widget-settings.service';
 import {ReviewAlarmSettingsModel} from '../../../core/uplift/_models/review-alarm-settings.model';
 import {ReviewAlarmSettingsService} from '../../../core/uplift/_services/review-alarm-settings.service';
+import {AuthService} from '../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-uplift',
@@ -14,13 +15,16 @@ import {ReviewAlarmSettingsService} from '../../../core/uplift/_services/review-
 export class UpliftComponent implements OnInit {
   isActiveWidget: boolean;
   isActiveReviewAlarm: boolean;
+  isFree: boolean;
 
   constructor(private router: Router,
+              private authService: AuthService,
               private widgetSettingsService: WidgetSettingsService,
               private reviewAlarmSettingsService: ReviewAlarmSettingsService) {
   }
 
   ngOnInit() {
+    this.isFree = this.authService.isFremium();
     this.widgetSettingsService.getWidgetSettings()
       .subscribe((widgetSettings: WidgetSettingsModel) => {
         if (widgetSettings == null) {

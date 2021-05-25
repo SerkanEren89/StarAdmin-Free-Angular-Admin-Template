@@ -8,6 +8,8 @@ import {UpliftComponent} from './uplift.component';
 import {WidgetSettingsComponent} from './widget-settings/widget-settings.component';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {ReviewAlarmSettingsComponent} from './review-alarm-settings/review-alarm-settings.component';
+import {FremiumGuard} from '../../../core/auth/_guards/fremium.guard';
+import {TooltipModule} from 'ng2-tooltip-directive';
 
 @NgModule({
   imports: [
@@ -22,14 +24,18 @@ import {ReviewAlarmSettingsComponent} from './review-alarm-settings/review-alarm
       {
         path: 'widget-settings',
         component: WidgetSettingsComponent,
+        canActivate: [FremiumGuard]
       },
       {
         path: 'review-alarm-settings',
         component: ReviewAlarmSettingsComponent,
+        canActivate: [FremiumGuard]
       }
     ]),
     FormsModule,
     NgxSliderModule,
+    TooltipModule,
+    TooltipModule,
   ],
   providers: [],
   declarations: [

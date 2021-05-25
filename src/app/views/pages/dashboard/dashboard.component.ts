@@ -401,42 +401,38 @@ export class DashboardComponent implements OnInit {
   }
 
   openReplyModal(content: TemplateRef<any>, comment: CommentModel) {
-    if (!this.isFremium) {
-      this.selectedComment = comment;
-      if (this.templates == null) {
-        this.templateService.getTemplates()
-          .subscribe((templateModels: TemplateModel[]) => {
-            this.templates = templateModels;
-            this.selectedTemplate = new TemplateModel();
-            this.translateService.get('GENERAL.SELECT_TEMPLATE')
-              .subscribe(title => {
-                this.selectedTemplate.title = title;
-              });
-            this.newTemplate = new TemplateModel();
-            this.cdr.detectChanges();
-            this.modalService.open(content, {
-              keyboard: false, backdrop: 'static',
-              size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-            }).result.then((result) => {
-            }, (reason) => {
+    this.selectedComment = comment;
+    if (this.templates == null) {
+      this.templateService.getTemplates()
+        .subscribe((templateModels: TemplateModel[]) => {
+          this.templates = templateModels;
+          this.selectedTemplate = new TemplateModel();
+          this.translateService.get('GENERAL.SELECT_TEMPLATE')
+            .subscribe(title => {
+              this.selectedTemplate.title = title;
             });
+          this.newTemplate = new TemplateModel();
+          this.cdr.detectChanges();
+          this.modalService.open(content, {
+            keyboard: false, backdrop: 'static',
+            size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+          }).result.then((result) => {
+          }, (reason) => {
           });
-      } else {
-        this.selectedTemplate = new TemplateModel();
-        this.translateService.get('GENERAL.SELECT_TEMPLATE')
-          .subscribe(title => {
-            this.selectedTemplate.title = title;
-          });
-        this.newTemplate = new TemplateModel();
-        this.modalService.open(content, {
-          keyboard: false, backdrop: 'static',
-          size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
-        }).result.then((result) => {
-        }, (reason) => {
         });
-      }
     } else {
-      this.router.navigate(['pricing/premium']);
+      this.selectedTemplate = new TemplateModel();
+      this.translateService.get('GENERAL.SELECT_TEMPLATE')
+        .subscribe(title => {
+          this.selectedTemplate.title = title;
+        });
+      this.newTemplate = new TemplateModel();
+      this.modalService.open(content, {
+        keyboard: false, backdrop: 'static',
+        size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true
+      }).result.then((result) => {
+      }, (reason) => {
+      });
     }
   }
 

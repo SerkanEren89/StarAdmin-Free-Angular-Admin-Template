@@ -188,7 +188,7 @@
                 <span tooltip="{{ 'GENERAL.REPLY_REVIEW' | translate }}">
                   <a (click)="openReplyModal(reply, comment)"
                      *ngIf="competitorHotel == null && comment.answer == null && comment.content != noReviewText">
-                    <i class="fa fa-reply action-button text-primary" [class.text-success] = "isFremium"></i>
+                    <i class="fa fa-reply action-button text-primary"></i>
                   </a>
                 </span>
               </td>

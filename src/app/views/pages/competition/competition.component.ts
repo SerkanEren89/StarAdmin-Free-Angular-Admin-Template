@@ -110,6 +110,10 @@ export class CompetitionComponent implements OnInit {
   }
 
   goToCompetitorDashboard(uuid: string) {
-    this.router.navigateByUrl('dashboard/' + uuid);
+    if (this.fremium) {
+      this.router.navigate(['pricing/premium']);
+    } else {
+      this.router.navigateByUrl('dashboard/' + uuid);
+    }
   }
 }

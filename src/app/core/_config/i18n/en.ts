@@ -86,6 +86,7 @@ export const locale = {
       DETAIL: 'Detail',
       HOTEL_NAME: 'Hotel name',
       RESPONSE_RATE: 'Response Rate',
+      RESPONSE_RATE_LAST_MONTH: 'Cevap Oranı (Son 1 ay)',
       LAST_WEEK: 'Last Week',
       LAST_MONTH: 'Last Month',
       LAST_3_MONTH: 'Last 3 Months',
@@ -167,6 +168,8 @@ export const locale = {
     COMPETITION: {
       TITLE: 'Competition',
       NO_LIST: 'Please contact us to give your competition list.',
+      DEMO: 'In this page you can see the strengths and weaknesses of your competitors. Below you see a sample screen. When you upgrade ' +
+        'your account to the premium, here will be the analysis of your actual competitors in compare to your own hotel',
       RATING_PRICING: 'Rating & Pricing',
       PRICE: 'Price',
       MOTHLY_RATING: 'Monthly Rating',

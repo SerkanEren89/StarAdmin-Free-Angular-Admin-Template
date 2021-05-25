@@ -86,6 +86,7 @@ export const locale = {
       DETAIL: 'Detay',
       HOTEL_NAME: 'Otel adı',
       RESPONSE_RATE: 'Cevap Oranı',
+      RESPONSE_RATE_LAST_MONTH: 'Cevap Oranı (Son 1 ay)',
       LAST_WEEK: 'Geçen Hafta',
       LAST_MONTH: 'Geçen Ay',
       LAST_3_MONTH: 'Son 3 Ay',
@@ -167,6 +168,8 @@ export const locale = {
     COMPETITION: {
       TITLE: 'Rekabet',
       NO_LIST: 'Rakip otel listesi için bizimle iletişime geçin.',
+      DEMO: 'Bu sayfada rakiplerinizin güçlü ve zayıf yönlerinin analizini görürsünüz. Aşağıdaki örnek ekranı inceleyerek bu özellik ' +
+        'hakkında fikir sahibi olabilir, hesabınızı premium\'a yükselterek kendi otelinizin rakabetteki yerini takip edebilirsiniz.',
       RATING_PRICING: 'Puan & Fiyatlama',
       PRICE: 'Fiyat',
       MOTHLY_RATING: 'Aylık Puanlar',

@@ -10,6 +10,7 @@ import {ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {MonthlyRatingsModel} from '../../../core/dashboard/_models/monthly-ratings.model';
 import {Router} from '@angular/router';
+import {AuthService} from '../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-competition',
@@ -48,8 +49,10 @@ export class CompetitionComponent implements OnInit {
       ]
     }
   };
+  fremium: boolean;
 
   constructor(private competitionService: CompetitionService,
+              private authService: AuthService,
               private hotelService: HotelService,
               private tableService: TableService,
               private router: Router,
@@ -57,6 +60,7 @@ export class CompetitionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fremium = this.authService.isFremium();
     this.hotelService.getCompetitors()
       .subscribe((competitionList: HotelModel[]) => {
         this.competitionList = competitionList;

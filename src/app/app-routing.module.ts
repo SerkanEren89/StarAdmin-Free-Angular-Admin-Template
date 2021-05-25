@@ -39,8 +39,7 @@ const routes: Routes = [
         },
         {
           path: 'competition',
-          loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule),
-          canActivate: [FremiumGuard]
+          loadChildren: () => import('src/app/views/pages/competition/competition.module').then(m => m.CompetitionModule)
         },
         {
           path: 'popularity',

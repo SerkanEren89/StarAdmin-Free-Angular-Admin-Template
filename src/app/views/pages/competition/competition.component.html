@@ -6,7 +6,7 @@
     </span>
   </div>
 </div>
-<div class="row" *ngIf="competitionList != null && competitionList.length == 1">
+<div class="row" *ngIf="(competitionList != null && competitionList.length == 1) && !fremium">
   <div class="col-12 grid-margin">
     <div class="warning-body">
       <div class="warning-container">
@@ -15,6 +15,23 @@
             <i class="fa fa-exclamation-triangle warning text-warning"></i>
             <p>
               {{ 'COMPETITION.NO_LIST' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="fremium">
+  <div class="col-12 grid-margin">
+    <div class="warning-body">
+      <div class="warning-container">
+        <div class="card full-width">
+          <div class="card-body">
+            <i class="fa fa-exclamation-triangle warning text-warning"></i>
+            <p>
+              {{ 'COMPETITION.DEMO' | translate }}
             </p>
           </div>
         </div>

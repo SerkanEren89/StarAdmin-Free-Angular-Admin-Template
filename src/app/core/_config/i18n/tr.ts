@@ -189,6 +189,9 @@ export const locale = {
       TITLE: 'Kategoriler',
       LAST_FIVE: 'Son 5',
       SUCCESS_RATE: 'Başarı Oranı',
+      DEMO: 'Bu sayfada otelinizin analizini görebilirsiniz. Aşağıdaki örnek ekranı inceleyerek bu özellik ' +
+        'hakkında fikir sahibi olabilir, hesabınızı premium\'a yükselterek kendi otelinizin kategorilere ' +
+        'göre güçlü ve zayıf yönlerini inceleyebilirsiniz',
       SELECTED_SUMMARY_PLURAL: '{{category}} kategorisinde toplam {{totalElements}} yorum bulundu',
       SELECTED_SUMMARY_PLURAL_SENTIMENT: '{{category}} kategorisinde {{selectedSentiment}} duygu ile toplam {{totalElements}} yorum bulundu',
       SELECTED_SUMMARY: '{{category}} kategorisinde toplam {{totalElements}} yorum bulundu',

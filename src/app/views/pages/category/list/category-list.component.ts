@@ -13,6 +13,7 @@ import {EmployeeService} from '../../../../core/employee/_services/employee.serv
 import {TaskService} from '../../../../core/task/_services/task.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {AuthService} from '../../../../core/auth/_service/auth.service';
 
 @Component({
   selector: 'app-category-list',
@@ -37,12 +38,14 @@ export class CategoryListComponent implements OnInit {
   totalElements = 0;
   pageSize = 10;
   page = 1;
+  fremium: any;
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
   constructor(private commentCategoryService: CommentCategoryService,
               private commentService: CommentService,
               private employeeService: EmployeeService,
+              private authService: AuthService,
               private taskService: TaskService,
               private toastr: ToastrService,
               private modalService: NgbModal,
@@ -51,6 +54,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fremium = this.authService.isFremium();
     this.commentCategoryService.getCategorySentimentCount()
       .subscribe((categoryGroupList: CategoryGroupModel[]) => {
         this.categoryGroupList = categoryGroupList;
@@ -59,19 +63,23 @@ export class CategoryListComponent implements OnInit {
   }
 
   goToCategoryDetail(categoryGroup: CategoryGroupModel) {
-    this.page = 1;
-    this.selectedCategoryGroup = categoryGroup;
-    this.selectedSentiment = null;
-    this.categoryGroupList.forEach(item => item.selected = false);
-    categoryGroup.selected = true;
-    this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name)
-      .subscribe((item: CategoryGroupModel) => {
-        this.categoryGroup = item;
-        this.cdr.detectChanges();
-      });
-    this.commentCategoryList$ = this.commentCategoryService
-      .getCommentCategoriesByCategoryName(categoryGroup.category.name, this.page - 1, this.pageSize);
-    this.processComments();
+    if (!this.fremium) {
+      this.page = 1;
+      this.selectedCategoryGroup = categoryGroup;
+      this.selectedSentiment = null;
+      this.categoryGroupList.forEach(item => item.selected = false);
+      categoryGroup.selected = true;
+      this.commentCategoryService.getCategorySentimentCountByCategoryName(categoryGroup.category.name)
+        .subscribe((item: CategoryGroupModel) => {
+          this.categoryGroup = item;
+          this.cdr.detectChanges();
+        });
+      this.commentCategoryList$ = this.commentCategoryService
+        .getCommentCategoriesByCategoryName(categoryGroup.category.name, this.page - 1, this.pageSize);
+      this.processComments();
+    } else {
+      this.router.navigate(['pricing/premium']);
+    }
   }
 
   loadComments(page: number) {

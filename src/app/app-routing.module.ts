@@ -35,7 +35,6 @@ const routes: Routes = [
         {
           path: 'category',
           loadChildren: () => import('src/app/views/pages/category/category.module').then(m => m.CategoryModule),
-          canActivate: [FremiumGuard]
         },
         {
           path: 'competition',

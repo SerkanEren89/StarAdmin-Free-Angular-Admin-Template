@@ -6,6 +6,25 @@
     </span>
   </div>
 </div>
+<div class="row" *ngIf="fremium">
+  <div class="col-12 grid-margin">
+    <div class="warning-body">
+      <div class="warning-container">
+        <div class="card full-width">
+          <div class="card-body">
+            <i class="fa fa-exclamation-triangle warning text-warning"></i>
+            <p>
+              {{ 'CATEGORY.DEMO' | translate }}
+            </p>
+            <button type="button" class="btn btn-primary" routerLink="/pricing">
+              {{ 'PRICING.UPGRADE_TO_PRO' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card rating-card"

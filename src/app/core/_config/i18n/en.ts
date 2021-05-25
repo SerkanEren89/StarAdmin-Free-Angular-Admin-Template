@@ -189,6 +189,8 @@ export const locale = {
       TITLE: 'Categories',
       LAST_FIVE: 'Last Five',
       SUCCESS_RATE: 'Success Rate',
+      DEMO: 'In this page you can see the analysis of your hotel. Below you see a sample screen. When you upgrade ' +
+        'your account to the premium, you will see strengths and weaknesses of your hotel by categories ',
       SELECTED_SUMMARY_PLURAL: '{{totalElements}} reviews are recognized in {{category}} category.',
       SELECTED_SUMMARY_PLURAL_SENTIMENT: '{{totalElements}} reviews are recognized in {{category}} category with {{selectedSentiment}} sentiment',
       SELECTED_SUMMARY: '{{totalElements}} review is recognized in {{category}} category.',

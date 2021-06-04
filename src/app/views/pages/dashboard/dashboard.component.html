@@ -340,7 +340,7 @@
   </div>
   <div class="modal-footer">
     <div class="template-demo">
-      <button type="button" class="btn btn-primary" [class.btn-success] = "isFremium" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks button-task"></i>{{ 'GENERAL.ASSIGN_AS_TASK' | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="openTaskModal(selectedComment, contentTask)"><i class="fa fa-tasks button-task"></i>{{ 'GENERAL.ASSIGN_AS_TASK' | translate }}</button>
       <button type="button" class="btn btn-primary" [class.btn-success] = "isFremium" *ngIf="selectedComment.translatedText == null" (click)="translate(selectedComment)"><i class="fa fa-language button-task"></i>{{ 'GENERAL.TRANSLATE' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="!selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_IMPORTANT' | translate }}</button>
       <button type="button" class="btn btn-primary" *ngIf="selectedComment.starred && competitorHotel == null" (click)="markAsStarred(selectedComment)"><i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}</button>

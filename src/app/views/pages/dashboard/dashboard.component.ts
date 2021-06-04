@@ -356,25 +356,21 @@ export class DashboardComponent implements OnInit {
 
   openTaskModal(comment: CommentModel, content: TemplateRef<any>) {
     this.modalService.dismissAll();
-    if (!this.isFremium) {
-      this.selectedComment = comment;
-      this.task = new TaskModel();
-      if (this.employeeList == null) {
-        this.employeeService.getAllEmployees()
-          .subscribe((employeeList: EmployeeModel[]) => {
-            this.employeeList = employeeList;
-            this.cdr.detectChanges();
-            this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-            }, (reason) => {
-            });
+    this.selectedComment = comment;
+    this.task = new TaskModel();
+    if (this.employeeList == null) {
+      this.employeeService.getAllEmployees()
+        .subscribe((employeeList: EmployeeModel[]) => {
+          this.employeeList = employeeList;
+          this.cdr.detectChanges();
+          this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+          }, (reason) => {
           });
-      } else {
-        this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
-        }, (reason) => {
         });
-      }
     } else {
-      this.router.navigate(['pricing/premium']);
+      this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title', scrollable: true}).result.then((result) => {
+      }, (reason) => {
+      });
     }
   }
 

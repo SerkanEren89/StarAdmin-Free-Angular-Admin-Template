@@ -131,13 +131,13 @@
               <i class="mdi mdi-star"></i>{{ 'GENERAL.MARK_AS_UNIMPORTANT' | translate }}
             </button>
 
-            <button type="button" class="btn btn-primary border-radius"  [class.btn-success] = "isFremium"
+            <button type="button" class="btn btn-primary border-radius"
                     (click)="openTaskModal(taskModal)">
               <i class="mdi mdi-file-document"></i>
               {{ 'GENERAL.ASSIGN_AS_TASK' | translate }}
             </button>
 
-            <button type="button" class="btn btn-primary border-radius" [class.btn-success] = "isFremium"
+            <button type="button" class="btn btn-primary border-radius"
                     *ngIf="selectedItem.url != null && selectedItem.content != noReviewText"
                     (click)="openReplyPopup(answer)"><i class="mdi mdi-reply-all"></i>
               {{ 'GENERAL.REPLY' | translate }}

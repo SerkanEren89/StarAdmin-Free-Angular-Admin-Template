@@ -6,4 +6,5 @@ export class HotelResponseModel {
   hotelId: string;
   holidayCheckPath: string;
   otelPuanPath: string;
+  googlePath: string;
 }

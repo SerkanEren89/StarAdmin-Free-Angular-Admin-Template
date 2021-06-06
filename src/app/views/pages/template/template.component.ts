@@ -77,6 +77,8 @@ export class TemplateComponent implements OnInit {
       this.templates = templates;
       if (templates.length > 0) {
         this.selectedResponseTemplate = templates[0];
+      } else {
+        this.selectedResponseTemplate = new TemplateModel();
       }
       this.cdr.detectChanges();
     });

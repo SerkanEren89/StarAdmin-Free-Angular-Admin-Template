@@ -4,6 +4,8 @@ import {HotelLinkModel} from '../../../core/hotel-link/_models/hotel-link.model'
 import {ToastrService} from 'ngx-toastr';
 import {CommentCountModel} from '../../../core/inbox/_models/comment-count.model';
 import {CommentService} from '../../../core/inbox/_services/comment.service';
+import {HotelResponseService} from '../../../core/hotel-response/_services/hotel-response.service';
+import {HotelResponseModel} from '../../../core/hotel-response/_models/hotel-response.model';
 
 @Component({
   selector: 'app-hotel-link',
@@ -24,8 +26,10 @@ export class HotelLinkComponent implements OnInit {
       hotelscom: 0,
       holidaycheck: 0
     };
+  hotelResponse: HotelResponseModel;
 
   constructor(private hotelLinkService: HotelLinkService,
+              private hotelResponseService: HotelResponseService,
               private commentService: CommentService,
               private toastr: ToastrService,
               private cdr: ChangeDetectorRef) {
@@ -44,6 +48,7 @@ export class HotelLinkComponent implements OnInit {
         this.setCommentCounts();
         this.cdr.detectChanges();
       });
+    this.hotelResponse = this.hotelResponseService.hotelResponseList;
   }
 
   startGoogleCrawling() {
@@ -120,5 +125,14 @@ export class HotelLinkComponent implements OnInit {
         this.count.odamax = commentCountModel.count;
       }
     }
+  }
+
+  saveHotelResponse() {
+    this.hotelResponseService.saveHotelResponse(this.hotelResponse)
+      .subscribe((hotelResponse: HotelResponseModel) => {
+        this.hotelResponse = hotelResponse;
+        this.toastr.success('Hotel response saved with success');
+        this.cdr.detectChanges();
+      });
   }
 }

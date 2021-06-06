@@ -7,108 +7,179 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <form *ngIf="this.count">
-          <div class="form-group group">
-            <label>Booking</label>
-            <p class="text-success example-text">Current: {{this.count.booking}}</p>
-            <div class="input-group">
-              <input id="bookingPath" type="text" class="form-control" name="bookingPath" placeholder="booking path"
-                     [(ngModel)]="hotelLink.bookingPath"/>
+<ngb-tabset>
+  <ngb-tab title="Links">
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body">
+          <form *ngIf="this.count">
+            <div class="form-group group">
+              <label>Booking</label>
+              <p class="text-success example-text">Current: {{this.count.booking}}</p>
+              <div class="input-group">
+                <input id="bookingPath" type="text" class="form-control" name="bookingPath" placeholder="booking path"
+                       [(ngModel)]="hotelLink.bookingPath"/>
+              </div>
+              <div class="input-group">
+                <input id="rating" type="text" class="form-control" name="rating" placeholder="rating"
+                       [(ngModel)]="hotelLink.bookingRatingPath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startBookingCrawling()">
+                Crawl booking
+              </button>
             </div>
-            <div class="input-group">
-              <input id="rating" type="text" class="form-control" name="rating" placeholder="rating"
-                     [(ngModel)]="hotelLink.bookingRatingPath"/>
+            <div class="form-group group">
+              <label>Google</label>
+              <p class="text-success example-text">Current: {{this.count.google}}</p>
+              <span class="example-text">Example: //*[@id="reviews"]/c-wiz/div/div/div/div[5]/c-wiz/div[1]/div/div[</span>
+              <div class="input-group">
+                <input id="googleId" type="text" class="form-control" name="googleId"
+                       [(ngModel)]="hotelLink.googleId"/>
+              </div>
+              <span class="example-text">Example: https://www.google.com/travel/hotels/entity/CgoIkoLi4fGm2osXEAE/reviews?g2lb=2502548%2C2503781%2C4258168%2C4270442%2C4306835%2C4317915%2C4371335%2C4401769%2C4419364%2C4429192%2C4482438%2C4486153%2C4509341%2C4533882%2C4536454%2C4547627%2C4555975%2C4270859%2C4284970%2C4291517&hl=tr-US&gl=us&ssta=1&rp=EJKC4uHxptqLFxCSguLh8abaixc4AkAASAHAAQI&ictx=1&sa=X&ved=0CAAQ5JsGahcKEwiwuN2IvN3wAhUAAAAAHQAAAAAQDA&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESABpJCisSJzIlMHgxNGJiN2EyODFiZGM0YzliOjB4MTcxNzY5MzcxYzM4ODExMhoAEhoSFAoHCOUPEAUYGBIHCOUPEAUYGRgBMgIQACoJCgU6A1VTRBoA</span>
+              <div class="input-group">
+                <input id="googlePath" type="text" class="form-control" name="googlePath"
+                       [(ngModel)]="hotelLink.googlePath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startGoogleCrawling()">
+                Crawl google
+              </button>
             </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startBookingCrawling()">
-              Crawl booking
-            </button>
-          </div>
-          <div class="form-group group">
-            <label>Google</label>
-            <p class="text-success example-text">Current: {{this.count.google}}</p>
-            <span class="example-text">Example: //*[@id="reviews"]/c-wiz/div/div/div/div[5]/c-wiz/div[1]/div/div[</span>
-            <div class="input-group">
-              <input id="googleId" type="text" class="form-control" name="googleId"
-                     [(ngModel)]="hotelLink.googleId"/>
-            </div>
-            <span class="example-text">Example: https://www.google.com/travel/hotels/entity/CgoIkoLi4fGm2osXEAE/reviews?g2lb=2502548%2C2503781%2C4258168%2C4270442%2C4306835%2C4317915%2C4371335%2C4401769%2C4419364%2C4429192%2C4482438%2C4486153%2C4509341%2C4533882%2C4536454%2C4547627%2C4555975%2C4270859%2C4284970%2C4291517&hl=tr-US&gl=us&ssta=1&rp=EJKC4uHxptqLFxCSguLh8abaixc4AkAASAHAAQI&ictx=1&sa=X&ved=0CAAQ5JsGahcKEwiwuN2IvN3wAhUAAAAAHQAAAAAQDA&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESABpJCisSJzIlMHgxNGJiN2EyODFiZGM0YzliOjB4MTcxNzY5MzcxYzM4ODExMhoAEhoSFAoHCOUPEAUYGBIHCOUPEAUYGRgBMgIQACoJCgU6A1VTRBoA</span>
-            <div class="input-group">
-              <input id="googlePath" type="text" class="form-control" name="googlePath"
-                     [(ngModel)]="hotelLink.googlePath"/>
-            </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startGoogleCrawling()">
-              Crawl google
-            </button>
-          </div>
-          <div class="form-group group">
-            <label>Tripadvisor</label>
-            <p class="text-success example-text">Current: {{this.count.tripadvisor}}</p>
-            <div class="input-group">
+            <div class="form-group group">
+              <label>Tripadvisor</label>
+              <p class="text-success example-text">Current: {{this.count.tripadvisor}}</p>
+              <div class="input-group">
               <textarea id="phoneNumber" type="phone" class="form-control" name="phoneNumber"
-                     [(ngModel)]="hotelLink.tripAdvisorPath" rows="20"></textarea>
+                        [(ngModel)]="hotelLink.tripAdvisorPath" rows="20"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startTripAdvisorCrawling()">
+                Crawl Tripadvisor
+              </button>
             </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startTripAdvisorCrawling()">
-              Crawl Tripadvisor
-            </button>
-          </div>
-          <div class="form-group group">
-            <label>Hotelscom</label>
-            <p class="text-success example-text">Current: {{this.count.hotelscom}}</p>
-            <p class="example-text">Example: https://tr.hotels.com/ho694219-tr-pPAGENUM/?reviewTab=brand-reviews&ajax=true</p>
-            <div class="input-group">
-              <input id="email" type="email" class="form-control" name="email"
-                     [(ngModel)]="hotelLink.hotelsComPath"/>
+            <div class="form-group group">
+              <label>Hotelscom</label>
+              <p class="text-success example-text">Current: {{this.count.hotelscom}}</p>
+              <p class="example-text">Example: https://tr.hotels.com/ho694219-tr-pPAGENUM/?reviewTab=brand-reviews&ajax=true</p>
+              <div class="input-group">
+                <input id="email" type="email" class="form-control" name="email"
+                       [(ngModel)]="hotelLink.hotelsComPath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startHotelsComCrawling()">
+                Crawl Hotelscom
+              </button>
             </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startHotelsComCrawling()">
-              Crawl Hotelscom
-            </button>
-          </div>
-          <div class="form-group group">
-            <label>Otel Puan</label>
-            <p class="text-success example-text">Current: {{this.count.otelpuan}}</p>
-            <p class="example-text">Example: https://www.otelpuan.com/tr/Boyalik-Beach-Hotel-Spa</p>
-            <div class="input-group">
-              <input id="otelpuan" type="email" class="form-control" name="otelpuan"
-                     [(ngModel)]="hotelLink.otelPuanPath"/>
+            <div class="form-group group">
+              <label>Otel Puan</label>
+              <p class="text-success example-text">Current: {{this.count.otelpuan}}</p>
+              <p class="example-text">Example: https://www.otelpuan.com/tr/Boyalik-Beach-Hotel-Spa</p>
+              <div class="input-group">
+                <input id="otelpuan" type="email" class="form-control" name="otelpuan"
+                       [(ngModel)]="hotelLink.otelPuanPath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startOtelPuanCrawling()">
+                Crawl Otelpuan
+              </button>
             </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startOtelPuanCrawling()">
-              Crawl Otelpuan
-            </button>
-          </div>
 
-          <div class="form-group group">
-            <label>Holiday Check</label>
-            <p class="text-success example-text">Current: {{this.count.holidaycheck}}</p>
-            <p class="example-text">Example: https://www.holidaycheck.de/hi/boyalik-beach-hotel-spa-cesme/08176828-be1c-36c7-8a38-be5d196c944d</p>
-            <div class="input-group">
-              <input id="holidayCheck" type="text" class="form-control" name="holidayCheck"
-                     [(ngModel)]="hotelLink.holidayCheckPath"/>
+            <div class="form-group group">
+              <label>Holiday Check</label>
+              <p class="text-success example-text">Current: {{this.count.holidaycheck}}</p>
+              <p class="example-text">Example: https://www.holidaycheck.de/hi/boyalik-beach-hotel-spa-cesme/08176828-be1c-36c7-8a38-be5d196c944d</p>
+              <div class="input-group">
+                <input id="holidayCheck" type="text" class="form-control" name="holidayCheck"
+                       [(ngModel)]="hotelLink.holidayCheckPath"/>
+              </div>
+              <p class="example-text">Example: https://www.holidaycheck.de/api/hotel-reviews;filter=hotel.id%308176828-be1c-36c7-8a38-be5d196c944d%2CavailableLocales%3Ade;limit=LIMIT;locale=de;offset=OFFSET;select=id%2Cuser%2Ctitle%2Ctexts%2CtextAdvice%2Chotel%2CtravelDate%2Crecommendation%2Cratings%2CproofedReservation%2CownerComment%2Carchived%2Cadditional%2CentryDate%2CtraveledWith%2CtravelReason%2CtravelDuration%2Cchildren;sort=travelDate%3Adesc%2CentryDate%3Adesc%2Cid%3Adesc</p>
+              <div class="input-group">
+                <input id="holidayCheckApi" type="text" class="form-control" name="holidayCheckApi"
+                       [(ngModel)]="hotelLink.holidayCheckApiPath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startHolidayCheckCrawling()">
+                Crawl Holiday check
+              </button>
             </div>
-            <p class="example-text">Example: https://www.holidaycheck.de/api/hotel-reviews;filter=hotel.id%308176828-be1c-36c7-8a38-be5d196c944d%2CavailableLocales%3Ade;limit=LIMIT;locale=de;offset=OFFSET;select=id%2Cuser%2Ctitle%2Ctexts%2CtextAdvice%2Chotel%2CtravelDate%2Crecommendation%2Cratings%2CproofedReservation%2CownerComment%2Carchived%2Cadditional%2CentryDate%2CtraveledWith%2CtravelReason%2CtravelDuration%2Cchildren;sort=travelDate%3Adesc%2CentryDate%3Adesc%2Cid%3Adesc</p>
-            <div class="input-group">
-              <input id="holidayCheckApi" type="text" class="form-control" name="holidayCheckApi"
-                     [(ngModel)]="hotelLink.holidayCheckApiPath"/>
-            </div>
-            <button type="button" class="btn btn-primary border-radius crawl-button"
-                    (click)="startHolidayCheckCrawling()">
-              Crawl Holiday check
-            </button>
-          </div>
-        </form>
-        <button type="button" class="btn btn-primary border-radius crawl-button"
-                (click)="saveHotelLink()">
-          Save
-        </button>
+          </form>
+          <button type="button" class="btn btn-primary border-radius crawl-button"
+                  (click)="saveHotelLink()">
+            Save
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Response">
+    <ng-template ngbTabContent>
+      <div class="card">
+        <div class="card-body padding-0">
+          <div class="row title-container">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-group group">
+                    <label>Booking</label>
+                    <p class="example-text">Example: https://admin.booking.com/hotel/hoteladmin/extranet_ng/manage/reviews.html?lang=tr&hotel_id=86025&list=without_replies&review_score=&guest_type=&guest_country=&topics=&search_term=</p>
+                    <div class="input-group">
+                      <input id="bookingResponse" type="text" class="form-control" name="bookingResponse"
+                             [(ngModel)]="hotelResponse.bookingPath"/>
+                    </div>
+                  </div>
+                  <div class="form-group group">
+                    <label>Google</label>
+                    <p class="example-text">Example: https://business.google.com/u/8/reviews</p>
+                    <div class="input-group">
+                      <input id="googleResponse" type="text" class="form-control" name="googleResponse"
+                             [(ngModel)]="hotelResponse.googlePath"/>
+                    </div>
+                  </div>
+                  <div class="form-group group">
+                    <label>TripAdvisor</label>
+                    <p class="example-text">Example: https://www.tripadvisor.com.tr/HotelsManagementCenter?detail=9763511</p>
+                    <div class="input-group">
+                      <input id="tripAdvisorResponse" type="text" class="form-control" name="tripAdvisorResponse"
+                             [(ngModel)]="hotelResponse.tripAdvisorPath"/>
+                    </div>
+                  </div>
+                  <div class="form-group group">
+                    <label>Expedia</label>
+                    <p class="example-text">Example: https://apps.expediapartnercentral.com/lodging/review/user_reviews.html?htid=13368409</p>
+                    <div class="input-group">
+                      <input id="expediaResponse" type="text" class="form-control" name="expediaResponse"
+                             [(ngModel)]="hotelResponse.expediaPath"/>
+                    </div>
+                  </div>
+                  <div class="form-group group">
+                    <label>OtelPuan</label>
+                    <p class="example-text">Example: https://otelpuan.com/tr/kurumsal/all-comments</p>
+                    <div class="input-group">
+                      <input id="otelPuanResponse" type="text" class="form-control" name="otelPuanResponse"
+                             [(ngModel)]="hotelResponse.otelPuanPath"/>
+                    </div>
+                  </div>
+                  <div class="form-group group">
+                    <label>HolidayCheck</label>
+                    <p class="example-text">Example: https://www.holidaycheck.de/partner/</p>
+                    <div class="input-group">
+                      <input id="holidayCheckResponse" type="text" class="form-control" name="holidayCheckResponse"
+                             [(ngModel)]="hotelResponse.holidayCheckPath"/>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary template-button" (click)="saveHotelResponse()">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+
+

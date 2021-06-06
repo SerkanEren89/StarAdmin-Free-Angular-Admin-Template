@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HotelResponseModel} from '../_models/hotel-response.model';
 import {map} from 'rxjs/operators';
 import {CommentModel} from '../../inbox/_models/comment.model';
+import {HotelLinkModel} from '../../hotel-link/_models/hotel-link.model';
 
 const API_HOTEL_RESPONSE_URL = 'hotel-responses';
 
@@ -29,6 +30,10 @@ export class HotelResponseService {
       }));
   }
 
+  saveHotelResponse(hotelResponse: HotelResponseModel): Observable<HotelResponseModel> {
+    return this.http.post<HotelResponseModel>(API_HOTEL_RESPONSE_URL, hotelResponse);
+  }
+
   goToReply(comment: CommentModel) {
     if (this.hotelResponseList != null) {
       if (comment.source.toLowerCase().includes('booking')) {
@@ -38,7 +43,7 @@ export class HotelResponseService {
       } else if (comment.source.toLowerCase().includes('tripadvisor')) {
         window.open(this.hotelResponseList.tripAdvisorPath, '_blank');
       } else if (comment.source.toLowerCase().includes('google')) {
-        window.open(this.hotelResponseList.tripAdvisorPath, '_blank');
+        window.open(this.hotelResponseList.googlePath, '_blank');
       } else if (comment.source.toLowerCase().includes('holidaycheck')) {
         window.open(this.hotelResponseList.holidayCheckPath, '_blank');
       } else if (comment.source.toLowerCase().includes('otelpuan')) {

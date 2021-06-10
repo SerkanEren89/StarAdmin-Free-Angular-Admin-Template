@@ -217,7 +217,8 @@ export const locale = {
       REGISTER_TITLE: 'Register to HotelUplift',
       FIRST_NAME: 'First Name',
       LAST_NAME: 'Last Name',
-      PREFERRED_LANGUAGE: 'Preferred Language'
+      PREFERRED_LANGUAGE: 'Preferred Language',
+      PRO_TEXT: 'You are using fremium account. You can switch to pro version and use all of our features.',
     },
     CHANGE_PASSWORD: {
       TITLE: 'Change Password',

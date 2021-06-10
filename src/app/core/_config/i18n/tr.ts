@@ -217,7 +217,8 @@ export const locale = {
       LOGIN: 'Giriş',
       REGISTER: 'Kayıt Ol',
       REGISTER_TITLE: 'HotelUplift\'e kayıt olun',
-      PREFERRED_LANGUAGE: 'Tercihi Dil'
+      PREFERRED_LANGUAGE: 'Tercihi Dil',
+      PRO_TEXT: 'Ücretsiz versiyonu kullaniyorsunuz. Profesyonel hesaba geçip bütün premium özellikleri kullanmaya başlayabilirsiniz.',
     },
     CHANGE_PASSWORD: {
       TITLE: 'Şifre Değiştir',

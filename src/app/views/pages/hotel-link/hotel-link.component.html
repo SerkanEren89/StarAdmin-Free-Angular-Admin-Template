@@ -104,6 +104,19 @@
                 Crawl Holiday check
               </button>
             </div>
+            <div class="form-group group">
+              <label>Agoda</label>
+              <p class="text-success example-text">Current: {{this.count.agoda}}</p>
+              <p class="example-text">Example: 5167375</p>
+              <div class="input-group">
+                <input id="agoda" type="text" class="form-control" name="agoda"
+                       [(ngModel)]="hotelLink.agodaId"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startAgodaCrawling()">
+                Crawl Agoda
+              </button>
+            </div>
           </form>
           <button type="button" class="btn btn-primary border-radius crawl-button"
                   (click)="saveHotelLink()">

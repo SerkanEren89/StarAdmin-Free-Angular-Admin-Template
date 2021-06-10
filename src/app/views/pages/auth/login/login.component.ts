@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
@@ -6,6 +6,7 @@ import {AuthService} from '../../../../core/auth/_service/auth.service';
 import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TranslationService} from '../../../../core/general/_services/translation.service';
 import {HotelResponseService} from '../../../../core/hotel-response/_services/hotel-response.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +18,18 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  @ViewChild('fremiumModal') public fremiumModal: TemplateRef<any>;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
+              private modalService: NgbModal,
               private authService: AuthService,
               private commentService: CommentService,
               private hotelResponseService: HotelResponseService,
               private translationService: TranslationService) {
     // redirect to home if already logged in
-    if (localStorage.getItem('revxray-user')) {
+    if (localStorage.getItem('hoteluplift-user')) {
       this.translationService.setLanguage(this.translationService.getSelectedLanguage());
       this.router.navigate(['/']);
     }
@@ -69,6 +72,9 @@ export class LoginComponent implements OnInit {
                   .subscribe(
                     lastLogin => {
                       localStorage.setItem('lastComments', JSON.stringify(lastLogin));
+                      if (this.authService.isFremium()) {
+                        this.modalService.open(this.fremiumModal);
+                      }
                       this.router.navigate([this.returnUrl]);
                     },
                     error => {
@@ -82,5 +88,10 @@ export class LoginComponent implements OnInit {
         error => {
           this.loading = false;
         });
+  }
+
+  upgradeToPro() {
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('pricing/payment');
   }
 }

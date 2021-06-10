@@ -26,7 +26,7 @@ export class InterceptService implements HttpInterceptor {
     }
     this.httpCount++;
     const url = request.url.includes('asset') ? '' : environment.url;
-    const currentUser = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('revxray-user'))).getValue();
+    const currentUser = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('hoteluplift-user'))).getValue();
     if (currentUser != null) {
       request = request.clone({
         url: url + request.url,
@@ -50,7 +50,7 @@ export class InterceptService implements HttpInterceptor {
         error => {
           this.finalizeRequest();
           if (error.status === 401) {
-            localStorage.removeItem('revxray-user');
+            localStorage.removeItem('hoteluplift-user');
             this.router.navigateByUrl('/auth/login');
           } else {
             this.toastr.error(error.error.message, 'Oops');

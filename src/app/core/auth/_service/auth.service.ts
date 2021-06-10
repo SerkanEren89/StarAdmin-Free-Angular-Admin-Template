@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router,
               private translationService: TranslationService) {
-    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('revxray-user')));
+    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('hoteluplift-user')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -47,7 +47,7 @@ export class AuthService {
   login(email, password) {
     return this.http.post<any>(API_AUTH_URL + `/login`, {email, password})
       .pipe(map(user => {
-        localStorage.setItem('revxray-user', JSON.stringify(user));
+        localStorage.setItem('hoteluplift-user', JSON.stringify(user));
         this.currentUserSubject.next(user);
         this.translationService.setLanguage(user.preferredLanguage);
         return user;
@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('revxray-user');
+    localStorage.removeItem('hoteluplift-user');
     this.currentUserSubject.next(null);
     this.router.navigateByUrl('auth/login');
   }

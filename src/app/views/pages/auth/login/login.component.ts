@@ -7,6 +7,8 @@ import {CommentService} from '../../../../core/inbox/_services/comment.service';
 import {TranslationService} from '../../../../core/general/_services/translation.service';
 import {HotelResponseService} from '../../../../core/hotel-response/_services/hotel-response.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserLoginService} from '../../../../core/user-login/_services/user-login.service';
+import {UserLoginModel} from '../../../../core/user-login/_models/user-login.model';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private modalService: NgbModal,
               private authService: AuthService,
+              private userLoginService: UserLoginService,
               private commentService: CommentService,
               private hotelResponseService: HotelResponseService,
               private translationService: TranslationService) {
@@ -32,6 +35,9 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem('hoteluplift-user')) {
       this.translationService.setLanguage(this.translationService.getSelectedLanguage());
       this.router.navigate(['/']);
+      this.userLoginService.saveUserLogin()
+        .subscribe((userLoginModel: UserLoginModel) => {
+        });
     }
   }
 

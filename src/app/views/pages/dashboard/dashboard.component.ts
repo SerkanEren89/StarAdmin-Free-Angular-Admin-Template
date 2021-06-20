@@ -493,4 +493,8 @@ export class DashboardComponent implements OnInit {
     this.modalService.dismissAll();
     this.router.navigateByUrl('pricing/payment');
   }
+
+  goToInbox(filter) {
+    this.router.navigate(['inbox'], { state: { date: filter } });
+  }
 }

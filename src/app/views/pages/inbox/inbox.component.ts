@@ -71,6 +71,8 @@ export class InboxComponent implements OnInit {
   task: TaskModel = new TaskModel();
   showAddEmployeeFlow: boolean;
   isFremium: boolean;
+  dateFilter: string;
+  initialFilter: { [p: string]: any };
   resultFormatter = (result: EmployeeModel) => result.firstName + ' ' + result.lastName;
   inputFormatter = (x: EmployeeModel) => x.firstName + ' ' + x.lastName;
 
@@ -87,6 +89,7 @@ export class InboxComponent implements OnInit {
               private commonService: CommonService,
               private cdr: ChangeDetectorRef,
               private translateService: TranslateService) {
+    this.initialFilter = this.router.getCurrentNavigation().extras.state;
   }
 
   ngOnInit() {
@@ -95,8 +98,13 @@ export class InboxComponent implements OnInit {
     this.hotelResponseList = this.hotelResponseService.hotelResponseList;
     this.selectedTravellerType = this.travelerTypes[0];
     this.currentUser = this.authService.currentUserValue;
+    this.selected = {
+      start: moment().add(-3, 'months'),
+      end: moment()
+    };
     this.clearFilter();
-    this.getUnfilteredResult();
+    this.setInitialFilter();
+    this.loadComments(1);
     this.noReviewText = AppSettings.NO_REVIEW;
     this.isMobile = this.deviceService.isMobile();
     this.templateService.getTemplates()
@@ -105,16 +113,36 @@ export class InboxComponent implements OnInit {
         this.selectedTemplate = new TemplateModel();
       });
     this.maxDate = moment();
-    this.selected = {
-      start: moment().add(-3, 'months'),
-      end: moment()
-    };
     this.isFremium = this.authService.isFremium();
+  }
+
+  setInitialFilter() {
+    if (this.initialFilter != null) {
+      this.dateFilter = this.initialFilter.date;
+      if (this.dateFilter != null) {
+        if (this.dateFilter === 'Last Week') {
+          this.selected = {
+            start: moment().add(-1, 'weeks'),
+            end: moment()
+          };
+        } else if (this.dateFilter === 'Last Month') {
+          this.selected = {
+            start: moment().add(-1, 'months'),
+            end: moment()
+          };
+        } else if (this.dateFilter === 'Last 3 Month') {
+          this.selected = {
+            start: moment().add(-3, 'months'),
+            end: moment()
+          };
+        }
+        this.buildFilter();
+      }
+    }
   }
 
   loadComments(page: number) {
     this.page = page;
-    debugger
     if (this.shouldFilterResult()) {
       this.getFilteredReviews();
     } else {
@@ -192,7 +220,7 @@ export class InboxComponent implements OnInit {
         }
       })
     );
-  };
+  }
 
   selectItem(comment: CommentModel, index: number) {
     this.selectedItem = comment;

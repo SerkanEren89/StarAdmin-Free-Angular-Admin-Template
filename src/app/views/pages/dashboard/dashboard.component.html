@@ -106,7 +106,7 @@
 <div class="row">
   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngIf="responseRateModel != null">
     <div class="card card-statistics" >
-      <div class="card-body pointer">
+      <div class="card-body">
         <div class="clearfix">
           <div class="float-left">
             <img class="mdi mdi-cube icon-lg category-icon" src="assets/svg/answered.svg">
@@ -124,7 +124,9 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card" *ngFor="let commentCountPeriod of commentCountPeriods | slice:1:4">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card rating-card"
+       *ngFor="let commentCountPeriod of commentCountPeriods | slice:1:4"
+  (click)="goToInbox(commentCountPeriod.label)">
     <div class="card card-statistics" >
       <div class="card-body pointer">
         <div class="clearfix">

@@ -25,7 +25,8 @@ export class HotelLinkComponent implements OnInit {
       otelpuan: 0,
       hotelscom: 0,
       holidaycheck: 0,
-      agoda: 0
+      agoda: 0,
+      otelz: 0
     };
   hotelResponse: HotelResponseModel;
 
@@ -51,9 +52,9 @@ export class HotelLinkComponent implements OnInit {
       });
     this.hotelResponseService.getHotelResponse()
       .subscribe((hotelResponse: HotelResponseModel) => {
-        this.hotelResponse = hotelResponse;
-        this.cdr.detectChanges();
-      },
+          this.hotelResponse = hotelResponse;
+          this.cdr.detectChanges();
+        },
         error => {
           this.hotelResponse = new HotelResponseModel();
         });
@@ -111,6 +112,14 @@ export class HotelLinkComponent implements OnInit {
     this.hotelLinkService.crawlAgoda()
       .subscribe((result: Boolean) => {
         this.toastr.success('agoda crawler started');
+        this.cdr.detectChanges();
+      });
+  }
+
+  startOtelzCrawling() {
+    this.hotelLinkService.crawlOtelz()
+      .subscribe((result: Boolean) => {
+        this.toastr.success('otelz crawler started');
         this.cdr.detectChanges();
       });
   }

@@ -12,4 +12,6 @@ export class HotelLinkModel {
   googleId: string;
   googlePath: string;
   agodaId: number;
+  otelzId: number;
+  otelzPath: string;
 }

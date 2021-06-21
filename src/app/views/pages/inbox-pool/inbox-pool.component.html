@@ -41,6 +41,8 @@
                  src="assets/images/odamax.jpg">
             <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('agoda')"
                  src="assets/images/agoda.png">
+            <img class="mdi mdi-cube icon-lg big-icon" *ngIf="comment.source.toLowerCase().includes('otelz')"
+                 src="assets/images/otelz.png">
             <span class="brand">{{comment.source}}</span>
             <span class="date">{{comment.commentDate  | date:'dd/MM/yyyy'}}</span>
             <i class="fa fa-check-circle" *ngIf="comment.categorized"></i>

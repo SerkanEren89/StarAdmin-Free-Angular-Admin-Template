@@ -117,6 +117,25 @@
                 Crawl Agoda
               </button>
             </div>
+
+            <div class="form-group group">
+              <label>Otelz</label>
+              <p class="text-success example-text">Current: {{this.count.agoda}}</p>
+              <p class="example-text">Example: 1413</p>
+              <div class="input-group">
+                <input id="otelz" type="text" class="form-control" name="otelzId"
+                       [(ngModel)]="hotelLink.otelzId"/>
+              </div>
+              <p class="example-text">Example: https://www.otelz.com/hotel/susesi-luxury-resort</p>
+              <div class="input-group">
+                <input id="otelzPath" type="text" class="form-control" name="otelzPath"
+                       [(ngModel)]="hotelLink.otelzPath"/>
+              </div>
+              <button type="button" class="btn btn-primary border-radius crawl-button"
+                      (click)="startOtelzCrawling()">
+                Crawl Otelz
+              </button>
+            </div>
           </form>
           <button type="button" class="btn btn-primary border-radius crawl-button"
                   (click)="saveHotelLink()">

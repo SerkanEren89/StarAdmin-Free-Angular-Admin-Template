@@ -37,6 +37,10 @@ export class HotelLinkService {
     return this.http.get<Boolean>(API_CRAWL_URL + '/agoda');
   }
 
+  crawlOtelz() {
+    return this.http.get<Boolean>(API_CRAWL_URL + '/otelz');
+  }
+
   crawlHotelsCom() {
     return this.http.get<Boolean>(API_CRAWL_URL + '/hotels-com');
   }
